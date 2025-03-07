@@ -1,34 +1,59 @@
 package com.example.brash.nucleo.repository.data.dao
 
-class UsuarioDAO {
-}
 
-/*import androidx.room.*
+
+//import androidx.room.*
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
-import com.example.app02.repository.data.model.Usuario
+import com.example.brash.nucleo.repository.data.model.Usuario
+import com.example.brash.nucleo.repository.data.model.UsuarioModel
 
 @Dao
-interface FraseDAO {
+interface UsuarioDAO {
+    @Query("SELECT COUNT(*) FROM Usuario")
+    fun retrieveCount() : Long
+
+    @Query("SELECT COUNT(*) FROM Usuario")
+    fun retrieveAll() : List<UsuarioModel>
+
+    @Query("SELECT * FROM Usuario WHERE id = :id")
+    fun retrieveById(id: Long): UsuarioModel
 
     @Insert
-    fun insert(p: FraseModel): Long
-
-    @Update
-    fun update(p: FraseModel): Int
+    fun insert(p: UsuarioModel): Long
 
     @Delete
-    fun delete(p: FraseModel)
+    fun delete(p: UsuarioModel)
 
-    @Query("SELECT * FROM Frases WHERE id = :id")
-    fun getById(id: Int): FraseModel
+    @Update
+    fun update(p: UsuarioModel): Int
 
-    @Query("SELECT * FROM Frases WHERE coluna_tipo = :colunaDiscriminatoria ORDER BY RANDOM() LIMIT 1")
-    fun getRandomByTipo(colunaDiscriminatoria: String): FraseModel
+    /*
+    ---------------------------
+    ------- Especificos -------
+    ---------------------------
+     */
 
-    @Query("DELETE FROM Frases")
-    fun deleteAll()  // Apaga todos os registros da tabela Frases
-}*/
+    @Query("SELECT * FROM Usuario WHERE nome_de_exibicao LIKE '%' || :substring || '%'")
+    fun retrieveByNomeDeExibicao(substring: String): List<UsuarioModel>
+
+    @Query("SELECT * FROM Usuario WHERE nome_de_usuario LIKE '%' || :substring || '%'")
+    fun retrieveByNomeDeUsuario(substring: String): List<UsuarioModel>
+
+    @Query("SELECT * FROM Usuario WHERE email = :email")
+    fun retrieveByEmail(email: String): UsuarioModel
+
+    @Query("SELECT * FROM Usuario WHERE codigo_aleatorio = :codigo")
+    fun retrieveByCodigoAleatorio(codigo: String): UsuarioModel
+
+    //@Query("")
+    //fun retrieveAmigosByUsuario(usuario: UsuarioModel): List<UsuarioModel>
+
+    @Query("SELECT * FROM Usuario WHERE nome_de_exibicao LIKE '%' || :substring || '%' OR nome_de_usuario LIKE '%' || :substring || '%'")
+    fun retrieveByNomes(substring: String): UsuarioModel
+
+
+}
