@@ -5,15 +5,59 @@
     android:id="@+id/nuc_login_ac"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".nucleo.ui.view.LoginAC">
+    tools:context=".nucleo.ui.view.LoginAC"
+    android:background="@color/deep_black"
+    android:padding="40dp">
 
     <TextView
+        android:id="@+id/login_ac_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tela de Login"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:text="brash"
+        android:textSize="80sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@id/login_ac_user_layout"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="?attr/textInputFilledDenseStyle"
+        android:id="@+id/login_ac_user_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Usuário"
+        android:textSize="20sp"
+        app:endIconMode="clear_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/login_ac_title"
+        app:layout_constraintBottom_toTopOf="@id/login_ac_password_layout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/login_ac_user_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="?attr/textInputFilledDenseStyle"
+        android:id="@+id/login_ac_password_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Senha"
+        android:textSize="20sp"
+        app:endIconMode="clear_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/login_ac_user_layout"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/login_ac_password_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"/>
+    </com.google.android.material.textfield.TextInputLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
