@@ -5,7 +5,6 @@
     android:id="@+id/nuc_configuracao_ac"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".nucleo.ui.view.LoginAC"
     android:background="@color/deep_black">
 
     <TextView
