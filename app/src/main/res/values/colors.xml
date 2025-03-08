@@ -1,5 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="black">#FF000000</color>
+    <color name="dark_gray">#1E1E1E</color>
+    <color name="charcoal_gray">#2C2C2C</color>
+    <color name="medium_gray">#444444</color>
+    <color name="light_gray">#D9D9D9</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="deep_purple">#6750A4</color>
+    <color name="lavender_purple">#9887C5</color>
+    <color name="soft_lilac">#D3C1FF</color>
+    <color name="dark_green">#008043</color>
+    <color name="bright_green">#14AE5C</color>
+    <color name="leaf_green">#4EB555</color>
+    <color name="forest_green">#4A9366</color>
+    <color name="burnt_orange">#BF6A02</color>
+    <color name="golden_yellow">#E8B931</color>
+    <color name="dark_red">#C00F0C</color>
+    <color name="bright_red">#EC221F</color>
+    <color name="soft_gray">#D9D9D9</color>
+    <color name="vibrant_blue">#007AFF</color>
+    <color name="sky_blue">#32ADE6</color>
+    <color name="soft_pink">#FFB9B3</color>
+    <color name="pastel_lavender">#F4F0FF</color>
+    <color name="hot_pink">#FC53D2</color>
 </resources>
