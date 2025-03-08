@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Brash</string>
+    <string name="senha">Password</string>
+    <string name="usuario">User</string>
 
+    <string name="idioma">Idiom</string>
+    <string name="idioma_pt">Português</string>
+    <string name="idioma_en">English</string>
     <!-- -->
     <!-- -->
     <!-- -->
     <!-- -->
     <string name="nuc_name">Núcleo</string>
-
+    <string name="nuc_entrar">Enter</string>
+    <string name="nuc_criar_usuario">Create user</string>
+    <string name="nuc_esqueceu_senha">Forgot password?</string>
     <!-- -->
     <!-- -->
     <!-- -->
@@ -19,4 +26,7 @@
     <!-- -->
     <!-- -->
     <string name="gtaa_name">Gestão de auxílio de aprendizado</string>
+    <string name="nuc_error_login">Incorrect username and/or password, please try again.</string>
+
+
 </resources>

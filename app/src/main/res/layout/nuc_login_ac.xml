@@ -6,29 +6,35 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".nucleo.ui.view.LoginAC"
-    android:background="@color/deep_black"
-    android:padding="40dp">
+    android:background="@color/deep_black">
 
     <TextView
         android:id="@+id/login_ac_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="brash"
+
+        android:text="@string/app_name"
         android:textSize="80sp"
         android:textStyle="bold"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@id/login_ac_user_layout"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="50dp"
+
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
     <com.google.android.material.textfield.TextInputLayout
         style="?attr/textInputFilledDenseStyle"
+        android:paddingTop="50dp"
         android:id="@+id/login_ac_user_layout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Usuário"
-        android:textSize="20sp"
+        android:hint="@string/usuario"
+        android:textSize="30sp"
         app:endIconMode="clear_text"
+        android:layout_margin="20dp"
+        app:layout_constraintVertical_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/login_ac_title"
@@ -45,13 +51,13 @@
         android:id="@+id/login_ac_password_layout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Senha"
-        android:textSize="20sp"
+        android:hint="@string/senha"
+        android:textSize="30sp"
         app:endIconMode="clear_text"
+        android:layout_margin="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/login_ac_user_layout"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/login_ac_user_layout">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/login_ac_password_input"
@@ -59,5 +65,135 @@
             android:layout_height="wrap_content"
             android:inputType="textPassword"/>
     </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/login_ac_button_entrar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@+id/login_ac_password_layout"
+        app:layout_constraintEnd_toEndOf="@+id/login_ac_password_layout"
+        app:layout_constraintTop_toBottomOf="@+id/login_ac_password_layout"
+        android:backgroundTint="@color/medium_gray"
+        android:text="@string/nuc_entrar"
+        android:textSize="15sp"
+        android:textColor="@color/white"
+        android:layout_marginTop="10dp"
+
+        style="@style/Widget.MaterialComponents.Button"
+        app:cornerRadius="10dp"
+        />
+
+    <Button
+        android:id="@+id/login_ac_button_criar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@+id/login_ac_password_layout"
+        app:layout_constraintEnd_toEndOf="@+id/login_ac_password_layout"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:backgroundTint="@color/medium_gray"
+        android:text="@string/nuc_criar_usuario"
+        android:textSize="15sp"
+        android:textColor="@color/white"
+        android:layout_margin="10dp"
+
+        style="@style/Widget.MaterialComponents.Button"
+        app:cornerRadius="10dp"
+        />
+
+
+    <Button
+        android:id="@+id/login_ac_texto_esquecer_senha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/nuc_esqueceu_senha"
+        android:textSize="12sp"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/deep_black"
+        app:layout_constraintTop_toBottomOf="@+id/login_ac_button_entrar"
+        app:layout_constraintStart_toStartOf="@+id/login_ac_button_entrar"
+        />
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@android:color/white"
+        app:layout_constraintTop_toBottomOf="@+id/login_ac_texto_esquecer_senha"
+        app:layout_constraintEnd_toEndOf="@+id/login_ac_texto_esquecer_senha"
+        app:layout_constraintStart_toStartOf="@+id/login_ac_texto_esquecer_senha"
+        />
+    <TextView
+        android:id="@+id/login_ac_erro_entrar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/nuc_error_login"
+        android:textSize="11sp"
+        android:textColor="@color/bright_red"
+        app:layout_constraintTop_toBottomOf="@+id/login_ac_texto_esquecer_senha"
+        app:layout_constraintStart_toStartOf="@+id/login_ac_texto_esquecer_senha"
+        app:layout_constraintEnd_toEndOf="@+id/login_ac_texto_esquecer_senha"
+        android:visibility="visible"
+        />
+
+
+    <Button
+        android:id="@+id/login_ac_texto_idioma"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/deep_black"
+        android:text="@string/idioma"
+        android:textSize="12sp"
+        android:textColor="@color/white"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintTop_toBottomOf="@+id/login_ac_button_entrar"
+        app:layout_constraintEnd_toEndOf="@+id/login_ac_button_entrar"
+        android:drawablePadding="3dp"
+        android:drawableEnd="@drawable/translate_12dp"
+        />
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/login_ac_texto_idioma"
+        app:layout_constraintTop_toBottomOf="@+id/login_ac_texto_idioma"
+        android:orientation="vertical"
+        android:drawableEnd="@drawable/custom_radio_button"
+        android:gravity="end"
+        android:background="@color/medium_gray"
+        android:layout_marginTop="5dp"
+
+        android:visibility="visible"
+
+        >
+        <RadioButton
+
+            android:id="@+id/login_ac_radio_pt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/idioma_pt"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:drawableEnd="@drawable/custom_radio_button"
+            android:button="@null"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:drawablePadding="5dp"
+
+            android:checked="true"
+            />
+
+        <RadioButton
+
+            android:id="@+id/login_ac_radio_en"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:drawableEnd="@drawable/custom_radio_button"
+            android:drawablePadding="5dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:text="@string/idioma_en"
+            android:textAlignment="viewEnd"
+            android:textColor="@color/white"
+            android:textSize="12sp" />
+    </RadioGroup>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
