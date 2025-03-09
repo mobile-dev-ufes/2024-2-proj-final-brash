@@ -15,7 +15,7 @@
             </item>
 
             <!-- Bolinha azul interna -->
-            <item android:width="12dp" android:height="12dp" android:gravity="center">
+            <item android:width="8dp" android:height="8dp" android:gravity="center">
                 <shape android:shape="oval">
                     <solid android:color="@color/sky_blue"/> <!-- Bolinha azul -->
                 </shape>

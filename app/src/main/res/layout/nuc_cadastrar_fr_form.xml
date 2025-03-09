@@ -51,6 +51,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
+
+                android:maxLines="1"
+                android:ellipsize="end"
                 />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -78,6 +81,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
+
+                android:maxLines="1"
+                android:ellipsize="end"
                 />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -104,6 +110,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
+
+                android:maxLines="1"
+                android:ellipsize="end"
                 />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -130,6 +139,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
+
+                android:maxLines="1"
+                android:ellipsize="end"
                 />
 
 
@@ -150,7 +162,7 @@
                     app:layout_constraintHorizontal_chainStyle="packed"
 
                     android:layout_marginEnd="16dp"
-                    android:backgroundTint="@color/deep_black"
+                    android:backgroundTint="@color/charcoal_gray"
 
                     app:layout_constraintEnd_toStartOf="@id/CadastrarContaAcButtonCadastrar"
                     app:layout_constraintTop_toTopOf="parent"
