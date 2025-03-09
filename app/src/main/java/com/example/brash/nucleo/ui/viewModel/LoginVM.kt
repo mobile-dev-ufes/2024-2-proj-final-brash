@@ -11,8 +11,13 @@ import com.google.firebase.auth.FirebaseAuthInvalidUserException
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
+import com.example.brash.nucleo.utils.Constants
+import com.example.brash.nucleo.utils.MyPreferences
+import kotlin.math.sign
 
 class LoginVM(application: Application) : AndroidViewModel(application) {
+
+    private var sp : MyPreferences = MyPreferences(application)
 
     private val auth = FirebaseAuth.getInstance()
 
@@ -27,6 +32,7 @@ class LoginVM(application: Application) : AndroidViewModel(application) {
         auth.signInWithEmailAndPassword(email, password).addOnSuccessListener {
 
             UtilsFoos.showToast(getApplication(), "Sucesso no Login!")
+
             onSucess()
 
         }.addOnFailureListener {
@@ -63,4 +69,9 @@ class LoginVM(application: Application) : AndroidViewModel(application) {
         return true
     }
 
+    fun userStored(onSucess: () -> Unit){
+        if (auth.currentUser != null) {
+            onSucess()
+        }
+    }
 }

@@ -11,6 +11,8 @@ import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.HomeAC
 //import com.example.brash.databinding.ActivityLoginBinding
 import com.example.brash.databinding.NucLoginAcBinding
 import com.example.brash.nucleo.ui.viewModel.LoginVM
+import com.example.brash.nucleo.utils.Constants
+import com.example.brash.nucleo.utils.MyPreferences
 
 class LoginAC : AppCompatActivity(), View.OnClickListener {
 
@@ -20,12 +22,19 @@ class LoginAC : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        loginVM = ViewModelProvider(this).get(LoginVM::class.java)
+
+        loginVM.userStored({
+            intentToHomeActivity()
+        })
+
         binding = NucLoginAcBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        loginVM = ViewModelProvider(this).get(LoginVM::class.java)
 
         setOnClickListeners()
         setObservers()
+
+        initLogin()
     }
 
     private fun setOnClickListeners(){
@@ -76,10 +85,16 @@ class LoginAC : AppCompatActivity(), View.OnClickListener {
         // não vai previsar por causa do finish
     }
 
+    private fun initLogin(){
+
+    }
+
     private fun intentToHomeActivity(){
         val intent = Intent(this, HomeAC::class.java)
         startActivity(intent)
         finish()
     }
+
+
 
 }
