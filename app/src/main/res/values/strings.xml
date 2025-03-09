@@ -32,12 +32,16 @@
     <!-- -->
     <!-- -->
     <string name="gtc_name">Gestão de conteúdo</string>
+    <string name="gtc_criar_baralho">Criar Baralho</string>
+    <string name="gtc_criar_pasta">Criar Pasta</string>
+    <string name="gtc_procurar_baralhos_publicos">Procurar Baralhos Públicos</string>
 
     <!-- -->
     <!-- -->
     <!-- -->
     <!-- -->
     <string name="gtaa_name">Gestão de auxílio de aprendizado</string>
+
 
 
 </resources>

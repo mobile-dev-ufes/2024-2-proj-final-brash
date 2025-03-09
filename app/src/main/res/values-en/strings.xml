@@ -33,12 +33,17 @@
     <!-- -->
     <!-- -->
     <string name="gtc_name">Gestão de conteúdo</string>
+    <string name="gtc_criar_baralho">Create Deck</string>
+    <string name="gtc_criar_pasta">Create Folder</string>
+    <string name="gtc_procurar_baralhos_publicos">Search for Public Decks</string>
 
     <!-- -->
     <!-- -->
     <!-- -->
     <!-- -->
     <string name="gtaa_name">Gestão de auxílio de aprendizado</string>
+
+
 
 
 
