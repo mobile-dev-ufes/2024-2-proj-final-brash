@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/deep_black"
+
+    >
+
+
+    <LinearLayout
+        android:id="@+id/LoginAcFormCadastro"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:orientation="vertical"
+
+        android:padding="24dp"
+
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+
+
+        >
+
+        <com.google.android.material.textfield.TextInputLayout
+
+            android:id="@+id/CadastrarContaAcTextInputLayoutNome"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:hint="@string/nuc_nome_de_usuario"
+            android:textSize="16sp"
+            app:endIconMode="clear_text"
+            app:suffixText="*"
+            app:suffixTextColor="@color/bright_red"
+
+            app:boxStrokeWidth="1dp"
+            app:boxBackgroundColor="@color/white"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/CadastrarContaAcTextInputEditTextNome"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+
+            android:id="@+id/CadastrarContaAcTextInputLayoutNomeExibicao"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:hint="@string/nuc_nome_de_exibicao"
+            android:textSize="30sp"
+            app:endIconMode="clear_text"
+
+
+
+            android:layout_marginTop="24dp"
+
+            app:boxStrokeWidth="1dp"
+            app:boxBackgroundColor="@color/white"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/CadastrarContaAcTextInputEditTextNomeExibicao"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+
+            android:id="@+id/CadastrarContaAcTextInputLayoutEmail"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:hint="@string/nuc_email"
+            android:textSize="30sp"
+            app:endIconMode="clear_text"
+
+
+            android:layout_marginTop="24dp"
+
+            app:boxStrokeWidth="1dp"
+            app:boxBackgroundColor="@color/white"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/CadastrarContaAcTextInputEditTextEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+
+            android:id="@+id/CadastrarContaAcTextInputLayoutSenha"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:hint="@string/nuc_senha"
+            android:textSize="30sp"
+            app:endIconMode="clear_text"
+
+
+            android:layout_marginTop="24dp"
+
+            app:boxStrokeWidth="1dp"
+            app:boxBackgroundColor="@color/white"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/CadastrarContaAcTextInputEditTextSenha"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                />
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="24dp"
+                >
+
+                <Button
+
+                    android:id="@+id/CadastrarContaAcButtonCancelar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cancelar"
+
+                    app:layout_constraintHorizontal_chainStyle="packed"
+
+                    android:layout_marginEnd="16dp"
+                    android:backgroundTint="@color/deep_black"
+
+                    app:layout_constraintEnd_toStartOf="@id/CadastrarContaAcButtonCadastrar"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    >
+                </Button>
+
+                <Button
+                    android:id="@+id/CadastrarContaAcButtonCadastrar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:text="@string/nuc_criar_conta"
+                    android:backgroundTint="@color/medium_gray"
+                    android:elevation="8dp"
+
+                    app:layout_constraintStart_toEndOf="@id/CadastrarContaAcButtonCancelar"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    >
+                </Button>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="24dp"
+
+            android:text="@string/nuc_msg_default_erro_cadastro"
+
+            android:textColor="@color/bright_red"
+            android:textSize="16sp"
+
+            android:textAlignment="textStart"
+            >
+        </TextView>
+
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

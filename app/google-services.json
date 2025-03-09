@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "826041931513",
+    "project_id": "brash-2e991",
+    "storage_bucket": "brash-2e991.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:826041931513:android:0643fc7c64aa296d60b428",
+        "android_client_info": {
+          "package_name": "com.example.brash"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9L3X_hH_ryuT0ZWJM_z9BUlgTeV-3GYA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

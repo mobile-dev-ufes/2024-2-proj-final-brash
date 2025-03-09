@@ -6,6 +6,11 @@
     <string name="idioma">Idioma</string>
     <string name="idioma_pt">Português</string>
     <string name="idioma_en">English</string>
+
+    <string name="cancelar">Cancelar</string>
+    <string name="confirmar">Confirmar</string>
+    <string name="excluir">Excluir</string>
+    <string name="email">Email</string>
     <!-- -->
     <!-- -->
     <!-- -->
@@ -14,6 +19,14 @@
     <string name="nuc_entrar">Entrar</string>
     <string name="nuc_criar_usuario">Criar usuário</string>
     <string name="nuc_esqueceu_senha">Esqueceu a senha?</string>
+    <string name="nuc_msg_default_erro_login">Usuário e/ou senha incorretos, digite novamente.</string>
+    <string name="nuc_cadastrar_titulo">Cadastrar</string>
+    <string name="nuc_nome_de_usuario">Nome de Usuário</string>
+    <string name="nuc_nome_de_exibicao">Nome Exibição</string>
+    <string name="nuc_email">Email</string>
+    <string name="nuc_senha">Senha</string>
+    <string name="nuc_criar_conta">Criar Conta</string>
+    <string name="nuc_msg_default_erro_cadastro">O nome de usuário ou email já existem.</string>
     <!-- -->
     <!-- -->
     <!-- -->
@@ -25,6 +38,6 @@
     <!-- -->
     <!-- -->
     <string name="gtaa_name">Gestão de auxílio de aprendizado</string>
-    <string name="nuc_error_login">Usuário e/ou senha incorretos, digite novamente.</string>
+
 
 </resources>

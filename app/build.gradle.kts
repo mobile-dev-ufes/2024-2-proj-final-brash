@@ -3,6 +3,9 @@ plugins {
     alias(libs.plugins.kotlin.android)
     id("kotlin-kapt")
     id("androidx.navigation.safeargs")
+
+    //id("com.android.application") // firebase
+    id("com.google.gms.google-services") // firebase
 }
 
 android {
@@ -61,4 +64,9 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:2.5.3")
     implementation("androidx.navigation:navigation-ui-ktx:2.5.3")
     kapt("androidx.room:room-compiler:2.6.1")
+
+    implementation ("androidx.fragment:fragment-ktx:1.5.4") // dependência de fragments
+    implementation(platform("com.google.firebase:firebase-bom:33.10.0")) // firebase
+    implementation("com.google.firebase:firebase-common-ktx:20.2.0") // firebase
+    implementation("com.google.firebase:firebase-auth-ktx") // dependência de autenticação firebase
 }

@@ -4,17 +4,30 @@
     <string name="senha">Password</string>
     <string name="usuario">User</string>
 
-    <string name="idioma">Idiom</string>
+    <string name="idioma">Language</string>
     <string name="idioma_pt">Português</string>
     <string name="idioma_en">English</string>
+
+    <string name="cancelar">Cancel</string>
+    <string name="confirmar">Confirm</string>
+    <string name="excluir">Delete</string>
+    <string name="email">Email</string>
     <!-- -->
     <!-- -->
     <!-- -->
     <!-- -->
     <string name="nuc_name">Núcleo</string>
-    <string name="nuc_entrar">Enter</string>
+    <string name="nuc_entrar">Log in</string>
     <string name="nuc_criar_usuario">Create user</string>
     <string name="nuc_esqueceu_senha">Forgot password?</string>
+    <string name="nuc_cadastrar_titulo">Register</string>
+    <string name="nuc_msg_default_erro_login">Incorrect username and/or password, please try again.</string>
+    <string name="nuc_nome_de_usuario">User name</string>
+    <string name="nuc_nome_de_exibicao">Exhibition Name</string>
+    <string name="nuc_email">Email</string>
+    <string name="nuc_senha">Password</string>
+    <string name="nuc_criar_conta">Criar Conta</string>
+    <string name="nuc_msg_default_erro_cadastro">The user name or email is already used.</string>
     <!-- -->
     <!-- -->
     <!-- -->
@@ -26,7 +39,7 @@
     <!-- -->
     <!-- -->
     <string name="gtaa_name">Gestão de auxílio de aprendizado</string>
-    <string name="nuc_error_login">Incorrect username and/or password, please try again.</string>
+
 
 
 </resources>
