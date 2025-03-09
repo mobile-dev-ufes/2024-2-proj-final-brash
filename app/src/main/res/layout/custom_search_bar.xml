@@ -5,7 +5,6 @@
     android:id="@+id/search_bar"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
-
     <Button
         style="Widget.Material3.Button.IconButton.Filled"
         android:id="@+id/home_ac_friends_button"
