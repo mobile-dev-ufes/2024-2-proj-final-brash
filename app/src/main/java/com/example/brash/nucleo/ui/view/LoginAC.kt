@@ -3,28 +3,26 @@ package com.example.brash.nucleo.ui.view
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.brash.R
-import com.example.brash.databinding.ActivityLoginBinding
-import com.example.brash.nucleo.ui.viewModel.LoginViewModel
-import com.example.brash.nucleo.utils.UtilsFoos
+import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.HomeAC
+//import com.example.brash.databinding.ActivityLoginBinding
+import com.example.brash.databinding.NucLoginAcBinding
+import com.example.brash.nucleo.ui.viewModel.LoginVM
 
-class LoginActivity : AppCompatActivity(), View.OnClickListener {
+class LoginAC : AppCompatActivity(), View.OnClickListener {
 
-    private lateinit var binding: ActivityLoginBinding
-    private lateinit var loginVM: LoginViewModel
+    private lateinit var binding: NucLoginAcBinding
+    private lateinit var loginVM: LoginVM
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityLoginBinding.inflate(layoutInflater)
+        binding = NucLoginAcBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        loginVM = ViewModelProvider(this).get(LoginViewModel::class.java)
+        loginVM = ViewModelProvider(this).get(LoginVM::class.java)
 
         setOnClickListeners()
         setObservers()
@@ -33,6 +31,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     private fun setOnClickListeners(){
         binding.LoginAcTextViewEsqueceuSenha.setOnClickListener(this)
         binding.LoginAcButtonEntrar.setOnClickListener(this)
+        binding.LoginAcButtonCriar.setOnClickListener(this)
     }
 
     private fun setObservers(){
@@ -42,10 +41,10 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         })
     }
 
-    private fun intentToCadastrarContaActivity(){
-        val intent = Intent(this, CadastrarContaActivity::class.java)
+    private fun intentToCadastrarContaAC(){
+        val intent = Intent(this, CadastrarContaAC::class.java)
         startActivity(intent)
-        //aqui precisa de finish?
+        //TODO:: aqui precisa de finish?
     }
 
     override fun onClick(view : View) {
@@ -64,6 +63,9 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                 })
 
             }
+            R.id.LoginAcButtonCriar ->{
+                intentToCadastrarContaAC()
+            }
         }
 
     }
@@ -75,8 +77,9 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun intentToHomeActivity(){
-        val intent = Intent(this, CadastrarContaActivity::class.java)
+        val intent = Intent(this, HomeAC::class.java)
         startActivity(intent)
+        //finish()
         // vai ter que botar finish
     }
 

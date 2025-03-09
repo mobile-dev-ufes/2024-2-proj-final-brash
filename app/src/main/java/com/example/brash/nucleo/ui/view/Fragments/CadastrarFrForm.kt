@@ -5,19 +5,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.brash.R
-import com.example.brash.databinding.FragmentCadastrarFormBinding
+import com.example.brash.databinding.NucCadastrarFrFormBinding
 
 
-class CadastrarContaFormFragment : Fragment(R.layout.fragment_cadastrar_form) {
+class CadastrarFrForm : Fragment(R.layout.nuc_cadastrar_fr_form) {
 
-    private var _binding : FragmentCadastrarFormBinding? = null
+    private var _binding : NucCadastrarFrFormBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         super.onCreateView(inflater, container, savedInstanceState)
 
-        _binding = FragmentCadastrarFormBinding.inflate(inflater, container, false)
+        _binding = NucCadastrarFrFormBinding.inflate(inflater, container, false)
         binding.CadastrarContaAcButtonCadastrar.text = "teste de fragmento"
 
         return binding.root

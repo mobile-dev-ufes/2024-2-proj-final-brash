@@ -2,24 +2,22 @@ package com.example.brash.nucleo.ui.view
 
 import android.os.Bundle
 import android.view.View
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
 import com.example.brash.R
 import com.example.brash.databinding.ActivityCadastrarContaBinding
-import com.example.brash.nucleo.ui.view.Fragments.CadastrarContaFormFragment
+import com.example.brash.databinding.NucCadastrarAcBinding
+import com.example.brash.nucleo.ui.view.Fragments.CadastrarFrForm
 
-class CadastrarContaActivity : AppCompatActivity(), View.OnClickListener{
+class CadastrarContaAC : AppCompatActivity(), View.OnClickListener{
 
-    private lateinit var binding : ActivityCadastrarContaBinding
+    private lateinit var binding : NucCadastrarAcBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityCadastrarContaBinding.inflate(layoutInflater)
+        binding = NucCadastrarAcBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
 
@@ -31,7 +29,7 @@ class CadastrarContaActivity : AppCompatActivity(), View.OnClickListener{
 
         supportFragmentManager.commit {
             setReorderingAllowed(true)
-            add<CadastrarContaFormFragment>(R.id.CadastrarContaActivityFragmentForm)
+            add<CadastrarFrForm>(R.id.CadastrarFrFormCadastro)
         }
 
     }

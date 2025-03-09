@@ -53,6 +53,7 @@ dependencies {
     implementation(libs.androidx.room.common)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.firebase.auth.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -68,5 +69,4 @@ dependencies {
     implementation ("androidx.fragment:fragment-ktx:1.5.4") // dependência de fragments
     implementation(platform("com.google.firebase:firebase-bom:33.10.0")) // firebase
     implementation("com.google.firebase:firebase-common-ktx:20.2.0") // firebase
-    implementation("com.google.firebase:firebase-auth-ktx") // dependência de autenticação firebase
 }

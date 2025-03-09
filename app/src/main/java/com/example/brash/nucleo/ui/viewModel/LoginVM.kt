@@ -2,7 +2,6 @@ package com.example.brash.nucleo.ui.viewModel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.brash.nucleo.utils.UtilsFoos
 import com.google.firebase.FirebaseNetworkException
@@ -10,12 +9,16 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
 
-class LoginViewModel(application: Application) : AndroidViewModel(application) {
+import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
+
+class LoginVM(application: Application) : AndroidViewModel(application) {
 
     private val auth = FirebaseAuth.getInstance()
 
     private var _errorMessageLD  = MutableLiveData<String>()
     val erroMessageLD get() = _errorMessageLD
+
 
     fun signIn(email : String, password: String, onSucess: () -> Unit){
 
