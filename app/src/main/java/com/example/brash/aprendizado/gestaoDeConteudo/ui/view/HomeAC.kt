@@ -43,7 +43,6 @@ class HomeAC : AppCompatActivity(), View.OnClickListener {
     private fun intentToCadastrarContaActivity(){
         //val intent = Intent(this, CadastrarContaAC::class.java)
         //startActivity(intent)
-        //TODO:: aqui precisa de finish?
     }
 
     override fun onClick(view : View) {

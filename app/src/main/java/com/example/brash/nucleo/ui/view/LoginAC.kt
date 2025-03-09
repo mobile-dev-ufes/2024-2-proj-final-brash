@@ -79,8 +79,7 @@ class LoginAC : AppCompatActivity(), View.OnClickListener {
     private fun intentToHomeActivity(){
         val intent = Intent(this, HomeAC::class.java)
         startActivity(intent)
-        //finish()
-        // vai ter que botar finish
+        finish()
     }
 
 }
