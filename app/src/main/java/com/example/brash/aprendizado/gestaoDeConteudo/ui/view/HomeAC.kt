@@ -66,5 +66,4 @@ class HomeAC : AppCompatActivity(), View.OnClickListener {
         //startActivity(intent)
         // vai ter que botar finish
     }
-
 }
