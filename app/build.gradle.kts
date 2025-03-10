@@ -6,6 +6,7 @@ plugins {
 
     //id("com.android.application") // firebase
     id("com.google.gms.google-services") // firebase
+    //id("androidx.navigation.safeargs")
 }
 
 android {

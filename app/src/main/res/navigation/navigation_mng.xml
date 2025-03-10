@@ -21,6 +21,21 @@
             app:exitAnim="@android:anim/fade_out"
             app:popEnterAnim="@android:anim/fade_in"
             app:popExitAnim="@android:anim/fade_out" />
+        <argument
+            android:name="userName"
+            app:argType="string" />
+        <argument
+            android:name="exhibitionName"
+            app:argType="string" />
+        <argument
+            android:name="email"
+            app:argType="string" />
+        <argument
+            android:name="password"
+            app:argType="string" />
+        <argument
+            android:name="emailVerificationCode"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/cadastrarFrForm"

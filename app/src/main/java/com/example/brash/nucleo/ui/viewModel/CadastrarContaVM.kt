@@ -19,50 +19,52 @@ class CadastrarContaVM (application: Application) : AndroidViewModel(application
     private var _formMessageError =  MutableLiveData<String>()
     val formMessageError get() = _formMessageError
 
+    private var _verificationCodeMessageError = MutableLiveData<String>()
+    val verificationCodeMessageError get() = _verificationCodeMessageError
+
     private val emailApiService = ClientRetrofit.createService(EmailApi::class.java, Constants.EMAIL_API_BASE_URL)
 
-    fun registerNewUser(userName : String, exhibitionName: String, email:String, password: String){
+    fun registerNewUser(userName : String, exhibitionName: String, email:String, password: String, onSucess: () -> Unit){
 
-        if(handleRegisterForm(userName, exhibitionName, email, password)){
-            UtilsFoos.showToast(getApplication(), "$userName, $exhibitionName, $email, $password")
-        }
     }
 
-     fun handleRegisterForm(userName : String, exhibitionName: String, email:String, password: String) : Boolean{
+    fun showToastForFragments(message : String){
+        UtilsFoos.showToast(getApplication(), message)
+    }
 
+    fun handleRegisterForm(userName : String, exhibitionName: String, email:String, password: String, onSucess: () -> Unit){
         if(userName.isEmpty() or exhibitionName.isEmpty() or email.isEmpty() or password.isEmpty()){
             _formMessageError.value = "Preencha todos os campos!"
-            return false
         }else if(!UtilsFoos.isValidEmail(email)){
             _formMessageError.value = "Digite um email válido!"
-            return false
+        }else{
+            onSucess()
         }
-        return true
     }
 
-    fun olaMundo(){
+    fun sendCodeToEmail(email : String, emailVerificationCode : String, onSucess: () -> Unit){
         UtilsFoos.showToast(getApplication(), "ola mundo")
 
         val emailRequest = EmailRequestEntity(
-            to = "matheussaick@gmail.com",
-            subject = "Teste do retrofit no app",
-            text = "código é 777"
+            to = email,
+            subject = "Código de verificação de criação de conta do aplicativo Brash",
+            text = "código é $emailVerificationCode"
         )
 
         emailApiService.sendEmail(emailRequest).enqueue( object : Callback<Void>{
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 if(response.isSuccessful){
-                    UtilsFoos.showToast(getApplication(), "email enviado com sucesso para matheussaick@gmail.com")
+                    UtilsFoos.showToast(getApplication(), "Email enviado com sucesso!")
+                    onSucess()
                 }
             }
 
             override fun onFailure(call: Call<Void>, t: Throwable) {
-                UtilsFoos.showToast(getApplication(), "Erro no envio do email")
+                //UtilsFoos.showToast(getApplication(), "Erro no envio do email")
+                _formMessageError.value = "Ocorreu algum erro ao tentar enviar email de confirmação."
                 Log.e("EMAIL API", "Falha na requisição do email no servidor")
             }
-        }
-
-        )
+        })
 
 
     }

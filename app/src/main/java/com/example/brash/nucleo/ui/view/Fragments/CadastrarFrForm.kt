@@ -9,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.brash.R
 import com.example.brash.databinding.NucCadastrarFrFormBinding
 import com.example.brash.nucleo.ui.viewModel.CadastrarContaVM
+import com.example.brash.nucleo.utils.UtilsFoos
 
 
 class CadastrarFrForm : Fragment(R.layout.nuc_cadastrar_fr_form) {
@@ -45,10 +46,22 @@ class CadastrarFrForm : Fragment(R.layout.nuc_cadastrar_fr_form) {
             val email = binding.CadastrarContaAcTextInputEditTextEmail.text.toString()
             val password = binding.CadastrarContaAcTextInputEditTextSenha.text.toString()
 
-            //cadastrarContaVM.registerNewUser(userName, exhibitionName, email, password)
-            cadastrarContaVM.olaMundo()
-            //findNavController().navigate(R.id.action_cadastrarFrForm_to_cadastrarFrCodigo)
+            cadastrarContaVM.handleRegisterForm(userName, exhibitionName, email, password, {
+                val emailVerificationCode = "777"
+                // desativando serviço de email
+                //val emailVerificationCode = UtilsFoos.emailVerificationCodeGenerator(size=6)
+                //cadastrarContaVM.sendCodeToEmail(email, emailVerificationCode, {
+                    //actionToCadastrarFrCodigo(userName, exhibitionName, email, password, emailVerificationCode)
+                //})
+                actionToCadastrarFrCodigo(userName, exhibitionName, email, password, emailVerificationCode)
+            })
+
         }
+    }
+
+    private fun actionToCadastrarFrCodigo(userName : String, exhibitionName : String, email : String, password : String, emailVerificationCode : String){
+        val action = CadastrarFrFormDirections.actionCadastrarFrFormToCadastrarFrCodigo(userName, exhibitionName, email, password, emailVerificationCode)
+        findNavController().navigate(action)
     }
 
     private fun setObservers(){
