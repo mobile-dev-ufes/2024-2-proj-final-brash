@@ -11,8 +11,6 @@ import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.HomeAC
 //import com.example.brash.databinding.ActivityLoginBinding
 import com.example.brash.databinding.NucLoginAcBinding
 import com.example.brash.nucleo.ui.viewModel.LoginVM
-import com.example.brash.nucleo.utils.Constants
-import com.example.brash.nucleo.utils.MyPreferences
 
 class LoginAC : AppCompatActivity(), View.OnClickListener {
 
@@ -21,22 +19,15 @@ class LoginAC : AppCompatActivity(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         loginVM = ViewModelProvider(this).get(LoginVM::class.java)
-
         loginVM.userStored({
             intentToHomeActivity()
         })
-
         binding = NucLoginAcBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         setOnClickListeners()
         setObservers()
-
-        initLogin()
     }
-
     private fun setOnClickListeners(){
         binding.LoginAcTextViewEsqueceuSenha.setOnClickListener(this)
         binding.LoginAcButtonEntrar.setOnClickListener(this)
@@ -50,11 +41,6 @@ class LoginAC : AppCompatActivity(), View.OnClickListener {
         })
     }
 
-    private fun intentToCadastrarContaAC(){
-        val intent = Intent(this, CadastrarContaAC::class.java)
-        startActivity(intent)
-        //TODO:: aqui precisa de finish?
-    }
 
     override fun onClick(view : View) {
 
@@ -85,16 +71,16 @@ class LoginAC : AppCompatActivity(), View.OnClickListener {
         // não vai previsar por causa do finish
     }
 
-    private fun initLogin(){
-
-    }
-
     private fun intentToHomeActivity(){
         val intent = Intent(this, HomeAC::class.java)
         startActivity(intent)
         finish()
     }
 
-
+    private fun intentToCadastrarContaAC(){
+        val intent = Intent(this, CadastrarContaAC::class.java)
+        startActivity(intent)
+        //TODO:: aqui precisa de finish?
+    }
 
 }

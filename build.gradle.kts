@@ -4,6 +4,8 @@ buildscript {
         mavenCentral() // E o Maven Central
     }
     dependencies {
+        //def nav_version = "2.5.3"
+        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:2.5.3")
         classpath("androidx.navigation:navigation-safe-args-gradle-plugin:2.5.0") // Verifique a versão mais recente
     }
 }
