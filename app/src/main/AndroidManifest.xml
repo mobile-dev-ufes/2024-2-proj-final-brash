@@ -18,6 +18,18 @@
             android:name=".nucleo.ui.view.CadastrarContaAC"
             android:exported="false" />
         <activity
+            android:name=".nucleo.ui.view.ConfiguracaoAC"
+            android:exported="false" />
+        <activity
+            android:name=".nucleo.ui.view.RedefinirSenhaAC"
+            android:exported="false" />
+        <activity
+            android:name=".nucleo.ui.view.DefinirSenhaAC"
+            android:exported="false" />
+        <activity
+            android:name=".nucleo.ui.view.DefinirEmailAC"
+            android:exported="false" />
+        <activity
             android:name=".aprendizado.gestaoDeConteudo.ui.view.HomeAC"
             android:exported="false" />
         <activity

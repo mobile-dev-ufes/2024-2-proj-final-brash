@@ -7,18 +7,242 @@
     android:layout_height="match_parent"
     android:background="@color/deep_black">
 
+    <ImageView
+        android:id="@+id/ConfiguracaoAcImageViewConfiguracoes"
+        android:layout_width="60dp"
+        android:layout_height="50dp"
+        android:layout_margin="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/keyboard_return_24dp"
+        app:tint="@color/lavender_purple"
+
+        android:clickable="true"
+        android:focusable="true"
+        />
+
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/ConfiguracaoAcTextViewTitulo"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
+        android:text="@string/opcoes"
+        android:textSize="72sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:textAlignment="center"
+
+        android:layout_marginTop="50dp"
+        android:paddingBottom="60dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:text="CONFIGURACAO"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="50sp"
+
         />
+
+
+    <TextView
+        android:id="@+id/ConfiguracaoAcTextViewAjustes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ajustes"
+        android:textSize="25sp"
+
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+
+        android:textColor="@color/white"
+        android:background="@color/charcoal_gray"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        app:layout_constraintTop_toBottomOf="@+id/ConfiguracaoAcTextViewTitulo"
+        />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@color/medium_gray"
+        app:layout_constraintEnd_toEndOf="@+id/ConfiguracaoAcTextViewAjustes"
+        app:layout_constraintStart_toStartOf="@+id/ConfiguracaoAcTextViewAjustes"
+
+        app:layout_constraintBottom_toBottomOf="@+id/ConfiguracaoAcTextViewAjustes"
+
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="7dp"
+        />
+
+    <TextView
+        android:id="@+id/ConfiguracaoAcTextViewIdioma"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Idioma"
+        android:textSize="20sp"
+
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+
+        android:textColor="@color/white"
+
+        android:drawablePadding="3dp"
+        android:drawableEnd="@drawable/translate_20dp"
+
+        app:layout_constraintStart_toStartOf="parent"
+
+        app:layout_constraintTop_toBottomOf="@+id/ConfiguracaoAcTextViewAjustes"
+        />
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@+id/ConfiguracaoAcTextViewIdioma"
+        app:layout_constraintTop_toTopOf="@+id/ConfiguracaoAcTextViewIdioma"
+        android:orientation="vertical"
+        android:background="@color/medium_gray"
+        android:layout_marginTop="5dp"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
+        android:visibility="visible"
+
+        >
+        <RadioButton
+
+            android:id="@+id/login_ac_radio_pt"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:text="@string/idioma_pt"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+
+
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:textAlignment="viewEnd"
+
+            android:checked="true"
+            />
+
+        <RadioButton
+
+            android:id="@+id/login_ac_radio_en"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:text="@string/idioma_en"
+            android:textAlignment="viewEnd"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            />
+    </RadioGroup>
+
+
+    <TextView
+        android:id="@+id/ConfiguracaoAcTextViewConta"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Conta"
+        android:textSize="25sp"
+
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+
+        android:textColor="@color/white"
+
+        android:background="@color/charcoal_gray"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ConfiguracaoAcTextViewIdioma"
+        />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@color/medium_gray"
+        app:layout_constraintEnd_toEndOf="@+id/ConfiguracaoAcTextViewConta"
+        app:layout_constraintStart_toStartOf="@+id/ConfiguracaoAcTextViewConta"
+
+        app:layout_constraintBottom_toBottomOf="@+id/ConfiguracaoAcTextViewConta"
+
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="7dp"
+        />
+
+    <TextView
+        android:id="@+id/ConfiguracaoAcTextViewTrocarSenha"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Trocar Senha"
+        android:textSize="20sp"
+
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+
+        android:textColor="@color/white"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ConfiguracaoAcTextViewConta"
+        />
+
+    <TextView
+        android:id="@+id/ConfiguracaoAcTextViewTrocarEmail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Trocar Email"
+        android:textSize="20sp"
+
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+
+        android:textColor="@color/white"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ConfiguracaoAcTextViewTrocarSenha"
+        />
+
+    <TextView
+        android:id="@+id/ConfiguracaoAcTextViewSairDaConta"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Sair da Conta"
+        android:textSize="20sp"
+
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+
+        android:textColor="@color/white"
+
+        android:clickable="true"
+        android:focusable="true"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ConfiguracaoAcTextViewTrocarEmail"
+        />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

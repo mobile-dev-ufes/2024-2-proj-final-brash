@@ -28,6 +28,20 @@
     <string name="nuc_senha">Password</string>
     <string name="nuc_criar_conta">Criar Conta</string>
     <string name="nuc_msg_default_erro_cadastro">The user name or email is already used.</string>
+
+    <string-array name="nuc_spinner_ordenar">
+        <item>Alphanumeric Order</item>
+        <item>Quantity of Cards</item>
+        <item>No Order</item>
+    </string-array>
+
+    <string-array name="nuc_spinner_filtrar">
+        <item>Deck Name</item>
+        <item>Folder Name</item>
+        <item>Public Decks</item>
+        <item>Knowledge Area</item>
+        <item>Especific Area</item>
+    </string-array>
     <!-- -->
     <!-- -->
     <!-- -->
@@ -49,19 +63,8 @@
     <string name="ordenar_por">Order By</string>
     <string name="filtrar_por">Filter By</string>
     <string name="aplicar">Apply</string>
-    <string-array name="nuc_spinner_ordenar">
-        <item>Alphanumeric Order</item>
-        <item>Quantity of Cards</item>
-        <item>No Order</item>
-    </string-array>
+    <string name="opcoes">Options</string>
 
-    <string-array name="nuc_spinner_filtrar">
-        <item>Deck Name</item>
-        <item>Folder Name</item>
-        <item>Public Decks</item>
-        <item>Knowledge Area</item>
-        <item>Especific Area</item>
-    </string-array>
 
 
 </resources>

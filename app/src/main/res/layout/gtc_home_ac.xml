@@ -35,7 +35,7 @@
 
 
         <TextView
-            android:id="@+id/home_ac_profile_text"
+            android:id="@+id/HomeAcTextViewPerfil"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/gtc_perfil"
@@ -47,7 +47,7 @@
             />
 
         <TextView
-            android:id="@+id/home_ac_header_title"
+            android:id="@+id/HomeAcTextViewTitulo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/app_name"
@@ -60,6 +60,7 @@
 
 
         <ImageView
+            android:id="@+id/HomeAcImageViewConfiguracoes"
             android:layout_width="40dp"
             android:layout_height="40dp"
             app:layout_constraintEnd_toEndOf="@+id/HomeAcHeader"

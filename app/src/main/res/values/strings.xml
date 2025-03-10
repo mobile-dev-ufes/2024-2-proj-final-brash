@@ -27,6 +27,19 @@
     <string name="nuc_senha">Senha</string>
     <string name="nuc_criar_conta">Criar Conta</string>
     <string name="nuc_msg_default_erro_cadastro">O nome de usuário ou email já existem.</string>
+
+    <string-array name="nuc_spinner_ordenar">
+        <item>Ordem Alfanumérica</item>
+        <item>Número de Cartões</item>
+        <item>Não Ordenar</item>
+    </string-array>
+    <string-array name="nuc_spinner_filtrar">
+        <item>Nome Do Baralho</item>
+        <item>Nome Da Pasta</item>
+        <item>Baralhos Públicos</item>
+        <item>Áreas do Conhecimento</item>
+        <item>Áreas Específicas</item>
+    </string-array>
     <!-- -->
     <!-- -->
     <!-- -->
@@ -48,19 +61,9 @@
     <string name="ordenar_por">Ordenar por</string>
     <string name="filtrar_por">Filtrar por</string>
     <string name="aplicar">Aplicar</string>
+    <string name="opcoes">Opções</string>
 
-    <string-array name="nuc_spinner_ordenar">
-        <item>Ordem Alfanumérica</item>
-        <item>Número de Cartões</item>
-        <item>Não Ordenar</item>
-    </string-array>
-    <string-array name="nuc_spinner_filtrar">
-        <item>Nome Do Baralho</item>
-        <item>Nome Da Pasta</item>
-        <item>Baralhos Públicos</item>
-        <item>Áreas do Conhecimento</item>
-        <item>Áreas Específicas</item>
-    </string-array>
+
 
 
 </resources>

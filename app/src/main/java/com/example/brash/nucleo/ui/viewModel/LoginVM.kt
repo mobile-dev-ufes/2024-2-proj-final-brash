@@ -51,7 +51,9 @@ class LoginVM(application: Application) : AndroidViewModel(application) {
 
         }
     }
-
+    fun signOut(){
+        auth.signOut()
+    }
     private fun handleSignInInfo(email : String, password: String) : Boolean{
 
         if(email.isNotEmpty() and !UtilsFoos.isValidEmail(email)){

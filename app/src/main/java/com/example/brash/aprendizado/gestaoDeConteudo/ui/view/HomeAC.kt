@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.brash.R
 import com.example.brash.databinding.GtcHomeAcBinding
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.viewModel.HomeVM
+import com.example.brash.nucleo.ui.view.ConfiguracaoAC
 import com.example.brash.nucleo.ui.view.Fragments.AcoesAdicionaisFrDialog
 import com.example.brash.nucleo.ui.view.Fragments.OpcoesDeBuscaFrDialog
 
@@ -36,7 +37,7 @@ class HomeAC : AppCompatActivity(), View.OnClickListener {
     private fun setOnClickListeners(){
         binding.HomeAcButtonAcoesAdicionais.setOnClickListener(this)
         binding.HomeAcImageViewOpcoesDeBusca.setOnClickListener(this)
-        //binding.LoginAcButtonEntrar.setOnClickListener(this)
+        binding.HomeAcImageViewConfiguracoes.setOnClickListener(this)
     }
 
     private fun setObservers(){
@@ -64,6 +65,15 @@ class HomeAC : AppCompatActivity(), View.OnClickListener {
                 //intentToCadastrarContaActivity()
                 OpcoesDeBuscaFrDialog().show(supportFragmentManager, "OpcaoDialog")
             }
+            R.id.HomeAcImageViewConfiguracoes -> {
+                Toast.makeText(applicationContext, "Você clicou em Configuracoes", Toast.LENGTH_SHORT).show()
+                intentToConfiguracaoActivity()
+            }
+            R.id.HomeAcIncludeIconePerfil -> {
+                //Toast.makeText(applicationContext, "Você clicou em MoreActions", Toast.LENGTH_SHORT).show()
+                //intentToCadastrarContaActivity()
+                //intentToConfiguracaoActivity()
+            }
         }
     }
 
@@ -73,8 +83,13 @@ class HomeAC : AppCompatActivity(), View.OnClickListener {
         // não vai previsar por causa do finish
     }
 
-    private fun intentToHomeActivity(){
-        //val intent = Intent(this, CadastrarContaAC::class.java)
+    private fun intentToConfiguracaoActivity(){
+        val intent = Intent(this, ConfiguracaoAC::class.java)
+        startActivity(intent)
+        // vai ter que botar finish
+    }
+    private fun intentToPerfilActivity(){
+        //val intent = Intent(this, PerfilAC::class.java)
         //startActivity(intent)
         // vai ter que botar finish
     }
