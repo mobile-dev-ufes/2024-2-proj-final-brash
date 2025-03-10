@@ -1,14 +1,10 @@
-package com.example.brash.nucleo.ui.view.Fragments
+package com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments
 
 import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
-import com.example.brash.R
-import com.example.brash.databinding.GtcHomeAcBinding
 import com.example.brash.databinding.GtcHomeFrAcoesAdicionaisBinding
 
 class AcoesAdicionaisFrDialog : DialogFragment() {

@@ -1,23 +1,23 @@
 package com.example.brash.aprendizado.gestaoDeConteudo.ui.view
 
-import com.example.brash.nucleo.ui.view.CadastrarContaAC
-
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.brash.R
 import com.example.brash.databinding.GtcHomeAcBinding
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.viewModel.HomeVM
 import com.example.brash.nucleo.ui.view.ConfiguracaoAC
-import com.example.brash.nucleo.ui.view.Fragments.AcoesAdicionaisFrDialog
-import com.example.brash.nucleo.ui.view.Fragments.OpcoesDeBuscaFrDialog
+import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments.OpcoesDeBuscaFrDialog
 
-class HomeAC : AppCompatActivity(), View.OnClickListener {
+import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments.AcoesAdicionaisFrDialog
+import com.example.brash.nucleo.ui.view.Fragments.AlertDialogFr
+
+class HomeAC : AppCompatActivity(), View.OnClickListener, AlertDialogFr.OnConfirmListener {
 
     private lateinit var binding: GtcHomeAcBinding
     private lateinit var homeVM: HomeVM
@@ -58,7 +58,8 @@ class HomeAC : AppCompatActivity(), View.OnClickListener {
             R.id.HomeAcButtonAcoesAdicionais -> {
                 //Toast.makeText(applicationContext, "Você clicou em MoreActions", Toast.LENGTH_SHORT).show()
                 //intentToCadastrarContaActivity()
-                AcoesAdicionaisFrDialog().show(supportFragmentManager, "OpcaoDialog")
+                //AcoesAdicionaisFrDialog().show(supportFragmentManager, "AcoesAdicionaisDialog")
+                AlertDialogFr("Isso eh um teste").show(supportFragmentManager, "ExclusaoAlertDialog")
             }
             R.id.HomeAcImageViewOpcoesDeBusca -> {
                 //Toast.makeText(applicationContext, "Você clicou em MoreActions", Toast.LENGTH_SHORT).show()
@@ -92,5 +93,11 @@ class HomeAC : AppCompatActivity(), View.OnClickListener {
         //val intent = Intent(this, PerfilAC::class.java)
         //startActivity(intent)
         // vai ter que botar finish
+    }
+
+    // Implementação da interface
+    override fun onConfirmAlertDialog() {
+        // Aqui você pode navegar para outra Activity ou realizar alguma ação
+        Toast.makeText(this, "Confirmado Exclusao!", Toast.LENGTH_SHORT).show()
     }
 }

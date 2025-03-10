@@ -10,6 +10,7 @@
 
     <string name="cancelar">Cancel</string>
     <string name="confirmar">Confirm</string>
+    <string name="confirmar_exclusao">Apply Delete</string>
     <string name="excluir">Delete</string>
     <string name="email">Email</string>
     <!-- -->

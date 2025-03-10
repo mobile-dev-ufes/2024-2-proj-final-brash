@@ -1,4 +1,4 @@
-package com.example.brash.nucleo.ui.view.Fragments
+package com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments
 
 import android.app.AlertDialog
 import android.app.Dialog
