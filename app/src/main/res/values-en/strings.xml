@@ -64,7 +64,10 @@
     <string name="filtrar_por">Filter By</string>
     <string name="aplicar">Apply</string>
     <string name="opcoes">Options</string>
-
+    <string name="ajustes">Adjustments</string>
+    <string name="trocar_senha">Change Password</string>
+    <string name="trocar_email">Change Email</string>
+    <string name="sair_da_conta">Logout</string>
 
 
 </resources>

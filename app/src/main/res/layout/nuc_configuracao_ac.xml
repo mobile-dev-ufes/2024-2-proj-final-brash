@@ -48,7 +48,7 @@
         android:id="@+id/ConfiguracaoAcTextViewAjustes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Ajustes"
+        android:text="@string/ajustes"
         android:textSize="25sp"
 
         android:paddingStart="15dp"
@@ -83,7 +83,7 @@
         android:id="@+id/ConfiguracaoAcTextViewIdioma"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Idioma"
+        android:text="@string/idioma"
         android:textSize="20sp"
 
         android:paddingStart="15dp"
@@ -104,11 +104,11 @@
     <RadioGroup
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@+id/ConfiguracaoAcTextViewIdioma"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/ConfiguracaoAcTextViewIdioma"
-        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@+id/ConfiguracaoAcTextViewIdioma"
+        android:orientation="horizontal"
         android:background="@color/medium_gray"
-        android:layout_marginTop="5dp"
         android:paddingStart="5dp"
         android:paddingEnd="5dp"
         android:visibility="visible"
@@ -187,7 +187,7 @@
         android:id="@+id/ConfiguracaoAcTextViewTrocarSenha"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Trocar Senha"
+        android:text="@string/trocar_senha"
         android:textSize="20sp"
 
         android:paddingStart="15dp"
@@ -206,7 +206,7 @@
         android:id="@+id/ConfiguracaoAcTextViewTrocarEmail"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Trocar Email"
+        android:text="@string/trocar_email"
         android:textSize="20sp"
 
         android:paddingStart="15dp"
@@ -225,7 +225,7 @@
         android:id="@+id/ConfiguracaoAcTextViewSairDaConta"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Sair da Conta"
+        android:text="@string/sair_da_conta"
         android:textSize="20sp"
 
         android:paddingStart="15dp"
