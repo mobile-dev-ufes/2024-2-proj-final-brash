@@ -69,4 +69,6 @@ dependencies {
     implementation ("androidx.fragment:fragment-ktx:1.5.4") // dependência de fragments
     implementation(platform("com.google.firebase:firebase-bom:33.10.0")) // firebase
     implementation("com.google.firebase:firebase-common-ktx:20.2.0") // firebase
+
+    implementation("com.google.android.material:material:1.13.0-alpha11")
 }

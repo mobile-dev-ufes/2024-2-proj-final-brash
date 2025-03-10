@@ -9,137 +9,139 @@
     android:background="@color/deep_black">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/home_ac_header"
+        android:id="@+id/HomeAcHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:padding="10dp">
+        android:padding="20dp">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/home_ac_profile_button"
+
+
+        <include
+            android:id="@+id/HomeAcIncludeIconePerfil"
+            layout="@layout/layout_icone_perfil"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:layout_constraintStart_toStartOf="@+id/HomeAcHeader"
+            app:layout_constraintTop_toTopOf="@+id/HomeAcHeader"
+            app:layout_constraintBottom_toBottomOf="@+id/HomeAcHeader"
+            android:clickable="true"
+            android:focusable="true"
+            />
+
+
+
+
+        <TextView
+            android:id="@+id/home_ac_profile_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="top"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <Button
-                style="?attr/materialIconButtonFilledStyle"
-                android:id="@+id/home_ac_profile_icon"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                app:icon="@drawable/account_svgrepo_com"
-                app:tint="@color/lavender_purple"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
-
-            <TextView
-                android:id="@+id/home_ac_profile_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Perfil"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                app:layout_constraintStart_toEndOf="@id/home_ac_profile_icon"
-                app:layout_constraintTop_toTopOf="parent"/>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            android:text="@string/gtc_perfil"
+            android:textColor="@color/lavender_purple"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@id/HomeAcIncludeIconePerfil"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="10dp"
+            />
 
         <TextView
             android:id="@+id/home_ac_header_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Brash"
+            android:text="@string/app_name"
             android:textColor="@color/white"
             android:textSize="30sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
-
-        <Button
-            style="?attr/materialIconButtonOutlinedStyle"
-            android:id="@+id/home_ac_settings_button"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            app:icon="@drawable/settings_24dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/home_ac_menu"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/home_ac_header"
-        android:padding="10dp">
-
-        <Button
-            style="Widget.Material3.Button.IconButton.Filled"
-            android:id="@+id/home_ac_friends_button"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            app:icon="@drawable/groups_24dp"
-            android:backgroundTint="@color/dark_gray"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
-        <com.google.android.material.textfield.TextInputLayout
-            style="?attr/textInputFilledDenseStyle"
-            android:id="@+id/home_ac_input_layout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:hint="Search"
-            android:textColorHint="@color/white"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            app:endIconMode="clear_text"
-            app:layout_constraintStart_toEndOf="@id/home_ac_friends_button"
-            app:layout_constraintEnd_toStartOf="@id/home_ac_filter_button"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/home_ac_input_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/dark_gray"
-                />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <Button
-            style="?attr/materialIconButtonStyle"
-            android:id="@+id/home_ac_filter_button"
+        <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:icon="@drawable/tune_24dp"
-            app:tint="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintEnd_toEndOf="@+id/HomeAcHeader"
+            app:layout_constraintTop_toTopOf="@+id/HomeAcHeader"
+            app:layout_constraintBottom_toBottomOf="@+id/HomeAcHeader"
+            android:src="@drawable/settings_24dp"
+            app:tint="@color/lavender_purple"
+
+            android:clickable="true"
+            android:focusable="true"
+            />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/home_ac_recycler_list_decks"
+    <com.google.android.material.textfield.TextInputLayout
+
+
+        android:id="@+id/HomeAcLayoutInputDePesquisa"
+
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/home_ac_menu"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="30dp"/>
+
+        android:hint="@string/search_bar_hint"
+        android:textColorHint="@color/white"
+        android:textSize="30sp"
+        app:endIconMode="clear_text"
+
+        app:layout_constraintStart_toStartOf="@id/HomeAcHeader"
+        app:layout_constraintEnd_toStartOf="@+id/HomeAcImageViewOpcoesDeBusca"
+        app:layout_constraintTop_toBottomOf="@id/HomeAcHeader"
+
+        app:boxStrokeWidth="1dp"
+        app:boxBackgroundColor="@color/charcoal_gray"
+        android:layout_marginStart="20dp"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/HomeAcInputDePesquisa"
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textColor="@color/white"
+            android:inputType="text"
+
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <ImageView
+        android:id="@+id/HomeAcImageViewOpcoesDeBusca"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintStart_toEndOf="@+id/HomeAcLayoutInputDePesquisa"
+        app:layout_constraintEnd_toEndOf="@+id/HomeAcHeader"
+        app:layout_constraintTop_toTopOf="@+id/HomeAcLayoutInputDePesquisa"
+        app:layout_constraintBottom_toBottomOf="@+id/HomeAcLayoutInputDePesquisa"
+        android:src="@drawable/tune_24dp"
+        app:tint="@color/white"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="20dp"
+
+        android:clickable="true"
+        android:focusable="true"
+        />
+
+    <!-- RecyclerView para exibir a lista -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/HomeAcRecyclerViewResultadoBusca"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="@+id/HomeAcLayoutInputDePesquisa"
+        app:layout_constraintEnd_toEndOf="@+id/HomeAcImageViewOpcoesDeBusca"
+        app:layout_constraintTop_toBottomOf="@+id/HomeAcLayoutInputDePesquisa"
+        app:layout_constraintBottom_toTopOf="@+id/HomeAcButtonAcoesAdicionais"
+         />
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/HomeAcButtonMoreActions"
+        android:id="@+id/HomeAcButtonAcoesAdicionais"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
@@ -153,68 +155,7 @@
         android:visibility="visible"
         />
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:orientation="vertical"
-        android:visibility="visible"
 
-        android:background="@drawable/borda_linear_layout"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        >
-
-        <TextView
-            android:id="@+id/HomeAcTextViewCriarBaralho"
-
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/gtc_criar_baralho"
-            android:textSize="16sp"
-            android:textColor="@color/white"
-
-            android:maxWidth="180dp"
-            android:padding="20dp"
-            android:clickable="true"
-            android:focusable="true"
-
-            />
-        <TextView
-            android:id="@+id/HomeAcTextViewCriarPasta"
-
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            android:text="@string/gtc_criar_pasta"
-            android:maxWidth="180dp"
-            android:textSize="16sp"
-            android:textColor="@color/white"
-
-            android:padding="20dp"
-            android:clickable="true"
-            android:focusable="true"
-
-            />
-        <TextView
-            android:id="@+id/HomeAcTextViewProcurarBaralhosPublicos"
-
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-
-            android:text="@string/gtc_procurar_baralhos_publicos"
-            android:maxWidth="180dp"
-            android:textSize="16sp"
-            android:textColor="@color/white"
-
-            android:padding="20dp"
-            android:clickable="true"
-            android:focusable="true"
-
-            />
-    </LinearLayout>
 
 
 

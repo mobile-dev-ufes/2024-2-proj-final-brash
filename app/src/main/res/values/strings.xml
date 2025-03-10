@@ -41,7 +41,26 @@
     <!-- -->
     <!-- -->
     <string name="gtaa_name">Gestão de auxílio de aprendizado</string>
+    <string name="gtc_perfil">Profile</string>
+    <string name="gtc_pesquisar_usuarios">Pesquisar Usuários</string>
+    <string name="search_bar_hint"> Pesquisar </string>
+    <string name="configuracoes_de_busca">Search Configurations</string>
+    <string name="ordenar_por">Ordenar por</string>
+    <string name="filtrar_por">Filtrar por</string>
+    <string name="aplicar">Aplicar</string>
 
+    <string-array name="nuc_spinner_ordenar">
+        <item>Ordem Alfanumérica</item>
+        <item>Número de Cartões</item>
+        <item>Não Ordenar</item>
+    </string-array>
+    <string-array name="nuc_spinner_filtrar">
+        <item>Nome Do Baralho</item>
+        <item>Nome Da Pasta</item>
+        <item>Baralhos Públicos</item>
+        <item>Áreas do Conhecimento</item>
+        <item>Áreas Específicas</item>
+    </string-array>
 
 
 </resources>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/HomeFrOpcoesAdicionais"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/borda_linear_layout"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/HomeFrTextViewCriarBaralho"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/gtc_criar_baralho"
+        android:textSize="16sp"
+        android:textColor="@color/white"
+        android:maxWidth="180dp"
+        android:padding="20dp"
+        android:clickable="true"
+        android:focusable="true"/>
+
+    <TextView
+        android:id="@+id/HomeFrTextViewCriarPasta"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/gtc_criar_pasta"
+        android:maxWidth="180dp"
+        android:textSize="16sp"
+        android:textColor="@color/white"
+        android:padding="20dp"
+        android:clickable="true"
+        android:focusable="true"/>
+
+    <TextView
+        android:id="@+id/HomeFrTextViewPesquisarUsuarios"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/gtc_pesquisar_usuarios"
+        android:maxWidth="180dp"
+        android:textSize="16sp"
+        android:textColor="@color/white"
+        android:padding="20dp"
+        android:clickable="true"
+        android:focusable="true"/>
+
+    <TextView
+        android:id="@+id/HomeFrTextViewProcurarBaralhosPublicos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/gtc_procurar_baralhos_publicos"
+        android:maxWidth="180dp"
+        android:textSize="16sp"
+        android:textColor="@color/white"
+        android:padding="20dp"
+        android:clickable="true"
+        android:focusable="true"/>
+
+</LinearLayout>

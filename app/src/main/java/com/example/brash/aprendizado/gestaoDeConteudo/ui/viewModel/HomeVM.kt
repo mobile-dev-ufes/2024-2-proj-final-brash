@@ -10,3 +10,10 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
     val teste get() = _teste
 
 }
+
+
+/*
+
+val dialog = OpcaoDialogFragment()
+dialog.show(supportFragmentManager, "OpcaoDialog")
+ */

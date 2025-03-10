@@ -9,9 +9,12 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.brash.R
 import com.example.brash.databinding.GtcHomeAcBinding
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.viewModel.HomeVM
+import com.example.brash.nucleo.ui.view.Fragments.AcoesAdicionaisFrDialog
+import com.example.brash.nucleo.ui.view.Fragments.OpcoesDeBuscaFrDialog
 
 class HomeAC : AppCompatActivity(), View.OnClickListener {
 
@@ -25,11 +28,14 @@ class HomeAC : AppCompatActivity(), View.OnClickListener {
         setContentView(binding.root)
         homeVM = ViewModelProvider(this).get(HomeVM::class.java)
 
+        binding.HomeAcRecyclerViewResultadoBusca.layoutManager = LinearLayoutManager(this)
+
         setOnClickListeners()
         setObservers()
     }
     private fun setOnClickListeners(){
-        binding.HomeAcButtonMoreActions.setOnClickListener(this)
+        binding.HomeAcButtonAcoesAdicionais.setOnClickListener(this)
+        binding.HomeAcImageViewOpcoesDeBusca.setOnClickListener(this)
         //binding.LoginAcButtonEntrar.setOnClickListener(this)
     }
 
@@ -48,9 +54,15 @@ class HomeAC : AppCompatActivity(), View.OnClickListener {
     override fun onClick(view : View) {
 
         when(view.id){
-            R.id.HomeAcButtonMoreActions -> {
-                Toast.makeText(applicationContext, "Você clicou em MoreActions", Toast.LENGTH_SHORT).show()
+            R.id.HomeAcButtonAcoesAdicionais -> {
+                //Toast.makeText(applicationContext, "Você clicou em MoreActions", Toast.LENGTH_SHORT).show()
                 //intentToCadastrarContaActivity()
+                AcoesAdicionaisFrDialog().show(supportFragmentManager, "OpcaoDialog")
+            }
+            R.id.HomeAcImageViewOpcoesDeBusca -> {
+                //Toast.makeText(applicationContext, "Você clicou em MoreActions", Toast.LENGTH_SHORT).show()
+                //intentToCadastrarContaActivity()
+                OpcoesDeBuscaFrDialog().show(supportFragmentManager, "OpcaoDialog")
             }
         }
     }

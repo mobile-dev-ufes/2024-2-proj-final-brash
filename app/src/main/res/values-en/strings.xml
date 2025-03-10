@@ -42,9 +42,26 @@
     <!-- -->
     <!-- -->
     <string name="gtaa_name">Gestão de auxílio de aprendizado</string>
+    <string name="gtc_perfil">Perfil</string>
+    <string name="gtc_pesquisar_usuarios">Search for Users</string>
+    <string name="search_bar_hint"> Search </string>
+    <string name="configuracoes_de_busca">Configuracões de Busca</string>
+    <string name="ordenar_por">Order By</string>
+    <string name="filtrar_por">Filter By</string>
+    <string name="aplicar">Apply</string>
+    <string-array name="nuc_spinner_ordenar">
+        <item>Alphanumeric Order</item>
+        <item>Quantity of Cards</item>
+        <item>No Order</item>
+    </string-array>
 
-
-
+    <string-array name="nuc_spinner_filtrar">
+        <item>Deck Name</item>
+        <item>Folder Name</item>
+        <item>Public Decks</item>
+        <item>Knowledge Area</item>
+        <item>Especific Area</item>
+    </string-array>
 
 
 </resources>
