@@ -9,7 +9,7 @@
     android:padding="16dp">
 
     <TextView
-        android:id="@+id/HomeFrTextViewCriarBaralho"
+        android:id="@+id/HomeFrOpcoesAdicionaisTextViewCriarBaralho"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/gtc_criar_baralho"
@@ -21,7 +21,7 @@
         android:focusable="true"/>
 
     <TextView
-        android:id="@+id/HomeFrTextViewCriarPasta"
+        android:id="@+id/HomeFrOpcoesAdicionaisTextViewCriarPasta"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/gtc_criar_pasta"
@@ -33,7 +33,7 @@
         android:focusable="true"/>
 
     <TextView
-        android:id="@+id/HomeFrTextViewPesquisarUsuarios"
+        android:id="@+id/HomeFrOpcoesAdicionaisTextViewPesquisarUsuarios"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/gtc_pesquisar_usuarios"
@@ -45,7 +45,7 @@
         android:focusable="true"/>
 
     <TextView
-        android:id="@+id/HomeFrTextViewProcurarBaralhosPublicos"
+        android:id="@+id/HomeFrOpcoesAdicionaisTextViewProcurarBaralhosPublicos"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/gtc_procurar_baralhos_publicos"

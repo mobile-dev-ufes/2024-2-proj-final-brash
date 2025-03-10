@@ -67,6 +67,8 @@
             android:backgroundTint="@color/medium_gray"
 
             android:layout_gravity="center"
+
+            app:cornerRadius="8dp"
             >
         </Button>
 

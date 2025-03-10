@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/HomeFrMoverBaralho"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/borda_linear_layout"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:id="@+id/HomeFrMoverBaralhoLayoutRaiz"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <ImageView
+            android:id="@+id/HomeFrMoverBaralhoImageViewRaiz"
+            android:layout_marginStart="10dp"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/folder_24dp"/>
+        <TextView
+            android:id="@+id/HomeFrMoverBaralhoTextViewRaiz"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/nuc_raiz"
+            android:textSize="18sp"
+            android:maxWidth="180dp"
+            android:padding="20dp"
+
+            android:textColor="@color/white"
+
+            android:clickable="true"
+            android:focusable="true"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/HomeFrMoverBaralhoTextViewPasta"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/pastas"
+        android:textSize="16sp"
+        android:maxWidth="180dp"
+        android:padding="10dp"
+        android:textColor="@color/white"
+        android:clickable="true"
+        android:focusable="true"/>
+
+
+
+    <FrameLayout
+        android:id="@+id/HomeFrLayoutRecycleView"
+        android:layout_width="match_parent"
+        android:layout_height="400dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/HomeFrMoverBaralhoRecycleViewListaPastas"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp" />
+
+    </FrameLayout>
+
+    <Button
+        android:id="@+id/HomeFrMoverBaralhoButtonPasta"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:text="@string/mover"
+        android:textSize="16sp"
+        android:maxWidth="180dp"
+        android:padding="10dp"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/medium_gray"
+        android:clickable="true"
+        android:focusable="true"
+        app:cornerRadius="8dp"
+    />
+
+</LinearLayout>

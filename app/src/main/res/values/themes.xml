@@ -5,5 +5,8 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
-    <style name="Theme.Brash" parent="Base.Theme.Brash" />
+    <style name="Theme.Brash" parent="Base.Theme.Brash"/>
+
+
+
 </resources>

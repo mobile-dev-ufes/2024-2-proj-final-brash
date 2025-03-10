@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/deep_purple">
+    android:background="@color/deep_purple"
+>
 
     <ImageView
         android:id="@+id/ImageViewIconePerfil"
@@ -16,6 +17,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:tint="@color/deep_black"
         android:src="@drawable/perfil_conta"
+
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

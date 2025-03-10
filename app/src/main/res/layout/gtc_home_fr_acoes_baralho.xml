@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/HomeFrAcoesBaralho"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/borda_linear_layout"
+    android:padding="16dp">
+
+
+    <TextView
+        android:id="@+id/HomeFrAcoesBaralhoTextViewVisualizarBaralho"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Visualizar Baralho"
+        android:textSize="16sp"
+        android:textColor="@color/white"
+        android:padding="20dp"
+        android:clickable="true"
+        android:focusable="true"/>
+
+    <TextView
+        android:id="@+id/HomeFrAcoesBaralhoTextViewVisualizarCartoes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Visualizar Cartões"
+        android:textSize="16sp"
+        android:textColor="@color/white"
+        android:padding="20dp"
+        android:clickable="true"
+        android:focusable="true"/>
+
+    <TextView
+        android:id="@+id/HomeFrAcoesBaralhoTextViewVisualizarAnotacoes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Visualizar Anotações"
+        android:textSize="16sp"
+        android:textColor="@color/white"
+        android:padding="20dp"
+        android:clickable="true"
+        android:focusable="true"/>
+
+    <TextView
+        android:id="@+id/HomeFrAcoesBaralhoTextViewVisualizarRelatorio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Visualizar Relatório"
+        android:textSize="16sp"
+        android:textColor="@color/white"
+        android:padding="20dp"
+        android:clickable="true"
+        android:focusable="true"/>
+
+    <TextView
+        android:id="@+id/HomeFrAcoesBaralhoTextViewEditarBaralho"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Editar Baralho"
+        android:textSize="16sp"
+        android:textColor="@color/white"
+        android:padding="20dp"
+        android:clickable="true"
+        android:focusable="true"/>
+
+    <TextView
+        android:id="@+id/HomeFrAcoesBaralhoTextViewMoverBaralho"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Mover Baralho"
+        android:textSize="16sp"
+        android:textColor="@color/white"
+        android:padding="20dp"
+        android:clickable="true"
+        android:focusable="true"/>
+
+    <TextView
+        android:id="@+id/HomeFrAcoesBaralhoTextViewExcluirBaralho"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Excluir Baralho"
+        android:textSize="16sp"
+        android:textColor="@color/white"
+        android:padding="20dp"
+        android:clickable="true"
+        android:focusable="true"/>
+
+</LinearLayout>

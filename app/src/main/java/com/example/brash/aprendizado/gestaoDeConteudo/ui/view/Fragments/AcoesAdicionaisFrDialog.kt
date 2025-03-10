@@ -30,22 +30,22 @@ class AcoesAdicionaisFrDialog : DialogFragment() {
 
     private fun setOnClickListeners(){
 
-        binding.HomeFrTextViewCriarBaralho.setOnClickListener {
+        binding.HomeFrOpcoesAdicionaisTextViewCriarBaralho.setOnClickListener {
             dismiss()
             Toast.makeText(requireContext(), "Criar Baralho", Toast.LENGTH_SHORT).show()
         }
 
-        binding.HomeFrTextViewCriarPasta.setOnClickListener {
+        binding.HomeFrOpcoesAdicionaisTextViewCriarPasta.setOnClickListener {
             dismiss()
             Toast.makeText(requireContext(), "Criar Pasta", Toast.LENGTH_SHORT).show()
         }
 
-        binding.HomeFrTextViewProcurarBaralhosPublicos.setOnClickListener {
+        binding.HomeFrOpcoesAdicionaisTextViewProcurarBaralhosPublicos.setOnClickListener {
             dismiss()
             Toast.makeText(requireContext(), "Procurar Baralhos Públicos", Toast.LENGTH_SHORT).show()
         }
 
-        binding.HomeFrTextViewPesquisarUsuarios.setOnClickListener{
+        binding.HomeFrOpcoesAdicionaisTextViewPesquisarUsuarios.setOnClickListener{
             dismiss()
             Toast.makeText(requireContext(), "Procurar Usuários", Toast.LENGTH_SHORT).show()
         }

@@ -66,9 +66,13 @@
     <string name="aplicar">Apply</string>
     <string name="opcoes">Options</string>
     <string name="ajustes">Adjustments</string>
-    <string name="trocar_senha">Change Password</string>
-    <string name="trocar_email">Change Email</string>
-    <string name="sair_da_conta">Logout</string>
+    <string name="nuc_trocar_senha">Change Password</string>
+    <string name="nuc_trocar_email">Change Email</string>
+    <string name="nuc_sair_da_conta">Logout</string>
+    <string name="nuc_raiz">Root</string>
+    <string name="nuc_verificar_codigo">Verify Code</string>
+    <string name="pastas">Folders</string>
+    <string name="mover">Move</string>
 
 
 </resources>
