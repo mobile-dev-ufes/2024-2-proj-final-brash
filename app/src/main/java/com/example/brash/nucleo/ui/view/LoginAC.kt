@@ -29,7 +29,6 @@ class LoginAC : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun setOnClickListeners(){
-        binding.LoginAcTextViewEsqueceuSenha.setOnClickListener(this)
         binding.LoginAcButtonEntrar.setOnClickListener(this)
         binding.LoginAcButtonCriar.setOnClickListener(this)
     }
@@ -41,19 +40,9 @@ class LoginAC : AppCompatActivity(), View.OnClickListener {
         })
     }
 
-    private fun intentToCadastrarContaAC(){
-        val intent = Intent(this, CadastrarContaAC::class.java)
-        startActivity(intent)
-        //TODO:: aqui precisa de finish?
-    }
-
     override fun onClick(view : View) {
 
         when(view.id){
-            R.id.LoginAcTextViewEsqueceuSenha -> {
-                //UtilsFoos.showToast(this, "Você clicou na mensgem de ir cadastrar")
-                //intentToCadastrarContaActivity()
-            }
             R.id.LoginAcButtonEntrar -> {
                 val email = binding.LoginAcUsuarioInput.text.toString()
                 val password = binding.LoginAcSenhaInput.text.toString()
@@ -80,6 +69,12 @@ class LoginAC : AppCompatActivity(), View.OnClickListener {
         val intent = Intent(this, HomeAC::class.java)
         startActivity(intent)
         finish()
+    }
+
+    private fun intentToCadastrarContaAC(){
+        val intent = Intent(this, CadastrarContaAC::class.java)
+        startActivity(intent)
+        //TODO:: aqui precisa de finish?
     }
 
 }

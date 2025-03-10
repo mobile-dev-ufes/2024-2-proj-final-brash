@@ -8,6 +8,8 @@ import androidx.fragment.app.commit
 import com.example.brash.R
 import com.example.brash.databinding.ActivityCadastrarContaBinding
 import com.example.brash.databinding.NucCadastrarAcBinding
+import com.example.brash.nucleo.ui.view.Fragments.CadastrarFrCodigo
+import com.example.brash.nucleo.ui.view.Fragments.CadastrarFrExito
 import com.example.brash.nucleo.ui.view.Fragments.CadastrarFrForm
 
 class CadastrarContaAC : AppCompatActivity(), View.OnClickListener{
@@ -20,19 +22,9 @@ class CadastrarContaAC : AppCompatActivity(), View.OnClickListener{
         binding = NucCadastrarAcBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
-        loadFragment()
         setOnClickListeners()
     }
 
-    private fun loadFragment(){
-
-        supportFragmentManager.commit {
-            setReorderingAllowed(true)
-            add<CadastrarFrForm>(R.id.CadastrarFrFormCadastro)
-        }
-
-    }
 
     private fun setOnClickListeners(){}
 

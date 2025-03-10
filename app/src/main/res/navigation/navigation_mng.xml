@@ -2,4 +2,37 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/navigation_mng" />
+    android:id="@+id/navigation_mng"
+    app:startDestination="@id/cadastrarFrForm">
+    <fragment
+        android:id="@+id/cadastrarFrExito"
+        android:name="com.example.brash.nucleo.ui.view.Fragments.CadastrarFrExito"
+        android:label="CadastrarFrExito"
+        tools:layout="@layout/nuc_cadastrar_fr_exito" />
+    <fragment
+        android:id="@+id/cadastrarFrCodigo"
+        android:name="com.example.brash.nucleo.ui.view.Fragments.CadastrarFrCodigo"
+        android:label="CadastrarFrCodigo"
+        tools:layout="@layout/nuc_cadastrar_fr_codigo">
+        <action
+            android:id="@+id/action_cadastrarFrCodigo_to_cadastrarFrExito"
+            app:destination="@id/cadastrarFrExito"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
+    </fragment>
+    <fragment
+        android:id="@+id/cadastrarFrForm"
+        android:name="com.example.brash.nucleo.ui.view.Fragments.CadastrarFrForm"
+        android:label="CadastrarFrForm"
+        tools:layout="@layout/nuc_cadastrar_fr_form">
+        <action
+            android:id="@+id/action_cadastrarFrForm_to_cadastrarFrCodigo"
+            app:destination="@id/cadastrarFrCodigo"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
+    </fragment>
+</navigation>
