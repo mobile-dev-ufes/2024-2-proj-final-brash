@@ -1,19 +1,14 @@
 package com.example.brash.nucleo.ui.viewModel
 
 import android.app.Application
+import android.app.LocaleManager
+import android.content.res.Configuration
+import android.os.Build
+import android.os.LocaleList
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MutableLiveData
-import com.example.brash.nucleo.utils.UtilsFoos
-import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
-import com.google.firebase.auth.FirebaseAuthInvalidUserException
+import java.util.Locale
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
-import com.example.brash.nucleo.utils.Constants
-import com.example.brash.nucleo.utils.MyPreferences
-import kotlin.math.sign
 
 class ConfiguracaoVM(application: Application) : AndroidViewModel(application) {
 
@@ -21,5 +16,13 @@ class ConfiguracaoVM(application: Application) : AndroidViewModel(application) {
 
     fun signOut(){
         auth.signOut()
+    }
+
+    fun trocarIdioma(languageCode: String, onSucess: () -> Unit){
+
+        //TODO::CONSERTAR AQUI
+
+        onSucess()
+
     }
 }

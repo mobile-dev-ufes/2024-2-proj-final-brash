@@ -56,7 +56,7 @@
     <!-- -->
     <!-- -->
     <string name="gtaa_name">Gestão de auxílio de aprendizado</string>
-    <string name="gtc_perfil">Perfil</string>
+    <string name="gtc_perfil">Profile</string>
     <string name="gtc_pesquisar_usuarios">Search for Users</string>
     <string name="search_bar_hint"> Search </string>
     <string name="configuracoes_de_busca">Configuracões de Busca</string>

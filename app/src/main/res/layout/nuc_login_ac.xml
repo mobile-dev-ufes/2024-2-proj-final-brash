@@ -238,6 +238,7 @@
         />
 
     <RadioGroup
+        android:id="@+id/LoginAcRadioGroupIdioma"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="@+id/LoginAcTextViewIdioma"
@@ -250,8 +251,7 @@
 
         >
         <RadioButton
-
-            android:id="@+id/login_ac_radio_pt"
+            android:id="@+id/LoginAcRadioButtonIdiomaPt"
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -269,8 +269,7 @@
             />
 
         <RadioButton
-
-            android:id="@+id/login_ac_radio_en"
+            android:id="@+id/LoginAcRadioButtonIdiomaEn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingStart="10dp"
