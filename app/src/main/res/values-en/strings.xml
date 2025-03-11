@@ -29,6 +29,17 @@
     <string name="nuc_senha">Password</string>
     <string name="nuc_criar_conta">Criar Conta</string>
     <string name="nuc_msg_default_erro_cadastro">The user name or email is already used.</string>
+    <string name="nuc_mesagem_confirmacao_envio_email">A verification code was sent to your email</string>
+    <string name="nuc_codigo">Verification code</string>
+    <string name="nuc_msg_confirmacao_criacao_conta_default">Your account was successfully created, go and log in.</string>
+    <string name="nuc_fazer_login">Log in</string>
+    <string name="nuc_preencha_todos_campos">Complete all the input fields!</string>
+    <string name="nuc_digite_email_valido">Type a valid email!</string>
+    <string name="nuc_msg_erro_envio_email">An error happened trying to send the code to the email.</string>
+    <string name="nuc_msg_erro_usuario_nao_existe">This user doesn\'t exist.</string>
+    <string name="nuc_msg_erro_usario_ou_senha_incorretos">Wrong user or password.</string>
+    <string name="nuc_msg_erro_falha_conectar_internet">It was not possible to connect to the internet.</string>
+    <string name="nuc_msg_erro_login_default">An error has occurred logging in. Please try again.</string>
 
     <string-array name="nuc_spinner_ordenar">
         <item>Alphanumeric Order</item>

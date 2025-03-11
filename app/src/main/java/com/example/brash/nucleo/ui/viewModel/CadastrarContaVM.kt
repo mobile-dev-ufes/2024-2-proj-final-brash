@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.brash.R
 import com.example.brash.network.ClientRetrofit
 import com.example.brash.nucleo.data.remoto.entities.EmailRequestEntity
 import com.example.brash.nucleo.data.remoto.services.EmailApi
@@ -32,11 +33,15 @@ class CadastrarContaVM (application: Application) : AndroidViewModel(application
         UtilsFoos.showToast(getApplication(), message)
     }
 
+    private fun getStringApplication(id : Int) : String{
+        return getApplication<Application>().getString(id)
+    }
+
     fun handleRegisterForm(userName : String, exhibitionName: String, email:String, password: String, onSucess: () -> Unit){
         if(userName.isEmpty() or exhibitionName.isEmpty() or email.isEmpty() or password.isEmpty()){
-            _formMessageError.value = "Preencha todos os campos!"
+            _formMessageError.value = getStringApplication(R.string.nuc_preencha_todos_campos)
         }else if(!UtilsFoos.isValidEmail(email)){
-            _formMessageError.value = "Digite um email válido!"
+            _formMessageError.value = getStringApplication(R.string.nuc_digite_email_valido)
         }else{
             onSucess()
         }
@@ -61,8 +66,9 @@ class CadastrarContaVM (application: Application) : AndroidViewModel(application
 
             override fun onFailure(call: Call<Void>, t: Throwable) {
                 //UtilsFoos.showToast(getApplication(), "Erro no envio do email")
-                _formMessageError.value = "Ocorreu algum erro ao tentar enviar email de confirmação."
-                Log.e("EMAIL API", "Falha na requisição do email no servidor")
+                val errorMsg = getStringApplication(R.string.nuc_msg_erro_envio_email)
+                _formMessageError.value = errorMsg
+                Log.e("EMAIL API", errorMsg)
             }
         })
 

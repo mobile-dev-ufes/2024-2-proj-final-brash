@@ -11,6 +11,7 @@ import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.HomeAC
 //import com.example.brash.databinding.ActivityLoginBinding
 import com.example.brash.databinding.NucLoginAcBinding
 import com.example.brash.nucleo.ui.viewModel.LoginVM
+import com.example.brash.nucleo.utils.UtilsFoos
 
 class LoginAC : AppCompatActivity(), View.OnClickListener {
 
@@ -32,6 +33,9 @@ class LoginAC : AppCompatActivity(), View.OnClickListener {
         binding.LoginAcTextViewEsqueceuSenha.setOnClickListener(this)
         binding.LoginAcButtonEntrar.setOnClickListener(this)
         binding.LoginAcButtonCriar.setOnClickListener(this)
+        binding.LoginAcTextViewIdioma.setOnClickListener(this)
+        binding.LoginAcRadioButtonIdiomaPt.setOnClickListener(this)
+        binding.LoginAcRadioButtonIdiomaEn.setOnClickListener(this)
     }
 
     private fun setObservers(){
@@ -61,8 +65,53 @@ class LoginAC : AppCompatActivity(), View.OnClickListener {
             R.id.LoginAcButtonCriar ->{
                 intentToCadastrarContaAC()
             }
+
+            R.id.LoginAcTextViewIdioma -> {
+
+                attRadioGroup()
+
+                if(binding.LoginAcRadioGroupIdioma.visibility == View.GONE){
+                    binding.LoginAcRadioGroupIdioma.alpha = 0f
+                    binding.LoginAcRadioGroupIdioma.visibility = View.VISIBLE
+                    binding.LoginAcRadioGroupIdioma.animate().alpha(1f).setDuration(300).start()
+                }else{
+                    binding.LoginAcRadioGroupIdioma.animate().alpha(0f).setDuration(300).withEndAction {
+                        binding.LoginAcRadioGroupIdioma.visibility = View.GONE
+                    }.start()
+                }
+            }
+
+            R.id.LoginAcRadioButtonIdiomaPt -> {
+                UtilsFoos.changeLanguage(this, "pt")
+                restartToLoginAc()
+            }
+
+            R.id.LoginAcRadioButtonIdiomaEn -> {
+                UtilsFoos.changeLanguage(this, "en")
+                restartToLoginAc()
+            }
         }
 
+    }
+
+    private fun restartToLoginAc() {
+        val intent = Intent(this, LoginAC::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        startActivity(intent)
+        finish()
+    }
+
+    private fun attRadioGroup(){
+        when (UtilsFoos.getLocaleLanguage(this)) {
+            "pt" -> {
+                binding.LoginAcRadioButtonIdiomaEn.isChecked = false
+                binding.LoginAcRadioButtonIdiomaPt.isChecked = true
+            }
+            "en" -> {
+                binding.LoginAcRadioButtonIdiomaPt.isChecked = false
+                binding.LoginAcRadioButtonIdiomaEn.isChecked = true
+            }
+        }
     }
 
     override fun onStop() {

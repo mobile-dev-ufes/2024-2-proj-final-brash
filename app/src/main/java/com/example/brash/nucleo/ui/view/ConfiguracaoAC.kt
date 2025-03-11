@@ -29,10 +29,7 @@ class ConfiguracaoAC : AppCompatActivity(), View.OnClickListener {
         binding = NucConfiguracaoAcBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        initRadioGroup()
-
         setOnClickListeners()
-        setOnCheckedChangeListeners()
         setObservers()
 
 
@@ -42,34 +39,12 @@ class ConfiguracaoAC : AppCompatActivity(), View.OnClickListener {
         binding.ConfiguracaoAcTextViewTrocarEmail.setOnClickListener(this)
         binding.ConfiguracaoAcTextViewSairDaConta.setOnClickListener(this)
         binding.ConfiguracaoAcImageViewConfiguracoes.setOnClickListener(this)
-
+        binding.ConfiguracaoAcTextViewIdioma.setOnClickListener(this)
+        binding.ConfiguracaoAcRadioButtonIdiomaPt.setOnClickListener(this)
+        binding.ConfiguracaoAcRadioButtonIdiomaEn.setOnClickListener(this)
 
     }
-    private fun setOnCheckedChangeListeners(){
-        binding.ConfiguracaoAcRadioGroupIdioma.setOnCheckedChangeListener{ _, checkedId ->
-            when (checkedId) {
-                R.id.ConfiguracaoAcRadioButtonIdiomaPt -> {
-                    if(binding.ConfiguracaoAcRadioButtonIdiomaPt.isChecked){
-                        configuracaoVM.trocarIdioma("pt", {
-                            Toast.makeText(this, "Português selecionado", Toast.LENGTH_SHORT).show()
-                            restartToHome()
-                        })
 
-                    }
-
-                }
-                R.id.ConfiguracaoAcRadioButtonIdiomaEn -> {
-                    if(binding.ConfiguracaoAcRadioButtonIdiomaEn.isChecked){
-                        configuracaoVM.trocarIdioma("en", {
-                            Toast.makeText(this, "Inglês selecionado", Toast.LENGTH_SHORT).show()
-                            restartToHome()
-                        })
-
-                    }
-                }
-            }
-        }
-    }
 
     private fun setObservers(){
 
@@ -93,8 +68,47 @@ class ConfiguracaoAC : AppCompatActivity(), View.OnClickListener {
             R.id.ConfiguracaoAcImageViewConfiguracoes ->{
                 finish()
             }
+
+            R.id.ConfiguracaoAcTextViewIdioma -> {
+
+                attRadioGroup()
+
+                if(binding.ConfiguracaoAcRadioGroupIdioma.visibility == View.GONE){
+                    binding.ConfiguracaoAcRadioGroupIdioma.alpha = 0f
+                    binding.ConfiguracaoAcRadioGroupIdioma.visibility = View.VISIBLE
+                    binding.ConfiguracaoAcRadioGroupIdioma.animate().alpha(1f).setDuration(300).start()
+                }else{
+                    binding.ConfiguracaoAcRadioGroupIdioma.animate().alpha(0f).setDuration(300).withEndAction {
+                        binding.ConfiguracaoAcRadioGroupIdioma.visibility = View.GONE
+                    }.start()
+                }
+            }
+
+            R.id.ConfiguracaoAcRadioButtonIdiomaPt -> {
+                UtilsFoos.changeLanguage(this, "pt")
+                restartToHome()
+            }
+
+            R.id.ConfiguracaoAcRadioButtonIdiomaEn -> {
+                UtilsFoos.changeLanguage(this, "en")
+                restartToHome()
+            }
+
         }
 
+    }
+
+    private fun attRadioGroup(){
+        when (UtilsFoos.getLocaleLanguage(this)) {
+            "pt" -> {
+                binding.ConfiguracaoAcRadioButtonIdiomaEn.isChecked = false
+                binding.ConfiguracaoAcRadioButtonIdiomaPt.isChecked = true
+            }
+            "en" -> {
+                binding.ConfiguracaoAcRadioButtonIdiomaPt.isChecked = false
+                binding.ConfiguracaoAcRadioButtonIdiomaEn.isChecked = true
+            }
+        }
     }
 
     override fun onStop() {
@@ -125,11 +139,5 @@ class ConfiguracaoAC : AppCompatActivity(), View.OnClickListener {
         finish()
     }
 
-    private fun initRadioGroup(){
-        when (UtilsFoos.getSelectedLanguage(applicationContext)) {
-            "pt" -> binding.ConfiguracaoAcRadioButtonIdiomaPt.isChecked = true
-            "en" -> binding.ConfiguracaoAcRadioButtonIdiomaEn.isChecked = true
-        }
-    }
 
 }

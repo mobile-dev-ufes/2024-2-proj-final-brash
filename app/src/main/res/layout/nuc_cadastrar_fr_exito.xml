@@ -46,7 +46,7 @@
 
             android:layout_marginTop="24dp"
 
-            android:text="Sua conta foi criada com sucesso, um email foi enviado para confirmação em seu email."
+            android:text="@string/nuc_msg_confirmacao_criacao_conta_default"
             android:gravity="center"
 
             android:textColor="@color/white"
@@ -60,7 +60,7 @@
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Fazer Login"
+            android:text="@string/nuc_fazer_login"
 
             android:layout_marginTop="24dp"
 

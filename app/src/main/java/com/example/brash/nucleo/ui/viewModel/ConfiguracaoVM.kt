@@ -21,7 +21,6 @@ class ConfiguracaoVM(application: Application) : AndroidViewModel(application) {
     fun trocarIdioma(languageCode: String, onSucess: () -> Unit){
 
         //TODO::CONSERTAR AQUI
-
         onSucess()
 
     }

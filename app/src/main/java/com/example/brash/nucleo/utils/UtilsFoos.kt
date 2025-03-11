@@ -1,7 +1,10 @@
 package com.example.brash.nucleo.utils
 
+import android.app.Activity
 import android.app.LocaleManager
 import android.content.Context
+import android.content.Intent
+import android.content.res.Configuration
 import android.os.Build
 import android.os.LocaleList
 import android.widget.Toast
@@ -28,7 +31,6 @@ class UtilsFoos {
                 .joinToString("")
         }
 
-
         fun getSelectedLanguage(context: Context): String {
             val currentLocale: Locale? = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 val locales = context.getSystemService(LocaleManager::class.java)?.applicationLocales
@@ -38,6 +40,34 @@ class UtilsFoos {
             }
 
             return currentLocale?.language ?: "pt" // Fallback para PT caso seja null
+        }
+
+        fun setLocale(context: Context, languageCode: String) {
+            val locale = Locale(languageCode)
+            Locale.setDefault(locale)
+
+            val config = Configuration()
+            config.setLocale(locale)
+
+            context.resources.updateConfiguration(config, context.resources.displayMetrics)
+        }
+
+        fun getLocaleLanguage(context : Context) : String{
+            val locale = context.resources.configuration.locales[0] // API 24+
+            val languageCode = locale.language // Exemplo: "en"
+            val countryCode = locale.country   // Exemplo: "US"
+            return languageCode
+        }
+
+        fun changeLanguage(activity : Activity, language : String){
+            UtilsFoos.setLocale(activity, language)
+        }
+
+        fun restartApp(activity: Activity) {
+            val intent = activity.packageManager.getLaunchIntentForPackage(activity.packageName)
+            intent?.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+            activity.finish()
+            activity.startActivity(intent)
         }
 
     }

@@ -22,7 +22,7 @@ class CadastrarFrExito : Fragment(R.layout.nuc_cadastrar_fr_exito) {
         super.onCreateView(inflater, container, savedInstanceState)
 
         _binding = NucCadastrarFrExitoBinding.inflate(inflater, container, false)
-        binding.CadastrarContaAcButtonFazerLogin.text = "teste de fragmento exito"
+        //binding.CadastrarContaAcButtonFazerLogin.text = "teste de fragmento exito"
 
         return binding.root
     }
@@ -32,7 +32,7 @@ class CadastrarFrExito : Fragment(R.layout.nuc_cadastrar_fr_exito) {
         super.onViewCreated(view, savedInstanceState)
 
 
-        setNewOnBackPressed()
+        setOnBackPressedToLoginAc()
         setObservers()
         setOnClickListeners()
     }
@@ -52,12 +52,12 @@ class CadastrarFrExito : Fragment(R.layout.nuc_cadastrar_fr_exito) {
     }
 
     private fun intentToLoginAc(){
-        val intent = Intent(requireActivity(), LoginAC::class.java)
-        startActivity(intent)
+        //val intent = Intent(requireActivity(), LoginAC::class.java)
+        //startActivity(intent)
         requireActivity().finish()
     }
 
-    private fun setNewOnBackPressed(){
+    private fun setOnBackPressedToLoginAc(){
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
