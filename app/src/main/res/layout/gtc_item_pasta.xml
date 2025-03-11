@@ -3,24 +3,41 @@
     android:id="@+id/ItemPastaLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:padding="16dp"
     android:gravity="center_vertical">
 
-    <TextView
-        android:id="@+id/ItemPastaTextViewNome"
-        android:layout_width="0dp"
+    <LinearLayout
+        android:id="@+id/ItemPastaLayoutPasta"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="Categoria"
-        android:textSize="18sp"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:textStyle="bold" />
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/ItemPastaTextViewNome"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Categoria"
+            android:textSize="18sp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textStyle="bold" />
 
-    <ImageView
-        android:id="@+id/ItemPastaExpandIcon"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:src="@android:drawable/arrow_down_float" />
+        <ImageView
+            android:id="@+id/ItemPastaExpandIcon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@android:drawable/arrow_down_float" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/ItemPastaContainerBaralhos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:visibility="gone"/>
+
 </LinearLayout>

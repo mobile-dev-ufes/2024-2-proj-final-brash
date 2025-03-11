@@ -103,7 +103,6 @@
         app:layout_constraintEnd_toEndOf="@+id/ListarBaralhoPublicoAcImageViewOpcoesDeBusca"
         app:layout_constraintTop_toBottomOf="@+id/ListarBaralhoPublicoAcLayoutInputDePesquisa"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:background="@drawable/borda_linear_layout"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="20dp"
         />
