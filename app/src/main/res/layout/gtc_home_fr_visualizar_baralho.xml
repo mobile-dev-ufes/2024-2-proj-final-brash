@@ -26,10 +26,10 @@
 
 
     <Button
-        android:id="@+id/HomeFrVisualizarBaralhoMoverBaralhoButtonPasta"
+        android:id="@+id/HomeFrVisualizarBaralhoButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/importar"
+        android:text="Ação em visualizar baralho"
         android:textSize="16sp"
         android:padding="10dp"
         android:textColor="@color/white"

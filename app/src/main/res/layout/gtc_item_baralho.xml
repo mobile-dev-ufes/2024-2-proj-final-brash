@@ -4,14 +4,23 @@
     android:id="@+id/ItemBaralhoLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:paddingStart="40dp"
-    android:padding="16dp">
+    android:paddingTop="16dp"
+    android:paddingEnd="16dp"
+    android:paddingBottom="8dp">
 
     <TextView
         android:id="@+id/ItemBaralhoTextViewNome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Produto"
-        android:textSize="16sp"/>
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textSize="16sp"
+        android:layout_marginBottom="8dp"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/medium_gray"/>
 </LinearLayout>

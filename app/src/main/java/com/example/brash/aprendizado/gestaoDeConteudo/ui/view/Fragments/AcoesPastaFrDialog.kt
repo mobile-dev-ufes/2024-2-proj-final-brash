@@ -5,10 +5,11 @@ import android.app.Dialog
 import android.os.Bundle
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
+import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Pasta
 import com.example.brash.databinding.GtcHomeFrAcoesAdicionaisBinding
 import com.example.brash.databinding.GtcHomeFrAcoesPastaBinding
 
-class AcoesPastaFrDialog : DialogFragment() {
+class AcoesPastaFrDialog(val pasta: Pasta) : DialogFragment() {
 
     private var _binding: GtcHomeFrAcoesPastaBinding? = null
     private val binding get() = _binding!!
@@ -33,11 +34,13 @@ class AcoesPastaFrDialog : DialogFragment() {
 
         binding.HomeFrAcoesPastaTextViewRenomearPasta.setOnClickListener {
             dismiss()
-            Toast.makeText(requireContext(), "Renomera Pasta", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Renomear Pasta", Toast.LENGTH_SHORT).show()
+            RenomearPastaFrDialog(pasta).show(parentFragmentManager, "AcoesAdicionaisDialog")
         }
         binding.HomeFrAcoesPastaTextViewExcluirPasta.setOnClickListener {
             dismiss()
             Toast.makeText(requireContext(), "Excluir Pasta", Toast.LENGTH_SHORT).show()
+            CriarPastaFrDialog().show(parentFragmentManager, "AcoesAdicionaisDialog")
         }
 
     }

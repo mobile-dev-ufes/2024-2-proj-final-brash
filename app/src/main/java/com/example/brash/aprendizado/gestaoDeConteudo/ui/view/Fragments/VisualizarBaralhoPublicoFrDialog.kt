@@ -22,7 +22,7 @@ class VisualizarBaralhoPublicoFrDialog(val baralho: Baralho) : DialogFragment() 
         _binding = GtcListarBaralhoPublicoFrVisualizarBaralhoBinding.inflate(layoutInflater)
         builder.setView(binding.root)
 
-        binding.ListarBaralhoPublicoFrTextViewNomeBaralho.text = baralho.nome
+        binding.ListarBaralhoPublicoFrVisualizarBaralhoTextViewNomeBaralho.text = baralho.nome
         setOnClickListeners()
         setObservers()
         return builder.create()

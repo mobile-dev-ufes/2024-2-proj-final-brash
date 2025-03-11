@@ -10,7 +10,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.brash.R
+import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Baralho
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.HomeAcListItem
+import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Pasta
 import com.example.brash.databinding.GtcHomeAcBinding
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.viewModel.HomeVM
 import com.example.brash.nucleo.ui.view.ConfiguracaoAC
@@ -18,6 +20,8 @@ import com.example.brash.nucleo.ui.view.PerfilAC
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments.OpcoesDeBuscaFrDialog
 
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments.AcoesAdicionaisFrDialog
+import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments.AcoesBaralhoFrDialog
+import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments.AcoesPastaFrDialog
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.adapter.ExpandableListAdapter
 import com.example.brash.nucleo.ui.view.Fragments.AlertDialogFr
 
@@ -59,21 +63,31 @@ class HomeAC : AppCompatActivity(), View.OnClickListener, AlertDialogFr.OnConfir
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         val items = mutableListOf<HomeAcListItem>(
-            HomeAcListItem.HomeAcPastaItem(nome = "Roupas"),
-            HomeAcListItem.HomeAcPastaItem(nome = "Eletrônicos",
-                baralhos = mutableListOf(
-                    HomeAcListItem.HomeAcBaralhoItem(nome = "Celular"),
-                    HomeAcListItem.HomeAcBaralhoItem(nome = "Notebook"),
-                    HomeAcListItem.HomeAcBaralhoItem(nome = "Fone de ouvido")
-                )),
-            HomeAcListItem.HomeAcPastaItem(nome = "Alimentos")
+            HomeAcListItem.HomeAcPastaItem(pasta = Pasta(nome = "Roupas")),
+            HomeAcListItem.HomeAcPastaItem(isExpanded = true, pasta = Pasta(nome =  "Eletrônicos",
+                baralho =  mutableListOf(
+                    Baralho(nome = "Celular"),
+                    Baralho(nome = "Notebook"),
+                    Baralho(nome = "Fone de ouvido")
+                )
+            )),
+            HomeAcListItem.HomeAcPastaItem(pasta = Pasta(nome =  "Alimentos")),
+            HomeAcListItem.HomeAcPastaItem(pasta = Pasta(nome =  "Frutas")),
+            HomeAcListItem.HomeAcPastaItem(pasta = Pasta(nome =  "Verduras")),
+            HomeAcListItem.HomeAcPastaItem(pasta = Pasta(nome =  "abacaxi")),
+            HomeAcListItem.HomeAcPastaItem(pasta = Pasta(nome =  "4")),
+            HomeAcListItem.HomeAcPastaItem(pasta = Pasta(nome =  "5")),
+            HomeAcListItem.HomeAcPastaItem(pasta = Pasta(nome =  "6")),
+            HomeAcListItem.HomeAcBaralhoItem(Baralho(nome = "Fone de ouvido"))
         )
 
         adapter = ExpandableListAdapter(items,
-            onPastaItemClick = { product ->
-            Toast.makeText(this, "Clicou no pasta: ${product.nome}", Toast.LENGTH_SHORT).show()
-        }, onBaralhoItemClick = { product ->
-            Toast.makeText(this, "Clicou no baralho: ${product.nome}", Toast.LENGTH_SHORT).show()
+            onPastaItemLongClick = { item ->
+            Toast.makeText(this, "Clicou no pasta: ${item.pasta.nome}", Toast.LENGTH_SHORT).show()
+                AcoesPastaFrDialog(item.pasta).show(supportFragmentManager, "AcoesAdicionaisDialog")
+        }, onBaralhoItemClick = { item ->
+            Toast.makeText(this, "Clicou no baralho: ${item.baralho.nome}", Toast.LENGTH_SHORT).show()
+                AcoesBaralhoFrDialog(item.baralho).show(supportFragmentManager, "AcoesAdicionaisDialog")
         })
 
         recyclerView.adapter = adapter

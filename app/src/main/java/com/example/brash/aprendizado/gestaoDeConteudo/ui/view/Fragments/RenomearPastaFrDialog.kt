@@ -5,10 +5,11 @@ import android.app.Dialog
 import android.os.Bundle
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
+import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Pasta
 import com.example.brash.databinding.GtcHomeFrAcoesAdicionaisBinding
 import com.example.brash.databinding.GtcHomeFrRenomearPastaBinding
 
-class RenomearPastaFrDialog : DialogFragment() {
+class RenomearPastaFrDialog(pasta: Pasta) : DialogFragment() {
 
     private var _binding: GtcHomeFrRenomearPastaBinding? = null
     private val binding get() = _binding!!

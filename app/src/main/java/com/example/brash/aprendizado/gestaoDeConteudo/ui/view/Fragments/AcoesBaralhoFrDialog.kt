@@ -5,10 +5,13 @@ import android.app.Dialog
 import android.os.Bundle
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
+import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Baralho
 import com.example.brash.databinding.GtcHomeFrAcoesAdicionaisBinding
 import com.example.brash.databinding.GtcHomeFrAcoesBaralhoBinding
+import com.example.brash.nucleo.ui.view.Fragments.AlertDialogFr
+import com.example.brash.utilsGeral.UtilsGeral
 
-class AcoesBaralhoFrDialog : DialogFragment() {
+class AcoesBaralhoFrDialog(val baralho: Baralho) : DialogFragment() {
 
     private var _binding: GtcHomeFrAcoesBaralhoBinding? = null
     private val binding get() = _binding!!
@@ -34,6 +37,7 @@ class AcoesBaralhoFrDialog : DialogFragment() {
         binding.HomeFrAcoesBaralhoTextViewVisualizarBaralho.setOnClickListener {
             dismiss()
             Toast.makeText(requireContext(), "Visualizar Baralho", Toast.LENGTH_SHORT).show()
+            VisualizarBaralhoFrDialog(baralho).show(parentFragmentManager, "OpcaoDialog")
         }
         binding.HomeFrAcoesBaralhoTextViewVisualizarCartoes.setOnClickListener {
             dismiss()
@@ -54,10 +58,14 @@ class AcoesBaralhoFrDialog : DialogFragment() {
         binding.HomeFrAcoesBaralhoTextViewMoverBaralho.setOnClickListener {
             dismiss()
             Toast.makeText(requireContext(), "Mover Baralho", Toast.LENGTH_SHORT).show()
+            MoverBaralhoFrDialog(baralho).show(parentFragmentManager, "OpcaoDialog")
         }
         binding.HomeFrAcoesBaralhoTextViewExcluirBaralho.setOnClickListener {
             dismiss()
-            Toast.makeText(requireContext(), "Excluir Baralho", Toast.LENGTH_SHORT).show()
+            
+            UtilsGeral.showAlertDialog(requireContext(),"Deseja realmente excluir esse Baralho??",{
+                Toast.makeText(requireContext(), "Excluir Baralho", Toast.LENGTH_SHORT).show()
+            })
         }
 
     }

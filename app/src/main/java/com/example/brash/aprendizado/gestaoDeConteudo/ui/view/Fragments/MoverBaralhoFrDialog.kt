@@ -5,9 +5,10 @@ import android.app.Dialog
 import android.os.Bundle
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
+import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Baralho
 import com.example.brash.databinding.GtcHomeFrMoverBaralhoBinding
 
-class MoverBaralhoFrDialog : DialogFragment() {
+class MoverBaralhoFrDialog(baralho: Baralho) : DialogFragment() {
 
     private var _binding: GtcHomeFrMoverBaralhoBinding? = null
     private val binding get() = _binding!!

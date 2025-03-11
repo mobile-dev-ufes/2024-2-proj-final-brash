@@ -25,7 +25,7 @@
         android:id="@+id/HomeFrAcoesPastaTextViewExcluirPasta"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Excluir Pasta"
+        android:text="Criar Pasta"
         android:textSize="14sp"
         android:textColor="@color/white"
         android:padding="20dp"
