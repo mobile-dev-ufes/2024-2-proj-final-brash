@@ -38,7 +38,7 @@ class EditarPerfilAC : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(view : View) {
         when(view.id){
-            R.id.PerfilAcImageViewRetornar -> {
+            R.id.EditarPerfilAcImageViewRetornar -> {
                 finish()
             }
         }
