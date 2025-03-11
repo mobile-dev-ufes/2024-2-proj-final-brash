@@ -8,7 +8,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.brash.R
+import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.HomeAcListItem
 import com.example.brash.databinding.GtcHomeAcBinding
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.viewModel.HomeVM
 import com.example.brash.nucleo.ui.view.ConfiguracaoAC
@@ -16,12 +18,16 @@ import com.example.brash.nucleo.ui.view.PerfilAC
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments.OpcoesDeBuscaFrDialog
 
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments.AcoesAdicionaisFrDialog
+import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.adapter.ExpandableListAdapter
 import com.example.brash.nucleo.ui.view.Fragments.AlertDialogFr
 
 class HomeAC : AppCompatActivity(), View.OnClickListener, AlertDialogFr.OnConfirmListener {
 
     private lateinit var binding: GtcHomeAcBinding
     private lateinit var homeVM: HomeVM
+
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var adapter: ExpandableListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,8 +36,7 @@ class HomeAC : AppCompatActivity(), View.OnClickListener, AlertDialogFr.OnConfir
         setContentView(binding.root)
         homeVM = ViewModelProvider(this).get(HomeVM::class.java)
 
-        binding.HomeAcRecyclerViewResultadoBusca.layoutManager = LinearLayoutManager(this)
-
+        initResultadoBusca()
         setOnClickListeners()
         setObservers()
     }
@@ -49,6 +54,30 @@ class HomeAC : AppCompatActivity(), View.OnClickListener, AlertDialogFr.OnConfir
         //})
     }
 
+    private fun initResultadoBusca(){
+        recyclerView = findViewById(R.id.HomeAcExpandableListViewResultadoBusca)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+
+        val items = mutableListOf<HomeAcListItem>(
+            HomeAcListItem.PastaItem(nome = "Roupas"),
+            HomeAcListItem.PastaItem(nome = "Eletrônicos",
+                baralhos = mutableListOf(
+                    HomeAcListItem.BaralhoItem(nome = "Celular"),
+                    HomeAcListItem.BaralhoItem(nome = "Notebook"),
+                    HomeAcListItem.BaralhoItem(nome = "Fone de ouvido")
+                )),
+            HomeAcListItem.PastaItem(nome = "Alimentos")
+        )
+
+        adapter = ExpandableListAdapter(items,
+            onPastaItemClick = { product ->
+            Toast.makeText(this, "Clicou no pasta: ${product.nome}", Toast.LENGTH_SHORT).show()
+        }, onBaralhoItemClick = { product ->
+            Toast.makeText(this, "Clicou no baralho: ${product.nome}", Toast.LENGTH_SHORT).show()
+        })
+
+        recyclerView.adapter = adapter
+    }
     private fun intentToCadastrarContaActivity(){
         //val intent = Intent(this, CadastrarContaAC::class.java)
         //startActivity(intent)

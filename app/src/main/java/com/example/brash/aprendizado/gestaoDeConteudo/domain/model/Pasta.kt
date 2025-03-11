@@ -3,10 +3,10 @@ package com.example.brash.aprendizado.gestaoDeConteudo.domain.model
 import com.example.brash.nucleo.domain.model.Usuario
 
 data class Pasta (
-    val idPasta: Long,
-    val nome: String,
-    val usuario: Usuario,
-    val baralho: MutableList<Baralho>
+    val idPasta: Long = 0,
+    val nome: String = "",
+    val usuario: Usuario? = null ,
+    val baralho: MutableList<Baralho> = mutableListOf()
 )
 
 /*
