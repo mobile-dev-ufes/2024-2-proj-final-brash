@@ -50,29 +50,20 @@
         android:focusable="true"/>
 
 
-
-    <FrameLayout
-        android:id="@+id/HomeFrLayoutRecycleView"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/HomeFrMoverBaralhoRecycleViewListaPastas"
         android:layout_width="match_parent"
-        android:layout_height="400dp">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/HomeFrMoverBaralhoRecycleViewListaPastas"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp" />
-
-    </FrameLayout>
+        android:layout_height="wrap_content"
+        android:maxHeight="400dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp" />
 
     <Button
         android:id="@+id/HomeFrMoverBaralhoButtonPasta"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:text="@string/mover"
         android:textSize="16sp"
-        android:maxWidth="180dp"
         android:padding="10dp"
         android:textColor="@color/white"
         android:backgroundTint="@color/medium_gray"

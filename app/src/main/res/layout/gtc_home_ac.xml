@@ -17,22 +17,25 @@
         app:layout_constraintTop_toTopOf="parent"
         android:padding="20dp">
 
-
-
-        <include
-            android:id="@+id/HomeAcIncludeIconePerfil"
-            layout="@layout/layout_icone_perfil"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+        <LinearLayout
+            android:id="@+id/HomeAcLayoutIconePerfil"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="@+id/HomeAcHeader"
             app:layout_constraintTop_toTopOf="@+id/HomeAcHeader"
-            app:layout_constraintBottom_toBottomOf="@+id/HomeAcHeader"
-            android:clickable="true"
-            android:focusable="true"
-            />
+            app:layout_constraintBottom_toBottomOf="@+id/HomeAcHeader">
+            <include
+                android:id="@+id/HomeAcIncludeIconePerfil"
+                layout="@layout/layout_icone_perfil"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
 
 
-
+                android:clickable="true"
+                android:focusable="true"
+                />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/HomeAcTextViewPerfil"
@@ -41,7 +44,7 @@
             android:text="@string/gtc_perfil"
             android:textColor="@color/lavender_purple"
             android:textSize="16sp"
-            app:layout_constraintStart_toEndOf="@id/HomeAcIncludeIconePerfil"
+            app:layout_constraintStart_toEndOf="@id/HomeAcLayoutIconePerfil"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginStart="10dp"
             />
@@ -58,7 +61,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
-
         <ImageView
             android:id="@+id/HomeAcImageViewConfiguracoes"
             android:layout_width="40dp"
@@ -72,13 +74,9 @@
             android:clickable="true"
             android:focusable="true"
             />
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-
-
         android:id="@+id/HomeAcLayoutInputDePesquisa"
 
         android:layout_width="0dp"
@@ -128,30 +126,17 @@
         android:focusable="true"
         />
 
-    <!-- RecyclerView para exibir a lista -->
-    <FrameLayout
-        android:id="@+id/HomeAcLayoutRecycleView"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/HomeAcRecyclerViewResultadoBusca"
         android:layout_width="0dp"
         android:layout_height="0dp"
-
         app:layout_constraintStart_toStartOf="@+id/HomeAcLayoutInputDePesquisa"
         app:layout_constraintEnd_toEndOf="@+id/HomeAcImageViewOpcoesDeBusca"
         app:layout_constraintTop_toBottomOf="@+id/HomeAcLayoutInputDePesquisa"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="20dp"
-        >
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/HomeAcRecyclerViewResultadoBusca"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-
-            />
-
-    </FrameLayout>
-
-
+        />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/HomeAcButtonAcoesAdicionais"
@@ -167,9 +152,5 @@
 
         android:visibility="visible"
         />
-
-
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

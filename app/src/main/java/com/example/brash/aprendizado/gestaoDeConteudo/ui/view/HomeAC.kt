@@ -12,6 +12,7 @@ import com.example.brash.R
 import com.example.brash.databinding.GtcHomeAcBinding
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.viewModel.HomeVM
 import com.example.brash.nucleo.ui.view.ConfiguracaoAC
+import com.example.brash.nucleo.ui.view.PerfilAC
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments.OpcoesDeBuscaFrDialog
 
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments.AcoesAdicionaisFrDialog
@@ -38,6 +39,7 @@ class HomeAC : AppCompatActivity(), View.OnClickListener, AlertDialogFr.OnConfir
         binding.HomeAcButtonAcoesAdicionais.setOnClickListener(this)
         binding.HomeAcImageViewOpcoesDeBusca.setOnClickListener(this)
         binding.HomeAcImageViewConfiguracoes.setOnClickListener(this)
+        binding.HomeAcLayoutIconePerfil.setOnClickListener(this)
     }
 
     private fun setObservers(){
@@ -70,10 +72,9 @@ class HomeAC : AppCompatActivity(), View.OnClickListener, AlertDialogFr.OnConfir
                 Toast.makeText(applicationContext, "Você clicou em Configuracoes", Toast.LENGTH_SHORT).show()
                 intentToConfiguracaoActivity()
             }
-            R.id.HomeAcIncludeIconePerfil -> {
+            R.id.HomeAcLayoutIconePerfil -> {
                 //Toast.makeText(applicationContext, "Você clicou em MoreActions", Toast.LENGTH_SHORT).show()
-                //intentToCadastrarContaActivity()
-                //intentToConfiguracaoActivity()
+                intentToPerfilActivity()
             }
         }
     }
@@ -90,9 +91,8 @@ class HomeAC : AppCompatActivity(), View.OnClickListener, AlertDialogFr.OnConfir
         // vai ter que botar finish
     }
     private fun intentToPerfilActivity(){
-        //val intent = Intent(this, PerfilAC::class.java)
-        //startActivity(intent)
-        // vai ter que botar finish
+        val intent = Intent(this, PerfilAC::class.java)
+        startActivity(intent)
     }
 
     // Implementação da interface
