@@ -53,7 +53,7 @@ class ListarBaralhoPublicoAC : AppCompatActivity(), View.OnClickListener, AlertD
         // Simulação de dados para a lista
         val baralhoList = listOf(
             Baralho(idBaralho = 1, nome = "Baralho 1"),
-            Baralho(idBaralho = 2, nome = "Baralho 2"),
+            Baralho(idBaralho = 2, nome = "Deck 2"),
             Baralho(idBaralho = 3, nome = "Baralho 3")
         )
         adapter.updateBaralhoList(baralhoList)
@@ -62,7 +62,6 @@ class ListarBaralhoPublicoAC : AppCompatActivity(), View.OnClickListener, AlertD
     private fun setOnClickListeners(){
         binding.ListarBaralhoPublicoAcImageViewRetornar.setOnClickListener(this)
         binding.ListarBaralhoPublicoAcImageViewOpcoesDeBusca.setOnClickListener(this)
-
 
     }
 
