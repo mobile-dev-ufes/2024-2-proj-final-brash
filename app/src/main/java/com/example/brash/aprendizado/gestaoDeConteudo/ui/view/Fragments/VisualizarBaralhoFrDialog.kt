@@ -34,7 +34,6 @@ class VisualizarBaralhoFrDialog(val baralho: Baralho) : DialogFragment() {
 
     private fun setOnClickListeners(){
 
-
     }
 
     override fun onDestroyView() {
