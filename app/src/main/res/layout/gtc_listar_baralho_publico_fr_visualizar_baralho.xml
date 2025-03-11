@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ListarBaralhoPublicoFrVisualizarBaralho"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/borda_linear_layout"
+    android:padding="16dp">
+
+
+    <TextView
+        android:id="@+id/ListarBaralhoPublicoFrTextViewNomeBaralho"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:maxWidth="180dp"
+        android:padding="20dp"
+
+        android:textColor="@color/white"
+
+        android:clickable="true"
+        android:focusable="true"/>
+
+
+
+
+    <Button
+        android:id="@+id/HomeFrMoverBaralhoButtonPasta"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/importar"
+        android:textSize="16sp"
+        android:padding="10dp"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/medium_gray"
+        android:clickable="true"
+        android:focusable="true"
+        app:cornerRadius="8dp"
+    />
+
+</LinearLayout>

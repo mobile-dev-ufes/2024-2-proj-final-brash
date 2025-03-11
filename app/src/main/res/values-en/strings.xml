@@ -84,6 +84,8 @@
     <string name="nuc_verificar_codigo">Verify Code</string>
     <string name="pastas">Folders</string>
     <string name="mover">Move</string>
+    <string name="baralhos">Decks</string>
+    <string name="importar">Import</string>
 
 
 </resources>

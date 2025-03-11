@@ -38,7 +38,7 @@ class ConfiguracaoAC : AppCompatActivity(), View.OnClickListener {
         binding.ConfiguracaoAcTextViewTrocarSenha.setOnClickListener(this)
         binding.ConfiguracaoAcTextViewTrocarEmail.setOnClickListener(this)
         binding.ConfiguracaoAcTextViewSairDaConta.setOnClickListener(this)
-        binding.ConfiguracaoAcImageViewConfiguracoes.setOnClickListener(this)
+        binding.ConfiguracaoAcImageViewRetornar.setOnClickListener(this)
         binding.ConfiguracaoAcTextViewIdioma.setOnClickListener(this)
         binding.ConfiguracaoAcRadioButtonIdiomaPt.setOnClickListener(this)
         binding.ConfiguracaoAcRadioButtonIdiomaEn.setOnClickListener(this)
@@ -65,7 +65,7 @@ class ConfiguracaoAC : AppCompatActivity(), View.OnClickListener {
                 configuracaoVM.signOut()
                 intentToLoginActivity()
             }
-            R.id.ConfiguracaoAcImageViewConfiguracoes ->{
+            R.id.ConfiguracaoAcImageViewRetornar ->{
                 finish()
             }
 

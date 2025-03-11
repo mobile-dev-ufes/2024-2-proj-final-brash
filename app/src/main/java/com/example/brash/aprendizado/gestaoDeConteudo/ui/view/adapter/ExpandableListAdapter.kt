@@ -11,8 +11,8 @@ import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.HomeAcListIte
 
 class ExpandableListAdapter(
     private val items: MutableList<HomeAcListItem>,
-    private val onPastaItemClick: (HomeAcListItem.PastaItem) -> Unit,
-    private val onBaralhoItemClick: (HomeAcListItem.BaralhoItem) -> Unit// 🔹 Adicionando listener
+    private val onPastaItemClick: (HomeAcListItem.HomeAcPastaItem) -> Unit,
+    private val onBaralhoItemClick: (HomeAcListItem.HomeAcBaralhoItem) -> Unit// 🔹 Adicionando listener
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
@@ -22,8 +22,8 @@ class ExpandableListAdapter(
 
     override fun getItemViewType(position: Int): Int {
         return when (items[position]) {
-            is HomeAcListItem.PastaItem -> TYPE_CATEGORY
-            is HomeAcListItem.BaralhoItem -> TYPE_PRODUCT
+            is HomeAcListItem.HomeAcPastaItem -> TYPE_CATEGORY
+            is HomeAcListItem.HomeAcBaralhoItem -> TYPE_PRODUCT
         }
     }
 
@@ -45,8 +45,8 @@ class ExpandableListAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (val item = items[position]) {
-            is HomeAcListItem.PastaItem -> (holder as HomeAcPastaItemVH).bind(item, position)
-            is HomeAcListItem.BaralhoItem -> (holder as HomeAcBaralhoItemVH).bind(item)
+            is HomeAcListItem.HomeAcPastaItem -> (holder as HomeAcPastaItemVH).bind(item, position)
+            is HomeAcListItem.HomeAcBaralhoItem -> (holder as HomeAcBaralhoItemVH).bind(item)
         }
     }
 
@@ -56,7 +56,7 @@ class ExpandableListAdapter(
         private val tvCategoryName: TextView = view.findViewById(R.id.ItemPastaTextViewNome)
         private val ivExpandIcon: ImageView = view.findViewById(R.id.ItemPastaExpandIcon)
 
-        fun bind(category: HomeAcListItem.PastaItem, position: Int) {
+        fun bind(category: HomeAcListItem.HomeAcPastaItem, position: Int) {
             tvCategoryName.text = category.nome
             ivExpandIcon.rotation = if (category.isExpanded) 180f else 0f
 
@@ -67,7 +67,7 @@ class ExpandableListAdapter(
             }
         }
 
-        private fun toggleProducts(category: HomeAcListItem.PastaItem, position: Int) {
+        private fun toggleProducts(category: HomeAcListItem.HomeAcPastaItem, position: Int) {
             if (category.isExpanded) {
                 items.addAll(position + 1, category.baralhos)
             } else {
@@ -80,7 +80,7 @@ class ExpandableListAdapter(
     inner class HomeAcBaralhoItemVH(view: View) : RecyclerView.ViewHolder(view) {
         private val textViewB: TextView = view.findViewById(R.id.ItemBaralhoTextViewNome)
 
-        fun bind(baralhoItem: HomeAcListItem.BaralhoItem) {
+        fun bind(baralhoItem: HomeAcListItem.HomeAcBaralhoItem) {
             textViewB.text = baralhoItem.nome
             textViewB.setPadding(50, textViewB.paddingTop, textViewB.paddingRight, textViewB.paddingBottom) // Indenta
 

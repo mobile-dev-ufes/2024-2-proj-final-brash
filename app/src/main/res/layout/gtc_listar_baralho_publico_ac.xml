@@ -7,17 +7,104 @@
     android:layout_height="match_parent"
     android:background="@color/deep_black">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+
+    <ImageView
+        android:id="@+id/ListarBaralhoPublicoAcImageViewRetornar"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_margin="15dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/keyboard_return_24dp"
+        app:tint="@color/lavender_purple"
+
+        android:clickable="true"
+        android:focusable="true"
+        />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/ListarBaralhoPublicoAcLayoutHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:padding="20dp">
+
+        <TextView
+            android:id="@+id/ListarBaralhoPublicoAcTextViewTitulo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/baralhos"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/ListarBaralhoPublicoAcLayoutInputDePesquisa"
+
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        android:hint="@string/search_bar_hint"
+        android:textColorHint="@color/white"
+        android:textSize="30sp"
+        app:endIconMode="clear_text"
+
+        app:layout_constraintStart_toStartOf="@id/ListarBaralhoPublicoAcLayoutHeader"
+        app:layout_constraintEnd_toStartOf="@+id/ListarBaralhoPublicoAcImageViewOpcoesDeBusca"
+        app:layout_constraintTop_toBottomOf="@id/ListarBaralhoPublicoAcLayoutHeader"
+
+        app:boxStrokeWidth="1dp"
+        app:boxBackgroundColor="@color/charcoal_gray"
+        android:layout_marginStart="20dp"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/ListarBaralhoPublicoAcInputDePesquisa"
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textColor="@color/white"
+            android:inputType="text"
+
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <ImageView
+        android:id="@+id/ListarBaralhoPublicoAcImageViewOpcoesDeBusca"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintStart_toEndOf="@+id/ListarBaralhoPublicoAcLayoutInputDePesquisa"
+        app:layout_constraintEnd_toEndOf="@+id/ListarBaralhoPublicoAcLayoutHeader"
+        app:layout_constraintTop_toTopOf="@+id/ListarBaralhoPublicoAcLayoutInputDePesquisa"
+        app:layout_constraintBottom_toBottomOf="@+id/ListarBaralhoPublicoAcLayoutInputDePesquisa"
+        android:src="@drawable/tune_24dp"
+        app:tint="@color/white"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="20dp"
+
+        android:clickable="true"
+        android:focusable="true"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/ListarBaralhoPublicoAcRecycleViewResultadoBusca"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="@+id/ListarBaralhoPublicoAcLayoutInputDePesquisa"
+        app:layout_constraintEnd_toEndOf="@+id/ListarBaralhoPublicoAcImageViewOpcoesDeBusca"
+        app:layout_constraintTop_toBottomOf="@+id/ListarBaralhoPublicoAcLayoutInputDePesquisa"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:text="listar_baralho_publico"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="50sp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
         />
 
 

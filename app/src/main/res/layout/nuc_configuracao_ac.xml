@@ -8,9 +8,9 @@
     android:background="@color/deep_black">
 
     <ImageView
-        android:id="@+id/ConfiguracaoAcImageViewConfiguracoes"
+        android:id="@+id/ConfiguracaoAcImageViewRetornar"
         android:layout_width="60dp"
-        android:layout_height="50dp"
+        android:layout_height="60dp"
         android:layout_margin="15dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

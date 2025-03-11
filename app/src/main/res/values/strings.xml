@@ -82,7 +82,8 @@
     <string name="nuc_verificar_codigo">Verificar Código</string>
     <string name="pastas">Pastas</string>
     <string name="mover">Mover</string>
-
+    <string name="baralhos">Baralhos</string>
+    <string name="importar">Importar</string>
 
 
 </resources>

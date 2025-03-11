@@ -59,14 +59,14 @@ class HomeAC : AppCompatActivity(), View.OnClickListener, AlertDialogFr.OnConfir
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         val items = mutableListOf<HomeAcListItem>(
-            HomeAcListItem.PastaItem(nome = "Roupas"),
-            HomeAcListItem.PastaItem(nome = "Eletrônicos",
+            HomeAcListItem.HomeAcPastaItem(nome = "Roupas"),
+            HomeAcListItem.HomeAcPastaItem(nome = "Eletrônicos",
                 baralhos = mutableListOf(
-                    HomeAcListItem.BaralhoItem(nome = "Celular"),
-                    HomeAcListItem.BaralhoItem(nome = "Notebook"),
-                    HomeAcListItem.BaralhoItem(nome = "Fone de ouvido")
+                    HomeAcListItem.HomeAcBaralhoItem(nome = "Celular"),
+                    HomeAcListItem.HomeAcBaralhoItem(nome = "Notebook"),
+                    HomeAcListItem.HomeAcBaralhoItem(nome = "Fone de ouvido")
                 )),
-            HomeAcListItem.PastaItem(nome = "Alimentos")
+            HomeAcListItem.HomeAcPastaItem(nome = "Alimentos")
         )
 
         adapter = ExpandableListAdapter(items,
@@ -89,8 +89,8 @@ class HomeAC : AppCompatActivity(), View.OnClickListener, AlertDialogFr.OnConfir
             R.id.HomeAcButtonAcoesAdicionais -> {
                 //Toast.makeText(applicationContext, "Você clicou em MoreActions", Toast.LENGTH_SHORT).show()
                 //intentToCadastrarContaActivity()
-                //AcoesAdicionaisFrDialog().show(supportFragmentManager, "AcoesAdicionaisDialog")
-                AlertDialogFr("Isso eh um teste").show(supportFragmentManager, "ExclusaoAlertDialog")
+                AcoesAdicionaisFrDialog().show(supportFragmentManager, "AcoesAdicionaisDialog")
+                //AlertDialogFr("Isso eh um teste").show(supportFragmentManager, "ExclusaoAlertDialog")
             }
             R.id.HomeAcImageViewOpcoesDeBusca -> {
                 //Toast.makeText(applicationContext, "Você clicou em MoreActions", Toast.LENGTH_SHORT).show()
