@@ -48,7 +48,7 @@ class HomeAC : AppCompatActivity(), View.OnClickListener, AlertDialogFr.OnConfir
         binding.HomeAcButtonAcoesAdicionais.setOnClickListener(this)
         binding.HomeAcImageViewOpcoesDeBusca.setOnClickListener(this)
         binding.HomeAcImageViewConfiguracoes.setOnClickListener(this)
-        binding.HomeAcLayoutIconePerfil.setOnClickListener(this)
+        binding.HomeAcShapeableImageViewIconePerfil.setOnClickListener(this)
     }
 
     private fun setObservers(){
@@ -115,7 +115,7 @@ class HomeAC : AppCompatActivity(), View.OnClickListener, AlertDialogFr.OnConfir
                 Toast.makeText(applicationContext, "Você clicou em Configuracoes", Toast.LENGTH_SHORT).show()
                 intentToConfiguracaoActivity()
             }
-            R.id.HomeAcLayoutIconePerfil -> {
+            R.id.HomeAcShapeableImageViewIconePerfil -> {
                 //Toast.makeText(applicationContext, "Você clicou em MoreActions", Toast.LENGTH_SHORT).show()
                 intentToPerfilActivity()
             }

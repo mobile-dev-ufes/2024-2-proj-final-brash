@@ -22,25 +22,27 @@
         />
 
 
-    <LinearLayout
-        android:id="@+id/EditarPerfilAcLayoutIconePerfil"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/EditarPerfilAcShapeableImageViewIconePerfil"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/EditarPerfilAcImageViewRetornar"
-        android:layout_marginTop="20dp">
-        <include
-            android:id="@+id/EditarPerfilAcIncludeIconePerfil"
-            layout="@layout/layout_icone_perfil"
-            android:layout_width="250dp"
-            android:layout_height="250dp"
+        android:layout_marginTop="20dp"
 
-            android:clickable="true"
-            android:focusable="true"
-            />
-    </LinearLayout>
+
+
+        android:src="@drawable/perfil_conta"
+
+
+        android:adjustViewBounds="true"
+        android:background="@color/deep_purple"
+        android:scaleType="fitCenter"
+        app:shapeAppearanceOverlay="@style/ImageViewCircularCorner125dp"
+        />
 
     <LinearLayout
         android:id="@+id/EditarPerfilAcLayoutCores"
@@ -51,63 +53,94 @@
         android:paddingTop="20dp"
         android:paddingStart="20dp"
         android:paddingEnd="20dp"
-        app:layout_constraintStart_toStartOf="@+id/EditarPerfilAcLayoutIconePerfil"
-        app:layout_constraintEnd_toStartOf="@+id/EditarPerfilAcLayoutIconePerfil"
-        app:layout_constraintTop_toTopOf="@+id/EditarPerfilAcLayoutIconePerfil"
-        app:layout_constraintBottom_toBottomOf="@+id/EditarPerfilAcLayoutIconePerfil"
+        app:layout_constraintStart_toStartOf="@+id/EditarPerfilAcShapeableImageViewIconePerfil"
+        app:layout_constraintEnd_toStartOf="@+id/EditarPerfilAcShapeableImageViewIconePerfil"
+        app:layout_constraintTop_toTopOf="@+id/EditarPerfilAcShapeableImageViewIconePerfil"
+        app:layout_constraintBottom_toBottomOf="@+id/EditarPerfilAcShapeableImageViewIconePerfil"
 
-        app:layout_constraintVertical_bias="0.25"
+        app:layout_constraintVertical_bias="0.2"
         >
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/EditarPerfilAcImageViewCor1"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/circle_background"
-            app:tint="@color/lavender_purple"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:tint="@color/deep_black"
+            android:background="@color/deep_purple"
+            android:src="@drawable/perfil_conta"
             android:layout_marginBottom="20dp"
             android:clickable="true"
             android:focusable="true"
+
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            app:shapeAppearanceOverlay="@style/ImageViewCircularCorner25dp"
+
             />
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/EditarPerfilAcImageViewCor2"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/circle_background"
-            app:tint="@color/soft_pink"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:tint="@color/deep_black"
+            android:background="@color/soft_pink"
+            android:src="@drawable/perfil_conta"
             android:layout_marginBottom="20dp"
             android:clickable="true"
             android:focusable="true"
+
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            app:shapeAppearanceOverlay="@style/ImageViewCircularCorner25dp"
+
             />
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/EditarPerfilAcImageViewCor3"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/circle_background"
-            app:tint="@color/white"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:tint="@color/deep_black"
+            android:background="@color/white"
+            android:src="@drawable/perfil_conta"
             android:layout_marginBottom="20dp"
             android:clickable="true"
             android:focusable="true"
+
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            app:shapeAppearanceOverlay="@style/ImageViewCircularCorner25dp"
+
             />
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/EditarPerfilAcImageViewCor4"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/circle_background"
-            app:tint="@color/hot_pink"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:tint="@color/deep_black"
+            android:background="@color/hot_pink"
+            android:src="@drawable/perfil_conta"
             android:layout_marginBottom="20dp"
             android:clickable="true"
             android:focusable="true"
+
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            app:shapeAppearanceOverlay="@style/ImageViewCircularCorner25dp"
+
             />
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/EditarPerfilAcImageViewCor5"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/circle_background"
-            app:tint="@color/leaf_green"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:tint="@color/deep_black"
+            android:background="@color/leaf_green"
+            android:src="@drawable/perfil_conta"
             android:layout_marginBottom="20dp"
             android:clickable="true"
             android:focusable="true"
+
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            app:shapeAppearanceOverlay="@style/ImageViewCircularCorner25dp"
+
             />
+
 
 
     </LinearLayout>
@@ -121,55 +154,72 @@
         android:paddingTop="20dp"
         android:paddingStart="20dp"
         android:paddingEnd="20dp"
-        app:layout_constraintStart_toEndOf="@+id/EditarPerfilAcLayoutIconePerfil"
-        app:layout_constraintEnd_toEndOf="@+id/EditarPerfilAcLayoutIconePerfil"
-        app:layout_constraintTop_toTopOf="@+id/EditarPerfilAcLayoutIconePerfil"
-        app:layout_constraintBottom_toBottomOf="@+id/EditarPerfilAcLayoutIconePerfil"
+        app:layout_constraintStart_toEndOf="@+id/EditarPerfilAcShapeableImageViewIconePerfil"
+        app:layout_constraintEnd_toEndOf="@+id/EditarPerfilAcShapeableImageViewIconePerfil"
+        app:layout_constraintTop_toTopOf="@+id/EditarPerfilAcLayoutCores"
 
         >
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/EditarPerfilAcImageViewIcone1"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:src="@drawable/perfil_conta"
             app:tint="@color/deep_black"
-            android:background="@color/lavender_purple"
+            android:background="@color/deep_purple"
             android:layout_marginBottom="20dp"
             android:clickable="true"
             android:focusable="true"
+
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            app:shapeAppearanceOverlay="@style/ImageViewCircularCorner25dp"
+
             />
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/EditarPerfilAcImageViewIcone2"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:src="@drawable/perfil_luz"
             app:tint="@color/deep_black"
-            android:background="@color/lavender_purple"
+            android:background="@color/deep_purple"
             android:layout_marginBottom="20dp"
             android:clickable="true"
             android:focusable="true"
+
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            app:shapeAppearanceOverlay="@style/ImageViewCircularCorner25dp"
             />
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/EditarPerfilAcImageViewIcone3"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:src="@drawable/perfil_carro"
             app:tint="@color/deep_black"
-            android:background="@color/lavender_purple"
+            android:background="@color/deep_purple"
             android:layout_marginBottom="20dp"
             android:clickable="true"
             android:focusable="true"
+
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            app:shapeAppearanceOverlay="@style/ImageViewCircularCorner25dp"
             />
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/EditarPerfilAcImageViewIcone4"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:src="@drawable/perfil_feliz"
             app:tint="@color/deep_black"
-            android:background="@color/lavender_purple"
+            android:background="@color/deep_purple"
             android:layout_marginBottom="20dp"
+
             android:clickable="true"
             android:focusable="true"
+
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            app:shapeAppearanceOverlay="@style/ImageViewCircularCorner25dp"
             />
 
 

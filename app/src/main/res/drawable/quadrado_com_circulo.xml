@@ -1,0 +1,19 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Quadrado -->
+    <item>
+        <shape>
+            <solid android:color="@color/deep_black"/> <!-- Cor do quadrado -->
+            <size
+                android:width="100dp"
+                android:height="100dp"/>
+        </shape>
+    </item>
+
+    <!-- Círculo dentro do quadrado -->
+    <item>
+        <shape>
+            <solid android:color="#00FF00"/> <!-- Cor do círculo -->
+            <corners android:radius="50dp"/> <!-- Raio do círculo é metade do lado do quadrado -->
+        </shape>
+    </item>
+</layer-list>

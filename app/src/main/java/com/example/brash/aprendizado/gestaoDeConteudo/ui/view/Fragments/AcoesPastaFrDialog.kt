@@ -8,6 +8,7 @@ import androidx.fragment.app.DialogFragment
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Pasta
 import com.example.brash.databinding.GtcHomeFrAcoesAdicionaisBinding
 import com.example.brash.databinding.GtcHomeFrAcoesPastaBinding
+import com.example.brash.utilsGeral.UtilsGeral
 
 class AcoesPastaFrDialog(val pasta: Pasta) : DialogFragment() {
 
@@ -35,12 +36,13 @@ class AcoesPastaFrDialog(val pasta: Pasta) : DialogFragment() {
         binding.HomeFrAcoesPastaTextViewRenomearPasta.setOnClickListener {
             dismiss()
             Toast.makeText(requireContext(), "Renomear Pasta", Toast.LENGTH_SHORT).show()
-            RenomearPastaFrDialog(pasta).show(parentFragmentManager, "AcoesAdicionaisDialog")
+            RenomearPastaFrDialog(pasta).show(parentFragmentManager, "RenomearPastaDialog")
         }
         binding.HomeFrAcoesPastaTextViewExcluirPasta.setOnClickListener {
             dismiss()
-            Toast.makeText(requireContext(), "Excluir Pasta", Toast.LENGTH_SHORT).show()
-            CriarPastaFrDialog().show(parentFragmentManager, "AcoesAdicionaisDialog")
+            UtilsGeral.showAlertDialog(requireContext(),"Deseja realmente excluir essa Pasta?? Essa ação irá excluir TODOS os baralhos da pasta",{
+                Toast.makeText(requireContext(), "Excluir Pasta", Toast.LENGTH_SHORT).show()
+            })
         }
 
     }

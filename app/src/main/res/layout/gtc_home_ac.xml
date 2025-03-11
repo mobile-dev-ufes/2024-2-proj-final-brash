@@ -17,25 +17,24 @@
         app:layout_constraintTop_toTopOf="parent"
         android:padding="20dp">
 
-        <LinearLayout
-            android:id="@+id/HomeAcLayoutIconePerfil"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/HomeAcShapeableImageViewIconePerfil"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+
+            android:adjustViewBounds="true"
+            android:background="@color/deep_purple"
+            android:scaleType="fitCenter"
+
+            android:src="@drawable/perfil_conta"
+            android:backgroundTint="@color/deep_purple"
+            app:layout_constraintBottom_toBottomOf="@+id/HomeAcHeader"
             app:layout_constraintStart_toStartOf="@+id/HomeAcHeader"
             app:layout_constraintTop_toTopOf="@+id/HomeAcHeader"
-            app:layout_constraintBottom_toBottomOf="@+id/HomeAcHeader">
-            <include
-                android:id="@+id/HomeAcIncludeIconePerfil"
-                layout="@layout/layout_icone_perfil"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
 
-
-                android:clickable="true"
-                android:focusable="true"
-                />
-        </LinearLayout>
+            app:shapeAppearanceOverlay="@style/ImageViewCircularCorner30dp"
+            />
 
         <TextView
             android:id="@+id/HomeAcTextViewPerfil"
@@ -44,7 +43,7 @@
             android:text="@string/gtc_perfil"
             android:textColor="@color/lavender_purple"
             android:textSize="16sp"
-            app:layout_constraintStart_toEndOf="@id/HomeAcLayoutIconePerfil"
+            app:layout_constraintStart_toEndOf="@id/HomeAcShapeableImageViewIconePerfil"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginStart="10dp"
             />

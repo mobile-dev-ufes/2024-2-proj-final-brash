@@ -61,6 +61,11 @@ class ExpandableListAdapter(
             tvCategoryName.text = category.pasta.nome
             ivExpandIcon.rotation = if (category.isExpanded) 180f else 0f
 
+            if(category.isExpanded){
+                items.addAll(position + 1, category.pasta.baralho.map { it ->
+                    HomeAcListItem.HomeAcBaralhoItem(it)
+                })
+            }
             itemView.setOnClickListener {
                 category.isExpanded = !category.isExpanded
                 ivExpandIcon.rotation = if (category.isExpanded) 180f else 0f

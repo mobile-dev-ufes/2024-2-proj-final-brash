@@ -86,6 +86,9 @@
     <string name="mover">Move</string>
     <string name="baralhos">Decks</string>
     <string name="importar">Import</string>
+    <string name="gtc_renomear_pasta">Renomear Pasta</string>
+    <string name="gtc_excluir_pasta">Excluir Pasta</string>
+    <string name="gtc_nome_da_pasta">Nome da Pasta</string>
 
 
 </resources>
