@@ -46,7 +46,7 @@
 
             android:layout_marginTop="24dp"
 
-            android:text="Um código de confirmação foi enviado para o seu email"
+            android:text="@string/nuc_mesagem_confirmacao_envio_email"
             android:gravity="center"
 
             android:textColor="@color/white"
@@ -62,7 +62,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
-            android:hint="Código"
+            android:hint="@string/nuc_codigo"
 
             android:textSize="30sp"
             app:endIconMode="clear_text"

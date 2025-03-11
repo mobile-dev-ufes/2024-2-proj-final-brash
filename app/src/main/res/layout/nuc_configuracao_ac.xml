@@ -112,7 +112,7 @@
         android:background="@color/medium_gray"
         android:paddingStart="5dp"
         android:paddingEnd="5dp"
-        android:visibility="visible"
+        android:visibility="gone"
 
         >
         <RadioButton

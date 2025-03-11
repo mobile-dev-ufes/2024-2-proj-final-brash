@@ -24,7 +24,7 @@ class CadastrarFrForm : Fragment(R.layout.nuc_cadastrar_fr_form) {
         super.onCreateView(inflater, container, savedInstanceState)
 
         _binding = NucCadastrarFrFormBinding.inflate(inflater, container, false)
-        binding.CadastrarContaAcButtonCadastrar.text = "teste de fragmento"
+        //binding.CadastrarContaAcButtonCadastrar.text = "teste de fragmento"
 
         return binding.root
     }

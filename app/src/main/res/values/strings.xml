@@ -28,6 +28,17 @@
     <string name="nuc_senha">Senha</string>
     <string name="nuc_criar_conta">Criar Conta</string>
     <string name="nuc_msg_default_erro_cadastro">O nome de usuário ou email já existem.</string>
+    <string name="nuc_mesagem_confirmacao_envio_email">Um código de verificação foi enviado para o seu email</string>
+    <string name="nuc_codigo">Código de verificação</string>
+    <string name="nuc_msg_confirmacao_criacao_conta_default">Sua conta foi criada com sucesso, volte para a tela de login.</string>
+    <string name="nuc_fazer_login">Fazer Login</string>
+    <string name="nuc_preencha_todos_campos">Preencha todos os campos!</string>
+    <string name="nuc_digite_email_valido">Digite um email válido!</string>
+    <string name="nuc_msg_erro_envio_email">Ocorreu algum erro ao tentar enviar o código para o email.</string>
+    <string name="nuc_msg_erro_usuario_nao_existe">Este usuário não existe.</string>
+    <string name="nuc_msg_erro_usario_ou_senha_incorretos">Usuário ou senha incorretos.</string>
+    <string name="nuc_msg_erro_falha_conectar_internet">Falha ao conectar com a internet.</string>
+    <string name="nuc_msg_erro_login_default">Houve algum problema no login, tente novamente</string>
 
     <string-array name="nuc_spinner_ordenar">
         <item>Ordem Alfanumérica</item>
@@ -55,7 +66,7 @@
     <!-- -->
     <!-- -->
     <string name="gtaa_name">Gestão de auxílio de aprendizado</string>
-    <string name="gtc_perfil">Profile</string>
+    <string name="gtc_perfil">Perfil</string>
     <string name="gtc_pesquisar_usuarios">Pesquisar Usuários</string>
     <string name="search_bar_hint"> Pesquisar </string>
     <string name="configuracoes_de_busca">Search Configurations</string>
@@ -71,6 +82,7 @@
     <string name="nuc_verificar_codigo">Verificar Código</string>
     <string name="pastas">Pastas</string>
     <string name="mover">Mover</string>
+
 
 
 </resources>

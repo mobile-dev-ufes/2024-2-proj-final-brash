@@ -32,7 +32,7 @@ class CadastrarFrCodigo : Fragment(R.layout.nuc_cadastrar_fr_codigo) {
         super.onCreateView(inflater, container, savedInstanceState)
 
         _binding = NucCadastrarFrCodigoBinding.inflate(inflater, container, false)
-        binding.CadastrarContaAcButtonVerificarCodigo.text = "teste de fragmento verificar codigo"
+        //binding.CadastrarContaAcButtonVerificarCodigo.text = "teste de fragmento verificar codigo"
 
         return binding.root
     }

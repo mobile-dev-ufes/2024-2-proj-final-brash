@@ -1,5 +1,6 @@
 package com.example.brash.nucleo.ui.viewModel
 
+import android.app.Activity
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
@@ -11,6 +12,7 @@ import com.google.firebase.auth.FirebaseAuthInvalidUserException
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
+import com.example.brash.R
 import com.example.brash.nucleo.utils.Constants
 import com.example.brash.nucleo.utils.MyPreferences
 import kotlin.math.sign
@@ -30,20 +32,18 @@ class LoginVM(application: Application) : AndroidViewModel(application) {
         if(!handleSignInInfo(email, password)) return
 
         auth.signInWithEmailAndPassword(email, password).addOnSuccessListener {
-
-            UtilsFoos.showToast(getApplication(), "Sucesso no Login!")
-
+            //UtilsFoos.showToast(getApplication(), "Sucesso no Login!")
             onSucess()
 
         }.addOnFailureListener {
 
-            var msg = "Houve algum problema no login, tente novamente"
+            var msg = getStringApplication(R.string.nuc_msg_erro_login_default)
             if (it is FirebaseAuthInvalidUserException) {
-                msg = "Este usuário não existe"
+                msg = getStringApplication(R.string.nuc_msg_erro_usuario_nao_existe)
             } else if (it is FirebaseAuthInvalidCredentialsException) {
-                msg = "Usuário ou senha incorretos"
+                msg = getStringApplication(R.string.nuc_msg_erro_usario_ou_senha_incorretos)
             } else if (it is FirebaseNetworkException) {
-                msg = "Falha ao conectar com a internet"
+                msg = getStringApplication(R.string.nuc_msg_erro_falha_conectar_internet)
             }
             //UtilsFoos.showToast(getApplication(), msg)
 
@@ -54,16 +54,21 @@ class LoginVM(application: Application) : AndroidViewModel(application) {
     fun signOut(){
         auth.signOut()
     }
+
+    private fun getStringApplication(id : Int) : String{
+        return getApplication<Application>().getString(id)
+    }
+
     private fun handleSignInInfo(email : String, password: String) : Boolean{
 
         if(email.isNotEmpty() and !UtilsFoos.isValidEmail(email)){
             //UtilsFoos.showToast(getApplication(), "Digite um Email válido!")
-            _errorMessageLD.value = "Digite um Email válido!"
+            _errorMessageLD.value = getStringApplication(R.string.nuc_digite_email_valido)
 
             return false
         }
         else if(email.isEmpty() or password.isEmpty()){
-            _errorMessageLD.value = "Preencha todos os campos!"
+            _errorMessageLD.value = getStringApplication(R.string.nuc_preencha_todos_campos)
             //UtilsFoos.showToast(getApplication(), "Preencha todos os campos!")
             return false
         }
@@ -75,5 +80,9 @@ class LoginVM(application: Application) : AndroidViewModel(application) {
         if (auth.currentUser != null) {
             onSucess()
         }
+    }
+
+    fun changeLanguage(activity : Activity, language : String){
+        UtilsFoos.setLocale(activity, language)
     }
 }
