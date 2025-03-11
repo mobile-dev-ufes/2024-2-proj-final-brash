@@ -27,4 +27,17 @@
         <item name = "cornerSize">125dp</item>
         <item name = "color">@color/white</item>
     </style>
+
+    <style name = "EditTextMaxCharCartoesNovos" parent="">
+        <item name="android:maxLength">4</item>
+    </style>
+    <style name = "EditTextMaxCharNome" parent="">
+        <item name="android:maxLength">30</item>
+    </style>
+    <style name = "EditTextMaxCharEmail" parent="">
+        <item name="android:maxLength">64</item>
+    </style>
+    <style name = "EditTextMaxCharTexto" parent="">
+        <item name="android:maxLength">300</item>
+    </style>
 </resources>

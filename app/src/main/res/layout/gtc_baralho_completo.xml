@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/HomeFrVisualizarBaralho"
+    android:id="@+id/BaralhoCompletoLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -11,27 +11,34 @@
 
     <com.google.android.material.textfield.TextInputLayout
 
-        android:id="@+id/HomeFrVisualizarBaralhoInputLayoutTitulo"
+        android:id="@+id/BaralhoCompletoInputLayoutTitulo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:hint="Título"
-        android:textColorHint="@color/light_gray"
+        android:textSize="20sp"
 
         app:endIconMode="clear_text"
 
-        app:boxBackgroundColor="@color/medium_gray"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/EditarPerfilAcLayoutCores"
+
+        app:boxBackgroundColor="@color/white"
         app:boxStrokeWidth="1dp"
         >
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/HomeFrVisualizarBaralhoInputTitulo"
+            android:id="@+id/BaralhoCompletoInputTitulo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
-            style="@style/EditTextMaxCharNome"
 
-            android:textColor="@color/white"
+            android:maxLines="1"
+            android:ellipsize="end"
+
+            android:textColorHint="@color/black"
+            android:textColor="@color/black"
 
             />
     </com.google.android.material.textfield.TextInputLayout>
@@ -41,53 +48,68 @@
 
     <com.google.android.material.textfield.TextInputLayout
 
-        android:id="@+id/HomeFrVisualizarBaralhoInputLayoutDescricao"
+        android:id="@+id/BaralhoCompletoInputLayoutDescricao"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:hint="Descricao"
-        android:textColorHint="@color/light_gray"
+        android:textSize="20sp"
 
         app:endIconMode="clear_text"
 
-        app:boxBackgroundColor="@color/medium_gray"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/EditarPerfilAcLayoutCores"
+
+        app:boxBackgroundColor="@color/white"
         app:boxStrokeWidth="1dp"
         >
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/HomeFrVisualizarBaralhoInputDescricao"
+            android:id="@+id/BaralhoCompletoInputDescricao"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:inputType="text"
-            style="@style/EditTextMaxCharTexto"
-            android:textColor="@color/white"
+
+            android:maxLines="1"
+            android:ellipsize="end"
+
+            android:textColorHint="@color/black"
+            android:textColor="@color/black"
 
             />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
 
-        android:id="@+id/HomeFrVisualizarBaralhoInputLayoutCartoesNovos"
+        android:id="@+id/BaralhoCompletoInputLayoutCartoesNovos"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:hint="CartoesNovos"
-        android:textColorHint="@color/light_gray"
+        android:textSize="20sp"
 
         app:endIconMode="clear_text"
 
-        app:boxBackgroundColor="@color/medium_gray"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/EditarPerfilAcLayoutCores"
+
+        app:boxBackgroundColor="@color/white"
         app:boxStrokeWidth="1dp"
         >
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/HomeFrVisualizarBaralhoInputCartoesNovos"
+            android:id="@+id/BaralhoCompletoInputCartoesNovos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="number"
-            style="@style/EditTextMaxCharCartoesNovos"
-            android:textColor="@color/white"
+
+            android:maxLines="1"
+            android:ellipsize="end"
+
+            android:textColorHint="@color/black"
+            android:textColor="@color/black"
 
             />
     </com.google.android.material.textfield.TextInputLayout>
@@ -106,23 +128,21 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/HomeFrVisualizarBaralhoButtonCancelar"
+            android:id="@+id/BaralhoCompletoButtonCancelar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/cancelar"
-            android:textColor="@color/white"
             android:layout_marginEnd="70dp"
             android:backgroundTint="@color/medium_gray"
             />
 
         <Button
-            android:id="@+id/HomeFrVisualizarBaralhoButtonConfirmar"
+            android:id="@+id/BaralhoCompletoButtonConfirmar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/confirmar"
-            android:textColor="@color/white"
             android:backgroundTint="@color/medium_gray"/>
     </LinearLayout>
 

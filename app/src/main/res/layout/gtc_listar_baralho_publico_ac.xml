@@ -75,6 +75,7 @@
             android:textColor="@color/white"
             android:inputType="text"
 
+            style="@style/EditTextMaxCharNome"
             />
     </com.google.android.material.textfield.TextInputLayout>
 
