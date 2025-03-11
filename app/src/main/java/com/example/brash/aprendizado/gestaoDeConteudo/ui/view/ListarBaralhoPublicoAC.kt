@@ -54,7 +54,22 @@ class ListarBaralhoPublicoAC : AppCompatActivity(), View.OnClickListener, AlertD
         val baralhoList = listOf(
             Baralho(idBaralho = 1, nome = "Baralho 1"),
             Baralho(idBaralho = 2, nome = "Deck 2"),
-            Baralho(idBaralho = 3, nome = "Baralho 3")
+            Baralho(idBaralho = 3, nome = "Baralho 3"),
+            Baralho(idBaralho = 1, nome = "Baralho 4"),
+            Baralho(idBaralho = 2, nome = "Deck 5"),
+            Baralho(idBaralho = 1, nome = "Baralho 6"),
+            Baralho(idBaralho = 2, nome = "Deck 7"),
+            Baralho(idBaralho = 1, nome = "Baralho 8"),
+            Baralho(idBaralho = 2, nome = "Deck 9"),
+            Baralho(idBaralho = 1, nome = "Baralho 10"),
+            Baralho(idBaralho = 2, nome = "Deck 11"),
+            Baralho(idBaralho = 1, nome = "Baralho 12"),
+            Baralho(idBaralho = 2, nome = "Deck 13"),
+            Baralho(idBaralho = 1, nome = "Baralho 14"),
+            Baralho(idBaralho = 2, nome = "Deck 15"),
+            Baralho(idBaralho = 1, nome = "Baralho 16"),
+            Baralho(idBaralho = 2, nome = "Deck 17"),
+
         )
         adapter.updateBaralhoList(baralhoList)
 
