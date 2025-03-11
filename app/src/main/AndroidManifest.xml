@@ -33,6 +33,9 @@
             android:name=".nucleo.ui.view.PerfilAC"
             android:exported="false" />
         <activity
+            android:name=".nucleo.ui.view.EditarPerfilAC"
+            android:exported="false" />
+        <activity
             android:name=".aprendizado.gestaoDeConteudo.ui.view.HomeAC"
             android:exported="false" />
         <activity

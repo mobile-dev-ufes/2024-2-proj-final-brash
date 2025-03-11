@@ -8,31 +8,27 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.brash.R
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.HomeAC
+import com.example.brash.databinding.NucEditarPerfilAcBinding
 //import com.example.brash.databinding.ActivityLoginBinding
 import com.example.brash.databinding.NucPerfilAcBinding
 import com.example.brash.nucleo.ui.viewModel.PerfilVM
 
-class PerfilAC : AppCompatActivity(), View.OnClickListener {
+class EditarPerfilAC : AppCompatActivity(), View.OnClickListener {
 
-    private lateinit var binding: NucPerfilAcBinding
-    private lateinit var perfilVM: PerfilVM
+    private lateinit var binding: NucEditarPerfilAcBinding
+    //private lateinit var perfilVM: PerfilVM
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        perfilVM = ViewModelProvider(this).get(PerfilVM::class.java)
-        binding = NucPerfilAcBinding.inflate(layoutInflater)
+        //perfilVM = ViewModelProvider(this).get(PerfilVM::class.java)
+        binding = NucEditarPerfilAcBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setOnClickListeners()
         setObservers()
-
-        binding.PerfilAcTextViewNomeDeExibicao.post {
-            binding.PerfilAcTextViewNomeDeExibicao.requestLayout()
-        }
     }
 
     private fun setOnClickListeners(){
-        binding.PerfilAcImageViewRetornar.setOnClickListener(this)
-        binding.PerfilAcButtonEditarPerfil.setOnClickListener(this)
+        binding.EditarPerfilAcImageViewRetornar.setOnClickListener(this)
     }
 
     private fun setObservers(){
@@ -41,27 +37,17 @@ class PerfilAC : AppCompatActivity(), View.OnClickListener {
 
 
     override fun onClick(view : View) {
-
         when(view.id){
             R.id.PerfilAcImageViewRetornar -> {
                 finish()
             }
-            R.id.PerfilAcButtonEditarPerfil -> {
-                intentToEditarPerfilAC()
-            }
         }
-
     }
 
     override fun onStop() {
         super.onStop()
         //binding.LoginAcTextViewErroEntrar.visibility = View.GONE // esconder o erro depois que sair da tela
         // não vai previsar por causa do finish
-    }
-
-    private fun intentToEditarPerfilAC(){
-        val intent = Intent(this, EditarPerfilAC::class.java)
-        startActivity(intent)
     }
 
 }
