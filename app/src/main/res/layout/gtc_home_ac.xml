@@ -63,8 +63,8 @@
 
         <ImageView
             android:id="@+id/HomeAcImageViewConfiguracoes"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             app:layout_constraintEnd_toEndOf="@+id/HomeAcHeader"
             app:layout_constraintTop_toTopOf="@+id/HomeAcHeader"
             app:layout_constraintBottom_toBottomOf="@+id/HomeAcHeader"
