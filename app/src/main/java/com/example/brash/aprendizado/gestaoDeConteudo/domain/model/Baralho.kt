@@ -11,5 +11,5 @@ data class Baralho (
     val publico: Boolean = false,
     val cartoesNovosPorDia: Int = 20,
     val usuario: Usuario? = null,
-    val pasta: Pasta? = null
+    var pasta: Pasta? = null
 )

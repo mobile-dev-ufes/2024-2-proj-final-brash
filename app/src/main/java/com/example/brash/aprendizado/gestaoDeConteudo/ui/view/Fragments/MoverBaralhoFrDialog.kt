@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
@@ -24,6 +25,8 @@ import com.example.brash.nucleo.ui.viewModel.LoginVM
 import com.example.brash.nucleo.utils.UtilsFoos
 import androidx.lifecycle.Observer
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.adapter.ListaBaralhoPublicoAdapter
+import com.example.brash.aprendizado.gestaoDeConteudo.utils.getColorResetMoverBaralho
+import com.example.brash.aprendizado.gestaoDeConteudo.utils.getColorSetMoverBaralho
 
 import com.example.brash.utilsGeral.Constants
 
@@ -60,6 +63,9 @@ class MoverBaralhoFrDialog() : DialogFragment() {
         val listener = object : OnPastaListener {
             override fun onClick(p: Pasta) {
                 Toast.makeText(context, p.nome, Toast.LENGTH_SHORT).show()
+
+                resetBackgroundLayoutRaiz()
+                homeVM.setPastaEmMover(p)
             }
         }
 
@@ -94,6 +100,7 @@ class MoverBaralhoFrDialog() : DialogFragment() {
             if (!it.isNullOrEmpty()) {
                 adapter.updateProdList(it)
                 Log.d("ListaPastaAdapter", "Lista não vazia recebida")
+
             } else {
                 Log.d("ListaPastaAdapter", "Lista vazia recebida")
             }
@@ -103,12 +110,18 @@ class MoverBaralhoFrDialog() : DialogFragment() {
     }
 
     private fun setOnClickListeners(){
+        binding.HomeFrMoverBaralhoButtonCancelar.setOnClickListener {
+            dismiss()
+        }
         binding.HomeFrMoverBaralhoButtonMover.setOnClickListener {
             //TODO:: Fazer a verificação da criação da pasta
-            Toast.makeText(context, "Mover Pasta", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Mover Para " + (homeVM.pastaEmMover.value?.nome ?: "Root"), Toast.LENGTH_SHORT).show()
+            resetBackgroundLayoutRaiz()
         }
         binding.HomeFrMoverBaralhoLayoutRaiz.setOnClickListener {
             Toast.makeText(context, "Root Clicado", Toast.LENGTH_SHORT).show()
+
+            setBackgroundLayoutRaiz()
         }
 
     }
@@ -116,6 +129,20 @@ class MoverBaralhoFrDialog() : DialogFragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null // Evita vazamento de memória
+    }
+
+    fun setBackgroundLayoutRaiz(){
+        binding.HomeFrMoverBaralhoLayoutRaiz.setBackgroundColor(
+            ContextCompat.getColor(requireContext(), getColorSetMoverBaralho())
+        )
+        adapter.resetSelectedItem()
+        homeVM.resetPastaEmMover()
+    }
+
+    fun resetBackgroundLayoutRaiz(){
+        binding.HomeFrMoverBaralhoLayoutRaiz.setBackgroundColor(
+            ContextCompat.getColor(requireContext(), getColorResetMoverBaralho())
+        )
     }
 
 }

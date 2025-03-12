@@ -67,7 +67,7 @@ class ListaExpandableAdapter(
 
             if (category.isExpanded) {
                 containerBaralhos.visibility = View.VISIBLE
-                category.pasta.baralho.forEach { baralho ->
+                category.pasta.baralhos.forEach { baralho ->
                     val baralhoView = LayoutInflater.from(itemView.context)
                         .inflate(R.layout.gtc_item_baralho, containerBaralhos, false)
 
@@ -106,11 +106,11 @@ class ListaExpandableAdapter(
         private fun toggleProducts(category: HomeAcListItem.HomeAcPastaItem, position: Int) {
 
             if (category.isExpanded) {
-                items.addAll(position + 1, category.pasta.baralho.map { it ->
+                items.addAll(position + 1, category.pasta.baralhos.map { it ->
                     HomeAcListItem.HomeAcBaralhoItem(it)
                 })
             } else {
-                items.subList(position + 1, position + 1 + category.pasta.baralho.size).clear()
+                items.subList(position + 1, position + 1 + category.pasta.baralhos.size).clear()
             }
             notifyDataSetChanged()
         }

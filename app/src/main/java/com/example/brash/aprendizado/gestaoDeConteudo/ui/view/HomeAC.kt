@@ -64,7 +64,7 @@ class HomeAC : AppCompatActivity(), View.OnClickListener, AlertDialogFr.OnConfir
         val items = mutableListOf<HomeAcListItem>(
             HomeAcListItem.HomeAcPastaItem(pasta = Pasta(nome = "Roupas")),
             HomeAcListItem.HomeAcPastaItem(isExpanded = true, pasta = Pasta(nome =  "Eletrônicos",
-                baralho =  mutableListOf(
+                baralhos =  mutableListOf(
                     Baralho(nome = "Celular"),
                     Baralho(nome = "Notebook"),
                     Baralho(nome = "Fone de ouvido")
@@ -82,11 +82,11 @@ class HomeAC : AppCompatActivity(), View.OnClickListener, AlertDialogFr.OnConfir
 
         adapter = ListaExpandableAdapter(items,
             onPastaItemLongClick = { item ->
-            Toast.makeText(this, "Clicou no pasta: ${item.pasta.nome}", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(this, "Clicou no pasta: ${item.pasta.nome}", Toast.LENGTH_SHORT).show()
                 homeVM.setPastaEmFoco(item.pasta)
                 AcoesPastaFrDialog().show(supportFragmentManager, "AcoesAdicionaisDialog")
         }, onBaralhoItemClick = { item ->
-            Toast.makeText(this, "Clicou no baralho: ${item.baralho.nome}", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(this, "Clicou no baralho: ${item.baralho.nome}", Toast.LENGTH_SHORT).show()
                 homeVM.setBaralhoEmFoco(item.baralho)
                 AcoesBaralhoFrDialog().show(supportFragmentManager, "AcoesAdicionaisDialog")
         })

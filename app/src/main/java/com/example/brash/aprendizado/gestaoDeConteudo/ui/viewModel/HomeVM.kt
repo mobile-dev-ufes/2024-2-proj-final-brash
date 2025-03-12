@@ -38,6 +38,9 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
     private var _opcoesDeBusca = MutableLiveData<OpcoesDeBuscaHome>()
     val opcoesDeBusca get() = _opcoesDeBusca
 
+    val _pastaEmMover = MutableLiveData<Pasta?>()
+    val pastaEmMover get() = _pastaEmMover
+
 
     fun getAllPastas() {
 
@@ -56,15 +59,21 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
     }
 
     fun getAllHomeAcListItem(){
-        _homeAcListItemList.value = listOf<HomeAcListItem>(
+
+
+        val p = Pasta(nome =  "Eletrônicos")
+
+        val listaBaralho = mutableListOf(
+            Baralho(nome = "Celular", pasta = p),
+            Baralho(nome = "Notebook", pasta = p),
+            Baralho(nome = "Fone de ouvido", pasta = p)
+        )
+
+        p.baralhos = listaBaralho
+
+        var listaHomeAcListItem = listOf<HomeAcListItem>(
             HomeAcListItem.HomeAcPastaItem(pasta = Pasta(nome = "Roupas")),
-            HomeAcListItem.HomeAcPastaItem(isExpanded = true, pasta = Pasta(nome =  "Eletrônicos",
-                baralho =  mutableListOf(
-                    Baralho(nome = "Celular"),
-                    Baralho(nome = "Notebook"),
-                    Baralho(nome = "Fone de ouvido")
-                )
-            )),
+            HomeAcListItem.HomeAcPastaItem(isExpanded = true, pasta = p),
             HomeAcListItem.HomeAcPastaItem(pasta = Pasta(nome =  "Alimentos")),
             HomeAcListItem.HomeAcPastaItem(pasta = Pasta(nome =  "Frutas")),
             HomeAcListItem.HomeAcPastaItem(pasta = Pasta(nome =  "Verduras")),
@@ -74,6 +83,9 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
             HomeAcListItem.HomeAcPastaItem(pasta = Pasta(nome =  "6")),
             HomeAcListItem.HomeAcBaralhoItem(Baralho(nome = "Fone de ouvido"))
         )
+
+
+        _homeAcListItemList.value = listaHomeAcListItem
     }
 
     fun setPastaEmFoco(pasta: Pasta){
@@ -100,6 +112,13 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
 
         Log.d("HomeDialogs", ordem.toString())
         Log.d("HomeDialogs", filtro.toString())
+    }
+
+    fun setPastaEmMover(pasta: Pasta){
+        _pastaEmMover.value = pasta
+    }
+    fun resetPastaEmMover(){
+        _pastaEmMover.value = null
     }
 }
 

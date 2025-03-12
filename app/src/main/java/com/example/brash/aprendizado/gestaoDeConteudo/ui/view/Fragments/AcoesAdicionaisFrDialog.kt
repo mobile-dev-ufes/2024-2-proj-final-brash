@@ -45,7 +45,7 @@ class AcoesAdicionaisFrDialog : DialogFragment() {
         binding.HomeFrOpcoesAdicionaisTextViewCriarBaralho.setOnClickListener {
             dismiss()
             Toast.makeText(requireContext(), "Criar Baralho", Toast.LENGTH_SHORT).show()
-            //CriarBaralhoFrDialog(pasta).show(parentFragmentManager, "CriarBaralhoDialog")
+            CriarBaralhoFrDialog().show(parentFragmentManager, "CriarBaralhoDialog")
         }
 
         binding.HomeFrOpcoesAdicionaisTextViewCriarPasta.setOnClickListener {

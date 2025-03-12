@@ -60,7 +60,9 @@ class RenomearPastaFrDialog() : DialogFragment() {
     }
 
     private fun setOnClickListeners(){
-
+        binding.HomeFrRenomearPastaButtonCancelar.setOnClickListener {
+            dismiss()
+        }
         binding.HomeFrRenomearPastaButtonConfirmar.setOnClickListener {
             //TODO:: Fazer verificação de se eh nome único, se for pode confirmar
             dismiss()

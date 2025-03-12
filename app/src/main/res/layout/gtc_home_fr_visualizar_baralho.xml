@@ -104,25 +104,35 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-
         <Button
             android:id="@+id/HomeFrVisualizarBaralhoButtonCancelar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/cancelar"
+            android:textSize="16sp"
+            android:padding="10dp"
             android:textColor="@color/white"
             android:backgroundTint="@color/medium_gray"
+            android:clickable="true"
+            android:focusable="true"
+            app:cornerRadius="8dp"
+            android:layout_marginEnd="20dp"
             />
-
         <Button
             android:id="@+id/HomeFrVisualizarBaralhoButtonConfirmar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/confirmar"
+            android:textSize="16sp"
+            android:padding="10dp"
             android:textColor="@color/white"
-            android:backgroundTint="@color/medium_gray"/>
+            android:backgroundTint="@color/medium_gray"
+            android:clickable="true"
+            android:focusable="true"
+            app:cornerRadius="8dp"
+            />
     </LinearLayout>
 
 

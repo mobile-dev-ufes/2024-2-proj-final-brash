@@ -11,12 +11,12 @@ import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.viewModel.HomeVM
 import com.example.brash.databinding.GtcHomeFrAcoesAdicionaisBinding
-import com.example.brash.databinding.GtcHomeFrAcoesBaralhoBinding
+import com.example.brash.databinding.GtcHomeFrCriarBaralhoBinding
 import com.example.brash.databinding.GtcHomeFrCriarPastaBinding
 
-class CriarPastaFrDialog : DialogFragment() {
+class CriarBaralhoFrDialog : DialogFragment() {
 
-    private var _binding: GtcHomeFrCriarPastaBinding? = null
+    private var _binding: GtcHomeFrCriarBaralhoBinding? = null
     private val binding get() = _binding!!
 
     lateinit var homeVM: HomeVM
@@ -26,7 +26,7 @@ class CriarPastaFrDialog : DialogFragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflar o layout com ViewBinding
-        _binding = GtcHomeFrCriarPastaBinding.inflate(inflater, container, false)
+        _binding = GtcHomeFrCriarBaralhoBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -45,14 +45,13 @@ class CriarPastaFrDialog : DialogFragment() {
     }
 
     private fun setObservers(){
-
     }
 
     private fun setOnClickListeners(){
-        binding.HomeFrCriarPastaButtonCancelar.setOnClickListener {
+        binding.HomeFrCriarBaralhoButtonCancelar.setOnClickListener {
             dismiss()
         }
-        binding.HomeFrCriarPastaButtonCriar.setOnClickListener {
+        binding.HomeFrCriarBaralhoButtonCriar.setOnClickListener {
             dismiss()
             //TODO:: Fazer verificação de se eh nome único, se for pode confirmar, requisitar isso ao HomeVM
             Toast.makeText(requireContext(), "Pasta criada", Toast.LENGTH_SHORT).show()
