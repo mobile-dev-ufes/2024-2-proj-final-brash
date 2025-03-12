@@ -3,6 +3,7 @@ package com.example.brash.nucleo.ui.view
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -31,6 +32,15 @@ class DefinirSenhaAC : AppCompatActivity(), View.OnClickListener {
 
         setOnClickListeners()
         setObservers()
+        setOnBackPressedToLoginAc()
+    }
+
+    private fun setOnBackPressedToLoginAc(){
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                finish()
+            }
+        })
     }
 
     private fun setOnClickListeners(){

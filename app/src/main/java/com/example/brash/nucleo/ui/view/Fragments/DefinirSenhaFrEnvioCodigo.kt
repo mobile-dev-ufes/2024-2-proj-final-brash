@@ -11,6 +11,7 @@ import com.example.brash.R
 import com.example.brash.databinding.NucCadastrarFrFormBinding
 import com.example.brash.databinding.NucDefinirSenhaFrEnvioCodigoBinding
 import com.example.brash.nucleo.ui.viewModel.CadastrarContaVM
+import com.example.brash.nucleo.ui.viewModel.DefinirSenhaVM
 import com.example.brash.nucleo.utils.UtilsFoos
 import kotlinx.coroutines.launch
 
@@ -20,7 +21,7 @@ class DefinirSenhaFrEnvioCodigo : Fragment(R.layout.nuc_definir_senha_fr_envio_c
     private var _binding : NucDefinirSenhaFrEnvioCodigoBinding? = null
     private val binding get() = _binding!!
 
-    // view model
+    private lateinit var definirSenhaVM : DefinirSenhaVM
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -33,15 +34,22 @@ class DefinirSenhaFrEnvioCodigo : Fragment(R.layout.nuc_definir_senha_fr_envio_c
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // instanciar a view model
-
+        initViewModel()
         setObservers()
         setOnClickListeners()
     }
 
+    private fun initViewModel(){
+        definirSenhaVM = ViewModelProvider(requireActivity()).get(DefinirSenhaVM::class.java)
+        definirSenhaVM.setCurrentUserEmail()
+    }
+
     private fun setOnClickListeners(){
         binding.DefinirSenhaAcButtonCadastrar.setOnClickListener {
-            findNavController().navigate(R.id.action_definirSenhaFrEnvioCodigo_to_definirSenhaFrConfirmacaoCodigo)
+            // lógica de enviar código
+            val verificationCode = "777"
+            val action = DefinirSenhaFrEnvioCodigoDirections.actionDefinirSenhaFrEnvioCodigoToDefinirSenhaFrConfirmacaoCodigo(verificationCode)
+            findNavController().navigate(action)
         }
         binding.DefinirSenhaAcButtonCancelar.setOnClickListener {
             finishActivity()
@@ -53,7 +61,9 @@ class DefinirSenhaFrEnvioCodigo : Fragment(R.layout.nuc_definir_senha_fr_envio_c
     }
 
     private fun setObservers(){
-
+        definirSenhaVM.curretUserEmail.observe(viewLifecycleOwner){
+            binding.DefinirSenhaAcTextInputEditTextEmail.setText(it)
+        }
     }
 
     override fun onDestroyView() {
