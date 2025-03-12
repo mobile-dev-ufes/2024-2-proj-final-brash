@@ -9,8 +9,8 @@ import com.example.brash.R
 import com.example.brash.network.ClientRetrofit
 import com.example.brash.nucleo.data.remoto.entities.EmailRequestEntity
 import com.example.brash.nucleo.data.remoto.services.EmailApi
-import com.example.brash.nucleo.utils.Constants
 import com.example.brash.nucleo.utils.UtilsFoos
+import com.example.brash.utilsGeral.Constants
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

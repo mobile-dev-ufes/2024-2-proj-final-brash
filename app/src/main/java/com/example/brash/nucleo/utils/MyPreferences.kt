@@ -2,7 +2,7 @@ package com.example.brash.nucleo.utils
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.example.brash.nucleo.utils.Constants
+import com.example.brash.utilsGeral.Constants
 
 class MyPreferences(context: Context) {
 

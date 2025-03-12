@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/HomeFrCriarBaralho"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+
+    android:background="@drawable/borda_linear_layout"
+    android:padding="16dp">
+
+    <com.google.android.material.textfield.TextInputLayout
+
+        android:id="@+id/HomeFrCriarBaralhoInputLayoutTitulo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:hint="Título"
+        android:textColorHint="@color/light_gray"
+
+        app:endIconMode="clear_text"
+
+        app:boxBackgroundColor="@color/medium_gray"
+        app:boxStrokeWidth="1dp"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/HomeFrCriarBaralhoInputTitulo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            style="@style/EditTextMaxCharNome"
+
+            android:textColor="@color/white"
+
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+    <com.google.android.material.textfield.TextInputLayout
+
+        android:id="@+id/HomeFrCriarBaralhoInputLayoutDescricao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:hint="Descricao"
+        android:textColorHint="@color/light_gray"
+
+        app:endIconMode="clear_text"
+
+        app:boxBackgroundColor="@color/medium_gray"
+        app:boxStrokeWidth="1dp"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/HomeFrCriarBaralhoInputDescricao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:inputType="text"
+            style="@style/EditTextMaxCharTexto"
+            android:textColor="@color/white"
+
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+    <Button
+        android:id="@+id/HomeFrCriarBaralhoButtonCriar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/gtc_criar_baralho"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/medium_gray"
+        />
+
+</LinearLayout>
