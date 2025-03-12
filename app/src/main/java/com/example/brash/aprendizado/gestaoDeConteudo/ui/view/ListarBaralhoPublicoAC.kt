@@ -71,7 +71,6 @@ class ListarBaralhoPublicoAC : AppCompatActivity(), View.OnClickListener, AlertD
             Baralho(idBaralho = 2, nome = "Deck 17"),
         )
         adapter.updateBaralhoList(baralhoList)
-
     }
     private fun setOnClickListeners(){
         binding.ListarBaralhoPublicoAcImageViewRetornar.setOnClickListener(this)
