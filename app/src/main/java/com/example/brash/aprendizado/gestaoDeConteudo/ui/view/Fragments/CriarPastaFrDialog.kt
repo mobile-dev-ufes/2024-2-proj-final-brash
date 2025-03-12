@@ -3,6 +3,7 @@ package com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments
 import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.example.brash.databinding.GtcHomeFrAcoesAdicionaisBinding
@@ -23,6 +24,11 @@ class CriarPastaFrDialog : DialogFragment() {
         setOnClickListeners()
         setObservers()
         return builder.create()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        dialog?.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
     }
 
     private fun setObservers(){

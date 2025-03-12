@@ -2,7 +2,6 @@ package com.example.brash.aprendizado.gestaoDeConteudo.ui.view
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -17,12 +16,12 @@ import com.example.brash.databinding.GtcHomeAcBinding
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.viewModel.HomeVM
 import com.example.brash.nucleo.ui.view.ConfiguracaoAC
 import com.example.brash.nucleo.ui.view.PerfilAC
-import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments.OpcoesDeBuscaFrDialog
+import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments.OpcoesDeBuscaHomeFrDialog
 
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments.AcoesAdicionaisFrDialog
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments.AcoesBaralhoFrDialog
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments.AcoesPastaFrDialog
-import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.adapter.ExpandableListAdapter
+import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.adapter.ListaExpandableAdapter
 import com.example.brash.nucleo.ui.view.Fragments.AlertDialogFr
 
 class HomeAC : AppCompatActivity(), View.OnClickListener, AlertDialogFr.OnConfirmListener {
@@ -31,7 +30,7 @@ class HomeAC : AppCompatActivity(), View.OnClickListener, AlertDialogFr.OnConfir
     private lateinit var homeVM: HomeVM
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: ExpandableListAdapter
+    private lateinit var adapter: ListaExpandableAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,20 +80,18 @@ class HomeAC : AppCompatActivity(), View.OnClickListener, AlertDialogFr.OnConfir
             HomeAcListItem.HomeAcBaralhoItem(Baralho(nome = "Fone de ouvido"))
         )
 
-        adapter = ExpandableListAdapter(items,
+        adapter = ListaExpandableAdapter(items,
             onPastaItemLongClick = { item ->
             Toast.makeText(this, "Clicou no pasta: ${item.pasta.nome}", Toast.LENGTH_SHORT).show()
-                AcoesPastaFrDialog(item.pasta).show(supportFragmentManager, "AcoesAdicionaisDialog")
+                homeVM.setPastaEmFoco(item.pasta)
+                AcoesPastaFrDialog().show(supportFragmentManager, "AcoesAdicionaisDialog")
         }, onBaralhoItemClick = { item ->
             Toast.makeText(this, "Clicou no baralho: ${item.baralho.nome}", Toast.LENGTH_SHORT).show()
-                AcoesBaralhoFrDialog(item.baralho).show(supportFragmentManager, "AcoesAdicionaisDialog")
+                homeVM.setBaralhoEmFoco(item.baralho)
+                AcoesBaralhoFrDialog().show(supportFragmentManager, "AcoesAdicionaisDialog")
         })
 
         recyclerView.adapter = adapter
-    }
-    private fun intentToCadastrarContaActivity(){
-        //val intent = Intent(this, CadastrarContaAC::class.java)
-        //startActivity(intent)
     }
 
     override fun onClick(view : View) {
@@ -109,7 +106,7 @@ class HomeAC : AppCompatActivity(), View.OnClickListener, AlertDialogFr.OnConfir
             R.id.HomeAcImageViewOpcoesDeBusca -> {
                 //Toast.makeText(applicationContext, "Você clicou em MoreActions", Toast.LENGTH_SHORT).show()
                 //intentToCadastrarContaActivity()
-                OpcoesDeBuscaFrDialog().show(supportFragmentManager, "OpcaoDialog")
+                OpcoesDeBuscaHomeFrDialog().show(supportFragmentManager, "OpcaoDialog")
             }
             R.id.HomeAcImageViewConfiguracoes -> {
                 Toast.makeText(applicationContext, "Você clicou em Configuracoes", Toast.LENGTH_SHORT).show()

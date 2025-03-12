@@ -4,29 +4,49 @@ import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Baralho
+import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Pasta
+import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.adapter.ListaPastaAdapter
+import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.listener.OnPastaListener
+import com.example.brash.aprendizado.gestaoDeConteudo.ui.viewModel.HomeVM
 import com.example.brash.databinding.GtcHomeFrAcoesAdicionaisBinding
 import com.example.brash.databinding.GtcHomeFrAcoesBaralhoBinding
+import com.example.brash.databinding.GtcHomeFrMoverBaralhoBinding
 import com.example.brash.nucleo.ui.view.Fragments.AlertDialogFr
 import com.example.brash.utilsGeral.UtilsGeral
 
-class AcoesBaralhoFrDialog(val baralho: Baralho) : DialogFragment() {
+class AcoesBaralhoFrDialog() : DialogFragment() {
 
     private var _binding: GtcHomeFrAcoesBaralhoBinding? = null
     private val binding get() = _binding!!
 
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val builder = AlertDialog.Builder(requireContext())
 
+    lateinit var homeVM: HomeVM
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         // Inflar o layout com ViewBinding
-        _binding = GtcHomeFrAcoesBaralhoBinding.inflate(layoutInflater)
-        builder.setView(binding.root)
+        _binding = GtcHomeFrAcoesBaralhoBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // Agora a ViewModel está sendo recuperada corretamente
+        homeVM = ViewModelProvider(requireActivity()).get(HomeVM::class.java)
 
         setOnClickListeners()
-        setObservers()
-        return builder.create()
+
     }
 
     private fun setObservers(){
@@ -37,8 +57,10 @@ class AcoesBaralhoFrDialog(val baralho: Baralho) : DialogFragment() {
 
         binding.HomeFrAcoesBaralhoTextViewVisualizarBaralho.setOnClickListener {
             dismiss()
-            Toast.makeText(requireContext(), "Visualizar Baralho", Toast.LENGTH_SHORT).show()
-            VisualizarBaralhoFrDialog(baralho).show(parentFragmentManager, "OpcaoDialog")
+            if (!activity?.isFinishing!! && !activity?.isDestroyed!!) {
+                Log.d("HomeDialogs", "Tentando mostrar o diálogo visualizarBaralho")
+                VisualizarBaralhoFrDialog().show(parentFragmentManager, "VisualizarBaralhoDialog")
+            }
         }
         binding.HomeFrAcoesBaralhoTextViewVisualizarCartoes.setOnClickListener {
             dismiss()
@@ -54,7 +76,10 @@ class AcoesBaralhoFrDialog(val baralho: Baralho) : DialogFragment() {
         }
         binding.HomeFrAcoesBaralhoTextViewEditarBaralho.setOnClickListener {
             dismiss()
-            Toast.makeText(requireContext(), "Editar Baralho", Toast.LENGTH_SHORT).show()
+            if (!activity?.isFinishing!! && !activity?.isDestroyed!!) {
+                Log.d("HomeDialogs", "Tentando mostrar o diálogo visualizarBaralho")
+                VisualizarBaralhoFrDialog().show(parentFragmentManager, "VisualizarBaralhoDialog")
+            }
         }
         binding.HomeFrAcoesBaralhoTextViewMoverBaralho.setOnClickListener {
             dismiss()

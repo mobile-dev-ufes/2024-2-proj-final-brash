@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.brash.R
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.HomeAcListItem
 
-import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.adapter.ExpandableListAdapter
+import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.adapter.ListaExpandableAdapter
 
 /*
 inner class HomeAcPastaItemVH(view: View) : RecyclerView.ViewHolder(view) {

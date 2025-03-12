@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.brash.R
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.HomeAcListItem
 
-class ExpandableListAdapter(
+class ListaExpandableAdapter(
     private val items: MutableList<HomeAcListItem>,
     private val onPastaItemLongClick: (HomeAcListItem.HomeAcPastaItem) -> Unit,
     private val onBaralhoItemClick: (HomeAcListItem.HomeAcBaralhoItem) -> Unit// 🔹 Adicionando listener

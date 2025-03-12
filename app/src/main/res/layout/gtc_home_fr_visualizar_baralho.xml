@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:hint="Título"
-        android:textColorHint="@color/light_gray"
+        android:textColorHint="@color/bright_red"
 
         app:endIconMode="clear_text"
 
@@ -46,7 +46,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:hint="Descricao"
-        android:textColorHint="@color/light_gray"
+        android:textColorHint="@color/bright_red"
 
         app:endIconMode="clear_text"
 
@@ -73,7 +73,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:hint="CartoesNovos"
-        android:textColorHint="@color/light_gray"
+        android:textColorHint="@color/bright_red"
 
         app:endIconMode="clear_text"
 
@@ -112,7 +112,6 @@
             android:layout_weight="1"
             android:text="@string/cancelar"
             android:textColor="@color/white"
-            android:layout_marginEnd="70dp"
             android:backgroundTint="@color/medium_gray"
             />
 

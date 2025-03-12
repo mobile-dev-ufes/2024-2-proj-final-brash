@@ -3,6 +3,7 @@ package com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments
 import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
+import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.TextView
@@ -10,7 +11,7 @@ import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.example.brash.R
 
-class OpcoesDeBuscaFrDialog: DialogFragment() {
+class OpcoesDeBuscaFrDialog__antigo: DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val builder = AlertDialog.Builder(requireContext())
@@ -27,7 +28,7 @@ class OpcoesDeBuscaFrDialog: DialogFragment() {
         // Create an ArrayAdapter using the string array and a default spinner layout.
         ArrayAdapter.createFromResource(
             requireContext(),
-            R.array.nuc_spinner_ordenar,
+            R.array.nuc_home_spinner_ordenar,
             android.R.layout.simple_spinner_item
         ).also { adapter ->
             // Specify the layout to use when the list of choices appears.
@@ -40,7 +41,7 @@ class OpcoesDeBuscaFrDialog: DialogFragment() {
         // Create an ArrayAdapter using the string array and a default spinner layout.
         ArrayAdapter.createFromResource(
             requireContext(),
-            R.array.nuc_spinner_filtrar,
+            R.array.nuc_home_spinner_filtrar,
             android.R.layout.simple_spinner_item
         ).also { adapter ->
             // Specify the layout to use when the list of choices appears.
@@ -62,6 +63,12 @@ class OpcoesDeBuscaFrDialog: DialogFragment() {
 
         builder.setView(view)
         return builder.create()
+    }
+    
+
+    override fun onStart() {
+        super.onStart()
+        dialog?.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
     }
 
     private fun setOnClickListeners(){}

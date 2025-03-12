@@ -21,6 +21,7 @@
         android:layout_height="wrap_content"
 
         android:hint="@string/gtc_nome_da_pasta"
+        android:textColorHint="@color/bright_red"
         android:textSize="30sp"
         app:endIconMode="clear_text"
         android:layout_marginBottom="15dp"
@@ -34,6 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxLines="1"
+            android:textColor="@color/black"
             android:ellipsize="end"
             android:inputType="text"
 

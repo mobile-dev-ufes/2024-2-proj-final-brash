@@ -3,28 +3,37 @@ package com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments
 import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.ViewModelProvider
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Pasta
+import com.example.brash.aprendizado.gestaoDeConteudo.ui.viewModel.HomeVM
 import com.example.brash.databinding.GtcHomeFrAcoesAdicionaisBinding
+import com.example.brash.databinding.GtcHomeFrAcoesBaralhoBinding
 import com.example.brash.databinding.GtcHomeFrAcoesPastaBinding
 import com.example.brash.utilsGeral.UtilsGeral
 
-class AcoesPastaFrDialog(val pasta: Pasta) : DialogFragment() {
+class AcoesPastaFrDialog() : DialogFragment() {
 
     private var _binding: GtcHomeFrAcoesPastaBinding? = null
     private val binding get() = _binding!!
 
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val builder = AlertDialog.Builder(requireContext())
-
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         // Inflar o layout com ViewBinding
-        _binding = GtcHomeFrAcoesPastaBinding.inflate(layoutInflater)
-        builder.setView(binding.root)
+        _binding = GtcHomeFrAcoesPastaBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         setOnClickListeners()
-        setObservers()
-        return builder.create()
     }
 
     private fun setObservers(){
@@ -36,7 +45,7 @@ class AcoesPastaFrDialog(val pasta: Pasta) : DialogFragment() {
         binding.HomeFrAcoesPastaTextViewRenomearPasta.setOnClickListener {
             dismiss()
             Toast.makeText(requireContext(), "Renomear Pasta", Toast.LENGTH_SHORT).show()
-            RenomearPastaFrDialog(pasta).show(parentFragmentManager, "RenomearPastaDialog")
+            RenomearPastaFrDialog().show(parentFragmentManager, "RenomearPastaDialog")
         }
         binding.HomeFrAcoesPastaTextViewExcluirPasta.setOnClickListener {
             dismiss()

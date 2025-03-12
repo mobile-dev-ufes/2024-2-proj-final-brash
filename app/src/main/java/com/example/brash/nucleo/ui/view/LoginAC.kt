@@ -49,10 +49,6 @@ class LoginAC : AppCompatActivity(), View.OnClickListener {
     override fun onClick(view : View) {
 
         when(view.id){
-            R.id.LoginAcButtonCriar -> {
-                //UtilsFoos.showToast(this, "Você clicou na mensgem de ir cadastrar")
-                //intentToCadastrarContaActivity()
-            }
             R.id.LoginAcButtonEntrar -> {
                 val email = binding.LoginAcUsuarioInput.text.toString()
                 val password = binding.LoginAcSenhaInput.text.toString()
@@ -65,7 +61,10 @@ class LoginAC : AppCompatActivity(), View.OnClickListener {
             R.id.LoginAcButtonCriar ->{
                 intentToCadastrarContaAC()
             }
-
+            R.id.LoginAcTextViewEsqueceuSenha -> {
+                //UtilsFoos.showToast(this, "Você clicou na mensgem de ir cadastrar")
+                //intentToCadastrarContaActivity()
+            }
             R.id.LoginAcTextViewIdioma -> {
 
                 attRadioGroup()

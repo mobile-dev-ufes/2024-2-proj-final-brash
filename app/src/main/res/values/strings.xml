@@ -47,12 +47,13 @@
     <string name="nuc_enviar_codigo">Enviar código</string>
     <string name="nuc_alterar_senha">alterar senha</string>
 
-    <string-array name="nuc_spinner_ordenar">
+    <string-array name="nuc_home_spinner_ordenar">
         <item>Ordem Alfanumérica</item>
         <item>Número de Cartões</item>
         <item>Não Ordenar</item>
     </string-array>
-    <string-array name="nuc_spinner_filtrar">
+    <string-array name="nuc_home_spinner_filtrar">
+        <item>Todos</item>
         <item>Nome Do Baralho</item>
         <item>Nome Da Pasta</item>
         <item>Baralhos Públicos</item>

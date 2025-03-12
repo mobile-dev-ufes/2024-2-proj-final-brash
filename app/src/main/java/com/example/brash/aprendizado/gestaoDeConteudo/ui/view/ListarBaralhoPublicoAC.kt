@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.brash.R
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Baralho
 import com.example.brash.nucleo.ui.view.PerfilAC
-import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments.OpcoesDeBuscaFrDialog
+import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments.OpcoesDeBuscaHomeFrDialog
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments.VisualizarBaralhoPublicoFrDialog
 
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.adapter.ListaBaralhoPublicoAdapter
@@ -102,7 +102,7 @@ class ListarBaralhoPublicoAC : AppCompatActivity(), View.OnClickListener, AlertD
                 finish()
             }
             R.id.ListarBaralhoPublicoAcImageViewOpcoesDeBusca -> {
-                OpcoesDeBuscaFrDialog().show(supportFragmentManager, "OpcaoDialog")
+                OpcoesDeBuscaHomeFrDialog().show(supportFragmentManager, "OpcaoDialog")
             }
         }
     }

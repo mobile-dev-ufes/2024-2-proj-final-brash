@@ -71,7 +71,7 @@ class MoverBaralhoFrDialog() : DialogFragment() {
 
         // Chamar o métod da ViewModel para obter os dados
         homeVM.getAllPastas()
-        Log.d("ListaPastaAdapter", "MOVER BARALHO PASSOU DO GETALLPASTAS")
+        Log.d("HomeDialogs", "MOVER BARALHO PASSOU DO GETALLPASTAS")
 
     }
 

@@ -48,13 +48,14 @@
     <string name="nuc_enviar_codigo">Send</string>
     <string name="nuc_alterar_senha">change the password</string>
 
-    <string-array name="nuc_spinner_ordenar">
+    <string-array name="nuc_home_spinner_ordenar">
         <item>Alphanumeric Order</item>
         <item>Quantity of Cards</item>
         <item>No Order</item>
     </string-array>
 
-    <string-array name="nuc_spinner_filtrar">
+    <string-array name="nuc_home_spinner_filtrar">
+        <item>Everything</item>
         <item>Deck Name</item>
         <item>Folder Name</item>
         <item>Public Decks</item>
