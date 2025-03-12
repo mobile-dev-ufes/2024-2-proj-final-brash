@@ -97,7 +97,20 @@ class HomeAC : AppCompatActivity(), View.OnClickListener, AlertDialogFr.OnConfir
 
     override fun onClick(view : View) {
 
-        when(view.id){
+        binding.HomeAcButtonAcoesAdicionais.setOnClickListener{
+            AcoesAdicionaisFrDialog().show(supportFragmentManager, "AcoesAdicionaisDialog")
+        }
+        binding.HomeAcImageViewOpcoesDeBusca.setOnClickListener{
+            OpcoesDeBuscaHomeFrDialog().show(supportFragmentManager, "OpcaoDialog")
+        }
+        binding.HomeAcImageViewConfiguracoes.setOnClickListener{
+            Toast.makeText(applicationContext, "Você clicou em Configuracoes", Toast.LENGTH_SHORT).show()
+            intentToConfiguracaoActivity()
+        }
+        binding.HomeAcShapeableImageViewIconePerfil.setOnClickListener{
+            intentToPerfilActivity()
+        }
+        /*when(view.id){
             R.id.HomeAcButtonAcoesAdicionais -> {
                 //Toast.makeText(applicationContext, "Você clicou em MoreActions", Toast.LENGTH_SHORT).show()
                 //intentToCadastrarContaActivity()
@@ -117,7 +130,7 @@ class HomeAC : AppCompatActivity(), View.OnClickListener, AlertDialogFr.OnConfir
                 //Toast.makeText(applicationContext, "Você clicou em MoreActions", Toast.LENGTH_SHORT).show()
                 intentToPerfilActivity()
             }
-        }
+        }*/
     }
 
     override fun onStop() {

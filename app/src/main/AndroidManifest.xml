@@ -42,6 +42,9 @@
             android:name=".aprendizado.gestaoDeConteudo.ui.view.ListarBaralhoPublicoAC"
             android:exported="false" />
         <activity
+            android:name=".aprendizado.gestaoDeConteudo.ui.view.RevisaoAC"
+            android:exported="false" />
+        <activity
             android:name=".nucleo.ui.view.LoginAC"
             android:exported="true">
             <intent-filter>

@@ -2,6 +2,7 @@ package com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments
 
 import android.app.AlertDialog
 import android.app.Dialog
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Baralho
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Pasta
+import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.RevisaoAC
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.adapter.ListaPastaAdapter
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.listener.OnPastaListener
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.viewModel.HomeVM
@@ -20,6 +22,7 @@ import com.example.brash.databinding.GtcHomeFrAcoesAdicionaisBinding
 import com.example.brash.databinding.GtcHomeFrAcoesBaralhoBinding
 import com.example.brash.databinding.GtcHomeFrMoverBaralhoBinding
 import com.example.brash.nucleo.ui.view.Fragments.AlertDialogFr
+import com.example.brash.nucleo.ui.view.PerfilAC
 import com.example.brash.utilsGeral.UtilsGeral
 
 class AcoesBaralhoFrDialog() : DialogFragment() {
@@ -74,12 +77,9 @@ class AcoesBaralhoFrDialog() : DialogFragment() {
             dismiss()
             Toast.makeText(requireContext(), "Visualizar Relatório", Toast.LENGTH_SHORT).show()
         }
-        binding.HomeFrAcoesBaralhoTextViewEditarBaralho.setOnClickListener {
+        binding.HomeFrAcoesBaralhoTextViewRevisarBaralho.setOnClickListener {
             dismiss()
-            if (!activity?.isFinishing!! && !activity?.isDestroyed!!) {
-                Log.d("HomeDialogs", "Tentando mostrar o diálogo visualizarBaralho")
-                VisualizarBaralhoFrDialog().show(parentFragmentManager, "VisualizarBaralhoDialog")
-            }
+            intentToRevisaoActivity()
         }
         binding.HomeFrAcoesBaralhoTextViewMoverBaralho.setOnClickListener {
             dismiss()
@@ -102,5 +102,11 @@ class AcoesBaralhoFrDialog() : DialogFragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null // Evita vazamento de memória
+    }
+
+    private fun intentToRevisaoActivity(){
+        val intent = Intent(requireContext(), RevisaoAC::class.java)
+        Log.d("HomeDialogs", "Indo para a revisão de baralho")
+        startActivity(intent)
     }
 }

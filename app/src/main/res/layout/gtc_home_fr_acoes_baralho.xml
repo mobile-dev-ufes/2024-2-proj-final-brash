@@ -54,10 +54,10 @@
         android:focusable="true"/>
 
     <TextView
-        android:id="@+id/HomeFrAcoesBaralhoTextViewEditarBaralho"
+        android:id="@+id/HomeFrAcoesBaralhoTextViewRevisarBaralho"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Editar Baralho"
+        android:text="Revisar Baralho"
         android:textSize="16sp"
         android:textColor="@color/white"
         android:padding="20dp"
