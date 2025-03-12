@@ -45,7 +45,7 @@
                 android:id="@+id/DefinirSenhaAcTextInputEditTextNovaSenha"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
+                android:inputType="textPassword"
 
                 android:maxLines="1"
                 android:ellipsize="end"
@@ -73,7 +73,7 @@
                 android:id="@+id/DefinirSenhaAcTextInputEditTextRepeticaoSenha"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
+                android:inputType="textPassword"
 
                 android:maxLines="1"
                 android:ellipsize="end"
@@ -120,6 +120,26 @@
             </Button>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/DefinirSenhaAcTextViewMensagemErroNovaSenha"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="24dp"
+
+            android:text=""
+
+            android:textColor="@color/bright_red"
+            android:textSize="16sp"
+
+            android:textAlignment="textStart"
+
+            android:visibility="gone"
+
+            >
+        </TextView>
 
 
 

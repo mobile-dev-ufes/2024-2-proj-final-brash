@@ -3,6 +3,7 @@ package com.example.brash.nucleo.ui.view
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -31,40 +32,32 @@ class RedefinirSenhaAC : AppCompatActivity(), View.OnClickListener {
 
         setOnClickListeners()
         setObservers()
+        setOnBackPressedToLoginAc()
     }
+
+    private fun setOnBackPressedToLoginAc(){
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                finish()
+            }
+        })
+    }
+
     private fun setOnClickListeners(){
-        //binding.ConfiguracaoAcTextViewTrocarSenha.setOnClickListener(this)
-        //binding.ConfiguracaoAcTextViewTrocarEmail.setOnClickListener(this)
-        //binding.ConfiguracaoAcTextViewSairDaConta.setOnClickListener(this)
+
     }
 
     private fun setObservers(){
+
     }
 
 
     override fun onClick(view : View) {
 
         when(view.id){
-            /*
-            R.id.ConfiguracaoAcTextViewTrocarSenha -> {
-                //UtilsFoos.showToast(this, "Você clicou na mensgem de ir cadastrar")
-                //intentToCadastrarContaActivity()
-            }
-            R.id.ConfiguracaoAcTextViewTrocarEmail -> {
 
-            }
-            R.id.ConfiguracaoAcTextViewSairDaConta ->{
-                //loginVM.signOut()
-                //intentToLoginActivity()
-            }*/
         }
 
-    }
-
-    override fun onStop() {
-        super.onStop()
-        //binding.LoginAcTextViewErroEntrar.visibility = View.GONE // esconder o erro depois que sair da tela
-        // não vai previsar por causa do finish
     }
 
 }
