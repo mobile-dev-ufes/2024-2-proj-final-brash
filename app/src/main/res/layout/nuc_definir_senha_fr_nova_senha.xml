@@ -28,12 +28,12 @@
 
         <com.google.android.material.textfield.TextInputLayout
 
-            android:id="@+id/DefinirSenhaAcTextInputLayoutEmail"
+            android:id="@+id/DefinirSenhaAcTextInputLayoutNovaSenha"
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
-            android:hint="@string/nuc_email"
+            android:hint="Nova senha"
             android:textSize="16sp"
             app:endIconMode="clear_text"
 
@@ -42,18 +42,44 @@
             >
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/DefinirSenhaAcTextInputEditTextEmail"
+                android:id="@+id/DefinirSenhaAcTextInputEditTextNovaSenha"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
-
-                android:text="email@email.com"
-                android:enabled="false"
 
                 android:maxLines="1"
                 android:ellipsize="end"
                 />
         </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+
+            android:id="@+id/DefinirSenhaAcTextInputLayoutRepeticaoSenha"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:hint="Repita a senha"
+            android:textSize="16sp"
+            app:endIconMode="clear_text"
+
+            android:layout_marginTop="24dp"
+
+            app:boxStrokeWidth="1dp"
+            app:boxBackgroundColor="@color/white"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/DefinirSenhaAcTextInputEditTextRepeticaoSenha"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+
+                android:maxLines="1"
+                android:ellipsize="end"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -72,18 +98,18 @@
                 android:layout_marginEnd="16dp"
                 android:backgroundTint="@color/charcoal_gray"
 
-                app:layout_constraintEnd_toStartOf="@id/DefinirSenhaAcButtonCadastrar"
+                app:layout_constraintEnd_toStartOf="@id/DefinirSenhaAcButtonRedefinirSenha"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 >
             </Button>
 
             <Button
-                android:id="@+id/DefinirSenhaAcButtonCadastrar"
+                android:id="@+id/DefinirSenhaAcButtonRedefinirSenha"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
-                android:text="@string/nuc_enviar_codigo"
+                android:text="Redefinir Senha"
                 android:backgroundTint="@color/medium_gray"
                 android:elevation="8dp"
 

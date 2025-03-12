@@ -46,7 +46,7 @@
     <string name="nuc_msg_erro_nome_usuario_ja_cadastrado">This username is currently in use!</string>
     <string name="nuc_msg_erro_codigo_invalido">Wrong verification code!</string>
     <string name="nuc_enviar_codigo">Send</string>
-    <string name="nuc_alterar_senha">change the password</string>
+    <string name="nuc_alterar_senha">new password</string>
 
     <string-array name="nuc_home_spinner_ordenar">
         <item>Alphanumeric Order</item>

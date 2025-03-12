@@ -31,10 +31,10 @@
 
     <androidx.fragment.app.FragmentContainerView
 
-        android:id="@+id/DefinirSenhaActivityFragment"
+        android:id="@+id/CadastrarContaActivityFragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
         app:defaultNavHost="true"
-        app:navGraph="@navigation/navigation_mng"
+        app:navGraph="@navigation/navigation_definir_senha_mng"
 
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -47,11 +47,5 @@
         >
 
     </androidx.fragment.app.FragmentContainerView>
-
-
-
-
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
