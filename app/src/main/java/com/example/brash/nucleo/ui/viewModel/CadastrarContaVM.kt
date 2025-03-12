@@ -9,8 +9,8 @@ import com.example.brash.R
 import com.example.brash.network.ClientRetrofit
 import com.example.brash.nucleo.data.remoto.entities.EmailRequestEntity
 import com.example.brash.nucleo.data.remoto.services.EmailApi
-import com.example.brash.nucleo.utils.Constants
 import com.example.brash.nucleo.utils.UtilsFoos
+import com.example.brash.utilsGeral.Constants
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException

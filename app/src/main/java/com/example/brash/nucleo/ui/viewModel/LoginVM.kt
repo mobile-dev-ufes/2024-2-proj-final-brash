@@ -13,7 +13,7 @@ import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import com.example.brash.R
-import com.example.brash.nucleo.utils.Constants
+import com.example.brash.utilsGeral.Constants
 import com.example.brash.nucleo.utils.MyPreferences
 import kotlin.math.sign
 

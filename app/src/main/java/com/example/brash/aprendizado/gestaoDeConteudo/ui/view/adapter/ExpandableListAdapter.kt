@@ -56,34 +56,56 @@ class ExpandableListAdapter(
     inner class HomeAcPastaItemVH(view: View) : RecyclerView.ViewHolder(view) {
         private val tvCategoryName: TextView = view.findViewById(R.id.ItemPastaTextViewNome)
         private val ivExpandIcon: ImageView = view.findViewById(R.id.ItemPastaExpandIcon)
+        private val containerBaralhos: LinearLayout = view.findViewById(R.id.ItemPastaContainerBaralhos)
 
         fun bind(category: HomeAcListItem.HomeAcPastaItem, position: Int) {
             tvCategoryName.text = category.pasta.nome
             ivExpandIcon.rotation = if (category.isExpanded) 180f else 0f
 
-            if(category.isExpanded){
-                items.addAll(position + 1, category.pasta.baralho.map { it ->
-                    HomeAcListItem.HomeAcBaralhoItem(it)
-                })
-            }
-            itemView.setOnClickListener {
-                category.isExpanded = !category.isExpanded
-                ivExpandIcon.rotation = if (category.isExpanded) 180f else 0f
-                toggleProducts(category, position)
+            //Limpa antes de adicionar novos itens, evitando duplicação
+            containerBaralhos.removeAllViews()
+
+            if (category.isExpanded) {
+                containerBaralhos.visibility = View.VISIBLE
+                category.pasta.baralho.forEach { baralho ->
+                    val baralhoView = LayoutInflater.from(itemView.context)
+                        .inflate(R.layout.gtc_item_baralho, containerBaralhos, false)
+
+                    val textViewB: TextView = baralhoView.findViewById(R.id.ItemBaralhoTextViewNome)
+                    textViewB.text = baralho.nome
+                    //Configurar o clique
+                    baralhoView.setOnClickListener {
+                        onBaralhoItemClick(HomeAcListItem.HomeAcBaralhoItem(baralho))
+                    }
+
+                    containerBaralhos.addView(baralhoView)
+                }
+            } else {
+                containerBaralhos.visibility = View.GONE
             }
 
+            itemView.setOnClickListener {
+                category.isExpanded = !category.isExpanded
+
+                if(containerBaralhos.visibility == View.VISIBLE){
+                    containerBaralhos.visibility = View.GONE
+                }
+                else{
+                    containerBaralhos.visibility = View.VISIBLE
+                }
+                ivExpandIcon.rotation = if (category.isExpanded) 180f else 0f
+                //toggleProducts(category, position)
+            }
             // 🔥 Clique longo
             itemView.setOnLongClickListener {
-                onPastaItemLongClick(category) // 🔹 Chama o callback
-                true // 🔹 Retorna `true` indicando que tratamos o evento
+                onPastaItemLongClick(category) // Chama o callback
+                true // Retorna `true` indicando que tratamos o evento
             }
         }
 
         private fun toggleProducts(category: HomeAcListItem.HomeAcPastaItem, position: Int) {
+
             if (category.isExpanded) {
-                /*items.addAll(position + 1, category.pasta.baralho.map { baralho ->
-                    HomeAcListItem.HomeAcBaralhoItem(baralho)
-                })*/
                 items.addAll(position + 1, category.pasta.baralho.map { it ->
                     HomeAcListItem.HomeAcBaralhoItem(it)
                 })
@@ -99,8 +121,6 @@ class ExpandableListAdapter(
 
         fun bind(baralhoItem: HomeAcListItem.HomeAcBaralhoItem) {
             textViewB.text = baralhoItem.baralho.nome
-            textViewB.setPadding(50, textViewB.paddingTop, textViewB.paddingRight, textViewB.paddingBottom) // Indenta
-
 
             itemView.setOnClickListener {
                 onBaralhoItemClick(baralhoItem) // 🔹 Chama o listener passando o item clicado

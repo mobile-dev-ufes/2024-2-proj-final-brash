@@ -49,7 +49,7 @@ class LoginAC : AppCompatActivity(), View.OnClickListener {
     override fun onClick(view : View) {
 
         when(view.id){
-            R.id.LoginAcTextViewEsqueceuSenha -> {
+            R.id.LoginAcButtonCriar -> {
                 //UtilsFoos.showToast(this, "Você clicou na mensgem de ir cadastrar")
                 //intentToCadastrarContaActivity()
             }

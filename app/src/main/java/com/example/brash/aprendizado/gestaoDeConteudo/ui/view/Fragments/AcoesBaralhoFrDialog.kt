@@ -3,6 +3,7 @@ package com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments
 import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Baralho
@@ -57,8 +58,11 @@ class AcoesBaralhoFrDialog(val baralho: Baralho) : DialogFragment() {
         }
         binding.HomeFrAcoesBaralhoTextViewMoverBaralho.setOnClickListener {
             dismiss()
-            Toast.makeText(requireContext(), "Mover Baralho", Toast.LENGTH_SHORT).show()
-            MoverBaralhoFrDialog(baralho).show(parentFragmentManager, "OpcaoDialog")
+            //Toast.makeText(requireContext(), "Mover Baralho", Toast.LENGTH_SHORT).show()
+            if (!activity?.isFinishing!! && !activity?.isDestroyed!!) {
+                Log.d("ListaPastaAdapter", "Tentando mostrar o diálogo")
+                MoverBaralhoFrDialog().show(parentFragmentManager, "MoverBaralhoDialog")
+            }
         }
         binding.HomeFrAcoesBaralhoTextViewExcluirBaralho.setOnClickListener {
             dismiss()

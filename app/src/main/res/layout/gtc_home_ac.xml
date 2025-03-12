@@ -105,6 +105,8 @@
             android:textColor="@color/white"
             android:inputType="text"
 
+            style="@style/EditTextMaxCharNome"
+
             />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -133,7 +135,6 @@
         app:layout_constraintEnd_toEndOf="@+id/HomeAcImageViewOpcoesDeBusca"
         app:layout_constraintTop_toBottomOf="@+id/HomeAcLayoutInputDePesquisa"
         app:layout_constraintBottom_toTopOf="@+id/HomeAcButtonAcoesAdicionais"
-        android:background="@drawable/borda_linear_layout"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="5dp"
         />

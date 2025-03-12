@@ -6,8 +6,6 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Baralho
-import com.example.brash.databinding.GtcHomeFrMoverBaralhoBinding
-import com.example.brash.databinding.GtcListarBaralhoPublicoAcBinding
 import com.example.brash.databinding.GtcHomeFrVisualizarBaralhoBinding
 
 class VisualizarBaralhoFrDialog(val baralho: Baralho) : DialogFragment() {
@@ -22,7 +20,8 @@ class VisualizarBaralhoFrDialog(val baralho: Baralho) : DialogFragment() {
         _binding = GtcHomeFrVisualizarBaralhoBinding.inflate(layoutInflater)
         builder.setView(binding.root)
 
-        binding.HomeFrVisualizarBaralhoTextViewNomeBaralho.text = baralho.nome
+        binding.HomeFrVisualizarBaralhoInputTitulo.setText("123456789A123456789B123456789a123456789b")
+        binding.HomeFrVisualizarBaralhoInputDescricao.setText("123456789A123456789B123456789A123456789B123456789A123456789B123456789A123456789B123456789A123456789B123456789A123456789B")
         setOnClickListeners()
         setObservers()
         return builder.create()
@@ -33,6 +32,14 @@ class VisualizarBaralhoFrDialog(val baralho: Baralho) : DialogFragment() {
     }
 
     private fun setOnClickListeners(){
+
+        binding.HomeFrVisualizarBaralhoButtonCancelar.setOnClickListener {
+            dismiss()
+        }
+        binding.HomeFrVisualizarBaralhoButtonConfirmar.setOnClickListener {
+            dismiss()
+            Toast.makeText(requireContext(), "Baralho Editado", Toast.LENGTH_SHORT).show()
+        }
 
     }
 

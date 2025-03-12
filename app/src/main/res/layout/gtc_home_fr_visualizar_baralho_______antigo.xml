@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/HomeFrVisualizarBaralho___Antigo"
+    android:maxHeight="400dp"
+    android:orientation="vertical"
+    android:background="@drawable/borda_linear_layout"
+    android:padding="16dp">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Título -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Título *"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/medium_gray"
+            android:textColor="@android:color/white"
+            android:hint="Digite o título"
+            android:padding="8dp"
+
+            android:layout_marginBottom="5dp"
+            android:textSize="16sp"
+            android:textColorHint="@color/white"/>
+
+        <!-- Áreas do Conhecimento -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Áreas do Conhecimento*"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:layout_marginTop="8dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@color/medium_gray"
+            android:padding="8dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Série"
+                android:textSize="16sp"
+                android:textColor="@android:color/white" />
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:src="@drawable/edit_24dp"
+                app:tint="@color/burnt_orange" />
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:src="@drawable/delete_24dp"
+                app:tint="@color/bright_red" />
+        </LinearLayout>
+
+        <ImageButton
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/add_15dp"
+            android:backgroundTint="@color/medium_gray"
+            android:layout_marginTop="4dp"
+            />
+
+        <!-- Áreas Específicas -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Áreas Específicas"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:layout_marginTop="8dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@color/medium_gray"
+            android:padding="8dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Comédia"
+
+                android:textSize="16sp"
+                android:textColor="@android:color/white" />
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:src="@drawable/edit_24dp"
+                app:tint="@color/burnt_orange" />
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:src="@drawable/delete_24dp"
+                app:tint="@color/bright_red" />
+        </LinearLayout>
+
+        <ImageButton
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/add_15dp"
+            android:backgroundTint="@color/medium_gray"
+            android:layout_marginTop="4dp"
+            />
+
+        <!-- Descrição -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Descrição *"
+            android:textColor="@android:color/white"
+            android:textSize="14sp"
+            android:layout_marginTop="8dp" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/medium_gray"
+            android:textColor="@color/white"
+            android:hint="20"
+            android:textColorHint="@color/white"
+            android:minHeight="100dp"
+            android:maxHeight="200dp"
+            android:gravity="top"
+            android:padding="8dp" />
+
+        <!-- Quantidade de cartões -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Quantidade de cartões novos/Dia *"
+            android:textColor="@android:color/white"
+            android:textSize="14sp"
+            android:layout_marginTop="8dp" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/medium_gray"
+            android:textColor="@color/white"
+            android:hint="Digite um número"
+            android:textColorHint="@color/white"
+            android:inputType="number"
+            android:padding="8dp"/>
+
+        <!-- Switch Baralho Público -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="8dp">
+
+            <CheckBox
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Baralho público"
+                android:textSize="20sp"
+                android:textColor="@android:color/white"
+                android:padding="8dp"/>
+        </LinearLayout>
+
+        <!-- Botões Cancelar e Confirmar -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="12dp">
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/cancelar"
+                android:backgroundTint="@android:color/darker_gray"
+                android:textColor="@android:color/white" />
+
+            <View
+                android:layout_width="8dp"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/confirmar"
+                android:backgroundTint="@color/medium_gray"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

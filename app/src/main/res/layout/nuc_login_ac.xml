@@ -128,6 +128,7 @@
                 android:ellipsize="end"
                 android:inputType="textPassword"
 
+                style="@style/EditTextMaxCharNome"
                 />
         </com.google.android.material.textfield.TextInputLayout>
 
