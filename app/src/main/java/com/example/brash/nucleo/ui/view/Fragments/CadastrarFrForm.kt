@@ -5,11 +5,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.brash.R
 import com.example.brash.databinding.NucCadastrarFrFormBinding
 import com.example.brash.nucleo.ui.viewModel.CadastrarContaVM
 import com.example.brash.nucleo.utils.UtilsFoos
+import kotlinx.coroutines.launch
 
 
 class CadastrarFrForm : Fragment(R.layout.nuc_cadastrar_fr_form) {
@@ -46,15 +48,12 @@ class CadastrarFrForm : Fragment(R.layout.nuc_cadastrar_fr_form) {
             val email = binding.CadastrarContaAcTextInputEditTextEmail.text.toString()
             val password = binding.CadastrarContaAcTextInputEditTextSenha.text.toString()
 
-            cadastrarContaVM.handleRegisterForm(userName, exhibitionName, email, password, {
-                val emailVerificationCode = "777"
-                // desativando serviço de email
-                //val emailVerificationCode = UtilsFoos.emailVerificationCodeGenerator(size=6)
-                //cadastrarContaVM.sendCodeToEmail(email, emailVerificationCode, {
-                    //actionToCadastrarFrCodigo(userName, exhibitionName, email, password, emailVerificationCode)
-                //})
-                actionToCadastrarFrCodigo(userName, exhibitionName, email, password, emailVerificationCode)
-            })
+            lifecycleScope.launch{
+                cadastrarContaVM.handleRegisterForm(userName, exhibitionName, email, password) {
+                    val emailVerificationCode = "777"
+                    actionToCadastrarFrCodigo(userName, exhibitionName, email, password, emailVerificationCode)
+                }
+            }
 
         }
     }
@@ -69,6 +68,11 @@ class CadastrarFrForm : Fragment(R.layout.nuc_cadastrar_fr_form) {
             binding.CadastrarContaAcTextViewMensagemErroForm.text = it
             binding.CadastrarContaAcTextViewMensagemErroForm.visibility = View.VISIBLE
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        cadastrarContaVM.clearFormMessageError()
     }
 
     override fun onDestroyView() {

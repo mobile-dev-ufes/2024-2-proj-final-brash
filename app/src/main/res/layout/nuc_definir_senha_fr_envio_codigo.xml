@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/deep_black"
+
+    >
+
+    <LinearLayout
+        android:id="@+id/DefinirSenhaAcLinearLayout"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:padding="24dp"
+
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+
+        android:orientation="vertical"
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        >
+
+        <com.google.android.material.textfield.TextInputLayout
+
+            android:id="@+id/DefinirSenhaAcTextInputLayoutEmail"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:hint="@string/nuc_email"
+            android:textSize="16sp"
+            app:endIconMode="clear_text"
+
+            app:boxStrokeWidth="1dp"
+            app:boxBackgroundColor="@color/white"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/DefinirSenhaAcTextInputEditTextEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+
+                android:text="flkdnaklfdaslknfkld"
+                android:enabled="false"
+
+                android:maxLines="1"
+                android:ellipsize="end"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="24dp"
+            >
+            <Button
+                android:id="@+id/DefinirSenhaAcButtonCancelar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cancelar"
+
+                app:layout_constraintHorizontal_chainStyle="packed"
+
+                android:layout_marginEnd="16dp"
+                android:backgroundTint="@color/charcoal_gray"
+
+                app:layout_constraintEnd_toStartOf="@id/DefinirSenhaAcButtonCadastrar"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                >
+            </Button>
+
+            <Button
+                android:id="@+id/DefinirSenhaAcButtonCadastrar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="@string/nuc_enviar_codigo"
+                android:backgroundTint="@color/medium_gray"
+                android:elevation="8dp"
+
+                app:layout_constraintStart_toEndOf="@id/DefinirSenhaAcButtonCancelar"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                >
+            </Button>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+    </LinearLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

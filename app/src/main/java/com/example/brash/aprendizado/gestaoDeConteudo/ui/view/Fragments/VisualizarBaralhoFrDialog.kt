@@ -28,6 +28,7 @@ class VisualizarBaralhoFrDialog(val baralho: Baralho) : DialogFragment() {
     }
 
     private fun setObservers(){
+
     }
 
     private fun setOnClickListeners(){

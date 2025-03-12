@@ -40,6 +40,13 @@
     <string name="nuc_msg_erro_usario_ou_senha_incorretos">Wrong user or password.</string>
     <string name="nuc_msg_erro_falha_conectar_internet">It was not possible to connect to the internet.</string>
     <string name="nuc_msg_erro_login_default">An error has occurred logging in. Please try again.</string>
+    <string name="nuc_msg_erro_acesso_banco_dados">It was not possible to access the data base, try again later.</string>
+    <string name="nuc_msg_erro_senha_fraca">You password must have at least 6 characters!</string>
+    <string name="nuc_msg_erro_email_ja_cadastrado">This email is currently in use!</string>
+    <string name="nuc_msg_erro_nome_usuario_ja_cadastrado">This username is currently in use!</string>
+    <string name="nuc_msg_erro_codigo_invalido">Wrong verification code!</string>
+    <string name="nuc_enviar_codigo">Send</string>
+    <string name="nuc_alterar_senha">change the password</string>
 
     <string-array name="nuc_spinner_ordenar">
         <item>Alphanumeric Order</item>

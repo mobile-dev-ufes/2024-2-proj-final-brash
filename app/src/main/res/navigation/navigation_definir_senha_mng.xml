@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_definir_senha_mng"
+    app:startDestination="@id/definirSenhaFrEnvioCodigo">
+
+    <fragment
+        tools:layout="@layout/nuc_definir_senha_fr_envio_codigo"
+        android:id="@+id/definirSenhaFrEnvioCodigo"
+        android:name="com.example.brash.nucleo.ui.view.Fragments.DefinirSenhaFrEnvioCodigo"
+        android:label="DefinirSenhaFrEnvioCodigo" />
+</navigation>

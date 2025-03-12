@@ -76,6 +76,7 @@ class LoginVM(application: Application) : AndroidViewModel(application) {
         return true
     }
 
+
     fun userStored(onSucess: () -> Unit){
         if (auth.currentUser != null) {
             onSucess()

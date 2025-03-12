@@ -45,17 +45,21 @@ class CadastrarFrCodigo : Fragment(R.layout.nuc_cadastrar_fr_codigo) {
         setOnClickListeners()
     }
 
-
     private fun setObservers(){
-
+        cadastrarContaVM.verificationCodeMessageError.observe(viewLifecycleOwner){
+            binding.CadastrarContaAcTextViewMensagemErroCodigo.text = it
+            binding.CadastrarContaAcTextViewMensagemErroCodigo.visibility = View.VISIBLE
+        }
     }
 
     private fun setOnClickListeners(){
 
         binding.CadastrarContaAcButtonVerificarCodigo.setOnClickListener{
-            if(binding.CadastrarContaAcTextInputEditTextCodigo.text.toString() == args.emailVerificationCode){
-                actionToCadastrarFrExito()
-                //TODO! criar conta do usuário
+            val typedVerificationCode = binding.CadastrarContaAcTextInputEditTextCodigo.text.toString()
+            if(cadastrarContaVM.checkVerificationCode(typedVerificationCode, args.emailVerificationCode)){
+                cadastrarContaVM.registerNewUser(args.userName, args.exhibitionName, args.email, args.password, {
+                    actionToCadastrarFrExito()
+                })
             }
         }
 
@@ -65,6 +69,11 @@ class CadastrarFrCodigo : Fragment(R.layout.nuc_cadastrar_fr_codigo) {
         val action = CadastrarFrCodigoDirections.actionCadastrarFrCodigoToCadastrarFrExito()
         findNavController().navigate(action)
 
+    }
+
+    override fun onPause() {
+        super.onPause()
+        cadastrarContaVM.clearVerificationCodeMessageError()
     }
 
     override fun onDestroyView() {

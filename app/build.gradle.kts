@@ -69,9 +69,10 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:2.5.3")
     kapt("androidx.room:room-compiler:2.6.1")
 
-    implementation ("androidx.fragment:fragment-ktx:1.5.4") // dependência de fragments
+    implementation("androidx.fragment:fragment-ktx:1.5.4") // dependência de fragments
     implementation(platform("com.google.firebase:firebase-bom:33.10.0")) // firebase
     implementation("com.google.firebase:firebase-common-ktx:20.2.0") // firebase
+    implementation("com.google.firebase:firebase-firestore")
 
 
 
