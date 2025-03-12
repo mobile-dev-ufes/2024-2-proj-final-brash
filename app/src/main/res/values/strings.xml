@@ -39,6 +39,13 @@
     <string name="nuc_msg_erro_usario_ou_senha_incorretos">Usuário ou senha incorretos.</string>
     <string name="nuc_msg_erro_falha_conectar_internet">Falha ao conectar com a internet.</string>
     <string name="nuc_msg_erro_login_default">Houve algum problema no login, tente novamente</string>
+    <string name="nuc_msg_erro_acesso_banco_dados">Não foi possível acessar o servidor de banco de dados, tente mais tarde.</string>
+    <string name="nuc_msg_erro_senha_fraca">Sua senha deve conter pelo menos 6 dígitos!</string>
+    <string name="nuc_msg_erro_email_ja_cadastrado">Este e-mail já está cadastrado!</string>
+    <string name="nuc_msg_erro_nome_usuario_ja_cadastrado">Este nome de usuário já está cadastrado!</string>
+    <string name="nuc_msg_erro_codigo_invalido">Código inválido!</string>
+    <string name="nuc_enviar_codigo">Enviar código</string>
+    <string name="nuc_alterar_senha">alterar senha</string>
 
     <string-array name="nuc_spinner_ordenar">
         <item>Ordem Alfanumérica</item>
