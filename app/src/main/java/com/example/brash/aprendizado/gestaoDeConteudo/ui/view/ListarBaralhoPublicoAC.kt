@@ -69,7 +69,6 @@ class ListarBaralhoPublicoAC : AppCompatActivity(), View.OnClickListener, AlertD
             Baralho(idBaralho = 2, nome = "Deck 15"),
             Baralho(idBaralho = 1, nome = "Baralho 16"),
             Baralho(idBaralho = 2, nome = "Deck 17"),
-
         )
         adapter.updateBaralhoList(baralhoList)
 
