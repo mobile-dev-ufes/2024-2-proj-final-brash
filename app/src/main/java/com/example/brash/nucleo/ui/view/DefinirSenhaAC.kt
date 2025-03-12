@@ -32,10 +32,9 @@ class DefinirSenhaAC : AppCompatActivity(), View.OnClickListener {
         setOnClickListeners()
         setObservers()
     }
+
     private fun setOnClickListeners(){
-        //binding.ConfiguracaoAcTextViewTrocarSenha.setOnClickListener(this)
-        //binding.ConfiguracaoAcTextViewTrocarEmail.setOnClickListener(this)
-        //binding.ConfiguracaoAcTextViewSairDaConta.setOnClickListener(this)
+
     }
 
     private fun setObservers(){
@@ -44,27 +43,6 @@ class DefinirSenhaAC : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(view : View) {
 
-        when(view.id){
-            /*
-            R.id.ConfiguracaoAcTextViewTrocarSenha -> {
-                //UtilsFoos.showToast(this, "Você clicou na mensgem de ir cadastrar")
-                //intentToCadastrarContaActivity()
-            }
-            R.id.ConfiguracaoAcTextViewTrocarEmail -> {
-
-            }
-            R.id.ConfiguracaoAcTextViewSairDaConta ->{
-                //loginVM.signOut()
-                //intentToLoginActivity()
-            }*/
-        }
-
-    }
-
-    override fun onStop() {
-        super.onStop()
-        //binding.LoginAcTextViewErroEntrar.visibility = View.GONE // esconder o erro depois que sair da tela
-        // não vai previsar por causa do finish
     }
 
 }

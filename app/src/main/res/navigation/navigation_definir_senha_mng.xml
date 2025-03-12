@@ -9,5 +9,44 @@
         tools:layout="@layout/nuc_definir_senha_fr_envio_codigo"
         android:id="@+id/definirSenhaFrEnvioCodigo"
         android:name="com.example.brash.nucleo.ui.view.Fragments.DefinirSenhaFrEnvioCodigo"
-        android:label="DefinirSenhaFrEnvioCodigo" />
+        android:label="DefinirSenhaFrEnvioCodigo" >
+        <action
+            android:id="@+id/action_definirSenhaFrEnvioCodigo_to_definirSenhaFrConfirmacaoCodigo"
+            app:destination="@id/definirSenhaFrConfirmacaoCodigo"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
+    </fragment>
+    <fragment
+        tools:layout="@layout/nuc_definir_senha_fr_confirmacao_codigo"
+        android:id="@+id/definirSenhaFrConfirmacaoCodigo"
+        android:name="com.example.brash.nucleo.ui.view.Fragments.DefinirSenhaFrConfirmacaoCodigo"
+        android:label="DefinirSenhaFrConfirmacaoCodigo" >
+        <action
+            android:id="@+id/action_definirSenhaFrConfirmacaoCodigo_to_definirSenhaFrNovaSenha"
+            app:destination="@id/definirSenhaFrNovaSenha"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
+    </fragment>
+    <fragment
+        tools:layout="@layout/nuc_definir_senha_fr_nova_senha"
+        android:id="@+id/definirSenhaFrNovaSenha"
+        android:name="com.example.brash.nucleo.ui.view.Fragments.DefinirSenhaFrNovaSenha"
+        android:label="DefinirSenhaFrNovaSenha" >
+        <action
+            android:id="@+id/action_definirSenhaFrNovaSenha_to_definirSenhaFrExito"
+            app:destination="@id/definirSenhaFrExito"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
+    </fragment>
+    <fragment
+        tools:layout="@layout/nuc_definir_senha_fr_exito"
+        android:id="@+id/definirSenhaFrExito"
+        android:name="com.example.brash.nucleo.ui.view.Fragments.DefinirSenhaFrExito"
+        android:label="DefinirSenhaFrExito" />
 </navigation>

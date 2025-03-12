@@ -55,6 +55,35 @@
                 />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <com.google.android.material.textfield.TextInputLayout
+
+            android:id="@+id/DefinirSenhaAcTextInputLayoutCodigo"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:hint="@string/nuc_codigo"
+            android:textSize="16sp"
+            app:endIconMode="clear_text"
+
+            android:layout_marginTop="24dp"
+
+            app:boxStrokeWidth="1dp"
+            app:boxBackgroundColor="@color/white"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/DefinirSenhaAcTextInputEditTextCodigo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+
+                android:maxLines="1"
+                android:ellipsize="end"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -72,18 +101,18 @@
                 android:layout_marginEnd="16dp"
                 android:backgroundTint="@color/charcoal_gray"
 
-                app:layout_constraintEnd_toStartOf="@id/DefinirSenhaAcButtonCadastrar"
+                app:layout_constraintEnd_toStartOf="@id/DefinirSenhaAcButtonVerificarCodigo"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 >
             </Button>
 
             <Button
-                android:id="@+id/DefinirSenhaAcButtonCadastrar"
+                android:id="@+id/DefinirSenhaAcButtonVerificarCodigo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
-                android:text="@string/nuc_enviar_codigo"
+                android:text="@string/nuc_verificar_codigo"
                 android:backgroundTint="@color/medium_gray"
                 android:elevation="8dp"
 

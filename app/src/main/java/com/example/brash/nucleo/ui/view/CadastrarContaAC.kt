@@ -25,10 +25,11 @@ class CadastrarContaAC : AppCompatActivity(), View.OnClickListener{
         setOnClickListeners()
     }
 
+    private fun setOnClickListeners(){
 
+    }
 
+    override fun onClick(view : View) {
 
-    private fun setOnClickListeners(){}
-
-    override fun onClick(view : View) {}
+    }
 }
