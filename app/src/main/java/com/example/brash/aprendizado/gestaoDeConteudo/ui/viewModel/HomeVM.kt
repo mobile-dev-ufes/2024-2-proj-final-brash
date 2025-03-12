@@ -46,7 +46,7 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
 
         _pastaList.value = listOf(
             Pasta(nome =  "Alimentos"),
-            Pasta(nome =  "Frutas"),
+            Pasta(nome =  "Frutas", idPasta = 1),
             Pasta(nome =  "VerdurasVerdurasAlimentosmorango"),
             Pasta(nome =  "abacaxi"),
             Pasta(nome =  "Alimentos"),

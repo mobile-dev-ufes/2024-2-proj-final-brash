@@ -8,11 +8,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Pasta
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.listener.OnPastaListener
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.viewHolder.ListaPastaVH
+import com.example.brash.aprendizado.gestaoDeConteudo.ui.viewModel.HomeVM
 import com.example.brash.aprendizado.gestaoDeConteudo.utils.getColorResetMoverBaralho
 import com.example.brash.aprendizado.gestaoDeConteudo.utils.getColorSetMoverBaralho
 import com.example.brash.databinding.GtcItemPastaComIconeBinding
 
-class ListaPastaAdapter : RecyclerView.Adapter<ListaPastaVH>() {
+class ListaPastaAdapter(private val pastaDoBaralhoEmFoco: Pasta?) : RecyclerView.Adapter<ListaPastaVH>() {
 
     private var pastaList: List<Pasta> = listOf()
 
@@ -28,17 +29,37 @@ class ListaPastaAdapter : RecyclerView.Adapter<ListaPastaVH>() {
         return ListaPastaVH(item, listener)
     }
 
+
+
     override fun onBindViewHolder(holder: ListaPastaVH, position: Int) {
         holder.bindVH(pastaList[position])
 
         // Mudando o fundo do item selecionado
-        if (position == selectedPosition) {
-            holder.itemView.setBackgroundColor(
-                ContextCompat.getColor(holder.itemView.context, getColorSetMoverBaralho()) // Ou outra cor de sua escolha
-            )
-        } else {
+        //  if (position != selectedPosition)
+        //  else if(selectedPosition == -1)
+
+
+        if(selectedPosition == -1){
+            if(pastaDoBaralhoEmFoco != null && pastaDoBaralhoEmFoco.idPasta  == pastaList[position].idPasta){
+                holder.itemView.setBackgroundColor(
+                    ContextCompat.getColor(holder.itemView.context, getColorSetMoverBaralho()) // Ou outra cor de sua escolha
+                )
+            }
+            else{
+                holder.itemView.setBackgroundColor(
+                    ContextCompat.getColor(holder.itemView.context, getColorResetMoverBaralho()) // Cor padrão
+                )
+            }
+        }
+        else if (position != selectedPosition) {
             holder.itemView.setBackgroundColor(
                 ContextCompat.getColor(holder.itemView.context, getColorResetMoverBaralho()) // Cor padrão
+            )
+        }
+        else {
+
+            holder.itemView.setBackgroundColor(
+                ContextCompat.getColor(holder.itemView.context, getColorSetMoverBaralho()) // Ou outra cor de sua escolha
             )
         }
 
@@ -68,6 +89,11 @@ class ListaPastaAdapter : RecyclerView.Adapter<ListaPastaVH>() {
         // Reseta a variável de posição selecionada
         selectedPosition = -1
         // Notifica a RecyclerView para atualizar todos os itens
+        notifyDataSetChanged()
+    }
+
+    fun initPastaAssociada(){
+
         notifyDataSetChanged()
     }
 }

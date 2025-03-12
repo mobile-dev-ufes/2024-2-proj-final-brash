@@ -52,9 +52,12 @@ class MoverBaralhoFrDialog() : DialogFragment() {
 
         // Agora a ViewModel está sendo recuperada corretamente
         homeVM = ViewModelProvider(requireActivity()).get(HomeVM::class.java)
-        adapter = ListaPastaAdapter()
+        adapter = ListaPastaAdapter(homeVM.baralhoEmFoco.value?.pasta)
 
 
+        if(homeVM.baralhoEmFoco.value?.pasta == null){
+            setBackgroundLayoutRaiz()
+        }
         // Configurar RecyclerView com Adapter
         binding.HomeFrMoverBaralhoRecycleViewListaPastas.layoutManager = LinearLayoutManager(context)
         binding.HomeFrMoverBaralhoRecycleViewListaPastas.adapter = adapter
@@ -121,7 +124,7 @@ class MoverBaralhoFrDialog() : DialogFragment() {
         binding.HomeFrMoverBaralhoLayoutRaiz.setOnClickListener {
             Toast.makeText(context, "Root Clicado", Toast.LENGTH_SHORT).show()
 
-            setBackgroundLayoutRaiz()
+            clickPastaRaiz()
         }
 
     }
@@ -131,12 +134,16 @@ class MoverBaralhoFrDialog() : DialogFragment() {
         _binding = null // Evita vazamento de memória
     }
 
-    fun setBackgroundLayoutRaiz(){
+    private fun clickPastaRaiz(){
+        setBackgroundLayoutRaiz()
+        adapter.resetSelectedItem()
+        homeVM.resetPastaEmMover()
+    }
+
+    private fun setBackgroundLayoutRaiz(){
         binding.HomeFrMoverBaralhoLayoutRaiz.setBackgroundColor(
             ContextCompat.getColor(requireContext(), getColorSetMoverBaralho())
         )
-        adapter.resetSelectedItem()
-        homeVM.resetPastaEmMover()
     }
 
     fun resetBackgroundLayoutRaiz(){

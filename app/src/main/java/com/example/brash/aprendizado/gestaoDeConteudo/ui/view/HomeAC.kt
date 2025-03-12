@@ -65,6 +65,7 @@ class HomeAC : AppCompatActivity(), View.OnClickListener, AlertDialogFr.OnConfir
             HomeAcListItem.HomeAcPastaItem(pasta = Pasta(nome = "Roupas")),
             HomeAcListItem.HomeAcPastaItem(isExpanded = true, pasta = Pasta(nome =  "Eletrônicos",
                 baralhos =  mutableListOf(
+                    //Baralho(nome = "Celular", pasta = Pasta(idPasta = 1)),
                     Baralho(nome = "Celular"),
                     Baralho(nome = "Notebook"),
                     Baralho(nome = "Fone de ouvido")
