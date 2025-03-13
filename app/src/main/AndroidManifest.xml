@@ -18,6 +18,10 @@
             android:name=".nucleo.ui.view.CadastrarContaAC"
             android:exported="false" />
         <activity
+            android:name=".nucleo.ui.view.ListarCartaoAC"
+            android:exported="true" />
+
+        <activity
             android:name=".nucleo.ui.view.ConfiguracaoAC"
             android:exported="false" />
         <activity
