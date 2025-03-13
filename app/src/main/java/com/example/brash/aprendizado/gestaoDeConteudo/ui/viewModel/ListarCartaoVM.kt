@@ -63,7 +63,6 @@ class ListarCartaoVM(application: Application) : AndroidViewModel(application) {
 
 }
 
-
 /*
 
 val dialog = OpcaoDialogFragment()
