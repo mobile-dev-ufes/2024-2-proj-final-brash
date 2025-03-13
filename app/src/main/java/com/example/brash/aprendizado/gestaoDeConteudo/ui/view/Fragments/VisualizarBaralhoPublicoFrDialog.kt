@@ -12,15 +12,18 @@ import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Baralho
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.viewModel.HomeVM
+import com.example.brash.aprendizado.gestaoDeConteudo.ui.viewModel.ListarBaralhoPublicoVM
 import com.example.brash.databinding.GtcHomeFrMoverBaralhoBinding
 import com.example.brash.databinding.GtcHomeFrVisualizarBaralhoBinding
 import com.example.brash.databinding.GtcListarBaralhoPublicoAcBinding
 import com.example.brash.databinding.GtcListarBaralhoPublicoFrVisualizarBaralhoBinding
 
-class VisualizarBaralhoPublicoFrDialog(val baralho: Baralho) : DialogFragment() {
+class VisualizarBaralhoPublicoFrDialog() : DialogFragment() {
 
     private var _binding: GtcListarBaralhoPublicoFrVisualizarBaralhoBinding? = null
     private val binding get() = _binding!!
+
+    lateinit var listarBaralhoPublicoVM: ListarBaralhoPublicoVM
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,7 +38,7 @@ class VisualizarBaralhoPublicoFrDialog(val baralho: Baralho) : DialogFragment() 
         super.onViewCreated(view, savedInstanceState)
 
         // Agora a ViewModel está sendo recuperada corretamente
-        //homeVM = ViewModelProvider(requireActivity()).get(HomeVM::class.java)
+        listarBaralhoPublicoVM = ViewModelProvider(requireActivity()).get(ListarBaralhoPublicoVM::class.java)
         //Log.d("HomeDialogs", "homeVM iniciado")
 
         //homeVM.baralhoEmFoco.value?.let {
@@ -45,7 +48,16 @@ class VisualizarBaralhoPublicoFrDialog(val baralho: Baralho) : DialogFragment() 
         //}
         //binding.HomeFrVisualizarBaralhoInputDescricao.setText("123456789A123456789B123456789A123456789B123456789A123456789B123456789A123456789B123456789A123456789B123456789A123456789B")
 
-        binding.ListarBaralhoPublicoFrVisualizarBaralhoTextViewNomeBaralho.text = baralho.nome
+        listarBaralhoPublicoVM.baralhoPublicoEmFoco.value?.let {
+            // Se o valor não for null, preenche os campos
+            binding.ListarBaralhoPublicoFrVisualizarBaralhoInputTitulo.setText(it.nome)
+            binding.ListarBaralhoPublicoFrVisualizarBaralhoInputDescricao.setText(it.descricao)
+            //binding.Listar HomeFrVisualizarBaralhoInputDescricao.setText(it.descricao)
+            //binding.HomeFrVisualizarBaralhoInputCartoesNovos.setText(String.format(it.cartoesNovosPorDia.toString()))
+        } ?: run {
+            // Se o valor for null, exibe uma mensagem de erro
+            Toast.makeText(requireContext(), "Erro: Baralho não encontrado em VisualizarBaralhoHome!", Toast.LENGTH_SHORT).show()
+        }
         // Configurar os observadores para LiveData
         setObservers()
         setOnClickListeners()
@@ -63,7 +75,12 @@ class VisualizarBaralhoPublicoFrDialog(val baralho: Baralho) : DialogFragment() 
     }
 
     private fun setOnClickListeners(){
-
+        binding.ListarBaralhoPublicoFrVisualizarBaralhoButtonCancelar.setOnClickListener{
+            dismiss()
+        }
+        binding.ListarBaralhoPublicoFrVisualizarBaralhoButtonImportar.setOnClickListener{
+            //TODO:: Lógica de importar/copiar baralho
+        }
 
     }
 

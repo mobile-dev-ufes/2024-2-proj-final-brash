@@ -12,69 +12,81 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.brash.R
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Baralho
+import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Cartao
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Pasta
+import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments.AcoesCartaoFrDialog
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments.AcoesPastaFrDialog
+import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments.CriarCartaoFrDialog
 import com.example.brash.nucleo.ui.view.PerfilAC
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments.OpcoesDeBuscaHomeFrDialog
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments.VisualizarBaralhoPublicoFrDialog
+import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments.VisualizarCartaoFrDialog
 
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.adapter.ListaBaralhoPublicoAdapter
+import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.adapter.ListaCartaoAdapter
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.listener.OnBaralhoPublicoListener
+import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.listener.OnCartaoListener
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.listener.OnPastaListener
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.viewModel.ListarBaralhoPublicoVM
+import com.example.brash.aprendizado.gestaoDeConteudo.ui.viewModel.ListarCartaoVM
 import com.example.brash.databinding.GtcListarBaralhoPublicoAcBinding
+import com.example.brash.databinding.GtcListarCartaoAcBinding
 import com.example.brash.nucleo.ui.view.Fragments.AlertDialogFr
 
-class ListarBaralhoPublicoAC : AppCompatActivity() {
+class ListarCartaoAC : AppCompatActivity() {
 
-    private lateinit var binding: GtcListarBaralhoPublicoAcBinding
-    private lateinit var listarBaralhoPublicoVM: ListarBaralhoPublicoVM
+    private lateinit var binding: GtcListarCartaoAcBinding
+    private lateinit var listarCartaoVM: ListarCartaoVM
 
     private lateinit var recyclerView: RecyclerView
 
-    private lateinit var adapter : ListaBaralhoPublicoAdapter
+    private lateinit var adapter : ListaCartaoAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = GtcListarBaralhoPublicoAcBinding.inflate(layoutInflater)
+        binding = GtcListarCartaoAcBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        listarBaralhoPublicoVM = ViewModelProvider(this).get(ListarBaralhoPublicoVM::class.java)
+        listarCartaoVM = ViewModelProvider(this).get(ListarCartaoVM::class.java)
 
 
 
         // Inicializando o listener diretamente
-        val listener = object : OnBaralhoPublicoListener {
-            override fun onClick(b: Baralho) {
-                Toast.makeText(applicationContext, b.nome, Toast.LENGTH_SHORT).show()
-                listarBaralhoPublicoVM.setBaralhoPublicoEmFoco(b)
-                VisualizarBaralhoPublicoFrDialog().show(supportFragmentManager, "AcoesAdicionaisDialog")
+        val listener = object : OnCartaoListener {
+            override fun onClick(c: Cartao) {
+                Toast.makeText(applicationContext, c.pergunta, Toast.LENGTH_SHORT).show()
+                listarCartaoVM.setCartaoEmFoco(c)
+                AcoesCartaoFrDialog().show(supportFragmentManager, "VisualizarCartaoDialog")
             }
         }
 
         // Inicializando o adapter com o listener
-        adapter = ListaBaralhoPublicoAdapter().apply {
+        adapter = ListaCartaoAdapter().apply {
             setListener(listener) // Garanta que o listener seja configurado
         }
 
-        recyclerView = binding.ListarBaralhoPublicoAcRecycleViewResultadoBusca
+        recyclerView = binding.ListarCartaoAcRecycleViewResultadoBusca
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter // Defina o adapter na RecyclerView
 
         setOnClickListeners()
         setObservers()
 
-        listarBaralhoPublicoVM.getAllBaralhosPublicos()
+        listarCartaoVM.getAllCartoes()
 
 
     }
     private fun setOnClickListeners(){
-        binding.ListarBaralhoPublicoAcImageViewRetornar.setOnClickListener {
+
+        binding.ListarCartaoAcImageViewRetornar.setOnClickListener {
             finish()
         }
-        binding.ListarBaralhoPublicoAcImageViewOpcoesDeBusca.setOnClickListener {
+        binding.ListarCartaoAcImageViewOpcoesDeBusca.setOnClickListener {
             OpcoesDeBuscaHomeFrDialog().show(supportFragmentManager, "OpcaoDialog")
+        }
+        binding.ListarCartaoAcButtonCriar.setOnClickListener{
+            CriarCartaoFrDialog().show(supportFragmentManager, "OpcaoDialog")
         }
 
     }
@@ -84,9 +96,9 @@ class ListarBaralhoPublicoAC : AppCompatActivity() {
             //binding.LoginAcTextViewErroEntrar.text = it
             //binding.LoginAcTextViewErroEntrar.visibility = View.VISIBLE
         //})
-        listarBaralhoPublicoVM.baralhoPublicoList.observe(this, Observer { baralhoList ->
-            if (baralhoList != null && baralhoList.isNotEmpty()) {
-                adapter.updateBaralhoPublicoList(baralhoList)
+        listarCartaoVM.cartaoList.observe(this, Observer { cartaoList ->
+            if (cartaoList != null && cartaoList.isNotEmpty()) {
+                adapter.updateCartaoList(cartaoList)
                 Log.d("ListaBaralhoPublico", "Lista atualizada com sucesso.")
             } else {
                 Log.d("ListaBaralhoPublico", "A lista de baralhos públicos está vazia.")

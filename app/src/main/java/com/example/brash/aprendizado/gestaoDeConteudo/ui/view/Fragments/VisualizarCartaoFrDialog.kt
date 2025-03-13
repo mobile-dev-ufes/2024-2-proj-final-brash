@@ -10,28 +10,29 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Baralho
-import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Pasta
-import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.adapter.ListaPastaAdapter
-import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.listener.OnPastaListener
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.viewModel.HomeVM
+import com.example.brash.aprendizado.gestaoDeConteudo.ui.viewModel.ListarBaralhoPublicoVM
+import com.example.brash.aprendizado.gestaoDeConteudo.ui.viewModel.ListarCartaoVM
 import com.example.brash.databinding.GtcHomeFrMoverBaralhoBinding
 import com.example.brash.databinding.GtcHomeFrVisualizarBaralhoBinding
+import com.example.brash.databinding.GtcListarBaralhoPublicoAcBinding
+import com.example.brash.databinding.GtcListarBaralhoPublicoFrVisualizarBaralhoBinding
+import com.example.brash.databinding.GtcListarCartaoFrVisualizarCartaoBinding
 
-class VisualizarBaralhoFrDialog() : DialogFragment() {
+class VisualizarCartaoFrDialog() : DialogFragment() {
 
-    private var _binding: GtcHomeFrVisualizarBaralhoBinding? = null
+    private var _binding: GtcListarCartaoFrVisualizarCartaoBinding? = null
     private val binding get() = _binding!!
 
-    lateinit var homeVM: HomeVM
+    lateinit var listarCartaoVM: ListarCartaoVM
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         // Inflar o layout com ViewBinding
-        _binding = GtcHomeFrVisualizarBaralhoBinding.inflate(inflater, container, false)
+        _binding = GtcListarCartaoFrVisualizarCartaoBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -39,21 +40,26 @@ class VisualizarBaralhoFrDialog() : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Agora a ViewModel está sendo recuperada corretamente
-        homeVM = ViewModelProvider(requireActivity()).get(HomeVM::class.java)
-        Log.d("HomeDialogs", "homeVM iniciado")
+        listarCartaoVM = ViewModelProvider(requireActivity()).get(ListarCartaoVM::class.java)
+        //Log.d("HomeDialogs", "homeVM iniciado")
 
-        homeVM.baralhoEmFoco.value?.let {
+        //homeVM.baralhoEmFoco.value?.let {
+            //binding.HomeFrVisualizarBaralhoInputTitulo.setText(it.nome)
+            //binding.HomeFrVisualizarBaralhoInputDescricao.setText(it.descricao)
+            //binding.HomeFrVisualizarBaralhoInputCartoesNovos.setText(String.format(it.cartoesNovosPorDia.toString()))
+        //}
+        //binding.HomeFrVisualizarBaralhoInputDescricao.setText("123456789A123456789B123456789A123456789B123456789A123456789B123456789A123456789B123456789A123456789B123456789A123456789B")
+
+        listarCartaoVM.cartaoEmFoco.value?.let {
             // Se o valor não for null, preenche os campos
-            binding.HomeFrVisualizarBaralhoInputTitulo.setText(it.nome)
-            binding.HomeFrVisualizarBaralhoInputDescricao.setText(it.descricao)
-            binding.HomeFrVisualizarBaralhoInputCartoesNovos.setText(String.format(it.cartoesNovosPorDia.toString()))
+            binding.ListarCartaoFrVisualizarCartaoInputPergunta.setText(it.pergunta)
+            binding.ListarCartaoFrVisualizarCartaoInputResposta.setText(it.resposta)
+            //binding.Listar HomeFrVisualizarBaralhoInputDescricao.setText(it.descricao)
+            //binding.HomeFrVisualizarBaralhoInputCartoesNovos.setText(String.format(it.cartoesNovosPorDia.toString()))
         } ?: run {
             // Se o valor for null, exibe uma mensagem de erro
             Toast.makeText(requireContext(), "Erro: Baralho não encontrado em VisualizarBaralhoHome!", Toast.LENGTH_SHORT).show()
         }
-        //binding.HomeFrVisualizarBaralhoInputDescricao.setText("123456789A123456789B123456789A123456789B123456789A123456789B123456789A123456789B123456789A123456789B123456789A123456789B")
-
-
         // Configurar os observadores para LiveData
         setObservers()
         setOnClickListeners()
@@ -71,13 +77,11 @@ class VisualizarBaralhoFrDialog() : DialogFragment() {
     }
 
     private fun setOnClickListeners(){
-
-        binding.HomeFrVisualizarBaralhoButtonCancelar.setOnClickListener {
+        binding.ListarCartaoFrVisualizarCartaoButtonCancelar.setOnClickListener{
             dismiss()
         }
-        binding.HomeFrVisualizarBaralhoButtonConfirmar.setOnClickListener {
-            dismiss()
-            Toast.makeText(requireContext(), "Baralho Editado", Toast.LENGTH_SHORT).show()
+        binding.ListarCartaoFrVisualizarCartaoButtonConfirmar.setOnClickListener{
+            //TODO:: Lógica de importar/copiar baralho
         }
 
     }

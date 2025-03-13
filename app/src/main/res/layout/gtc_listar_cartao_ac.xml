@@ -7,17 +7,173 @@
     android:layout_height="match_parent"
     android:background="@color/deep_black">
 
-    <TextView
+    <ImageView
+        android:id="@+id/ListarCartaoAcImageViewRetornar"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_margin="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/keyboard_return_24dp"
+        app:tint="@color/lavender_purple"
+
+        android:clickable="true"
+        android:focusable="true"
+        />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/ListarCartaoAcLayoutHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:padding="20dp">
+
+        <TextView
+            android:id="@+id/ListarCartaoAcTextViewTitulo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nome do Baralho"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/ListarCartaoAcButtonCriar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/ListarCartaoAcLayoutHeader"
+        app:layout_constraintTop_toBottomOf="@id/ListarCartaoAcLayoutHeader"
+        app:srcCompat="@drawable/add_24dp"
+        android:tint="@color/lavender_purple"
+        android:backgroundTint="@color/charcoal_gray"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="10dp"
+
+        android:visibility="visible"
+        />
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/ListarCartaoAcLayoutInputDePesquisa"
+
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        android:hint="@string/search_bar_hint"
+        android:textColorHint="@color/white"
+        android:textSize="30sp"
+        app:endIconMode="clear_text"
+
+        app:layout_constraintStart_toEndOf="@id/ListarCartaoAcButtonCriar"
+        app:layout_constraintEnd_toStartOf="@+id/ListarCartaoAcImageViewOpcoesDeBusca"
+        app:layout_constraintTop_toTopOf="@id/ListarCartaoAcButtonCriar"
+        app:layout_constraintBottom_toBottomOf="@id/ListarCartaoAcButtonCriar"
+
+        app:boxStrokeWidth="1dp"
+        app:boxBackgroundColor="@color/charcoal_gray"
+        android:layout_marginStart="20dp"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/ListarCartaoAcInputDePesquisa"
+
+            style="@style/EditTextMaxCharNome"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:ellipsize="end"
+            android:inputType="text"
+            android:maxLines="1"
+
+            android:textColor="@color/white" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <ImageView
+        android:id="@+id/ListarCartaoAcImageViewOpcoesDeBusca"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintStart_toEndOf="@+id/ListarCartaoAcLayoutInputDePesquisa"
+        app:layout_constraintEnd_toEndOf="@+id/ListarCartaoAcLayoutHeader"
+        app:layout_constraintTop_toTopOf="@+id/ListarCartaoAcLayoutInputDePesquisa"
+        app:layout_constraintBottom_toBottomOf="@+id/ListarCartaoAcLayoutInputDePesquisa"
+        android:src="@drawable/tune_24dp"
+        app:tint="@color/white"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="20dp"
+
+        android:clickable="true"
+        android:focusable="true"
+        />
+
+    <LinearLayout
+        android:id="@+id/ListarCartaoAcLayoutResultadoHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ListarCartaoAcLayoutInputDePesquisa">
+
+        <!-- Cabeçalho de colunas -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="8dp"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:id="@+id/ListarCartaoAcTextViewPergunta"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Pergunta"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:gravity="center"/>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"/>
+
+            <TextView
+                android:id="@+id/ListarCartaoAcTextViewResposta"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Resposta"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:gravity="center"/>
+        </LinearLayout>
+        <!-- Linha separadora abaixo do cabeçalho -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@android:color/white"/>
+
+    </LinearLayout>
+
+
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/ListarCartaoAcRecycleViewResultadoBusca"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="@+id/ListarCartaoAcButtonCriar"
+        app:layout_constraintEnd_toEndOf="@+id/ListarCartaoAcImageViewOpcoesDeBusca"
+        app:layout_constraintTop_toBottomOf="@+id/ListarCartaoAcLayoutResultadoHeader"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:text="listar_cartao"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="50sp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
         />
 
 

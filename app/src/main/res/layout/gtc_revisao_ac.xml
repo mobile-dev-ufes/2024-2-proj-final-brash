@@ -7,19 +7,209 @@
     android:layout_height="match_parent"
     android:background="@color/deep_black">
 
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/RevisaoAcHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:padding="20dp">
+
+
+        <ImageView
+            android:id="@+id/RevisaoAcImageViewRetornar"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+
+            android:src="@drawable/keyboard_return_24dp"
+            app:tint="@color/lavender_purple"
+
+            android:clickable="true"
+            android:focusable="true"
+            />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
     <TextView
-        android:id="@+id/RevisaoAcExemplo"
+        android:id="@+id/RevisaoAcTextViewNomeBaralho"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:text="REVISAO"
-        android:textAlignment="center"
+
+        android:text="@string/gtc_nome_baralho"
         android:textColor="@color/white"
-        android:textSize="50sp"
-        />
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/RevisaoAcHeader">
+    </TextView>
+
+    <LinearLayout
+        android:id="@+id/RevisaoAcLinearLayoutNumeroCartoes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:minWidth="150dp"
+
+        android:layout_marginTop="80dp"
+
+        android:orientation="vertical"
+
+        app:layout_constraintTop_toBottomOf="@id/RevisaoAcTextViewNomeBaralho"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/RevisaoAcConstraintLayoutCartoesNovos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/RevisaoAcTextViewCartoesNovosTitulo"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+
+                android:text="@string/gtc_cartoes_novos"
+
+                android:textColor="@color/white"
+                android:textSize="16sp"
+
+                app:layout_constraintEnd_toStartOf="@id/RevisaoAcTextViewCartoesNovosQuantidade"
+
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/RevisaoAcTextViewCartoesNovosQuantidade"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/gtc_zero"
+
+                android:textColor="@color/vibrant_blue"
+                android:textSize="16sp"
+
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/RevisaoAcTextViewCartoesNovosTitulo"
+                app:layout_constraintTop_toTopOf="parent">
+            </TextView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/RevisaoAcConstraintLayoutCartoesReviasar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/RevisaoAcTextViewCartoesRevisarTitulo"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/gtc_cartoes_a_revisar"
+
+                android:textColor="@color/white"
+                android:textSize="16sp"
+
+                android:layout_marginEnd="10dp"
+
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/RevisaoAcTextViewCartoesRevisarQuantidade"
+                app:layout_constraintStart_toStartOf="parent"
+                >
+            </TextView>
+
+            <TextView
+                android:id="@+id/RevisaoAcTextViewCartoesRevisarQuantidade"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/gtc_zero"
+
+                android:textColor="@color/bright_green"
+                android:textSize="16sp"
+
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/RevisaoAcTextViewCartoesRevisarTitulo"
+                app:layout_constraintTop_toTopOf="parent">
+            </TextView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/RevisaoAcConstraintLayoutCartoesEsquecidos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/RevisaoAcTextViewCartoesEsquecidosTitulo"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/gtc_cartoes_esquecidos"
+
+                android:layout_marginEnd="10dp"
+
+                android:textColor="@color/white"
+                android:textSize="16sp"
+
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/RevisaoAcTextViewCartoesEsquecidosQuantidade"
+                app:layout_constraintStart_toStartOf="parent"
+                >
+            </TextView>
+            <TextView
+                android:id="@+id/RevisaoAcTextViewCartoesEsquecidosQuantidade"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/gtc_zero"
+                android:textSize="16sp"
+                android:textColor="@color/bright_red"
+
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@id/RevisaoAcTextViewCartoesEsquecidosTitulo"
+                app:layout_constraintEnd_toEndOf="parent"
+                >
+            </TextView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/RevisaoAcButtonIniciarRevisao"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/gtc_iniciar_revisao"
+
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+
+        android:backgroundTint="@color/medium_gray"
+        android:textSize="16sp"
+        app:cornerRadius="8dp"
+
+        app:layout_constraintTop_toBottomOf="@id/RevisaoAcLinearLayoutNumeroCartoes"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+
+        >
+    </Button>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

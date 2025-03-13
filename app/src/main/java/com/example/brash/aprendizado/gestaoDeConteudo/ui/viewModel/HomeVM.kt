@@ -61,7 +61,7 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
     fun getAllHomeAcListItem(){
 
 
-        val p = Pasta(nome =  "Eletrônicos")
+        val p = Pasta(nome =  "Eletrônicos", idPasta =1 )
 
         val listaBaralho = mutableListOf(
             Baralho(nome = "Celular", pasta = p),

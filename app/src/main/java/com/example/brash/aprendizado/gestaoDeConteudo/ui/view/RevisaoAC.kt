@@ -48,7 +48,7 @@ class RevisaoAC : AppCompatActivity(), View.OnClickListener{
 
         ViewModelProvider(this).get(HomeVM::class.java).baralhoEmFoco.value?.let { baralho ->
             revisaoVM.setBaralhoEmFoco(baralho)
-            binding.RevisaoAcExemplo.text = baralho.nome
+            binding.RevisaoAcTextViewNomeBaralho.text = baralho.nome
         } ?: run {
             Toast.makeText(this, "Erro: Nenhum baralho selecionado!", Toast.LENGTH_LONG).show()
         }
@@ -59,6 +59,16 @@ class RevisaoAC : AppCompatActivity(), View.OnClickListener{
     }
 
     private fun setOnClickListeners(){
+
+        binding.RevisaoAcImageViewRetornar.setOnClickListener {
+            finish()
+        }
+
+        binding.RevisaoAcButtonIniciarRevisao.setOnClickListener {
+            val intent = Intent(this, RevisaoCartaoAC::class.java)
+            startActivity(intent)
+        }
+
     }
 
     private fun setObservers(){

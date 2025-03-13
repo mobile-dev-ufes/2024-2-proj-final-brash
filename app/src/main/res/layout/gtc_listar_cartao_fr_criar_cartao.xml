@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/HomeFrVisualizarBaralho"
+    android:id="@+id/ListarCartaoFrCriarCartao"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-
     android:background="@drawable/borda_linear_layout"
     android:padding="16dp">
 
+
     <com.google.android.material.textfield.TextInputLayout
 
-        android:id="@+id/HomeFrVisualizarBaralhoInputLayoutTitulo"
+        android:id="@+id/ListarCartaoFrCriarCartaoInputLayoutPergunta"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:hint="@string/gtc_titulo"
+        android:hint="Pergunta"
         android:textColorHint="@color/bright_red"
 
         app:endIconMode="clear_text"
@@ -25,7 +25,7 @@
         >
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/HomeFrVisualizarBaralhoInputTitulo"
+            android:id="@+id/ListarCartaoFrCriarCartaoInputPergunta"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
@@ -41,11 +41,11 @@
 
     <com.google.android.material.textfield.TextInputLayout
 
-        android:id="@+id/HomeFrVisualizarBaralhoInputLayoutDescricao"
+        android:id="@+id/ListarCartaoFrCriarCartaoInputLayoutResposta"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:hint="@string/gtc_descricao"
+        android:hint="Resposta"
         android:textColorHint="@color/bright_red"
 
         app:endIconMode="clear_text"
@@ -55,7 +55,7 @@
         >
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/HomeFrVisualizarBaralhoInputDescricao"
+            android:id="@+id/ListarCartaoFrCriarCartaoInputResposta"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
@@ -66,46 +66,16 @@
             />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
 
-        android:id="@+id/HomeFrVisualizarBaralhoInputLayoutCartoesNovos"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:hint="CartoesNovos"
-        android:textColorHint="@color/bright_red"
 
-        app:endIconMode="clear_text"
 
-        app:boxBackgroundColor="@color/medium_gray"
-        app:boxStrokeWidth="1dp"
-        >
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/HomeFrVisualizarBaralhoInputCartoesNovos"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            style="@style/EditTextMaxCharCartoesNovos"
-            android:textColor="@color/white"
-
-            />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <CheckBox
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Baralho público"
-        android:textSize="20sp"
-        android:textColor="@android:color/white"
-        android:padding="8dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <Button
-            android:id="@+id/HomeFrVisualizarBaralhoButtonCancelar"
+            android:id="@+id/ListarCartaoFrCriarCartaoButtonCancelar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -120,11 +90,11 @@
             android:layout_marginEnd="20dp"
             />
         <Button
-            android:id="@+id/HomeFrVisualizarBaralhoButtonConfirmar"
+            android:id="@+id/ListarCartaoFrCriarCartaoButtonCriar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/confirmar"
+            android:text="Criar Cartão"
             android:textSize="16sp"
             android:padding="10dp"
             android:textColor="@color/white"
@@ -134,6 +104,5 @@
             app:cornerRadius="8dp"
             />
     </LinearLayout>
-
 
 </LinearLayout>

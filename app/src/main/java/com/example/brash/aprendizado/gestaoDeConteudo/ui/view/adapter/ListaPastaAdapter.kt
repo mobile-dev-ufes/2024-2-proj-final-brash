@@ -57,7 +57,6 @@ class ListaPastaAdapter(private val pastaDoBaralhoEmFoco: Pasta?) : RecyclerView
             )
         }
         else {
-
             holder.itemView.setBackgroundColor(
                 ContextCompat.getColor(holder.itemView.context, getColorSetMoverBaralho()) // Ou outra cor de sua escolha
             )
@@ -66,8 +65,8 @@ class ListaPastaAdapter(private val pastaDoBaralhoEmFoco: Pasta?) : RecyclerView
         // Adiciona o listener para o clique do item
         holder.itemView.setOnClickListener {
             selectedPosition = position  // Atualiza a posição do item selecionado
-            notifyDataSetChanged()  // Notifica que houve mudança
             listener.onClick(pastaList[position])  // Chama o listener para a ação de clique
+            notifyDataSetChanged()
         }
     }
 
