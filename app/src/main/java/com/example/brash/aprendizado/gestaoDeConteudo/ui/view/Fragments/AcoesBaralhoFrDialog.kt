@@ -11,18 +11,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Baralho
-import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Pasta
-import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.RevisaoAC
-import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.adapter.ListaPastaAdapter
-import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.listener.OnPastaListener
+
+import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.RevisaoCartaoAC
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.viewModel.HomeVM
-import com.example.brash.databinding.GtcHomeFrAcoesAdicionaisBinding
 import com.example.brash.databinding.GtcHomeFrAcoesBaralhoBinding
-import com.example.brash.databinding.GtcHomeFrMoverBaralhoBinding
-import com.example.brash.nucleo.ui.view.Fragments.AlertDialogFr
-import com.example.brash.nucleo.ui.view.PerfilAC
 import com.example.brash.utilsGeral.UtilsGeral
 
 class AcoesBaralhoFrDialog() : DialogFragment() {
@@ -60,10 +52,8 @@ class AcoesBaralhoFrDialog() : DialogFragment() {
 
         binding.HomeFrAcoesBaralhoTextViewVisualizarBaralho.setOnClickListener {
             dismiss()
-            if (!activity?.isFinishing!! && !activity?.isDestroyed!!) {
-                Log.d("HomeDialogs", "Tentando mostrar o diálogo visualizarBaralho")
-                VisualizarBaralhoFrDialog().show(parentFragmentManager, "VisualizarBaralhoDialog")
-            }
+            Log.d("HomeDialogs", "Tentando mostrar o diálogo visualizarBaralho")
+            VisualizarBaralhoFrDialog().show(parentFragmentManager, "VisualizarBaralhoDialog")
         }
         binding.HomeFrAcoesBaralhoTextViewVisualizarCartoes.setOnClickListener {
             dismiss()
@@ -105,7 +95,7 @@ class AcoesBaralhoFrDialog() : DialogFragment() {
     }
 
     private fun intentToRevisaoActivity(){
-        val intent = Intent(requireContext(), RevisaoAC::class.java)
+        val intent = Intent(requireContext(), RevisaoCartaoAC::class.java)
         Log.d("HomeDialogs", "Indo para a revisão de baralho")
         startActivity(intent)
     }

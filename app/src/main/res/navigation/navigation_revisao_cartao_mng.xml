@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_revisao_cartao_mng"
+    app:startDestination="@id/revisaoFrInicio">
+
+    <fragment
+        tools:layout="@layout/gtc_revisao_fr_cartao"
+        android:id="@+id/revisaoFrCartao"
+        android:name="com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments.RevisaoFrCartao"
+        android:label="RevisaoFrCartao" >
+        <action
+            android:id="@+id/action_revisaoFrCartao_to_revisaoFrFinal"
+            app:destination="@id/revisaoFrFinal"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
+    </fragment>
+    <fragment
+        tools:layout="@layout/gtc_revisao_fr_final"
+        android:id="@+id/revisaoFrFinal"
+        android:name="com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments.RevisaoFrFinal"
+        android:label="RevisaoFrFinal" />
+    <fragment
+        tools:layout="@layout/gtc_revisao_fr_inicio"
+        android:id="@+id/revisaoFrInicio"
+        android:name="com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments.RevisaoFrInicio"
+        android:label="RevisaoFrInicio" >
+        <action
+            android:id="@+id/action_revisaoFrInicio_to_revisaoFrCartao"
+            app:destination="@id/revisaoFrCartao"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
+    </fragment>
+</navigation>

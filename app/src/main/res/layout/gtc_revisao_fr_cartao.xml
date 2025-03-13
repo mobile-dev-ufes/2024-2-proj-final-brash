@@ -1,6 +1,284 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/deep_black"
+
+    >
+
+    <ScrollView
+        android:id="@+id/RevisaoCartaoAcScrollViewConteudo"
+
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/RevisaoAcConstraintLayoutBotoes"
+        >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"
+            >
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+
+                android:id="@+id/RevisaoCartaoAcConstraintLayoutQuantidadeCartoes"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                >
+
+                <TextView
+                    android:id="@+id/RevisaoCartaoAcTextViewCartoesNovosQuantidade"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:text="0"
+                    android:textSize="16dp"
+                    android:textColor="@color/vibrant_blue"
+
+                    app:layout_constraintHorizontal_chainStyle="spread_inside"
+                    android:layout_marginEnd="10dp"
+
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/RevisaoCartaoAcTextViewCartoesRevisarQuantidade"
+                    >
+                </TextView>
+
+                <TextView
+                    android:id="@+id/RevisaoCartaoAcTextViewCartoesRevisarQuantidade"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:text="0"
+                    android:textSize="16dp"
+                    android:textColor="@color/bright_green"
+
+                    android:layout_marginEnd="10dp"
+
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/RevisaoCartaoAcTextViewCartoesEsquecidosQuantidade"
+                    app:layout_constraintStart_toEndOf="@id/RevisaoCartaoAcTextViewCartoesNovosQuantidade"
+                    >
+                </TextView>
+
+                <TextView
+                    android:id="@+id/RevisaoCartaoAcTextViewCartoesEsquecidosQuantidade"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:text="0"
+                    android:textSize="16dp"
+                    android:textColor="@color/bright_red"
+
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/RevisaoCartaoAcTextViewCartoesRevisarQuantidade"
+                    >
+                </TextView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/RevisaoCartaoAcTextViewPergunta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="pergunta"
+                android:textSize="32sp"
+                android:textColor="@color/white"
+
+                android:layout_marginTop="24dp"
+
+                app:layout_constraintTop_toBottomOf="@id/RevisaoCartaoAcConstraintLayoutQuantidadeCartoes"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                >
+            </TextView>
+
+            <View
+                android:id="@+id/RevisaoCartaoAcViewSeparador"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+
+                android:background="@color/medium_gray"
+                android:layout_marginTop="24dp"
+
+                android:visibility="gone"
+
+                app:layout_constraintTop_toBottomOf="@id/RevisaoCartaoAcTextViewPergunta"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                >
+            </View>
+
+            <TextView
+                android:id="@+id/RevisaoCartaoAcTextViewResposta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="resposta"
+                android:textColor="@color/white"
+                android:layout_marginTop="24dp"
+                android:textSize="32sp"
+
+                android:visibility="gone"
+
+                app:layout_constraintTop_toBottomOf="@id/RevisaoCartaoAcViewSeparador"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                >
+
+            </TextView>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </ScrollView>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+
+        android:id="@+id/RevisaoAcConstraintLayoutBotoes"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_marginBottom="20dp"
+
+        android:visibility="visible"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        >
+
+        <Button
+            android:id="@+id/RevisaoCartaoAcButtonMostrarResposta"
+
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+
+            android:text="Mostrar resposta"
+
+            android:backgroundTint="@color/medium_gray"
+
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+
+            android:visibility="visible"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            >
+        </Button>
+
+        <LinearLayout
+            android:id="@+id/RevisaoCartaoAcLinearLayoutBotoesResposta"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+
+            android:visibility="gone"
+
+            android:layout_marginStart="14dp"
+            android:layout_marginEnd="14dp"
+
+            android:orientation="horizontal"
+            >
+
+            <Button
+                android:id="@+id/RevisaoCartaoAcButtonEsqueci"
+
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+
+                android:backgroundTint="@color/medium_gray"
+
+                android:text="Esqueci"
+                android:textSize="12sp"
+                android:textColor="@color/bright_red"
+
+                app:layout_constraintHorizontal_chainStyle="spread"
+                >
+            </Button>
+
+            <Button
+                android:id="@+id/RevisaoCartaoAcButtonDificil"
+
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+
+                android:layout_weight="1"
+
+                android:backgroundTint="@color/medium_gray"
+
+                android:textSize="12sp"
+                android:text="Difícil"
+                android:textColor="@color/white"
+                >
+            </Button>
+
+            <Button
+                android:id="@+id/RevisaoCartaoAcButtonBom"
+
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+
+                android:layout_weight="1"
+
+                android:backgroundTint="@color/medium_gray"
+
+
+                android:textSize="12sp"
+                android:text="Bom"
+                android:textColor="@color/sky_blue"
+                >
+            </Button>
+
+            <Button
+                android:id="@+id/RevisaoCartaoAcButtonFacil"
+
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+
+                android:layout_weight="1"
+
+                android:backgroundTint="@color/medium_gray"
+
+                android:textSize="12sp"
+                android:text="Facil"
+                android:textColor="@color/leaf_green"
+                >
+            </Button>
+
+        </LinearLayout>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
