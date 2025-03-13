@@ -52,7 +52,6 @@
         android:scaleType="fitCenter"
 
         android:src="@drawable/perfil_conta"
-        android:backgroundTint="@color/deep_purple"
 
 
         app:shapeAppearanceOverlay="@style/ImageViewCircularCorner125dp"

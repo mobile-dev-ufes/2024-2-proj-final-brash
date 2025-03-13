@@ -28,7 +28,6 @@
             android:scaleType="fitCenter"
 
             android:src="@drawable/perfil_conta"
-            android:backgroundTint="@color/deep_purple"
             app:layout_constraintBottom_toBottomOf="@+id/HomeAcHeader"
             app:layout_constraintStart_toStartOf="@+id/HomeAcHeader"
             app:layout_constraintTop_toTopOf="@+id/HomeAcHeader"

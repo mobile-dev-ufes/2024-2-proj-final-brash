@@ -3,30 +3,52 @@ package com.example.brash.nucleo.ui.view
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.brash.R
-import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.HomeAC
 //import com.example.brash.databinding.ActivityLoginBinding
 import com.example.brash.databinding.NucPerfilAcBinding
 import com.example.brash.nucleo.ui.viewModel.PerfilVM
+import com.example.brash.nucleo.utils.IconeImagem
+import com.example.brash.utilsGeral.AppVM
+import com.example.brash.utilsGeral.MyApplication
 
 class PerfilAC : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var binding: NucPerfilAcBinding
     private lateinit var perfilVM: PerfilVM
 
+    private lateinit var appVM: AppVM
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         perfilVM = ViewModelProvider(this).get(PerfilVM::class.java)
+
         binding = NucPerfilAcBinding.inflate(layoutInflater)
+
+        appVM = (application as MyApplication).appSharedInformation
+
         setContentView(binding.root)
         setOnClickListeners()
         setObservers()
 
+        initAC()
+
+    }
+    fun initAC(){
+
         binding.PerfilAcTextViewNomeDeExibicao.post {
             binding.PerfilAcTextViewNomeDeExibicao.requestLayout()
+        }
+        binding.PerfilAcShapeableImageViewIconePerfil.setImageResource(IconeImagem.FELIZ.drawableRes)
+
+        appVM.usuarioLogado.value?.iconeDeUsuario?.let { icone ->
+            binding.PerfilAcShapeableImageViewIconePerfil.setImageResource(icone.imagemPath.drawableRes)
+            binding.PerfilAcShapeableImageViewIconePerfil.setBackgroundResource(icone.cor.colorRes)
+        } ?: run {
+            Toast.makeText(this, "Erro ao carregar o ícone do usuário.", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -36,7 +58,10 @@ class PerfilAC : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun setObservers(){
-
+        appVM.usuarioLogado.observe(this, Observer{
+            binding.PerfilAcShapeableImageViewIconePerfil.setImageResource(it.iconeDeUsuario.imagemPath.drawableRes)
+            binding.PerfilAcShapeableImageViewIconePerfil.setBackgroundResource(it.iconeDeUsuario.cor.colorRes)
+        })
     }
 
 
