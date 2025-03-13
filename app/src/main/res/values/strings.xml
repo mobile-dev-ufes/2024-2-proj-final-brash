@@ -68,6 +68,12 @@
     <string name="gtc_criar_baralho">Criar Baralho</string>
     <string name="gtc_criar_pasta">Criar Pasta</string>
     <string name="gtc_procurar_baralhos_publicos">Procurar Baralhos Públicos</string>
+    <string name="gtc_nome_baralho">Nome do Baralho</string>
+    <string name="gtc_cartoes_novos">Cartões Novos:</string>
+    <string name="gtc_cartoes_a_revisar">Cartões a Revisar:</string>
+    <string name="gtc_cartoes_esquecidos">Cartões Esquecidos:</string>
+    <string name="gtc_zero">0</string>
+    <string name="gtc_iniciar_revisao">Iniciar revisão</string>
 
     <!-- -->
     <!-- -->
