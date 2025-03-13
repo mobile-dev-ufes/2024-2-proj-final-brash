@@ -54,7 +54,6 @@ class RevisaoAC : AppCompatActivity(), View.OnClickListener{
         }
         setOnClickListeners()
         setObservers()
-
         //binding.RevisaoAcExemplo.text = revisaoVM.baralhoEmFoco.value!!.nome
     }
 
