@@ -4,32 +4,45 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Baralho
+import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.listener.OnBaralhoPublicoListener
+import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.listener.OnPastaListener
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.viewHolder.ListaBaralhoPublicoVH
 import com.example.brash.databinding.GtcItemBaralhoPublicoBinding
 
-class ListaBaralhoPublicoAdapter(private val onItemClick: (Baralho) -> Unit) : RecyclerView.Adapter<ListaBaralhoPublicoVH>() {
+class ListaBaralhoPublicoAdapter() : RecyclerView.Adapter<ListaBaralhoPublicoVH>() {
 
     private var baralhoList: List<Baralho> = listOf()
+
+    private lateinit var listener: OnBaralhoPublicoListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListaBaralhoPublicoVH {
         val item = GtcItemBaralhoPublicoBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,false)
-        return ListaBaralhoPublicoVH(item)
+        return ListaBaralhoPublicoVH(item,listener)
     }
 
     override fun onBindViewHolder(holder: ListaBaralhoPublicoVH, position: Int) {
-        val baralho = baralhoList[position]
-        holder.bindVH(baralho, onItemClick) // Passando o onItemClick
+        holder.bindVH(baralhoList[position])
+
+        // Adiciona o listener para o clique do item
+        holder.itemView.setOnClickListener {
+            listener.onClick(baralhoList[position])  // Chama o listener para a ação de clique
+            notifyDataSetChanged()
+        }
     }
 
     override fun getItemCount(): Int {
         return baralhoList.count()
     }
 
-    fun updateBaralhoList(list: List<Baralho>) {
+    fun updateBaralhoPublicoList(list: List<Baralho>) {
         baralhoList = list
         notifyDataSetChanged()
+    }
+
+    fun setListener(baralhoPublicoListener: OnBaralhoPublicoListener) {
+        listener = baralhoPublicoListener
     }
 }
 

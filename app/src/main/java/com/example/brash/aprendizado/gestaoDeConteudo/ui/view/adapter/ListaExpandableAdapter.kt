@@ -1,5 +1,6 @@
 package com.example.brash.aprendizado.gestaoDeConteudo.ui.view.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,9 +10,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.brash.R
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.HomeAcListItem
+import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Pasta
 
 class ListaExpandableAdapter(
-    private val items: MutableList<HomeAcListItem>,
+    private var items: List<HomeAcListItem>,
     private val onPastaItemLongClick: (HomeAcListItem.HomeAcPastaItem) -> Unit,
     private val onBaralhoItemClick: (HomeAcListItem.HomeAcBaralhoItem) -> Unit// 🔹 Adicionando listener
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -102,18 +104,6 @@ class ListaExpandableAdapter(
                 true // Retorna `true` indicando que tratamos o evento
             }
         }
-
-        private fun toggleProducts(category: HomeAcListItem.HomeAcPastaItem, position: Int) {
-
-            if (category.isExpanded) {
-                items.addAll(position + 1, category.pasta.baralhos.map { it ->
-                    HomeAcListItem.HomeAcBaralhoItem(it)
-                })
-            } else {
-                items.subList(position + 1, position + 1 + category.pasta.baralhos.size).clear()
-            }
-            notifyDataSetChanged()
-        }
     }
 
     inner class HomeAcBaralhoItemVH(view: View) : RecyclerView.ViewHolder(view) {
@@ -126,6 +116,12 @@ class ListaExpandableAdapter(
                 onBaralhoItemClick(baralhoItem) // 🔹 Chama o listener passando o item clicado
             }
         }
+    }
+
+    fun updateProdList(list: List<HomeAcListItem>) {
+        items = list
+        Log.d("ListaPastaAdapter", "Lista atualizada: ${list.size} itens")
+        notifyDataSetChanged()
     }
 
 }

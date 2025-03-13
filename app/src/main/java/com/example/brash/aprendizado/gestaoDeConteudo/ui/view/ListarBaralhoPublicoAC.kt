@@ -2,25 +2,33 @@ package com.example.brash.aprendizado.gestaoDeConteudo.ui.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.brash.R
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Baralho
+import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Pasta
+import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments.AcoesPastaFrDialog
 import com.example.brash.nucleo.ui.view.PerfilAC
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments.OpcoesDeBuscaHomeFrDialog
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments.VisualizarBaralhoPublicoFrDialog
 
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.adapter.ListaBaralhoPublicoAdapter
+import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.listener.OnBaralhoPublicoListener
+import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.listener.OnPastaListener
+import com.example.brash.aprendizado.gestaoDeConteudo.ui.viewModel.ListarBaralhoPublicoVM
 import com.example.brash.databinding.GtcListarBaralhoPublicoAcBinding
 import com.example.brash.nucleo.ui.view.Fragments.AlertDialogFr
 
-class ListarBaralhoPublicoAC : AppCompatActivity(), View.OnClickListener, AlertDialogFr.OnConfirmListener {
+class ListarBaralhoPublicoAC : AppCompatActivity() {
 
     private lateinit var binding: GtcListarBaralhoPublicoAcBinding
-    //private lateinit var homeVM: HomeVM
+    private lateinit var listarBaralhoPublicoVM: ListarBaralhoPublicoVM
 
     private lateinit var recyclerView: RecyclerView
 
@@ -32,49 +40,42 @@ class ListarBaralhoPublicoAC : AppCompatActivity(), View.OnClickListener, AlertD
         binding = GtcListarBaralhoPublicoAcBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        //homeVM = ViewModelProvider(this).get(HomeVM::class.java)
+        listarBaralhoPublicoVM = ViewModelProvider(this).get(ListarBaralhoPublicoVM::class.java)
+
+
+
+        // Inicializando o listener diretamente
+        val listener = object : OnBaralhoPublicoListener {
+            override fun onClick(b: Baralho) {
+                Toast.makeText(applicationContext, b.nome, Toast.LENGTH_SHORT).show()
+                listarBaralhoPublicoVM.setBaralhoPublicoEmFoco(b)
+                VisualizarBaralhoPublicoFrDialog().show(supportFragmentManager, "AcoesAdicionaisDialog")
+            }
+        }
+
+        // Inicializando o adapter com o listener
+        adapter = ListaBaralhoPublicoAdapter().apply {
+            setListener(listener) // Garanta que o listener seja configurado
+        }
+
         recyclerView = binding.ListarBaralhoPublicoAcRecycleViewResultadoBusca
         recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = adapter // Defina o adapter na RecyclerView
 
-
-
-        initResultadoBusca()
         setOnClickListeners()
         setObservers()
 
-
-        // Inicializando o adapter antes de usá-lo
-        adapter = ListaBaralhoPublicoAdapter { baralho ->
-            VisualizarBaralhoPublicoFrDialog(baralho).show(supportFragmentManager, "VisualizarBaralhoPublicoFrDialog")
-        }
-        recyclerView.adapter = adapter // Defina o adapter na RecyclerView
+        listarBaralhoPublicoVM.getAllBaralhosPublicos()
 
 
-        // Simulação de dados para a lista
-        val baralhoList = listOf(
-            Baralho(idBaralho = 1, nome = "Baralho 1"),
-            Baralho(idBaralho = 2, nome = "Deck 2"),
-            Baralho(idBaralho = 3, nome = "Baralho 3"),
-            Baralho(idBaralho = 1, nome = "Baralho 4"),
-            Baralho(idBaralho = 2, nome = "Deck 5"),
-            Baralho(idBaralho = 1, nome = "Baralho 6"),
-            Baralho(idBaralho = 2, nome = "Deck 7"),
-            Baralho(idBaralho = 1, nome = "Baralho 8"),
-            Baralho(idBaralho = 2, nome = "Deck 9"),
-            Baralho(idBaralho = 1, nome = "Baralho 10"),
-            Baralho(idBaralho = 2, nome = "Deck 11"),
-            Baralho(idBaralho = 1, nome = "Baralho 12"),
-            Baralho(idBaralho = 2, nome = "Deck 13"),
-            Baralho(idBaralho = 1, nome = "Baralho 14"),
-            Baralho(idBaralho = 2, nome = "Deck 15"),
-            Baralho(idBaralho = 1, nome = "Baralho 16"),
-            Baralho(idBaralho = 2, nome = "Deck 17"),
-        )
-        adapter.updateBaralhoList(baralhoList)
     }
     private fun setOnClickListeners(){
-        binding.ListarBaralhoPublicoAcImageViewRetornar.setOnClickListener(this)
-        binding.ListarBaralhoPublicoAcImageViewOpcoesDeBusca.setOnClickListener(this)
+        binding.ListarBaralhoPublicoAcImageViewRetornar.setOnClickListener {
+            finish()
+        }
+        binding.ListarBaralhoPublicoAcImageViewOpcoesDeBusca.setOnClickListener {
+            OpcoesDeBuscaHomeFrDialog().show(supportFragmentManager, "OpcaoDialog")
+        }
 
     }
 
@@ -83,26 +84,18 @@ class ListarBaralhoPublicoAC : AppCompatActivity(), View.OnClickListener, AlertD
             //binding.LoginAcTextViewErroEntrar.text = it
             //binding.LoginAcTextViewErroEntrar.visibility = View.VISIBLE
         //})
-    }
-
-    private fun initResultadoBusca(){
-
+        listarBaralhoPublicoVM.baralhoPublicoList.observe(this, Observer { baralhoList ->
+            if (baralhoList != null && baralhoList.isNotEmpty()) {
+                adapter.updateBaralhoPublicoList(baralhoList)
+                Log.d("ListaBaralhoPublico", "Lista atualizada com sucesso.")
+            } else {
+                Log.d("ListaBaralhoPublico", "A lista de baralhos públicos está vazia.")
+            }
+        })
     }
     private fun intentToCadastrarContaActivity(){
         //val intent = Intent(this, CadastrarContaAC::class.java)
         //startActivity(intent)
-    }
-
-    override fun onClick(view : View) {
-
-        when(view.id){
-            R.id.ListarBaralhoPublicoAcImageViewRetornar ->{
-                finish()
-            }
-            R.id.ListarBaralhoPublicoAcImageViewOpcoesDeBusca -> {
-                OpcoesDeBuscaHomeFrDialog().show(supportFragmentManager, "OpcaoDialog")
-            }
-        }
     }
 
     override fun onStop() {
@@ -111,14 +104,9 @@ class ListarBaralhoPublicoAC : AppCompatActivity(), View.OnClickListener, AlertD
         // não vai previsar por causa do finish
     }
 
-    private fun intentToPerfilActivity(){
-        val intent = Intent(this, PerfilAC::class.java)
-        startActivity(intent)
-    }
+    //private fun intentToPerfilActivity(){
+        //val intent = Intent(this, PerfilAC::class.java)
+        //startActivity(intent)
+    //}
 
-    // Implementação da interface
-    override fun onConfirmAlertDialog() {
-        // Aqui você pode navegar para outra Activity ou realizar alguma ação
-        Toast.makeText(this, "Confirmado Exclusao!", Toast.LENGTH_SHORT).show()
-    }
 }

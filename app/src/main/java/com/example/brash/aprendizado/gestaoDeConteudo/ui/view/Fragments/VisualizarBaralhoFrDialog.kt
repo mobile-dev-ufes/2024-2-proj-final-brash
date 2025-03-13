@@ -43,9 +43,13 @@ class VisualizarBaralhoFrDialog() : DialogFragment() {
         Log.d("HomeDialogs", "homeVM iniciado")
 
         homeVM.baralhoEmFoco.value?.let {
+            // Se o valor não for null, preenche os campos
             binding.HomeFrVisualizarBaralhoInputTitulo.setText(it.nome)
             binding.HomeFrVisualizarBaralhoInputDescricao.setText(it.descricao)
             binding.HomeFrVisualizarBaralhoInputCartoesNovos.setText(String.format(it.cartoesNovosPorDia.toString()))
+        } ?: run {
+            // Se o valor for null, exibe uma mensagem de erro
+            Toast.makeText(requireContext(), "Erro: Baralho não encontrado em VisualizarBaralhoHome!", Toast.LENGTH_SHORT).show()
         }
         //binding.HomeFrVisualizarBaralhoInputDescricao.setText("123456789A123456789B123456789A123456789B123456789A123456789B123456789A123456789B123456789A123456789B123456789A123456789B")
 

@@ -34,7 +34,7 @@
             android:id="@+id/ListarBaralhoPublicoAcTextViewTitulo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/baralhos"
+            android:text="@string/gtc_baralhos_publicos"
             android:textColor="@color/white"
             android:textSize="30sp"
             app:layout_constraintStart_toStartOf="parent"

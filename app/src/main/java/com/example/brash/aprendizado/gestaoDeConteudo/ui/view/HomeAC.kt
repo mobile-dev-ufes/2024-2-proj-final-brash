@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -24,7 +25,7 @@ import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments.AcoesPas
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.adapter.ListaExpandableAdapter
 import com.example.brash.nucleo.ui.view.Fragments.AlertDialogFr
 
-class HomeAC : AppCompatActivity(), View.OnClickListener, AlertDialogFr.OnConfirmListener {
+class HomeAC : AppCompatActivity(), AlertDialogFr.OnConfirmListener {
 
     private lateinit var binding: GtcHomeAcBinding
     private lateinit var homeVM: HomeVM
@@ -44,59 +45,6 @@ class HomeAC : AppCompatActivity(), View.OnClickListener, AlertDialogFr.OnConfir
         setObservers()
     }
     private fun setOnClickListeners(){
-        binding.HomeAcButtonAcoesAdicionais.setOnClickListener(this)
-        binding.HomeAcImageViewOpcoesDeBusca.setOnClickListener(this)
-        binding.HomeAcImageViewConfiguracoes.setOnClickListener(this)
-        binding.HomeAcShapeableImageViewIconePerfil.setOnClickListener(this)
-    }
-
-    private fun setObservers(){
-        //loginVM.erroMessageLD.observe(this, Observer{
-            //binding.LoginAcTextViewErroEntrar.text = it
-            //binding.LoginAcTextViewErroEntrar.visibility = View.VISIBLE
-        //})
-    }
-
-    private fun initResultadoBusca(){
-        recyclerView = findViewById(R.id.HomeAcExpandableListViewResultadoBusca)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-
-        val items = mutableListOf<HomeAcListItem>(
-            HomeAcListItem.HomeAcPastaItem(pasta = Pasta(nome = "Roupas")),
-            HomeAcListItem.HomeAcPastaItem(isExpanded = true, pasta = Pasta(nome =  "Eletrônicos",
-                baralhos =  mutableListOf(
-                    //Baralho(nome = "Celular", pasta = Pasta(idPasta = 1)),
-                    Baralho(nome = "Celular"),
-                    Baralho(nome = "Notebook"),
-                    Baralho(nome = "Fone de ouvido")
-                )
-            )),
-            HomeAcListItem.HomeAcPastaItem(pasta = Pasta(nome =  "Alimentos")),
-            HomeAcListItem.HomeAcPastaItem(pasta = Pasta(nome =  "Frutas")),
-            HomeAcListItem.HomeAcPastaItem(pasta = Pasta(nome =  "Verduras")),
-            HomeAcListItem.HomeAcPastaItem(pasta = Pasta(nome =  "abacaxi")),
-            HomeAcListItem.HomeAcPastaItem(pasta = Pasta(nome =  "4")),
-            HomeAcListItem.HomeAcPastaItem(pasta = Pasta(nome =  "5")),
-            HomeAcListItem.HomeAcPastaItem(pasta = Pasta(nome =  "6")),
-            HomeAcListItem.HomeAcBaralhoItem(Baralho(nome = "Fone de ouvido"))
-        )
-
-        adapter = ListaExpandableAdapter(items,
-            onPastaItemLongClick = { item ->
-            //Toast.makeText(this, "Clicou no pasta: ${item.pasta.nome}", Toast.LENGTH_SHORT).show()
-                homeVM.setPastaEmFoco(item.pasta)
-                AcoesPastaFrDialog().show(supportFragmentManager, "AcoesAdicionaisDialog")
-        }, onBaralhoItemClick = { item ->
-            //Toast.makeText(this, "Clicou no baralho: ${item.baralho.nome}", Toast.LENGTH_SHORT).show()
-                homeVM.setBaralhoEmFoco(item.baralho)
-                AcoesBaralhoFrDialog().show(supportFragmentManager, "AcoesAdicionaisDialog")
-        })
-
-        recyclerView.adapter = adapter
-    }
-
-    override fun onClick(view : View) {
-
         binding.HomeAcButtonAcoesAdicionais.setOnClickListener{
             AcoesAdicionaisFrDialog().show(supportFragmentManager, "AcoesAdicionaisDialog")
         }
@@ -110,27 +58,35 @@ class HomeAC : AppCompatActivity(), View.OnClickListener, AlertDialogFr.OnConfir
         binding.HomeAcShapeableImageViewIconePerfil.setOnClickListener{
             intentToPerfilActivity()
         }
-        /*when(view.id){
-            R.id.HomeAcButtonAcoesAdicionais -> {
-                //Toast.makeText(applicationContext, "Você clicou em MoreActions", Toast.LENGTH_SHORT).show()
-                //intentToCadastrarContaActivity()
-                AcoesAdicionaisFrDialog().show(supportFragmentManager, "AcoesAdicionaisDialog")
-                //AlertDialogFr("Isso eh um teste").show(supportFragmentManager, "ExclusaoAlertDialog")
-            }
-            R.id.HomeAcImageViewOpcoesDeBusca -> {
-                //Toast.makeText(applicationContext, "Você clicou em MoreActions", Toast.LENGTH_SHORT).show()
-                //intentToCadastrarContaActivity()
-                OpcoesDeBuscaHomeFrDialog().show(supportFragmentManager, "OpcaoDialog")
-            }
-            R.id.HomeAcImageViewConfiguracoes -> {
-                Toast.makeText(applicationContext, "Você clicou em Configuracoes", Toast.LENGTH_SHORT).show()
-                intentToConfiguracaoActivity()
-            }
-            R.id.HomeAcShapeableImageViewIconePerfil -> {
-                //Toast.makeText(applicationContext, "Você clicou em MoreActions", Toast.LENGTH_SHORT).show()
-                intentToPerfilActivity()
-            }
-        }*/
+    }
+
+    private fun setObservers(){
+        homeVM.homeAcListItemList.observe(this, Observer{
+            adapter.updateProdList(homeVM.homeAcListItemList.value!!)
+        })
+
+    }
+
+    private fun initResultadoBusca(){
+        recyclerView = findViewById(R.id.HomeAcExpandableListViewResultadoBusca)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+
+
+        homeVM.getAllHomeAcListItem()
+
+        adapter = ListaExpandableAdapter(homeVM.homeAcListItemList.value!!,
+            onPastaItemLongClick = { item ->
+            //Toast.makeText(this, "Clicou no pasta: ${item.pasta.nome}", Toast.LENGTH_SHORT).show()
+                homeVM.setPastaEmFoco(item.pasta)
+                AcoesPastaFrDialog().show(supportFragmentManager, "AcoesAdicionaisDialog")
+        }, onBaralhoItemClick = { item ->
+            //Toast.makeText(this, "Clicou no baralho: ${item.baralho.nome}", Toast.LENGTH_SHORT).show()
+                homeVM.setBaralhoEmFoco(item.baralho)
+                AcoesBaralhoFrDialog().show(supportFragmentManager, "AcoesAdicionaisDialog")
+        })
+
+
+        recyclerView.adapter = adapter
     }
 
     override fun onStop() {
