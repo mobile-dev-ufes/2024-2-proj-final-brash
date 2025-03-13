@@ -70,6 +70,12 @@
     <string name="gtc_criar_baralho">Create Deck</string>
     <string name="gtc_criar_pasta">Create Folder</string>
     <string name="gtc_procurar_baralhos_publicos">Search for Public Decks</string>
+    <string name="gtc_nome_baralho">Deck Name</string>
+    <string name="gtc_cartoes_novos">New cards:</string>
+    <string name="gtc_cartoes_a_revisar">Cards to review:</string>
+    <string name="gtc_cartoes_esquecidos">Forgotten cards:</string>
+    <string name="gtc_zero">0</string>
+    <string name="gtc_iniciar_revisao">Start review</string>
 
     <!-- -->
     <!-- -->
