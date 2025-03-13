@@ -20,8 +20,10 @@ class ListarCartaoAC : AppCompatActivity(), View.OnClickListener{
         binding = GtcListarCartaoAcBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        listCardAdapter = ListCardAdapter()
+
         binding.ListarCartaoAcExpandableListViewResultadoBusca.layoutManager = LinearLayoutManager(this)
-        binding.ListarCartaoAcExpandableListViewResultadoBusca.adapter = ListCardAdapter()
+        binding.ListarCartaoAcExpandableListViewResultadoBusca.adapter = listCardAdapter
 
         // Sample data (replace with real data)
 
