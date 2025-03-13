@@ -1,7 +1,5 @@
 package com.example.brash.aprendizado.gestaoDeConteudo.domain.model
 
-import androidx.browser.browseractions.BrowserActionsIntent.BrowserActionsItemId
-
 sealed class HomeAcListItem {
     data class HomeAcPastaItem(
         val pasta: Pasta,
