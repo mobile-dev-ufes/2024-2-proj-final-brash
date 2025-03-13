@@ -57,7 +57,6 @@ class CriarCartaoFrDialog : DialogFragment() {
             //TODO:: Fazer verificação??, se for pode confirmar, requisitar isso ao HomeVM
             Toast.makeText(requireContext(), "Pasta criada", Toast.LENGTH_SHORT).show()
         }
-
     }
 
     override fun onDestroyView() {
