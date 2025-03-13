@@ -48,7 +48,6 @@ class CriarCartaoFrDialog : DialogFragment() {
 
     private fun setObservers(){
     }
-
     private fun setOnClickListeners(){
         binding.ListarCartaoFrCriarCartaoButtonCancelar.setOnClickListener {
             dismiss()
