@@ -84,9 +84,7 @@ class ListarBaralhoPublicoAC : AppCompatActivity(), View.OnClickListener, AlertD
             //binding.LoginAcTextViewErroEntrar.visibility = View.VISIBLE
         //})
     }
-
     private fun initResultadoBusca(){
-
     }
     private fun intentToCadastrarContaActivity(){
         //val intent = Intent(this, CadastrarContaAC::class.java)
