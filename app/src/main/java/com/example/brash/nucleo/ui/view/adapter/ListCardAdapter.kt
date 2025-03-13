@@ -1,6 +1,5 @@
 package com.example.brash.nucleo.ui.view.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -24,8 +23,6 @@ class ListCardAdapter : RecyclerView.Adapter<ListCardViewHolder>() {
     }
 
     override fun getItemCount(): Int {
-        println("CardList size: ${cardList.size}")
-        Log.i("RecyclerView", "Before update: CardList size: ${cardList.size}")
         return cardList.size
     }
 
