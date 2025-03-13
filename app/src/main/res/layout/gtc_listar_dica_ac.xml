@@ -7,17 +7,102 @@
     android:layout_height="match_parent"
     android:background="@color/deep_black">
 
-    <TextView
+    <ImageView
+        android:id="@+id/ListarDicaAcImageViewRetornar"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_margin="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/keyboard_return_24dp"
+        app:tint="@color/lavender_purple"
+
+        android:clickable="true"
+        android:focusable="true"
+        />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/ListarDicaAcLayoutHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:padding="20dp">
+
+        <TextView
+            android:id="@+id/ListarDicaAcTextViewTitulo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dicas"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/ListarDicaAcButtonCriar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@id/ListarDicaAcLayoutHeader"
+        app:layout_constraintTop_toBottomOf="@id/ListarDicaAcLayoutHeader"
+        app:srcCompat="@drawable/add_24dp"
+        android:tint="@color/lavender_purple"
+        android:backgroundTint="@color/charcoal_gray"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="10dp"
+
+        android:visibility="visible"
+        />
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/ListarDicaAcLayoutInputDePesquisa"
+
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        android:hint="@string/search_bar_hint"
+        android:textColorHint="@color/white"
+        android:textSize="30sp"
+        app:endIconMode="clear_text"
+
+        app:layout_constraintStart_toEndOf="@id/ListarDicaAcButtonCriar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@id/ListarDicaAcButtonCriar"
+        app:layout_constraintBottom_toBottomOf="@id/ListarDicaAcButtonCriar"
+        android:layout_marginEnd="20dp"
+
+        app:boxStrokeWidth="1dp"
+        app:boxBackgroundColor="@color/charcoal_gray"
+        android:layout_marginStart="20dp"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/ListarDicaAcInputDePesquisa"
+
+            style="@style/EditTextMaxCharNome"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:ellipsize="end"
+            android:inputType="text"
+            android:maxLines="1"
+
+            android:textColor="@color/white" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/ListarCartaoAcRecycleViewResultadoBusca"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="@+id/ListarDicaAcButtonCriar"
+        app:layout_constraintEnd_toEndOf="@+id/ListarDicaAcLayoutInputDePesquisa"
+        app:layout_constraintTop_toBottomOf="@+id/ListarDicaAcLayoutInputDePesquisa"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:text="listar_dica"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="50sp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
         />
 
 

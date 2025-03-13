@@ -15,34 +15,35 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Baralho
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Pasta
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.ListarCartaoAC
-import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.ListarDicaAC
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.RevisaoAC
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.adapter.ListaPastaAdapter
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.listener.OnPastaListener
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.viewModel.HomeVM
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.viewModel.ListarCartaoVM
+import com.example.brash.aprendizado.gestaoDeConteudo.ui.viewModel.ListarDicaVM
 import com.example.brash.databinding.GtcHomeFrAcoesAdicionaisBinding
 import com.example.brash.databinding.GtcHomeFrAcoesBaralhoBinding
 import com.example.brash.databinding.GtcHomeFrMoverBaralhoBinding
 import com.example.brash.databinding.GtcListarCartaoFrAcoesCartaoBinding
+import com.example.brash.databinding.GtcListarDicaFrAcoesDicaBinding
 import com.example.brash.nucleo.ui.view.Fragments.AlertDialogFr
 import com.example.brash.nucleo.ui.view.PerfilAC
 import com.example.brash.utilsGeral.UtilsGeral
 
-class AcoesCartaoFrDialog() : DialogFragment() {
+class AcoesDicaFrDialog() : DialogFragment() {
 
-    private var _binding: GtcListarCartaoFrAcoesCartaoBinding? = null
+    private var _binding: GtcListarDicaFrAcoesDicaBinding? = null
     private val binding get() = _binding!!
 
 
-    lateinit var listarCartaoVM: ListarCartaoVM
+    lateinit var listarDicaVM: ListarDicaVM
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         // Inflar o layout com ViewBinding
-        _binding = GtcListarCartaoFrAcoesCartaoBinding.inflate(inflater, container, false)
+        _binding = GtcListarDicaFrAcoesDicaBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -50,7 +51,7 @@ class AcoesCartaoFrDialog() : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Agora a ViewModel está sendo recuperada corretamente
-        listarCartaoVM = ViewModelProvider(requireActivity()).get(ListarCartaoVM::class.java)
+        listarDicaVM = ViewModelProvider(requireActivity()).get(ListarDicaVM::class.java)
 
         setOnClickListeners()
 
@@ -62,23 +63,18 @@ class AcoesCartaoFrDialog() : DialogFragment() {
 
     private fun setOnClickListeners(){
 
-        binding.ListarCartaoFrAcoesCartaoTextViewVisualizarCartao.setOnClickListener {
+        binding.ListarDicaFrAcoesDicaTextViewVisualizarDica.setOnClickListener {
             dismiss()
             if (!activity?.isFinishing!! && !activity?.isDestroyed!!) {
-                Log.d("HomeDialogs", "Tentando mostrar o diálogo visualizarBaralho")
-                VisualizarCartaoFrDialog().show(parentFragmentManager, "VisualizarBaralhoDialog")
+                Log.d("HomeDialogs", "Tentando mostrar o diálogo visualizarDica")
+                VisualizarDicaFrDialog().show(parentFragmentManager, "VisualizarDicaDialog")
             }
         }
-        binding.ListarCartaoFrAcoesCartaoTextViewVisualizarDicas.setOnClickListener {
-            dismiss()
-            intentToListarDicaActivity()
-            //Toast.makeText(requireContext(), "Visualizar Cartões", Toast.LENGTH_SHORT).show()
-        }
-        binding.ListarCartaoFrAcoesCartaoTextViewExcluirCartao.setOnClickListener {
+        binding.ListarDicaFrAcoesDicaTextViewExcluirDica.setOnClickListener {
             dismiss()
             
-            UtilsGeral.showAlertDialog(requireContext(),"Deseja realmente excluir esse Cartão??",{
-                Toast.makeText(requireContext(), "Excluir Cartao", Toast.LENGTH_SHORT).show()
+            UtilsGeral.showAlertDialog(requireContext(),"Deseja realmente excluir essa Dica??",{
+                Toast.makeText(requireContext(), "Excluir Dica", Toast.LENGTH_SHORT).show()
             })
         }
 
@@ -87,16 +83,5 @@ class AcoesCartaoFrDialog() : DialogFragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null // Evita vazamento de memória
-    }
-
-    private fun intentToRevisaoActivity(){
-        val intent = Intent(requireContext(), RevisaoAC::class.java)
-        Log.d("HomeDialogs", "Indo para a revisão de baralho")
-        startActivity(intent)
-    }
-    private fun intentToListarDicaActivity(){
-        val intent = Intent(requireContext(), ListarDicaAC::class.java)
-        Log.d("HomeDialogs", "Indo para a revisão de baralho")
-        startActivity(intent)
     }
 }

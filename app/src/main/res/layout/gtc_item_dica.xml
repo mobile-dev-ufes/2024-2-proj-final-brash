@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ItemDicaLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/ItemDicaTextViewTexto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Texto"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:ellipsize="end"
+        android:maxLines="10"
+        />
+
+</LinearLayout>

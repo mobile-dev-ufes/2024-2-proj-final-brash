@@ -11,24 +11,26 @@ import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.viewModel.HomeVM
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.viewModel.ListarCartaoVM
+import com.example.brash.aprendizado.gestaoDeConteudo.ui.viewModel.ListarDicaVM
 import com.example.brash.databinding.GtcHomeFrAcoesAdicionaisBinding
 import com.example.brash.databinding.GtcHomeFrCriarBaralhoBinding
 import com.example.brash.databinding.GtcHomeFrCriarPastaBinding
 import com.example.brash.databinding.GtcListarCartaoFrCriarCartaoBinding
+import com.example.brash.databinding.GtcListarDicaFrCriarDicaBinding
 
-class CriarCartaoFrDialog : DialogFragment() {
+class CriarDicaFrDialog : DialogFragment() {
 
-    private var _binding: GtcListarCartaoFrCriarCartaoBinding? = null
+    private var _binding: GtcListarDicaFrCriarDicaBinding? = null
     private val binding get() = _binding!!
 
-    lateinit var listarCartaoVM: ListarCartaoVM
+    lateinit var listarDicaVM: ListarDicaVM
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         // Inflar o layout com ViewBinding
-        _binding = GtcListarCartaoFrCriarCartaoBinding.inflate(inflater, container, false)
+        _binding = GtcListarDicaFrCriarDicaBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -36,7 +38,7 @@ class CriarCartaoFrDialog : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Agora a ViewModel está sendo recuperada corretamente
-        listarCartaoVM = ViewModelProvider(requireActivity()).get(ListarCartaoVM::class.java)
+        listarDicaVM = ViewModelProvider(requireActivity()).get(ListarDicaVM::class.java)
 
         setOnClickListeners()
     }
@@ -50,12 +52,12 @@ class CriarCartaoFrDialog : DialogFragment() {
     }
 
     private fun setOnClickListeners(){
-        binding.ListarCartaoFrCriarCartaoButtonCancelar.setOnClickListener {
+        binding.ListarDicaFrCriarDicaButtonCancelar.setOnClickListener {
             dismiss()
         }
-        binding.ListarCartaoFrCriarCartaoButtonCriar.setOnClickListener {
+        binding.ListarDicaFrCriarDicaButtonCriar.setOnClickListener {
             dismiss()
-            //TODO:: Fazer verificação??, se for pode confirmar, requisitar isso ao HomeVM
+            //TODO:: Fazer verificação de se eh nome único, se for pode confirmar, requisitar isso ao DicaVM
             Toast.makeText(requireContext(), "Pasta criada", Toast.LENGTH_SHORT).show()
         }
 
