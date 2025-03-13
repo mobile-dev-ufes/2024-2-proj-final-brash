@@ -9,6 +9,7 @@ import android.os.Build
 import android.os.LocaleList
 import android.widget.Toast
 import androidx.core.content.ContextCompat.getSystemService
+import com.example.brash.R
 import java.util.Locale
 import kotlin.random.Random
 
@@ -75,3 +76,18 @@ class UtilsFoos {
 
 
 }
+
+enum class IconeImagem(val drawableRes: Int) {
+    PADRAO(R.drawable.perfil_conta),
+    LUZ(R.drawable.perfil_luz),
+    CARRO(R.drawable.perfil_carro),
+    FELIZ(R.drawable.perfil_feliz);
+}
+enum class IconeCor(val colorRes: Int) {
+    DEEP_PURPLE(R.color.deep_purple),
+    SOFT_PINK(R.color.soft_pink),
+    WHITE(R.color.white),
+    HOT_PINK(R.color.hot_pink),
+    LEAF_GREEN(R.color.leaf_green);
+}
+

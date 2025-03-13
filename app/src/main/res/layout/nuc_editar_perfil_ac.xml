@@ -34,9 +34,7 @@
         android:layout_marginTop="20dp"
 
 
-
         android:src="@drawable/perfil_conta"
-
 
         android:adjustViewBounds="true"
         android:background="@color/deep_purple"
