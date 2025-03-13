@@ -14,33 +14,34 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Baralho
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Pasta
-import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.ListarAnotacaoAC
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.ListarCartaoAC
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.RevisaoAC
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.adapter.ListaPastaAdapter
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.listener.OnPastaListener
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.viewModel.HomeVM
+import com.example.brash.aprendizado.gestaoDeConteudo.ui.viewModel.ListarAnotacaoVM
 import com.example.brash.databinding.GtcHomeFrAcoesAdicionaisBinding
 import com.example.brash.databinding.GtcHomeFrAcoesBaralhoBinding
 import com.example.brash.databinding.GtcHomeFrMoverBaralhoBinding
+import com.example.brash.databinding.GtcListarAnotacaoFrAcoesAnotacaoBinding
 import com.example.brash.nucleo.ui.view.Fragments.AlertDialogFr
 import com.example.brash.nucleo.ui.view.PerfilAC
 import com.example.brash.utilsGeral.UtilsGeral
 
-class AcoesBaralhoFrDialog() : DialogFragment() {
+class AcoesAnotacaoFrDialog() : DialogFragment() {
 
-    private var _binding: GtcHomeFrAcoesBaralhoBinding? = null
+    private var _binding: GtcListarAnotacaoFrAcoesAnotacaoBinding? = null
     private val binding get() = _binding!!
 
 
-    lateinit var homeVM: HomeVM
+    lateinit var listarAnotacaoVM: ListarAnotacaoVM
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         // Inflar o layout com ViewBinding
-        _binding = GtcHomeFrAcoesBaralhoBinding.inflate(inflater, container, false)
+        _binding = GtcListarAnotacaoFrAcoesAnotacaoBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -48,7 +49,7 @@ class AcoesBaralhoFrDialog() : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Agora a ViewModel está sendo recuperada corretamente
-        homeVM = ViewModelProvider(requireActivity()).get(HomeVM::class.java)
+        listarAnotacaoVM = ViewModelProvider(requireActivity()).get(ListarAnotacaoVM::class.java)
 
         setOnClickListeners()
 
@@ -60,43 +61,18 @@ class AcoesBaralhoFrDialog() : DialogFragment() {
 
     private fun setOnClickListeners(){
 
-        binding.HomeFrAcoesBaralhoTextViewVisualizarBaralho.setOnClickListener {
+        binding.ListarAnotacaoFrAcoesAnotacaoTextViewVisualizarAnotacao.setOnClickListener {
             dismiss()
             if (!activity?.isFinishing!! && !activity?.isDestroyed!!) {
                 Log.d("HomeDialogs", "Tentando mostrar o diálogo visualizarBaralho")
-                VisualizarBaralhoFrDialog().show(parentFragmentManager, "VisualizarBaralhoDialog")
+                VisualizarAnotacaoFrDialog().show(parentFragmentManager, "VisualizarBaralhoDialog")
             }
         }
-        binding.HomeFrAcoesBaralhoTextViewVisualizarCartoes.setOnClickListener {
-            dismiss()
-            intentToListarCartaoActivity()
-            //Toast.makeText(requireContext(), "Visualizar Cartões", Toast.LENGTH_SHORT).show()
-        }
-        binding.HomeFrAcoesBaralhoTextViewVisualizarAnotacoes.setOnClickListener {
-            dismiss()
-            intentToListarAnotacaoActivity()
-        }
-        binding.HomeFrAcoesBaralhoTextViewVisualizarRelatorio.setOnClickListener {
-            dismiss()
-            Toast.makeText(requireContext(), "Visualizar Relatório", Toast.LENGTH_SHORT).show()
-        }
-        binding.HomeFrAcoesBaralhoTextViewRevisarBaralho.setOnClickListener {
-            dismiss()
-            intentToRevisaoActivity()
-        }
-        binding.HomeFrAcoesBaralhoTextViewMoverBaralho.setOnClickListener {
-            dismiss()
-            //Toast.makeText(requireContext(), "Mover Baralho", Toast.LENGTH_SHORT).show()
-            if (!activity?.isFinishing!! && !activity?.isDestroyed!!) {
-                Log.d("ListaPastaAdapter", "Tentando mostrar o diálogo")
-                MoverBaralhoFrDialog().show(parentFragmentManager, "MoverBaralhoDialog")
-            }
-        }
-        binding.HomeFrAcoesBaralhoTextViewExcluirBaralho.setOnClickListener {
+        binding.ListarAnotacaoFrAcoesAnotacaoTextViewExcluirAnotacao.setOnClickListener{
             dismiss()
             
-            UtilsGeral.showAlertDialog(requireContext(),"Deseja realmente excluir esse Baralho??",{
-                Toast.makeText(requireContext(), "Excluir Baralho", Toast.LENGTH_SHORT).show()
+            UtilsGeral.showAlertDialog(requireContext(),"Deseja realmente excluir essa Anotação??",{
+                Toast.makeText(requireContext(), "Excluir Anotação", Toast.LENGTH_SHORT).show()
             })
         }
 
@@ -114,12 +90,6 @@ class AcoesBaralhoFrDialog() : DialogFragment() {
     }
     private fun intentToListarCartaoActivity(){
         val intent = Intent(requireContext(), ListarCartaoAC::class.java)
-        Log.d("HomeDialogs", "Indo para a revisão de baralho")
-        startActivity(intent)
-    }
-
-    private fun intentToListarAnotacaoActivity(){
-        val intent = Intent(requireContext(), ListarAnotacaoAC::class.java)
         Log.d("HomeDialogs", "Indo para a revisão de baralho")
         startActivity(intent)
     }

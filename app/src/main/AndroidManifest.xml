@@ -51,6 +51,9 @@
             android:name=".aprendizado.gestaoDeConteudo.ui.view.ListarDicaAC"
             android:exported="false" />
         <activity
+            android:name=".aprendizado.gestaoDeConteudo.ui.view.ListarAnotacaoAC"
+            android:exported="false" />
+        <activity
             android:name=".aprendizado.gestaoDeConteudo.ui.view.RevisaoAC"
             android:exported="false" />
         <activity

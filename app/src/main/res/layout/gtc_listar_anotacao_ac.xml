@@ -7,17 +7,119 @@
     android:layout_height="match_parent"
     android:background="@color/deep_black">
 
-    <TextView
+    <ImageView
+        android:id="@+id/ListarAnotacaoAcImageViewRetornar"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_margin="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/keyboard_return_24dp"
+        app:tint="@color/lavender_purple"
+
+        android:clickable="true"
+        android:focusable="true"
+        />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/ListarAnotacaoAcLayoutHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:padding="20dp">
+
+        <TextView
+            android:id="@+id/ListarAnotacaoAcTextViewTitulo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Anotações"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/ListarAnotacaoAcButtonCriar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="@id/ListarAnotacaoAcLayoutHeader"
+        app:layout_constraintTop_toBottomOf="@id/ListarAnotacaoAcLayoutHeader"
+        app:srcCompat="@drawable/add_24dp"
+        android:tint="@color/lavender_purple"
+        android:backgroundTint="@color/charcoal_gray"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="10dp"
+
+        android:visibility="visible"
+        />
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/ListarAnotacaoAcLayoutInputDePesquisa"
+
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        android:hint="@string/search_bar_hint"
+        android:textColorHint="@color/white"
+        android:textSize="30sp"
+        app:endIconMode="clear_text"
+
+        app:layout_constraintStart_toEndOf="@id/ListarAnotacaoAcButtonCriar"
+        app:layout_constraintEnd_toStartOf="@+id/ListarAnotacaoAcImageViewOpcoesDeBusca"
+        app:layout_constraintTop_toTopOf="@id/ListarAnotacaoAcButtonCriar"
+        app:layout_constraintBottom_toBottomOf="@id/ListarAnotacaoAcButtonCriar"
+
+        app:boxStrokeWidth="1dp"
+        app:boxBackgroundColor="@color/charcoal_gray"
+        android:layout_marginStart="20dp"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/ListarAnotacaoAcInputDePesquisa"
+
+            style="@style/EditTextMaxCharNome"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:ellipsize="end"
+            android:inputType="text"
+            android:maxLines="1"
+
+            android:textColor="@color/white" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <ImageView
+        android:id="@+id/ListarAnotacaoAcImageViewOpcoesDeBusca"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintStart_toEndOf="@+id/ListarAnotacaoAcLayoutInputDePesquisa"
+        app:layout_constraintEnd_toEndOf="@+id/ListarAnotacaoAcLayoutHeader"
+        app:layout_constraintTop_toTopOf="@+id/ListarAnotacaoAcLayoutInputDePesquisa"
+        app:layout_constraintBottom_toBottomOf="@+id/ListarAnotacaoAcLayoutInputDePesquisa"
+        android:src="@drawable/tune_24dp"
+        app:tint="@color/white"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="20dp"
+
+        android:clickable="true"
+        android:focusable="true"
+        />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/ListarAnotacaoAcRecycleViewResultadoBusca"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="@+id/ListarAnotacaoAcButtonCriar"
+        app:layout_constraintEnd_toEndOf="@+id/ListarAnotacaoAcImageViewOpcoesDeBusca"
+        app:layout_constraintTop_toBottomOf="@+id/ListarAnotacaoAcLayoutInputDePesquisa"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:text="listar_anotacao"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="50sp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
         />
 
 

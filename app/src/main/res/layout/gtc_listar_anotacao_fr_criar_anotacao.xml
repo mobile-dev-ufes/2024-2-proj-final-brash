@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ListarAnotacaoFrCriarAnotacao"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/borda_linear_layout"
+    android:padding="16dp">
+
+
+    <com.google.android.material.textfield.TextInputLayout
+
+        android:id="@+id/ListarAnotacaoFrCriarAnotacaoInputLayoutNome"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:hint="Nome"
+        android:textColorHint="@color/bright_red"
+
+        app:endIconMode="clear_text"
+
+        app:boxBackgroundColor="@color/medium_gray"
+        app:boxStrokeWidth="1dp"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/ListarAnotacaoFrCriarAnotacaoInputNome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            style="@style/EditTextMaxCharNome"
+
+            android:textColor="@color/white"
+
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+    <com.google.android.material.textfield.TextInputLayout
+
+        android:id="@+id/ListarAnotacaoFrCriarAnotacaoInputLayoutTexto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:hint="Texto"
+        android:textColorHint="@color/bright_red"
+
+        app:endIconMode="clear_text"
+
+        app:boxBackgroundColor="@color/medium_gray"
+        app:boxStrokeWidth="1dp"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/ListarAnotacaoFrCriarAnotacaoInputTexto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:inputType="text"
+            style="@style/EditTextMaxCharTexto"
+            android:textColor="@color/white"
+
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/ListarAnotacaoFrCriarAnotacaoButtonCancelar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/cancelar"
+            android:textSize="16sp"
+            android:padding="10dp"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/medium_gray"
+            android:clickable="true"
+            android:focusable="true"
+            app:cornerRadius="8dp"
+            android:layout_marginEnd="20dp"
+            />
+        <Button
+            android:id="@+id/ListarAnotacaoFrCriarAnotacaoButtonCriar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Criar Anotação"
+            android:textSize="16sp"
+            android:padding="10dp"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/medium_gray"
+            android:clickable="true"
+            android:focusable="true"
+            app:cornerRadius="8dp"
+            />
+    </LinearLayout>
+
+</LinearLayout>
