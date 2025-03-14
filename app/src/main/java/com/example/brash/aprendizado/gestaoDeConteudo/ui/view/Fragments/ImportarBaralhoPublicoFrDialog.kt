@@ -1,7 +1,5 @@
 package com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments
 
-import android.app.AlertDialog
-import android.app.Dialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,17 +8,14 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Baralho
-import com.example.brash.aprendizado.gestaoDeConteudo.ui.viewModel.HomeVM
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.viewModel.ListarBaralhoPublicoVM
-import com.example.brash.databinding.GtcHomeFrMoverBaralhoBinding
-import com.example.brash.databinding.GtcHomeFrVisualizarBaralhoBinding
-import com.example.brash.databinding.GtcListarBaralhoPublicoAcBinding
+import com.example.brash.databinding.GtcListarBaralhoPublicoFrImportarBaralhoBinding
 import com.example.brash.databinding.GtcListarBaralhoPublicoFrVisualizarBaralhoBinding
 
-class VisualizarBaralhoPublicoFrDialog() : DialogFragment() {
 
-    private var _binding: GtcListarBaralhoPublicoFrVisualizarBaralhoBinding? = null
+class ImportarBaralhoPublicoFrDialog() : DialogFragment() {
+
+    private var _binding: GtcListarBaralhoPublicoFrImportarBaralhoBinding? = null
     private val binding get() = _binding!!
 
     lateinit var listarBaralhoPublicoVM: ListarBaralhoPublicoVM
@@ -30,7 +25,7 @@ class VisualizarBaralhoPublicoFrDialog() : DialogFragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflar o layout com ViewBinding
-        _binding = GtcListarBaralhoPublicoFrVisualizarBaralhoBinding.inflate(inflater, container, false)
+        _binding = GtcListarBaralhoPublicoFrImportarBaralhoBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -41,19 +36,10 @@ class VisualizarBaralhoPublicoFrDialog() : DialogFragment() {
         listarBaralhoPublicoVM = ViewModelProvider(requireActivity()).get(ListarBaralhoPublicoVM::class.java)
         //Log.d("HomeDialogs", "homeVM iniciado")
 
-        //homeVM.baralhoEmFoco.value?.let {
-            //binding.HomeFrVisualizarBaralhoInputTitulo.setText(it.nome)
-            //binding.HomeFrVisualizarBaralhoInputDescricao.setText(it.descricao)
-            //binding.HomeFrVisualizarBaralhoInputCartoesNovos.setText(String.format(it.cartoesNovosPorDia.toString()))
-        //}
-        //binding.HomeFrVisualizarBaralhoInputDescricao.setText("123456789A123456789B123456789A123456789B123456789A123456789B123456789A123456789B123456789A123456789B123456789A123456789B")
-
         listarBaralhoPublicoVM.baralhoPublicoEmFoco.value?.let {
             // Se o valor não for null, preenche os campos
-            binding.ListarBaralhoPublicoFrVisualizarBaralhoInputTitulo.setText(it.nome)
-            binding.ListarBaralhoPublicoFrVisualizarBaralhoInputDescricao.setText(it.descricao)
-            //binding.Listar HomeFrVisualizarBaralhoInputDescricao.setText(it.descricao)
-            //binding.HomeFrVisualizarBaralhoInputCartoesNovos.setText(String.format(it.cartoesNovosPorDia.toString()))
+            binding.ListarBaralhoPublicoFrImportarBaralhoInputNovoNome.setText(it.nome)
+            binding.ListarBaralhoPublicoFrImportarBaralhoTextViewNomeOriginal.text = it.nome
         } ?: run {
             // Se o valor for null, exibe uma mensagem de erro
             Toast.makeText(requireContext(), "Erro: Baralho não encontrado em VisualizarBaralhoHome!", Toast.LENGTH_SHORT).show()
@@ -75,11 +61,12 @@ class VisualizarBaralhoPublicoFrDialog() : DialogFragment() {
     }
 
     private fun setOnClickListeners(){
-        binding.ListarBaralhoPublicoFrVisualizarBaralhoButtonCancelar.setOnClickListener{
+        binding.ListarBaralhoPublicoFrImportarBaralhoButtonCancelar.setOnClickListener{
             dismiss()
         }
-        binding.ListarBaralhoPublicoFrVisualizarBaralhoButtonImportar.setOnClickListener{
-            ImportarBaralhoPublicoFrDialog().show(parentFragmentManager, "ImportarBaralhoPublicoFrDialog")
+        binding.ListarBaralhoPublicoFrImportarBaralhoButtonImportar.setOnClickListener{
+            //TODO:: Lógica de importar/copiar baralho
+            dismiss()
         }
 
     }

@@ -156,6 +156,8 @@
     <string name="number_3">3</string>
     <string name="gtaa_relatorio_geral">Relatório Geral</string>
     <string name="gtaa_competicao">Competição</string>
+    <string name="gtc_novo_nome_do_baralho">Novo Nome do Baralho</string>
+    <string name="gtc_confirmar_nome">Confirmar Nome</string>
 
 
 </resources>
