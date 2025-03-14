@@ -18,6 +18,23 @@ class RevisaoCartaoVM(application: Application) : AndroidViewModel(application) 
     private var _baralhoEmFoco = MutableLiveData<Baralho>()
     val baralhoEmFoco get() = _baralhoEmFoco
 
+    private var _newCardsNumber = MutableLiveData<Int>()
+    val newCardsNumber get() = _newCardsNumber
+
+    private var _cardsToReviewNumber = MutableLiveData<Int>()
+    val cardsToReviewNumber get() = _cardsToReviewNumber
+
+    private var _forgottenCardsNumber = MutableLiveData<Int>()
+    val forgottenCardsNumber get() = _forgottenCardsNumber
+
+
+    fun setNumberCards(newCardsNumber : Int, cardsToReviewnNumber : Int, forgottenCardsNumber : Int){
+        _newCardsNumber.value = newCardsNumber
+        _cardsToReviewNumber.value = cardsToReviewnNumber
+        _forgottenCardsNumber.value = forgottenCardsNumber
+        return
+    }
+
     fun showAnswers(){
         _buttonShowAnswersVisibility.value = View.GONE
         _linearLayoutButtonsAnswerVisibility.value = View.VISIBLE
