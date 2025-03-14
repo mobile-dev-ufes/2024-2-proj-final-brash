@@ -39,11 +39,6 @@ class PerfilAC : AppCompatActivity(), View.OnClickListener {
     }
     fun initAC(){
 
-        binding.PerfilAcTextViewNomeDeExibicao.post {
-            binding.PerfilAcTextViewNomeDeExibicao.requestLayout()
-        }
-        binding.PerfilAcShapeableImageViewIconePerfil.setImageResource(IconeImagem.FELIZ.drawableRes)
-
         appVM.usuarioLogado.value?.let { usuario ->
             binding.PerfilAcShapeableImageViewIconePerfil.setImageResource(usuario.iconeDeUsuario.imagemPath.drawableRes)
             binding.PerfilAcShapeableImageViewIconePerfil.setBackgroundResource(usuario.iconeDeUsuario.cor.colorRes)
@@ -64,6 +59,9 @@ class PerfilAC : AppCompatActivity(), View.OnClickListener {
         appVM.usuarioLogado.observe(this, Observer{
             binding.PerfilAcShapeableImageViewIconePerfil.setImageResource(it.iconeDeUsuario.imagemPath.drawableRes)
             binding.PerfilAcShapeableImageViewIconePerfil.setBackgroundResource(it.iconeDeUsuario.cor.colorRes)
+            binding.PerfilAcTextViewNomeDeExibicao.text = it.nomeDeExibicao
+            binding.PerfilAcTextViewNomeDeUsuario.text =
+                getString(R.string.username_display, it.nomeDeUsuario)
         })
     }
 

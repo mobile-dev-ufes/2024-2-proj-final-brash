@@ -15,8 +15,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:hint="Pergunta"
-        android:textColorHint="@color/bright_red"
+        android:hint="@string/gtc_pergunta"
+        android:textColorHint="@color/soft_lilac"
 
         app:endIconMode="clear_text"
 
@@ -28,8 +28,11 @@
             android:id="@+id/ListarCartaoFrCriarCartaoInputPergunta"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text"
-            style="@style/EditTextMaxCharNome"
+
+            android:inputType="textMultiLine"
+            style="@style/EditTextMaxCharTexto"
+            android:maxLines="10"
+            android:ellipsize="end"
 
             android:textColor="@color/white"
 
@@ -45,8 +48,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:hint="Resposta"
-        android:textColorHint="@color/bright_red"
+        android:hint="@string/gtc_resposta"
+        android:textColorHint="@color/soft_lilac"
 
         app:endIconMode="clear_text"
 
@@ -59,8 +62,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
-            android:inputType="text"
+            android:inputType="textMultiLine"
             style="@style/EditTextMaxCharTexto"
+            android:maxLines="10"
+            android:ellipsize="end"
+
             android:textColor="@color/white"
 
             />
@@ -94,7 +100,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Criar Cartão"
+            android:text="@string/gtc_criar_cartao"
             android:textSize="16sp"
             android:padding="10dp"
             android:textColor="@color/white"

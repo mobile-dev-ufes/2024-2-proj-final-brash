@@ -2,9 +2,7 @@ package com.example.brash.aprendizado.gestaoDeConteudo.ui.viewModel
 
 import android.app.Application
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.brash.R
 import com.example.brash.aprendizado.gestaoDeConteudo.data.repository.BaralhoRepository
@@ -102,7 +100,6 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
     }
 
     fun getAllHomeAcListItem(){
-
 
         val p = Pasta(nome =  "Eletrônicos", idPasta =1 )
 

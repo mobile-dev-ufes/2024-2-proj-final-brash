@@ -14,7 +14,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:text="DEFINIR EMAIL"
+        android:text="@string/nuc_definir_email"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="50sp"

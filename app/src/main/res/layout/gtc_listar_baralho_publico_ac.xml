@@ -24,19 +24,32 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/ListarBaralhoPublicoAcLayoutHeader"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_height="90dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:padding="20dp">
+        android:paddingEnd="10dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:paddingStart="40dp">
 
         <TextView
             android:id="@+id/ListarBaralhoPublicoAcTextViewTitulo"
-            android:layout_width="wrap_content"
+            android:layout_width="280dp"
             android:layout_height="wrap_content"
+
+            android:autoSizeTextType="uniform"
+            android:ellipsize="end"
+            android:maxLines="3"
             android:text="@string/gtc_baralhos_publicos"
             android:textColor="@color/white"
             android:textSize="30sp"
+            android:autoSizeMaxTextSize="30sp"
+            android:autoSizeMinTextSize="12sp"
+            android:autoSizeStepGranularity="2sp"
+
+            android:gravity="center"
+            android:textAlignment="center"
+
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"

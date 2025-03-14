@@ -21,12 +21,12 @@
         android:layout_height="wrap_content"
 
         android:hint="@string/gtc_nome_da_pasta"
-        android:textColorHint="@color/bright_red"
+        android:textColorHint="@color/soft_lilac"
         android:textSize="30sp"
         app:endIconMode="clear_text"
         android:layout_marginBottom="15dp"
         app:boxStrokeWidth="1dp"
-        app:boxBackgroundColor="@color/white"
+        app:boxBackgroundColor="@color/medium_gray"
         >
 
         <com.google.android.material.textfield.TextInputEditText
@@ -34,10 +34,10 @@
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLines="1"
+
             android:textColor="@color/black"
-            android:ellipsize="end"
-            android:inputType="text"
+            android:inputType="textMultiLine"
+            style="@style/EditTextMaxCharNome"
 
             />
     </com.google.android.material.textfield.TextInputLayout>

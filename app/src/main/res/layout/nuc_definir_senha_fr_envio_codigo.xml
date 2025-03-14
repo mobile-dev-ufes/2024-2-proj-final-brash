@@ -47,9 +47,9 @@
                 android:layout_height="wrap_content"
                 android:inputType="text"
 
-                android:text="email@email.com"
+                android:text="@string/nuc_email_email_com"
                 android:enabled="false"
-
+                android:textColor="@color/black"
                 android:maxLines="1"
                 android:ellipsize="end"
                 />

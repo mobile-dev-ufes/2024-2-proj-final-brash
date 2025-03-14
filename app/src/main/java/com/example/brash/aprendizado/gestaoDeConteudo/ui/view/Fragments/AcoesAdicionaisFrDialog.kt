@@ -1,7 +1,5 @@
 package com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments
 
-import android.app.AlertDialog
-import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,12 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
-import androidx.lifecycle.ViewModelProvider
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.ListarBaralhoPublicoAC
-import com.example.brash.aprendizado.gestaoDeConteudo.ui.viewModel.HomeVM
 import com.example.brash.databinding.GtcHomeFrAcoesAdicionaisBinding
-import com.example.brash.databinding.GtcHomeFrAcoesBaralhoBinding
-import com.example.brash.nucleo.ui.view.PerfilAC
 
 class AcoesAdicionaisFrDialog : DialogFragment() {
 
@@ -58,11 +52,6 @@ class AcoesAdicionaisFrDialog : DialogFragment() {
             dismiss()
             Toast.makeText(requireContext(), "Procurar Baralhos Públicos", Toast.LENGTH_SHORT).show()
             intentToListarBaralhoPublicoAc()
-        }
-
-        binding.HomeFrOpcoesAdicionaisTextViewPesquisarUsuarios.setOnClickListener{
-            dismiss()
-            Toast.makeText(requireContext(), "Procurar Usuários", Toast.LENGTH_SHORT).show()
         }
 
     }
