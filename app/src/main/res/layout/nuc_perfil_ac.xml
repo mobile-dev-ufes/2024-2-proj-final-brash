@@ -124,7 +124,7 @@
                 android:id="@+id/PerfilAcTextViewAmizades"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Amizades"
+                android:text="@string/gtc_amizades"
                 android:textColor="@color/white"
                 android:textSize="20sp"
 
@@ -133,7 +133,7 @@
                 android:id="@+id/PerfilAcTextViewNumberAmizades"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="2"
+                android:text="@string/number_2"
                 android:textAlignment="viewEnd"
                 android:textColor="@color/white"
                 android:textSize="20sp"
@@ -164,7 +164,7 @@
                 android:id="@+id/PerfilAcTextViewBaralhosPublicos"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Baralhos Públicos"
+                android:text="@string/gtc_baralhos_publicos"
                 android:textColor="@color/white"
                 android:textSize="20sp"
 
@@ -173,7 +173,7 @@
                 android:id="@+id/PerfilAcTextViewNumberBaralhosPublicos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="3"
+                android:text="@string/number_3"
                 android:textAlignment="viewEnd"
                 android:textColor="@color/white"
                 android:textSize="20sp"
@@ -204,7 +204,7 @@
                 android:id="@+id/PerfilAcTextViewRelatorioGeral"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Relatório Geral"
+                android:text="@string/gtaa_relatorio_geral"
                 android:textColor="@color/white"
                 android:textSize="20sp"
 
@@ -235,7 +235,7 @@
                 android:id="@+id/PerfilAcTextViewCompeticao"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Competição"
+                android:text="@string/gtaa_competicao"
                 android:textColor="@color/white"
                 android:textSize="20sp"
 

@@ -152,7 +152,7 @@
         android:id="@+id/ConfiguracaoAcTextViewConta"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Conta"
+        android:text="@string/nuc_conta"
         android:textSize="25sp"
 
         android:paddingStart="15dp"

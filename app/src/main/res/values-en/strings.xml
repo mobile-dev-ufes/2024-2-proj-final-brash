@@ -141,7 +141,21 @@
     <string name="nuc_nova_senha">New Password</string>
     <string name="nuc_repita_a_senha">Repeat Password</string>
     <string name="nuc_redefinir_senha">Reset Password</string>
-
+    <string name="gtc_excluir_anotacao">Excluir Anotação</string>
+    <string name="gtc_criar_anotacao">Criar Anotação</string>
+    <string name="number_0">0</string>
+    <string name="gtc_mostrar_resposta">Mostrar resposta</string>
+    <string name="gtc_esqueci">Esqueci</string>
+    <string name="gtc_dificil">Difícil</string>
+    <string name="gtc_bom">Bom</string>
+    <string name="gtc_facil">Facil</string>
+    <string name="nuc_conta">Conta</string>
+    <string name="nuc_definir_email">DEFINIR EMAIL</string>
+    <string name="gtc_amizades">Amizades</string>
+    <string name="number_2">2</string>
+    <string name="number_3">3</string>
+    <string name="gtaa_relatorio_geral">Relatório Geral</string>
+    <string name="gtaa_competicao">Competição</string>
 
 
 </resources>
