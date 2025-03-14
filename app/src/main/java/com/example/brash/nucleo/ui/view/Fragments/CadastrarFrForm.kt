@@ -54,7 +54,10 @@ class CadastrarFrForm : Fragment(R.layout.nuc_cadastrar_fr_form) {
                     actionToCadastrarFrCodigo(userName, exhibitionName, email, password, emailVerificationCode)
                 }
             }
+        }
 
+        binding.CadastrarContaAcButtonCancelar.setOnClickListener{
+            requireActivity().finish()
         }
     }
 
