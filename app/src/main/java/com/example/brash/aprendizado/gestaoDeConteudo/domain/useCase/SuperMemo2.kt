@@ -14,6 +14,7 @@ class SuperMemo2 {
             val newEfactor = calculateNewEFactor(card.fatorDeRevisao, quality)
             if(quality == 3){ // selecionou difícil, não muda nada no cartão, só efactor
                 card.fatorDeRevisao = newEfactor
+                card.dataDeRevisao = LocalDateTime.now()
                 return card
             }
             val newInterval = calculateNewInterval(card, newEfactor, quality)
