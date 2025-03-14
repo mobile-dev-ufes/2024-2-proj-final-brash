@@ -21,60 +21,33 @@ class BaralhoRepository {
             return
         }
 
-        val newDeck = hashMapOf(
-            "name" to deck.nome,
-            "description" to deck.descricao,
-            "public" to deck.publico,
-            "numberNewCardsPerDay" to deck.cartoesNovosPorDia
-        )
-
-        val rootCollectionRef = fireStoreDB.collection("users")
+        val rootRef = fireStoreDB.collection("users")
             .document(currentUserEmail)
             .collection("root")
 
-        rootCollectionRef.document(deck.nome).set(newDeck)
-            .addOnSuccessListener {
-                onSuccess()
-            }
-            .addOnFailureListener {
-                onFailure()
-            }
-
-        return
-
-    }
-
-    private fun createRoot( onSuccess : () -> Unit, onFailure: () -> Unit){
-
-        val currentUserEmail = fireBaseAuth.currentUser?.email
-        if (currentUserEmail == null) {
-            onFailure()
-            return
-        }
-
-        val foldersRef = fireStoreDB.collection("users").document(currentUserEmail)
-            .collection("folders")
-            .document("root")
-
-        foldersRef.get()
+        val deckRef = rootRef.add(hashMapOf<String, Any>())
+        deckRef
             .addOnSuccessListener { document ->
-                if (!document.exists()) {
-                    // Se o documento "root" não existir, cria ele
-                    val rootFolder = hashMapOf("name" to "root")
-                    foldersRef.set(rootFolder)
-                        .addOnFailureListener {
-                            onFailure()
-                        }.addOnSuccessListener {
-                            onSuccess()
-                        }
-                }else{
-                    onSuccess()
-                }
+                val generatedId = document.id // 🔹 Pegamos o ID gerado automaticamente
+
+                val newDeck = hashMapOf(
+                    "id" to generatedId,
+                    "name" to deck.nome,
+                    "description" to deck.descricao,
+                    "public" to deck.publico,
+                    "numberNewCardsPerDay" to deck.cartoesNovosPorDia
+                )
+                document.set(newDeck)
+                    .addOnSuccessListener {
+                        onSuccess()
+                    }
+                    .addOnFailureListener {
+                        onFailure()
+                    }
             }
             .addOnFailureListener {
                 onFailure()
             }
+        return
     }
-
-
 }

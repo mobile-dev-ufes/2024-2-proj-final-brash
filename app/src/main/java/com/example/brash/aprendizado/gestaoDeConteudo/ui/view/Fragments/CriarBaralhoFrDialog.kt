@@ -52,10 +52,12 @@ class CriarBaralhoFrDialog : DialogFragment() {
             dismiss()
         }
         binding.HomeFrCriarBaralhoButtonCriar.setOnClickListener {
-            dismiss()
             //TODO:: Fazer verificação de se eh nome único, se for pode confirmar, requisitar isso ao HomeVM
-            homeVM.createDeck("matheus", "saick")
-            Toast.makeText(requireContext(), "Pasta criada", Toast.LENGTH_SHORT).show()
+            val deckName = binding.HomeFrCriarBaralhoInputTitulo.text.toString()
+            val deckDescription = binding.HomeFrCriarBaralhoInputDescricao.text.toString()
+            homeVM.createDeck(deckName, deckDescription) {
+                dismiss()
+            }
         }
 
     }

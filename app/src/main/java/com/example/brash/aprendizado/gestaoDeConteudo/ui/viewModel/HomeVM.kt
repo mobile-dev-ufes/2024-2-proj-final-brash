@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.brash.R
 import com.example.brash.aprendizado.gestaoDeConteudo.data.repository.BaralhoRepository
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Baralho
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.HomeAcListItem
@@ -49,20 +50,40 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
     private val baralhoRepository = BaralhoRepository()
 
 
-    fun createDeck(name : String, description : String){
+    fun createDeck(name : String, description : String, onSuccess : () -> Unit){
 
         val deck = Baralho(
             nome = name,
             descricao = description
         )
-
-        baralhoRepository.createDeck(deck, {
-            UtilsFoos.showToast(getApplication(),"criou com sucesso no firebase")
-        },{
-            UtilsFoos.showToast(getApplication(), "nao foi possivel criar baralho")
-        })
+        if(handleDeckInfo(name, description)){
+            baralhoRepository.createDeck(deck, {
+                onSuccess()
+            },{
+                UtilsFoos.showToast(getApplication(), "Não foi possível criar o baralho")
+            })
+        }
 
     }
+
+    private fun handleDeckInfo(name : String, description : String) : Boolean{
+        if(name.isEmpty() || description.isEmpty()){
+
+            UtilsFoos.showToast(getApplication(), getStringApplication(R.string.nuc_preencha_todos_campos))
+            return false
+        }else if(false){ //TODO verificar se o nome do baralho é único
+
+            return false
+        }
+
+        return true
+    }
+
+    private fun getStringApplication(id : Int) : String{
+        return getApplication<Application>().getString(id)
+    }
+
+
 
     fun getAllPastas() {
 
