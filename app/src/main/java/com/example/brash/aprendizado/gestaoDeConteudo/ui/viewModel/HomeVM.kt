@@ -6,12 +6,17 @@ import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.brash.aprendizado.gestaoDeConteudo.data.repository.BaralhoRepository
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Baralho
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.HomeAcListItem
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.OpcoesDeBuscaHome
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Pasta
 import com.example.brash.aprendizado.gestaoDeConteudo.utils.FiltroDeBuscaHome
 import com.example.brash.aprendizado.gestaoDeConteudo.utils.OrdemDeBuscaHome
+import com.example.brash.nucleo.domain.model.Usuario
+import com.example.brash.nucleo.utils.UtilsFoos
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import java.lang.Exception
 
 class HomeVM(application: Application) : AndroidViewModel(application) {
@@ -41,6 +46,23 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
     val _pastaEmMover = MutableLiveData<Pasta?>()
     val pastaEmMover get() = _pastaEmMover
 
+    private val baralhoRepository = BaralhoRepository()
+
+
+    fun createDeck(name : String, description : String){
+
+        val deck = Baralho(
+            nome = name,
+            descricao = description
+        )
+
+        baralhoRepository.createDeck(deck, {
+            UtilsFoos.showToast(getApplication(),"criou com sucesso no firebase")
+        },{
+            UtilsFoos.showToast(getApplication(), "nao foi possivel criar baralho")
+        })
+
+    }
 
     fun getAllPastas() {
 
