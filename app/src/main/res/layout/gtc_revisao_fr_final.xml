@@ -29,7 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:text="Parabéns, você terminou a revisão!"
+        android:text="@string/gtc_parabens_revisao"
         android:textColor="@color/white"
 
         android:layout_marginTop="80dp"
@@ -50,7 +50,7 @@
 
         android:textColor="@color/white"
         android:backgroundTint="@color/medium_gray"
-        android:text="Volta para Home"
+        android:text="@string/gtc_volta_para_home"
 
         app:layout_constraintTop_toBottomOf="@id/RevisaoCartaoAcTextViewMensagemFinalRevisao"
         app:layout_constraintEnd_toEndOf="parent"

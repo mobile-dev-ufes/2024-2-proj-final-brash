@@ -44,7 +44,7 @@
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Sua senha foi redefinida com sucesso, clique abaixo para fazer o login."
+            android:text="@string/gtc_senha_redefinida"
 
             android:gravity="center"
 

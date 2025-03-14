@@ -14,7 +14,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:text="listar_baralhos_publicos_do_usuario"
+        android:text="listar baralhos publicos do usuario"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="50sp"

@@ -41,7 +41,7 @@
             android:autoSizeTextType="uniform"
             android:ellipsize="end"
             android:maxLines="3"
-            android:text="Nome do Baralho"
+            android:text="@string/gtc_nome_do_baralho"
             android:textColor="@color/white"
             android:autoSizeMaxTextSize="30sp"
             android:autoSizeMinTextSize="12sp"
@@ -54,8 +54,7 @@
             android:layout_marginStart="75dp"
             app:layout_constraintBottom_toBottomOf="@+id/ListarCartaoAcLayoutHeader"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/ListarCartaoAcLayoutHeader"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toTopOf="@+id/ListarCartaoAcLayoutHeader" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -146,7 +145,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:text="Pergunta"
+                android:text="@string/gtc_pergunta"
                 android:textColor="@android:color/white"
                 android:textSize="16sp"
                 android:textStyle="bold"
@@ -162,7 +161,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:text="Resposta"
+                android:text="@string/gtc_resposta"
                 android:textColor="@android:color/white"
                 android:textSize="16sp"
                 android:textStyle="bold"

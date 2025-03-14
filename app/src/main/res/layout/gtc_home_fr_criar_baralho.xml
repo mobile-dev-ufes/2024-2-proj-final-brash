@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:hint="Título"
-        android:textColorHint="@color/bright_red"
+        android:textColorHint="@color/soft_lilac"
 
         app:endIconMode="clear_text"
 
@@ -28,7 +28,8 @@
             android:id="@+id/HomeFrCriarBaralhoInputTitulo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text"
+
+            android:inputType="textMultiLine"
             style="@style/EditTextMaxCharNome"
 
             android:textColor="@color/white"
@@ -46,7 +47,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:hint="Descricao"
-        android:textColorHint="@color/bright_red"
+        android:textColorHint="@color/soft_lilac"
 
         app:endIconMode="clear_text"
 
@@ -59,8 +60,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
-            android:inputType="text"
+            android:inputType="textMultiLine"
             style="@style/EditTextMaxCharTexto"
+            android:maxLines="10"
+            android:ellipsize="end"
             android:textColor="@color/white"
 
             />

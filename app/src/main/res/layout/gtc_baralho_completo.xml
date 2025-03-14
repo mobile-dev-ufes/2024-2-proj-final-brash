@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:hint="Título"
+        android:hint="@string/gtc_titulo"
         android:textSize="20sp"
 
         app:endIconMode="clear_text"
@@ -52,7 +52,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:hint="Descricao"
+        android:hint="@string/gtc_descricao"
         android:textSize="20sp"
 
         app:endIconMode="clear_text"
@@ -86,7 +86,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:hint="CartoesNovos"
+        android:hint="@string/gtc_cartoes_novos"
         android:textSize="20sp"
 
         app:endIconMode="clear_text"
@@ -117,7 +117,7 @@
     <CheckBox
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Baralho público"
+        android:text="@string/gtc_baralho_publico"
         android:textSize="20sp"
         android:textColor="@android:color/white"
         android:padding="8dp"/>

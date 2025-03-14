@@ -55,9 +55,6 @@ class HomeAC : AppCompatActivity(), AlertDialogFr.OnConfirmListener {
         binding.HomeAcButtonAcoesAdicionais.setOnClickListener{
             AcoesAdicionaisFrDialog().show(supportFragmentManager, "AcoesAdicionaisDialog")
         }
-        binding.HomeAcImageViewOpcoesDeBusca.setOnClickListener{
-            OpcoesDeBuscaHomeFrDialog().show(supportFragmentManager, "OpcaoDialog")
-        }
         binding.HomeAcImageViewConfiguracoes.setOnClickListener{
             Toast.makeText(applicationContext, "Você clicou em Configuracoes", Toast.LENGTH_SHORT).show()
             intentToConfiguracaoActivity()

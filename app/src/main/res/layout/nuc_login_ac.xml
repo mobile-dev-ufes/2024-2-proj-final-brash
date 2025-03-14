@@ -92,10 +92,7 @@
 
                 android:inputType="textEmailAddress"
 
-                android:maxLines="1"
-                android:ellipsize="end"
-
-                android:textColorHint="@color/black"
+                style="@style/EditTextMaxCharEmail"
                 android:textColor="@color/black"
 
                 />
@@ -129,6 +126,7 @@
                 android:inputType="textPassword"
 
                 style="@style/EditTextMaxCharNome"
+                android:textColor="@color/black"
                 />
         </com.google.android.material.textfield.TextInputLayout>
 
