@@ -6,6 +6,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.example.brash.R
 import com.example.brash.aprendizado.gestaoDeConteudo.data.repository.BaralhoRepository
+import com.example.brash.aprendizado.gestaoDeConteudo.data.repository.PastaRepository
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Baralho
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.HomeAcListItem
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.OpcoesDeBuscaHome
@@ -46,7 +47,7 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
     val pastaEmMover get() = _pastaEmMover
 
     private val baralhoRepository = BaralhoRepository()
-
+    private val pastaRepository = PastaRepository()
 
     fun createDeck(name : String, description : String, onSuccess : () -> Unit){
 

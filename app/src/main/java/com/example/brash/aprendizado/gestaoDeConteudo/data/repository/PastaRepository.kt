@@ -3,17 +3,15 @@ package com.example.brash.aprendizado.gestaoDeConteudo.data.repository
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Baralho
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Pasta
 import com.example.brash.nucleo.domain.model.Usuario
-import com.example.brash.nucleo.utils.UtilsFoos
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
-class BaralhoRepository {
+class PastaRepository {
 
     private val fireStoreDB = FirebaseFirestore.getInstance()
     private val fireBaseAuth = FirebaseAuth.getInstance()
 
-
-    fun createDeck(deck : Baralho, onSuccess: () -> Unit, onFailure : () -> Unit){
+    fun createFolder(folder : Pasta, onSuccess: () -> Unit, onFailure : () -> Unit){
 
         val currentUserEmail = fireBaseAuth.currentUser?.email
         if (currentUserEmail.isNullOrEmpty()) {
@@ -21,23 +19,19 @@ class BaralhoRepository {
             return
         }
 
-        val rootRef = fireStoreDB.collection("users")
+        val foldersRef = fireStoreDB.collection("users")
             .document(currentUserEmail)
-            .collection("root")
+            .collection("folders")
 
-        val deckRef = rootRef.add(hashMapOf<String, Any>())
-        deckRef
+        val folderRef = foldersRef.add(hashMapOf<String, Any>())
+        folderRef
             .addOnSuccessListener { document ->
                 val generatedId = document.id
-
-                val newDeck = hashMapOf(
+                val newFolder = hashMapOf(
                     "id" to generatedId,
-                    "name" to deck.nome,
-                    "description" to deck.descricao,
-                    "public" to deck.publico,
-                    "numberNewCardsPerDay" to deck.cartoesNovosPorDia
+                    "name" to folder.nome,
                 )
-                document.set(newDeck)
+                document.set(newFolder)
                     .addOnSuccessListener {
                         onSuccess()
                     }
@@ -50,4 +44,5 @@ class BaralhoRepository {
             }
         return
     }
+
 }
