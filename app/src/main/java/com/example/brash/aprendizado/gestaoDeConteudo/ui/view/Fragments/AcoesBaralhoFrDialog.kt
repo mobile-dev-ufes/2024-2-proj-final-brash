@@ -87,7 +87,6 @@ class AcoesBaralhoFrDialog() : DialogFragment() {
                 Toast.makeText(context, "Não foi possível carregar o baralho para anotação.", Toast.LENGTH_SHORT).show()
             }
             intentToListarAnotacaoActivity()
-
         }
         binding.HomeFrAcoesBaralhoTextViewVisualizarRelatorio.setOnClickListener {
             dismiss()
