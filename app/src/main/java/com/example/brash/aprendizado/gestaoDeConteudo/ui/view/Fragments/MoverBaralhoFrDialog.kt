@@ -117,9 +117,9 @@ class MoverBaralhoFrDialog() : DialogFragment() {
             dismiss()
         }
         binding.HomeFrMoverBaralhoButtonMover.setOnClickListener {
-            //TODO:: Fazer a verificação da criação da pasta
+            //TODO:: Fazer a verificação de mover da pasta e atualizar em HomeAC
             Toast.makeText(context, "Mover Para " + (homeVM.pastaEmMover.value?.nome ?: "Root"), Toast.LENGTH_SHORT).show()
-            resetBackgroundLayoutRaiz()
+            dismiss()
         }
         binding.HomeFrMoverBaralhoLayoutRaiz.setOnClickListener {
             Toast.makeText(context, "Root Clicado", Toast.LENGTH_SHORT).show()
