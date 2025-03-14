@@ -123,7 +123,6 @@ class MoverBaralhoFrDialog() : DialogFragment() {
         }
         binding.HomeFrMoverBaralhoLayoutRaiz.setOnClickListener {
             Toast.makeText(context, "Root Clicado", Toast.LENGTH_SHORT).show()
-
             clickPastaRaiz()
         }
 
