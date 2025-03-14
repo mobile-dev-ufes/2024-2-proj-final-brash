@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Anotacao
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Baralho
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.HomeAcListItem
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.OpcoesDeBuscaHome
@@ -59,6 +60,11 @@ class ListarBaralhoPublicoVM(application: Application) : AndroidViewModel(applic
         Log.d("HomeDialogs", ordem.toString())
         Log.d("HomeDialogs", filtro.toString())
     }*/
+
+    fun importarBaralhoPublico(baralho: Baralho){
+        //TODO:: Fazer a requisição do firebase copiar esse baralho para a root do usuário
+
+    }
 
 }
 

@@ -9,6 +9,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Anotacao
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Baralho
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Cartao
+import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Dica
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.HomeAcListItem
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.OpcoesDeBuscaHome
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Pasta
@@ -39,6 +40,8 @@ class ListarAnotacaoVM(application: Application) : AndroidViewModel(application)
 
     fun getAllAnotacoes() {
 
+        //TODO:: requisitar do firebase
+
         _anotacaoList.value = listOf(
             Anotacao(nome =  "Alimentos", texto = "teste"),
             Anotacao(nome =  "Frutas", texto = "teste"),
@@ -66,6 +69,28 @@ class ListarAnotacaoVM(application: Application) : AndroidViewModel(application)
         Log.d("HomeDialogs", ordem.toString())
         Log.d("HomeDialogs", filtro.toString())
     }*/
+
+    fun criarAnotacao(anotacao: Anotacao){
+        //TODO:: Fazer a criação de anotação do firebase também
+        //TODO:: apenas confirmar a criação se o nome for único para o usuário
+
+        // request para atualizar dados
+        getAllAnotacoes()
+    }
+    fun editarAnotacao(anotacao: Anotacao){
+        //TODO:: Fazer a edição de anotação do firebase também
+        //TODO:: apenas requisitar se tiver ALGUMA informação diferente
+        //TODO:: apenas confirmar a mudança do nome se for único para o usuário, o restante pode sempre atualizar
+
+        // request para atualizar dados
+        getAllAnotacoes()
+    }
+    fun excluirAnotacao(anotacao: Anotacao){
+        //TODO:: Fazer a exclusão de anotação do firebase também
+
+        // request para atualizar dados
+        getAllAnotacoes()
+    }
 
 }
 

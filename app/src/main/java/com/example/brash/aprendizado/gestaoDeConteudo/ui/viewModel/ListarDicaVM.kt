@@ -38,6 +38,7 @@ class ListarDicaVM(application: Application) : AndroidViewModel(application) {
     }
 
     fun getAllDicas() {
+        //TODO:: requisitar do firebase
 
         _dicaList.value = listOf(
             Dica(texto =  "Alimentos"),
@@ -66,6 +67,25 @@ class ListarDicaVM(application: Application) : AndroidViewModel(application) {
         Log.d("HomeDialogs", filtro.toString())
     }*/
 
+    fun criarDica(dica: Dica){
+        //TODO:: Fazer a criação de dica do firebase também
+
+        // request para atualizar dados
+        getAllDicas()
+    }
+    fun editarDica(dica: Dica){
+        //TODO:: Fazer a edição de dica do firebase também
+        //TODO:: apenas requisitar se tiver ALGUMA informação diferente
+
+        // request para atualizar dados
+        getAllDicas()
+    }
+    fun excluirDica(dica: Dica){
+        //TODO:: Fazer a exclusão de dica do firebase também
+
+        // request para atualizar dados
+        getAllDicas()
+    }
 }
 
 /*
