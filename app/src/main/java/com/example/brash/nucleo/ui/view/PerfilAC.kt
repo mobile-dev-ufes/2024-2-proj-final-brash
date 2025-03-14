@@ -44,9 +44,12 @@ class PerfilAC : AppCompatActivity(), View.OnClickListener {
         }
         binding.PerfilAcShapeableImageViewIconePerfil.setImageResource(IconeImagem.FELIZ.drawableRes)
 
-        appVM.usuarioLogado.value?.iconeDeUsuario?.let { icone ->
-            binding.PerfilAcShapeableImageViewIconePerfil.setImageResource(icone.imagemPath.drawableRes)
-            binding.PerfilAcShapeableImageViewIconePerfil.setBackgroundResource(icone.cor.colorRes)
+        appVM.usuarioLogado.value?.let { usuario ->
+            binding.PerfilAcShapeableImageViewIconePerfil.setImageResource(usuario.iconeDeUsuario.imagemPath.drawableRes)
+            binding.PerfilAcShapeableImageViewIconePerfil.setBackgroundResource(usuario.iconeDeUsuario.cor.colorRes)
+            binding.PerfilAcTextViewNomeDeExibicao.text = usuario.nomeDeExibicao
+            binding.PerfilAcTextViewNomeDeUsuario.text =
+                getString(R.string.username_display, usuario.nomeDeUsuario)
         } ?: run {
             Toast.makeText(this, "Erro ao carregar o ícone do usuário.", Toast.LENGTH_SHORT).show()
         }

@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -32,11 +33,14 @@ import com.example.brash.aprendizado.gestaoDeConteudo.ui.viewModel.ListarCartaoV
 import com.example.brash.databinding.GtcListarBaralhoPublicoAcBinding
 import com.example.brash.databinding.GtcListarCartaoAcBinding
 import com.example.brash.nucleo.ui.view.Fragments.AlertDialogFr
+import com.example.brash.utilsGeral.AppVM
+import com.example.brash.utilsGeral.MyApplication
 
 class ListarCartaoAC : AppCompatActivity() {
 
     private lateinit var binding: GtcListarCartaoAcBinding
     private lateinit var listarCartaoVM: ListarCartaoVM
+    private lateinit var appVM: AppVM
 
     private lateinit var recyclerView: RecyclerView
 
@@ -49,7 +53,7 @@ class ListarCartaoAC : AppCompatActivity() {
         setContentView(binding.root)
 
         listarCartaoVM = ViewModelProvider(this).get(ListarCartaoVM::class.java)
-
+        appVM = (application as MyApplication).appSharedInformation
 
 
         // Inicializando o listener diretamente
@@ -70,12 +74,18 @@ class ListarCartaoAC : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter // Defina o adapter na RecyclerView
 
+
+        appVM.baralhoEmAC.value?.let {
+            binding.ListarCartaoAcTextViewTitulo.text = it.nome
+            listarCartaoVM.setBaralhoOwner(it)
+        } ?: run {
+            Toast.makeText(applicationContext, "Baralho não encontrado para nomear o título.", Toast.LENGTH_SHORT).show()
+        }
+
         setOnClickListeners()
         setObservers()
 
         listarCartaoVM.getAllCartoes()
-
-
     }
     private fun setOnClickListeners(){
 

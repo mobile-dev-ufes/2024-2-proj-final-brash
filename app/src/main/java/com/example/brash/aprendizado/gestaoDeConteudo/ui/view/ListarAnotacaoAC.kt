@@ -39,11 +39,14 @@ import com.example.brash.databinding.GtcListarAnotacaoAcBinding
 import com.example.brash.databinding.GtcListarBaralhoPublicoAcBinding
 import com.example.brash.databinding.GtcListarCartaoAcBinding
 import com.example.brash.nucleo.ui.view.Fragments.AlertDialogFr
+import com.example.brash.utilsGeral.AppVM
+import com.example.brash.utilsGeral.MyApplication
 
 class ListarAnotacaoAC : AppCompatActivity() {
 
     private lateinit var binding: GtcListarAnotacaoAcBinding
     private lateinit var listarAnotacaoVM: ListarAnotacaoVM
+    private lateinit var appVM: AppVM
 
     private lateinit var recyclerView: RecyclerView
 
@@ -56,7 +59,7 @@ class ListarAnotacaoAC : AppCompatActivity() {
         setContentView(binding.root)
 
         listarAnotacaoVM = ViewModelProvider(this).get(ListarAnotacaoVM::class.java)
-
+        appVM = (application as MyApplication).appSharedInformation
 
 
         // Inicializando o listener diretamente
@@ -79,7 +82,13 @@ class ListarAnotacaoAC : AppCompatActivity() {
         setOnClickListeners()
         setObservers()
 
-        listarAnotacaoVM.getAllCartoes()
+        appVM.baralhoEmAC.value?.let {
+            listarAnotacaoVM.setBaralhoOwner(it)
+        } ?: run {
+            Toast.makeText(applicationContext, "Baralho não encontrado para obter anotacoes.", Toast.LENGTH_SHORT).show()
+        }
+
+        listarAnotacaoVM.getAllAnotacoes()
 
 
     }

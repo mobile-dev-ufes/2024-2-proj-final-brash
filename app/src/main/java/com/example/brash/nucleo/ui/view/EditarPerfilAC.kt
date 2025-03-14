@@ -35,9 +35,13 @@ class EditarPerfilAC : AppCompatActivity() {
     }
 
     fun initView(){
-        appVM.usuarioLogado.value?.iconeDeUsuario?.let { icone ->
-            binding.EditarPerfilAcShapeableImageViewIconePerfil.setImageResource(icone.imagemPath.drawableRes)
-            binding.EditarPerfilAcShapeableImageViewIconePerfil.setBackgroundResource(icone.cor.colorRes)
+        appVM.usuarioLogado.value?.let { usuario ->
+            perfilVM.setImagemEmFoco(usuario.iconeDeUsuario.imagemPath)
+            perfilVM.setCorEmFoco(usuario.iconeDeUsuario.cor)
+            binding.EditarPerfilAcShapeableImageViewIconePerfil.setImageResource(usuario.iconeDeUsuario.imagemPath.drawableRes)
+            binding.EditarPerfilAcShapeableImageViewIconePerfil.setBackgroundResource(usuario.iconeDeUsuario.cor.colorRes)
+            binding.EditarPerfilInputNomeDeExibicao.setText(usuario.nomeDeExibicao)
+            binding.EditarPerfilInputNomeDeUsuario.setText(usuario.nomeDeUsuario)
         } ?: run {
             Toast.makeText(this, "Erro ao carregar o ícone do usuário.", Toast.LENGTH_SHORT).show()
         }
@@ -46,6 +50,18 @@ class EditarPerfilAC : AppCompatActivity() {
     private fun setOnClickListeners(){
         binding.EditarPerfilAcImageViewRetornar.setOnClickListener {
             finish()
+        }
+        binding.EditarPerfilButtonConfirmar.setOnClickListener{
+            // TODO:: Obter todas as informações
+
+            appVM.updateUsuarioLogado(
+                Usuario(nomeDeUsuario = binding.EditarPerfilInputNomeDeUsuario.text.toString(),
+                        nomeDeExibicao = binding.EditarPerfilInputNomeDeExibicao.text.toString(),
+                        iconeDeUsuario = IconeDeUsuario(imagemPath = perfilVM.imagemEmFoco.value!!, cor = perfilVM.corEmFoco.value!!)
+                )
+            )
+            finish()
+
         }
         binding.EditarPerfilAcImageViewIcone1.setOnClickListener{
             perfilVM.setImagemEmFoco(IconeImagem.PADRAO)
@@ -83,22 +99,7 @@ class EditarPerfilAC : AppCompatActivity() {
             perfilVM.setCorEmFoco(IconeCor.LEAF_GREEN)
             Toast.makeText(applicationContext, "Clicaram no Icone", Toast.LENGTH_SHORT).show()
         }
-        binding.EditarPerfilButtonConfirmar.setOnClickListener{
-            // TODO:: Obter todas as informações
-            val imagemFoco = perfilVM.imagemEmFoco.value
-            val corFoco = perfilVM.corEmFoco.value
 
-            if (imagemFoco != null && corFoco != null) {
-                // Se ambos os valores não forem nulos, cria o IconeDeUsuario e define o usuário logado
-                val iconeMudado = IconeDeUsuario(imagemPath = imagemFoco, cor = corFoco)
-                appVM.setUsuarioLogado(Usuario(iconeDeUsuario = iconeMudado))
-
-                finish()
-            } else {
-                // Se algum dos valores for nulo, exibe um Toast indicando o erro
-                Toast.makeText(this, "Ícone ou cor do usuário não selecionados!", Toast.LENGTH_SHORT).show()
-            }
-        }
     }
     private fun setObservers(){
         perfilVM.corEmFoco.observe(this, Observer { cor ->

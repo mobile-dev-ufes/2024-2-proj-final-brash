@@ -28,6 +28,11 @@ class ListarCartaoVM(application: Application) : AndroidViewModel(application) {
     private var _cartaoEmFoco = MutableLiveData<Cartao>()
     val cartaoEmFoco get() = _cartaoEmFoco
 
+    private var _baralhoOwner = MutableLiveData<Baralho>()
+
+    fun setBaralhoOwner(baralho: Baralho){
+        _baralhoOwner.value = baralho
+    }
     //private var _opcoesDeBusca = MutableLiveData<OpcoesDeBuscaBaralhoPublico>()
     //val opcoesDeBusca get() = _opcoesDeBusca
 

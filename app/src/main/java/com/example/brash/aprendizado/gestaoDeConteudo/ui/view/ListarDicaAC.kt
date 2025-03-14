@@ -39,11 +39,14 @@ import com.example.brash.databinding.GtcListarBaralhoPublicoAcBinding
 import com.example.brash.databinding.GtcListarCartaoAcBinding
 import com.example.brash.databinding.GtcListarDicaAcBinding
 import com.example.brash.nucleo.ui.view.Fragments.AlertDialogFr
+import com.example.brash.utilsGeral.AppVM
+import com.example.brash.utilsGeral.MyApplication
 
 class ListarDicaAC : AppCompatActivity() {
 
     private lateinit var binding: GtcListarDicaAcBinding
     private lateinit var listarDicaVM: ListarDicaVM
+    private lateinit var appVM: AppVM
 
     private lateinit var recyclerView: RecyclerView
 
@@ -56,7 +59,7 @@ class ListarDicaAC : AppCompatActivity() {
         setContentView(binding.root)
 
         listarDicaVM = ViewModelProvider(this).get(ListarDicaVM::class.java)
-
+        appVM = (application as MyApplication).appSharedInformation
 
 
         // Inicializando o listener diretamente
@@ -80,7 +83,12 @@ class ListarDicaAC : AppCompatActivity() {
         setOnClickListeners()
         setObservers()
 
-        listarDicaVM.getAllCartoes()
+        appVM.cartaoEmAC.value?.let {
+            listarDicaVM.setCartaoOwner(it)
+        } ?: run {
+            Toast.makeText(applicationContext, "Cartao não encontrado para obter dicas.", Toast.LENGTH_SHORT).show()
+        }
+        listarDicaVM.getAllDicas()
 
 
     }

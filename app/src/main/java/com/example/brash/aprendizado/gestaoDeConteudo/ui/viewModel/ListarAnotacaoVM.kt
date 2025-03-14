@@ -29,10 +29,15 @@ class ListarAnotacaoVM(application: Application) : AndroidViewModel(application)
     private var _anotacaoEmFoco = MutableLiveData<Anotacao>()
     val anotacaoEmFoco get() = _anotacaoEmFoco
 
+    private var _baralhoOwner = MutableLiveData<Baralho>()
+
+    fun setBaralhoOwner(baralho: Baralho){
+        _baralhoOwner.value = baralho
+    }
     //private var _opcoesDeBusca = MutableLiveData<OpcoesDeBuscaBaralhoPublico>()
     //val opcoesDeBusca get() = _opcoesDeBusca
 
-    fun getAllCartoes() {
+    fun getAllAnotacoes() {
 
         _anotacaoList.value = listOf(
             Anotacao(nome =  "Alimentos", texto = "teste"),

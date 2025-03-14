@@ -25,6 +25,8 @@ import com.example.brash.databinding.GtcHomeFrAcoesBaralhoBinding
 import com.example.brash.databinding.GtcHomeFrMoverBaralhoBinding
 import com.example.brash.nucleo.ui.view.Fragments.AlertDialogFr
 import com.example.brash.nucleo.ui.view.PerfilAC
+import com.example.brash.utilsGeral.AppVM
+import com.example.brash.utilsGeral.MyApplication
 import com.example.brash.utilsGeral.UtilsGeral
 
 class AcoesBaralhoFrDialog() : DialogFragment() {
@@ -34,6 +36,7 @@ class AcoesBaralhoFrDialog() : DialogFragment() {
 
 
     lateinit var homeVM: HomeVM
+    private lateinit var appVM: AppVM
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,6 +52,7 @@ class AcoesBaralhoFrDialog() : DialogFragment() {
 
         // Agora a ViewModel está sendo recuperada corretamente
         homeVM = ViewModelProvider(requireActivity()).get(HomeVM::class.java)
+        appVM = (requireActivity().application as MyApplication).appSharedInformation
 
         setOnClickListeners()
 
@@ -64,17 +68,29 @@ class AcoesBaralhoFrDialog() : DialogFragment() {
             dismiss()
             if (!activity?.isFinishing!! && !activity?.isDestroyed!!) {
                 Log.d("HomeDialogs", "Tentando mostrar o diálogo visualizarBaralho")
+
                 VisualizarBaralhoFrDialog().show(parentFragmentManager, "VisualizarBaralhoDialog")
             }
         }
         binding.HomeFrAcoesBaralhoTextViewVisualizarCartoes.setOnClickListener {
             dismiss()
+            homeVM.baralhoEmFoco.value?.let {
+                appVM.setBaralhoEmAC(it)
+            } ?: run {
+                Toast.makeText(context, "Não foi possível carregar o baralho para cartão.", Toast.LENGTH_SHORT).show()
+            }
             intentToListarCartaoActivity()
             //Toast.makeText(requireContext(), "Visualizar Cartões", Toast.LENGTH_SHORT).show()
         }
         binding.HomeFrAcoesBaralhoTextViewVisualizarAnotacoes.setOnClickListener {
             dismiss()
+            homeVM.baralhoEmFoco.value?.let {
+                appVM.setBaralhoEmAC(it)
+            } ?: run {
+                Toast.makeText(context, "Não foi possível carregar o baralho para anotação.", Toast.LENGTH_SHORT).show()
+            }
             intentToListarAnotacaoActivity()
+
         }
         binding.HomeFrAcoesBaralhoTextViewVisualizarRelatorio.setOnClickListener {
             dismiss()

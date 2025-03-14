@@ -27,6 +27,8 @@ import com.example.brash.databinding.GtcHomeFrMoverBaralhoBinding
 import com.example.brash.databinding.GtcListarCartaoFrAcoesCartaoBinding
 import com.example.brash.nucleo.ui.view.Fragments.AlertDialogFr
 import com.example.brash.nucleo.ui.view.PerfilAC
+import com.example.brash.utilsGeral.AppVM
+import com.example.brash.utilsGeral.MyApplication
 import com.example.brash.utilsGeral.UtilsGeral
 
 class AcoesCartaoFrDialog() : DialogFragment() {
@@ -36,6 +38,7 @@ class AcoesCartaoFrDialog() : DialogFragment() {
 
 
     lateinit var listarCartaoVM: ListarCartaoVM
+    private lateinit var appVM: AppVM
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,7 +54,7 @@ class AcoesCartaoFrDialog() : DialogFragment() {
 
         // Agora a ViewModel está sendo recuperada corretamente
         listarCartaoVM = ViewModelProvider(requireActivity()).get(ListarCartaoVM::class.java)
-
+        appVM = (requireActivity().application as MyApplication).appSharedInformation
         setOnClickListeners()
 
     }
@@ -71,6 +74,11 @@ class AcoesCartaoFrDialog() : DialogFragment() {
         }
         binding.ListarCartaoFrAcoesCartaoTextViewVisualizarDicas.setOnClickListener {
             dismiss()
+            listarCartaoVM.cartaoEmFoco.value?.let {
+                appVM.setCartaoEmAC(it)
+            } ?: run {
+                Toast.makeText(context, "Não foi possível carregar o cartão para dica.", Toast.LENGTH_SHORT).show()
+            }
             intentToListarDicaActivity()
             //Toast.makeText(requireContext(), "Visualizar Cartões", Toast.LENGTH_SHORT).show()
         }

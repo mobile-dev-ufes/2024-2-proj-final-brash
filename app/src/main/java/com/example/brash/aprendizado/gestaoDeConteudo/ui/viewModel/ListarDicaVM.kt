@@ -31,8 +31,13 @@ class ListarDicaVM(application: Application) : AndroidViewModel(application) {
 
     //private var _opcoesDeBusca = MutableLiveData<OpcoesDeBuscaBaralhoPublico>()
     //val opcoesDeBusca get() = _opcoesDeBusca
+    private var _cartaoOwner = MutableLiveData<Cartao>()
 
-    fun getAllCartoes() {
+    fun setCartaoOwner(cartao: Cartao){
+        _cartaoOwner.value = cartao
+    }
+
+    fun getAllDicas() {
 
         _dicaList.value = listOf(
             Dica(texto =  "Alimentos"),

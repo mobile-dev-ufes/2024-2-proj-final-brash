@@ -65,14 +65,14 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
 
         val listaBaralho = mutableListOf(
             Baralho(nome = "Celular", pasta = p),
-            Baralho(nome = "Notebook", pasta = p),
+            Baralho(nome = "Notebook Teste do tamanhoa aaaaaaabbbbbb", pasta = p),
             Baralho(nome = "Fone de ouvido", pasta = p)
         )
 
         p.baralhos = listaBaralho
 
         var listaHomeAcListItem = listOf<HomeAcListItem>(
-            HomeAcListItem.HomeAcPastaItem(pasta = Pasta(nome = "Roupas")),
+            HomeAcListItem.HomeAcPastaItem(pasta = Pasta(nome = "Roupas ")),
             HomeAcListItem.HomeAcPastaItem(isExpanded = true, pasta = p),
             HomeAcListItem.HomeAcPastaItem(pasta = Pasta(nome =  "Alimentos")),
             HomeAcListItem.HomeAcPastaItem(pasta = Pasta(nome =  "Frutas")),
