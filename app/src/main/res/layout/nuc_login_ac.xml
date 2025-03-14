@@ -248,7 +248,7 @@
         app:layout_constraintTop_toBottomOf="@+id/LoginAcLinearLayoutForm"
         app:layout_constraintEnd_toEndOf="@+id/LoginAcLinearLayoutForm"
         android:drawablePadding="3dp"
-        android:drawableEnd="@drawable/translate_12dp"
+        app:drawableEnd="@drawable/translate_12dp"
         />
 
     <RadioGroup

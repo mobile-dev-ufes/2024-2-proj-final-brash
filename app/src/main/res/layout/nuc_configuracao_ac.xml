@@ -94,7 +94,7 @@
         android:textColor="@color/white"
 
         android:drawablePadding="3dp"
-        android:drawableEnd="@drawable/translate_20dp"
+        app:drawableEnd="@drawable/translate_20dp"
 
         app:layout_constraintStart_toStartOf="parent"
 
