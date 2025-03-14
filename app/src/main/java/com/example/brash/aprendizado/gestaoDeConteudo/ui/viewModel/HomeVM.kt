@@ -4,12 +4,18 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import com.example.brash.aprendizado.gestaoDeConteudo.data.repository.BaralhoRepository
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Baralho
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.HomeAcListItem
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.OpcoesDeBuscaHome
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Pasta
 import com.example.brash.aprendizado.gestaoDeConteudo.utils.FiltroDeBuscaHome
 import com.example.brash.aprendizado.gestaoDeConteudo.utils.OrdemDeBuscaHome
+import com.example.brash.nucleo.domain.model.Usuario
+import com.example.brash.nucleo.utils.UtilsFoos
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import java.lang.Exception
 
 class HomeVM(application: Application) : AndroidViewModel(application) {
 
@@ -38,6 +44,23 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
     val _pastaEmMover = MutableLiveData<Pasta?>()
     val pastaEmMover get() = _pastaEmMover
 
+    private val baralhoRepository = BaralhoRepository()
+
+
+    fun createDeck(name : String, description : String){
+
+        val deck = Baralho(
+            nome = name,
+            descricao = description
+        )
+
+        baralhoRepository.createDeck(deck, {
+            UtilsFoos.showToast(getApplication(),"criou com sucesso no firebase")
+        },{
+            UtilsFoos.showToast(getApplication(), "nao foi possivel criar baralho")
+        })
+
+    }
 
     fun getAllPastas() {
 
@@ -57,12 +80,12 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
 
     fun getAllHomeAcListItem(){
 
-        //requestAllHomeacListItem do firebase do usuário
-        val p = Pasta(nome =  "Eletrônicos", idPasta = 1)
+
+        val p = Pasta(nome =  "Eletrônicos", idPasta =1 )
 
         val listaBaralho = mutableListOf(
             Baralho(nome = "Celular", pasta = p),
-            Baralho(nome = "Notebook Teste do tamanhoa aaaaaaabbbbbb", descricao = "123456789A123456789B123456789C123456789D123456789E123456789F123456789A123456789B123456789C123456789D123456789E123456789F123456789A123456789B123456789C123456789D123456789E123456789F123456789A123456789B123456789C123456789D123456789E123456789F123456789A123456789B123456789C123456789D123456789E123456789F", pasta = p),
+            Baralho(nome = "Notebook Teste do tamanhoa aaaaaaabbbbbb", pasta = p),
             Baralho(nome = "Fone de ouvido", pasta = p)
         )
 

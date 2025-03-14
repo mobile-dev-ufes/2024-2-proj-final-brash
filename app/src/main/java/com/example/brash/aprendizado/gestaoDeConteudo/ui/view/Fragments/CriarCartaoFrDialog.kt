@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.brash.aprendizado.gestaoDeConteudo.data.repository.BaralhoRepository
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.viewModel.HomeVM
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.viewModel.ListarCartaoVM
 import com.example.brash.databinding.GtcHomeFrAcoesAdicionaisBinding
@@ -22,6 +23,7 @@ class CriarCartaoFrDialog : DialogFragment() {
     private val binding get() = _binding!!
 
     lateinit var listarCartaoVM: ListarCartaoVM
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
