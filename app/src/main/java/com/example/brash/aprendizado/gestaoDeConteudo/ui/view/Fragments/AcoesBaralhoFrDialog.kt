@@ -116,7 +116,6 @@ class AcoesBaralhoFrDialog() : DialogFragment() {
                 Toast.makeText(requireContext(), "Excluir Baralho", Toast.LENGTH_SHORT).show()
             })
         }
-
     }
 
     override fun onDestroyView() {
