@@ -37,6 +37,7 @@ class ListarCartaoVM(application: Application) : AndroidViewModel(application) {
     //val opcoesDeBusca get() = _opcoesDeBusca
 
     fun getAllCartoes() {
+        //TODO:: requisitar do firebase
 
         _cartaoList.value = listOf(
             Cartao(pergunta =  "Alimentos", resposta = "teste"),
@@ -65,6 +66,25 @@ class ListarCartaoVM(application: Application) : AndroidViewModel(application) {
         Log.d("HomeDialogs", ordem.toString())
         Log.d("HomeDialogs", filtro.toString())
     }*/
+
+    fun criarCartao(cartao: Cartao){
+        //TODO:: Fazer a criação de cartão do firebase também
+
+        // request para atualizar dados
+        getAllCartoes()
+    }
+    fun editarCartao(cartao: Cartao){
+        //TODO:: Fazer a edição de cartão do firebase também
+        //TODO:: apenas requisitar se tiver ALGUMA informação diferente
+        // request para atualizar dados
+        getAllCartoes()
+    }
+    fun excluirCartao(cartao: Cartao){
+        //TODO:: Fazer a exclusão de cartão do firebase também
+
+        // request para atualizar dados
+        getAllCartoes()
+    }
 
 }
 

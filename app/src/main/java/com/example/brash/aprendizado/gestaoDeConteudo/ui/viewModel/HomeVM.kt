@@ -86,6 +86,8 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
 
     fun getAllPastas() {
 
+        //TODO:: requisitar do firebase
+
         _pastaList.value = listOf(
             Pasta(nome =  "Alimentos"),
             Pasta(nome =  "Frutas", idPasta = 1),
@@ -101,6 +103,8 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
     }
 
     fun getAllHomeAcListItem(){
+
+        //TODO:: requisitar do firebase
 
         val p = Pasta(nome =  "Eletrônicos", idPasta =1 )
 
@@ -160,6 +164,52 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
     }
     fun resetPastaEmMover(){
         _pastaEmMover.value = null
+    }
+
+    fun criarBaralho(baralho: Baralho){
+        //TODO:: Fazer a criação de baralho do firebase também
+        //TODO:: apenas confirmar a criação se o nome for único para o usuário
+
+        // request para atualizar dados
+        getAllHomeAcListItem()
+    }
+    fun editarBaralho(baralho: Baralho){
+        //TODO:: Fazer a edição de baralho do firebase também
+        //TODO:: apenas requisitar se tiver ALGUMA informação diferente
+        //TODO:: apenas confirmar a mudança do nome se for único para o usuário, o restante pode sempre atualizar
+        //TODO:: Se não conseguir alterar o nome ele altera o resto
+
+        // request para atualizar dados
+        getAllHomeAcListItem()
+    }
+    fun excluirBaralho(baralho: Baralho){
+        //TODO:: Fazer a exclusão de baralho do firebase também
+
+        // request para atualizar dados
+        getAllHomeAcListItem()
+    }
+
+    fun criarPasta(pasta: Pasta){
+        //TODO:: Fazer a criação de pasta do firebase também
+        //TODO:: apenas confirmar a criação se o nome for único para o usuário
+
+        // request para atualizar dados
+        getAllHomeAcListItem()
+    }
+    fun editarPasta(pasta: Pasta){
+        //TODO:: Fazer a edição de pasta do firebase também
+        //TODO:: apenas requisitar se tiver ALGUMA informação diferente
+        //TODO:: apenas confirmar a mudança do nome se for único para o usuário
+        //TODO:: Se não conseguir alterar o nome ele altera o resto
+
+        // request para atualizar dados
+        getAllHomeAcListItem()
+    }
+    fun excluirPasta(pasta: Pasta){
+        //TODO:: Fazer a exclusão de pasta do firebase também
+
+        // request para atualizar dados
+        getAllHomeAcListItem()
     }
 }
 

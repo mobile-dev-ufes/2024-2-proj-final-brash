@@ -16,6 +16,7 @@ import kotlin.math.sign
 
 import android.util.Log
 import com.example.brash.nucleo.domain.model.IconeDeUsuario
+import com.example.brash.nucleo.domain.model.Usuario
 import com.example.brash.nucleo.utils.IconeCor
 import com.example.brash.nucleo.utils.IconeImagem
 import java.lang.Exception
@@ -70,6 +71,13 @@ class PerfilVM(application: Application) : AndroidViewModel(application) {
         Log.d("HomeDialogs", ordem.toString())
         Log.d("HomeDialogs", filtro.toString())
     }*/
+
+    fun editarUsuario(usuario: Usuario){
+        //TODO:: requisitar o firebase a edição do usuário
+        //TODO:: apenas requisitar se tiver ALGUMA informação diferente
+        //TODO:: apenas confirmar a mudança do nome de usuário se for único no sistema, o restante pode sempre atualizar
+        //TODO:: Se não conseguir alterar o nome de usuário ele altera o resto
+    }
 
 }
 

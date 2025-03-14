@@ -98,6 +98,10 @@ class AcoesBaralhoFrDialog() : DialogFragment() {
             dismiss()
             
             UtilsGeral.showAlertDialog(requireContext(),"Deseja realmente excluir esse Baralho??",{
+
+                homeVM.baralhoEmFoco.value?.let {
+                    //Toast.makeText(context, "Não existe um baralho para excluir.", Toast.LENGTH_SHORT).show()
+                }
                 Toast.makeText(requireContext(), "Excluir Baralho", Toast.LENGTH_SHORT).show()
             })
         }

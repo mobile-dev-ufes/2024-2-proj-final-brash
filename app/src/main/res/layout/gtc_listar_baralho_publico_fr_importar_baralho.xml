@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/ListarBaralhoPublicoFrVisualizarBaralho"
+    android:id="@+id/ListarBaralhoPublicoFrImportarBaralho"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -9,13 +9,24 @@
     android:padding="16dp">
 
 
-    <com.google.android.material.textfield.TextInputLayout
-
-        android:id="@+id/ListarBaralhoPublicoFrVisualizarBaralhoInputLayoutTitulo"
+    <TextView
+        android:id="@+id/ListarBaralhoPublicoFrImportarBaralhoTextViewNomeOriginal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="@string/text_view_teste"
+        android:textSize="16sp"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:layout_margin="10dp"
+        />
+    <com.google.android.material.textfield.TextInputLayout
+
+        android:id="@+id/ListarBaralhoPublicoFrImportarBaralhoInputLayoutTitulo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        android:hint="@string/gtc_titulo"
+        android:hint="@string/gtc_novo_nome_do_baralho"
         android:textColorHint="@color/soft_lilac"
 
         app:endIconMode="clear_text"
@@ -25,46 +36,20 @@
         >
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/ListarBaralhoPublicoFrVisualizarBaralhoInputTitulo"
+            android:id="@+id/ListarBaralhoPublicoFrImportarBaralhoInputNovoNome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textMultiLine"
             style="@style/EditTextMaxCharNome"
 
             android:textColor="@color/white"
-
             />
     </com.google.android.material.textfield.TextInputLayout>
 
 
 
 
-    <com.google.android.material.textfield.TextInputLayout
 
-        android:id="@+id/ListarBaralhoPublicoFrVisualizarBaralhoInputLayoutDescricao"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:hint="@string/gtc_descricao"
-        android:textColorHint="@color/soft_lilac"
-
-        app:endIconMode="clear_text"
-
-        app:boxBackgroundColor="@color/medium_gray"
-        app:boxStrokeWidth="1dp"
-        >
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/ListarBaralhoPublicoFrVisualizarBaralhoInputDescricao"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            android:inputType="textMultiLine"
-            style="@style/EditTextMaxCharTexto"
-            android:textColor="@color/white"
-
-            />
-    </com.google.android.material.textfield.TextInputLayout>
 
 
 
@@ -75,7 +60,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <Button
-            android:id="@+id/ListarBaralhoPublicoFrVisualizarBaralhoButtonCancelar"
+            android:id="@+id/ListarBaralhoPublicoFrImportarBaralhoButtonCancelar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -90,11 +75,11 @@
             android:layout_marginEnd="20dp"
             />
         <Button
-            android:id="@+id/ListarBaralhoPublicoFrVisualizarBaralhoButtonImportar"
+            android:id="@+id/ListarBaralhoPublicoFrImportarBaralhoButtonImportar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/importar"
+            android:layout_weight="2"
+            android:text="@string/gtc_confirmar_nome"
             android:textSize="16sp"
             android:padding="10dp"
             android:textColor="@color/white"
