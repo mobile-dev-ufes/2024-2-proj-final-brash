@@ -66,11 +66,8 @@ class AcoesBaralhoFrDialog() : DialogFragment() {
 
         binding.HomeFrAcoesBaralhoTextViewVisualizarBaralho.setOnClickListener {
             dismiss()
-            if (!activity?.isFinishing!! && !activity?.isDestroyed!!) {
-                Log.d("HomeDialogs", "Tentando mostrar o diálogo visualizarBaralho")
-
-                VisualizarBaralhoFrDialog().show(parentFragmentManager, "VisualizarBaralhoDialog")
-            }
+            Log.d("HomeDialogs", "Tentando mostrar o diálogo visualizarBaralho")
+            VisualizarBaralhoFrDialog().show(parentFragmentManager, "VisualizarBaralhoDialog")
         }
         binding.HomeFrAcoesBaralhoTextViewVisualizarCartoes.setOnClickListener {
             dismiss()

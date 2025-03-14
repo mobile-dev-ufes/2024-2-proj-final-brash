@@ -18,7 +18,6 @@ class RevisaoVM(application: Application) : AndroidViewModel(application) {
 
 
     private var _baralhoEmFoco = MutableLiveData<Baralho>()
-
     val baralhoEmFoco get() = _baralhoEmFoco
 
 

@@ -4,13 +4,14 @@ import java.io.File
 import java.time.LocalDateTime
 
 data class Cartao(
-    val idCartao: Long = 0,
-    val pergunta: String = "",
-    val resposta: String = "",
+    var idCartao: Long = 0,
+    var pergunta: String = "",
+    var resposta: String = "",
     //val imagem: File,
-    val fatorDeRevisao: Double = 0.0,
-    val dataDeRevisao: LocalDateTime = LocalDateTime.now(),
-    val dica: MutableList<Dica> = mutableListOf(),
-    val baralho: Baralho = Baralho(),
-    val categoriaDoAprendizado: CategoriaDoAprendizado = CategoriaDoAprendizado.NOVO
+    var fatorDeRevisao: Double = 2.5,
+    var intervaloRevisao : Int = 0,
+    var dataDeRevisao: LocalDateTime = LocalDateTime.now(),
+    var dica: MutableList<Dica> = mutableListOf(),
+    var baralho: Baralho = Baralho(),
+    var categoriaDoAprendizado: CategoriaDoAprendizado = CategoriaDoAprendizado.NOVO
 )
