@@ -86,7 +86,7 @@ class ListaPastaAdapter(private val pastaDoBaralhoEmFoco: Pasta?) : RecyclerView
 
     fun resetSelectedItem() {
         // Reseta a variável de posição selecionada
-        selectedPosition = -1
+        selectedPosition = -2
         // Notifica a RecyclerView para atualizar todos os itens
         notifyDataSetChanged()
     }
