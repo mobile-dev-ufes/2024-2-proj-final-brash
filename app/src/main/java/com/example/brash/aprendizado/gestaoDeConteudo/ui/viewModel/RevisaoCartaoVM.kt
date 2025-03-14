@@ -15,8 +15,8 @@ class RevisaoCartaoVM(application: Application) : AndroidViewModel(application) 
     private var _linearLayoutButtonsAnswerVisibility = MutableLiveData<Int>()
     val linearLayoutButtonsAnswerVisibility get() = _linearLayoutButtonsAnswerVisibility
 
-    private var _baralhoEmFoco = MutableLiveData<Baralho>()
-    val baralhoEmFoco get() = _baralhoEmFoco
+    private var _baralhoOwner = MutableLiveData<Baralho>()
+    val baralhoOwner get() = _baralhoOwner
 
     private var _newCardsNumber = MutableLiveData<Int>()
     val newCardsNumber get() = _newCardsNumber
@@ -45,12 +45,12 @@ class RevisaoCartaoVM(application: Application) : AndroidViewModel(application) 
         _linearLayoutButtonsAnswerVisibility.value = View.GONE
     }
 
-    fun setBaralhoEmFoco(baralho: Baralho){
-        baralhoEmFoco.value = baralho
+    fun setBaralhoOwner(baralho: Baralho){
+        baralhoOwner.value = baralho
         Log.d("RevisaoAC", "Defini Baralho em FOCO")
     }
-    fun resetBaralhoEmFoco(){
-        baralhoEmFoco.value = null
+    fun resetBaralhoOwner(){
+        baralhoOwner.value = null
         Log.d("RevisaoAC", "Resetei Baralho em FOCO")
     }
 

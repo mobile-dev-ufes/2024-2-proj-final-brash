@@ -12,6 +12,8 @@ import com.example.brash.aprendizado.gestaoDeConteudo.ui.viewModel.RevisaoCartao
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.viewModel.RevisaoVM
 import com.example.brash.databinding.GtcRevisaoAcBinding
 import com.example.brash.databinding.GtcRevisaoCartaoAcBinding
+import com.example.brash.utilsGeral.AppVM
+import com.example.brash.utilsGeral.MyApplication
 
 
 class RevisaoCartaoAC : AppCompatActivity(), View.OnClickListener{
@@ -19,6 +21,7 @@ class RevisaoCartaoAC : AppCompatActivity(), View.OnClickListener{
     private lateinit var binding: GtcRevisaoCartaoAcBinding
 
     private lateinit var revisaoCartaoVM: RevisaoCartaoVM
+    private lateinit var appVM: AppVM
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,7 +29,13 @@ class RevisaoCartaoAC : AppCompatActivity(), View.OnClickListener{
         binding = GtcRevisaoCartaoAcBinding.inflate(layoutInflater)
         setContentView(binding.root)
         revisaoCartaoVM = ViewModelProvider(this).get(RevisaoCartaoVM::class.java)
+        appVM = (application as MyApplication).appSharedInformation
 
+        appVM.baralhoEmAC.value?.let {
+            revisaoCartaoVM.setBaralhoOwner(it)
+        } ?: run {
+            Toast.makeText(applicationContext, "Erro: Baralho não encontrado para revisão.", Toast.LENGTH_SHORT).show()
+        }
 
         setOnClickListeners()
         setObservers()

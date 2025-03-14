@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Baralho
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Pasta
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.ListarCartaoAC
-import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.RevisaoAC
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.adapter.ListaPastaAdapter
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.listener.OnPastaListener
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.viewModel.HomeVM

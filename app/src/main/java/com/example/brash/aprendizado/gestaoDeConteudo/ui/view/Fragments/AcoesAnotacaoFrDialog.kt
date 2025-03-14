@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Baralho
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Pasta
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.ListarCartaoAC
-import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.RevisaoAC
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.adapter.ListaPastaAdapter
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.listener.OnPastaListener
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.viewModel.HomeVM
@@ -83,11 +82,6 @@ class AcoesAnotacaoFrDialog() : DialogFragment() {
         _binding = null // Evita vazamento de memória
     }
 
-    private fun intentToRevisaoActivity(){
-        val intent = Intent(requireContext(), RevisaoAC::class.java)
-        Log.d("HomeDialogs", "Indo para a revisão de baralho")
-        startActivity(intent)
-    }
     private fun intentToListarCartaoActivity(){
         val intent = Intent(requireContext(), ListarCartaoAC::class.java)
         Log.d("HomeDialogs", "Indo para a revisão de baralho")
