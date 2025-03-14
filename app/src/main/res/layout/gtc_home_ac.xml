@@ -85,6 +85,15 @@
         android:gravity="center"
         />
 
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        app:layout_constraintStart_toStartOf="@+id/ListarDicaAcLayoutHeaderResultado"
+        app:layout_constraintEnd_toEndOf="@+id/ListarDicaAcLayoutHeaderResultado"
+        app:layout_constraintBottom_toBottomOf="@+id/ListarDicaAcLayoutHeaderResultado"
+        android:background="@color/lavender_purple"
+        />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/HomeAcExpandableListViewResultadoBusca"
         android:layout_width="0dp"
