@@ -29,8 +29,8 @@ O **Brash** segue uma arquitetura baseada nos padrões **MVVM (Model-View-ViewMo
 ## Contato
 Para mais informações, entre em contato com a equipe de desenvolvimento:
 
-Matheus Saick de Martin: matheussaick@gmail.com
-Renzo Henrique Guzzo Leão: renzolealguzzo@gmail.com
+- Matheus Saick de Martin: matheussaick@gmail.com
+- Renzo Henrique Guzzo Leão: renzolealguzzo@gmail.com
 
 ---
 **Brash** - Aprenda de forma eficiente com flashcards!
