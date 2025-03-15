@@ -13,4 +13,8 @@ data class Baralho (
     val cartoesNovosPorDia: Int = 20,
     val usuario: Usuario? = null,
     var pasta: Pasta? = null
-)
+){
+    override fun toString(): String {
+        return "Baralho(id='$idBaralho', nome='$nome', pastaId='${pasta?.nome}')"
+    }
+}

@@ -77,6 +77,8 @@
     <string name="gtc_cartoes_esquecidos">Forgotten cards:</string>
     <string name="gtc_zero">0</string>
     <string name="gtc_iniciar_revisao">Start review</string>
+    <string name="gtc_nao_foi_possivel_criar_baralho">It was not possible to create the deck!</string>
+    <string name="gtc_nao_foi_possivel_criar_pasta">It was not possible to create the folder!</string>
 
     <!-- -->
     <!-- -->

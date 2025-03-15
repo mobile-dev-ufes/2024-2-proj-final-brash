@@ -75,6 +75,8 @@
     <string name="gtc_cartoes_esquecidos">Cartões Esquecidos:</string>
     <string name="gtc_zero">0</string>
     <string name="gtc_iniciar_revisao">Iniciar revisão</string>
+    <string name="gtc_nao_foi_possivel_criar_baralho">Não foi possível criar o baralho!</string>
+    <string name="gtc_nao_foi_possivel_criar_pasta">Não foi possível criar a pasta!</string>
 
     <!-- -->
     <!-- -->
