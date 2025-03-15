@@ -67,7 +67,6 @@ class PastaRepository {
         catch (e : Exception){
             Result.failure(e)
         }
-
     }
 
 

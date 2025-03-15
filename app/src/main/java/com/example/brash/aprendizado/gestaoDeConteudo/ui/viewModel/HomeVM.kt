@@ -132,18 +132,27 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
     fun criarBaralho(nome : String, descricao : String, onSuccess : () -> Unit){
         //TODO:: apenas confirmar a criação se o nome for único para o usuário
 
-        val baralho = Baralho(
-            nome = nome,
-            descricao = descricao
-        )
         if(processaInforBaralho(nome, descricao)){
-            baralhoRepository.createDeck(baralho, {
-                onSuccess()
-            },{
-                UtilsFoos.showToast(getApplication(), getStringApplication(R.string.gtc_nao_foi_possivel_criar_baralho))
-                //Log.d("")
-            })
+
+            viewModelScope.launch {
+                val baralho = Baralho(
+                    nome = nome,
+                    descricao = descricao
+                )
+                val result = baralhoRepository.createDeck(baralho)
+                result
+                    .onSuccess {
+                        onSuccess()
+                    }
+                    .onFailure {
+                        UtilsFoos.showToast(getApplication(), "Ocorreu algum erro na criação da baralho")
+                        Log.e("criar baralho debug", "Ocorreu algum erro na criação da baralho")
+                    }
+
+            }
+
         }
+
         getAllHomeAcListItem()
     }
 
@@ -220,7 +229,22 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
         //TODO:: apenas confirmar a mudança do nome se for único para o usuário
         //TODO:: Se não conseguir alterar o nome ele altera o resto
 
-        onSuccess()
+        viewModelScope.launch {
+            val outraPasta = Pasta(
+                idPasta = "mzfMtBVIUNDfOsPU3q2D"
+            )
+            val result = pastaRepository.updateFolder(outraPasta, nome)
+            result
+                .onSuccess {
+                    onSuccess()
+                }
+                .onFailure {
+                    UtilsFoos.showToast(getApplication(), "Ocorreu algum erro na edição da pasta")
+                    Log.e("editar Pasta debug", "Ocorreu algum erro na edição da pasta")
+                }
+
+        }
+
         // request para atualizar dados
         //getAllHomeAcListItem()
     }

@@ -54,27 +54,37 @@ class RevisaoFrInicio : Fragment(R.layout.gtc_revisao_fr_inicio) {
 
     }
 
-    private fun aux(){
-
-
-    }
 
     private fun setOnClickListeners(){
 
         binding.RevisaoCartaoAcButtonIniciarRevisao.setOnClickListener {
 
             val pastaRepository = PastaRepository()
-
+            val baralhoRepository = BaralhoRepository()
 
             lifecycleScope.launch {
+                val id = "YGnkjJK531mUL1e71iUB"
                 val result = pastaRepository.getFolders()
+                result
+                    .onSuccess { listaPastas ->
 
-                result.onSuccess { foldersList ->
-                    println("Pastas carregadas com sucesso: $foldersList")
-                    Log.e("degub printando pastas", "$foldersList")
-                }.onFailure { error ->
-                    Log.e("degub printando pastas", "$error")
-                }
+                        for(pasta in listaPastas){
+                            if(pasta.idPasta == "mzfMtBVIUNDfOsPU3q2D"){
+                                for(baralho in pasta.baralhos){
+                                    if(baralho.idBaralho == id){
+                                        baralhoRepository.updateDeck(baralho, "teste1", "teste2", 40, true)
+                                    }
+                                }
+                            }
+                        }
+
+                        Log.e("fsfs", "$listaPastas")
+                    }
+                    .onFailure {
+                        Log.e("teste no revisao inicio", "algo deu errado")
+                    }
+
+
             }
 
 
