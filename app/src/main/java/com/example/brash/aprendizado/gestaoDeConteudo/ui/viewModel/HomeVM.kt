@@ -4,7 +4,9 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import com.example.brash.R
 import com.example.brash.aprendizado.gestaoDeConteudo.data.repository.BaralhoRepository
+import com.example.brash.aprendizado.gestaoDeConteudo.data.repository.PastaRepository
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Baralho
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.HomeAcListItem
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Pasta
@@ -39,25 +41,14 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
     val pastaEmMover get() = _pastaEmMover
 
     private val baralhoRepository = BaralhoRepository()
-
-    private var _atualizarLista = MutableLiveData<Boolean>(false)
-    val atualizarLista get() = _atualizarLista
+    private val pastaRepository = PastaRepository()
 
 
-    fun createDeck(name : String, description : String){
 
-        val deck = Baralho(
-            nome = name,
-            descricao = description
-        )
-
-        baralhoRepository.createDeck(deck, {
-            UtilsFoos.showToast(getApplication(),"criou com sucesso no firebase")
-        },{
-            UtilsFoos.showToast(getApplication(), "nao foi possivel criar baralho")
-        })
-
+    private fun getStringApplication(id : Int) : String{
+        return getApplication<Application>().getString(id)
     }
+
 
     fun getAllPastas() {
 
@@ -65,7 +56,7 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
 
         _pastaList.value = listOf(
             Pasta(nome =  "Alimentos"),
-            Pasta(nome =  "Frutas", idPasta = 1),
+            Pasta(nome =  "Frutas", idPasta = "1"),
             Pasta(nome =  "VerdurasVerdurasAlimentosmorango"),
             Pasta(nome =  "abacaxi"),
             Pasta(nome =  "Alimentos"),
@@ -81,7 +72,7 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
 
         //TODO:: requisitar do firebase
 
-        val p = Pasta(nome =  "Eletrônicos", idPasta =1 )
+        val p = Pasta(nome =  "Eletrônicos", idPasta ="1" )
 
         val listaBaralho = mutableListOf(
             Baralho(nome = "Celular", pasta = p),
@@ -133,13 +124,37 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
         _pastaEmMover.value = null
     }
 
-    fun criarBaralho(baralho: Baralho){
-        //TODO:: Fazer a criação de baralho do firebase também
+    fun criarBaralho(nome : String, descricao : String, onSuccess : () -> Unit){
         //TODO:: apenas confirmar a criação se o nome for único para o usuário
 
-        // request para atualizar dados
+        val baralho = Baralho(
+            nome = nome,
+            descricao = descricao
+        )
+        if(processaInforBaralho(nome, descricao)){
+            baralhoRepository.createDeck(baralho, {
+                onSuccess()
+            },{
+                UtilsFoos.showToast(getApplication(), getStringApplication(R.string.gtc_nao_foi_possivel_criar_baralho))
+                //Log.d("")
+            })
+        }
         getAllHomeAcListItem()
     }
+
+    private fun processaInforBaralho(name : String, description : String) : Boolean{
+        if(name.isEmpty() || description.isEmpty()){
+
+            UtilsFoos.showToast(getApplication(), getStringApplication(R.string.nuc_preencha_todos_campos))
+            return false
+        }else if(false){
+
+            return false
+        }
+
+        return true
+    }
+
     fun editarBaralho(baralho: Baralho){
         //TODO:: Fazer a edição de baralho do firebase também
         //TODO:: apenas requisitar se tiver ALGUMA informação diferente
@@ -149,6 +164,7 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
         // request para atualizar dados
         getAllHomeAcListItem()
     }
+
     fun excluirBaralho(baralho: Baralho){
         //TODO:: Fazer a exclusão de baralho do firebase também
 
@@ -156,13 +172,34 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
         getAllHomeAcListItem()
     }
 
-    fun criarPasta(pasta: Pasta){
-        //TODO:: Fazer a criação de pasta do firebase também
+    fun criarPasta(nome : String, onSuccess: () -> Unit){
         //TODO:: apenas confirmar a criação se o nome for único para o usuário
+
+        if(processaInfoPasta(nome)){
+            val pasta = Pasta(
+                nome = nome
+            )
+            pastaRepository.createFolder(pasta, {
+                onSuccess()
+            }, {
+                UtilsFoos.showToast(getApplication(), getStringApplication(R.string.gtc_nao_foi_possivel_criar_pasta))
+            })
+        }
 
         // request para atualizar dados
         getAllHomeAcListItem()
     }
+    private fun processaInfoPasta(nome : String) : Boolean{
+
+        if(nome.isEmpty()){
+            UtilsFoos.showToast(getApplication(), getStringApplication(R.string.nuc_preencha_todos_campos))
+            return false
+        }else if(false){ // verificacao de nome único
+            return false
+        }
+        return true
+    }
+
     fun editarPasta(pasta: Pasta){
         //TODO:: Fazer a edição de pasta do firebase também
         //TODO:: apenas requisitar se tiver ALGUMA informação diferente

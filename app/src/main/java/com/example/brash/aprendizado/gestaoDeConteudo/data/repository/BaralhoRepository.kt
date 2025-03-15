@@ -1,11 +1,18 @@
 package com.example.brash.aprendizado.gestaoDeConteudo.data.repository
 
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Baralho
+import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Cartao
+import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.CategoriaDoAprendizado
+import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Dica
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Pasta
 import com.example.brash.nucleo.domain.model.Usuario
 import com.example.brash.nucleo.utils.UtilsFoos
+import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.util.Date
 
 class BaralhoRepository {
 
@@ -21,60 +28,81 @@ class BaralhoRepository {
             return
         }
 
-        val newDeck = hashMapOf(
-            "name" to deck.nome,
-            "description" to deck.descricao,
-            "public" to deck.publico,
-            "numberNewCardsPerDay" to deck.cartoesNovosPorDia
-        )
-
-        val rootCollectionRef = fireStoreDB.collection("users")
+        val rootRef = fireStoreDB.collection("users")
             .document(currentUserEmail)
             .collection("root")
 
-        rootCollectionRef.document(deck.nome).set(newDeck)
-            .addOnSuccessListener {
-                onSuccess()
+        val deckRef = rootRef.add(hashMapOf<String, Any>())
+        deckRef
+            .addOnSuccessListener { document ->
+                val generatedId = document.id
+
+                val newDeck = hashMapOf(
+                    "id" to generatedId,
+                    "name" to deck.nome,
+                    "description" to deck.descricao,
+                    "public" to deck.publico,
+                    "numberNewCardsPerDay" to deck.cartoesNovosPorDia,
+                )
+                document.set(newDeck)
+                    .addOnSuccessListener {
+                        onSuccess()
+                    }
+                    .addOnFailureListener {
+                        onFailure()
+                    }
             }
             .addOnFailureListener {
                 onFailure()
             }
-
         return
-
     }
 
-    private fun createRoot( onSuccess : () -> Unit, onFailure: () -> Unit){
+    fun addCard(deck : Baralho, card : Cartao){
 
         val currentUserEmail = fireBaseAuth.currentUser?.email
-        if (currentUserEmail == null) {
-            onFailure()
+        if (currentUserEmail.isNullOrEmpty()) {
             return
         }
 
-        val foldersRef = fireStoreDB.collection("users").document(currentUserEmail)
-            .collection("folders")
-            .document("root")
+        val userRef = fireStoreDB.collection("users")
+            .document(currentUserEmail)
 
-        foldersRef.get()
+        //var decksRef = userRef.collection("root")
+        //val folder = deck.pasta!!
+        //if(folder.nome != "root"){
+            //decksRef = userRef.collection("folders").document(folder.idPasta).collection("decks")
+        //}
+
+        val decksRef = userRef.collection("root")
+        val cardsRef = decksRef.document("Cmpzp5ySYkWqoSKzzTNq").collection("cards")
+        val cardRef = cardsRef.add(hashMapOf<String, Any>())
+        cardRef
             .addOnSuccessListener { document ->
-                if (!document.exists()) {
-                    // Se o documento "root" não existir, cria ele
-                    val rootFolder = hashMapOf("name" to "root")
-                    foldersRef.set(rootFolder)
-                        .addOnFailureListener {
-                            onFailure()
-                        }.addOnSuccessListener {
-                            onSuccess()
-                        }
-                }else{
-                    onSuccess()
-                }
+                val generatedId = document.id
+
+                val newCard = hashMapOf(
+                    "id" to generatedId,
+                    "question" to card.pergunta,
+                    "answer" to card.resposta,
+                    "reviewFactor" to card.fatorDeRevisao,
+                    "reviewInterval" to card.intervaloRevisao,
+                    "reviewDate" to Timestamp(Date.from(card.dataDeRevisao.atZone(ZoneId.systemDefault()).toInstant())),
+                    "categoryOfLearning" to card.categoriaDoAprendizado.name
+                )
+                document.set(newCard)
+                    .addOnSuccessListener {
+
+                    }
+                    .addOnFailureListener {
+
+                    }
             }
             .addOnFailureListener {
-                onFailure()
-            }
-    }
 
+            }
+
+        return
+    }
 
 }
