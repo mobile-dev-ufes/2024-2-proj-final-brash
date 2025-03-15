@@ -171,6 +171,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/cancelar"
+                android:textSize="15sp"
+                android:textColor="@color/white"
 
                 app:layout_constraintHorizontal_chainStyle="packed"
 
@@ -191,6 +193,8 @@
                 android:text="@string/nuc_criar_conta"
                 android:backgroundTint="@color/medium_gray"
                 android:elevation="8dp"
+                android:textSize="15sp"
+                android:textColor="@color/white"
 
                 app:layout_constraintStart_toEndOf="@id/CadastrarContaAcButtonCancelar"
                 app:layout_constraintTop_toTopOf="parent"

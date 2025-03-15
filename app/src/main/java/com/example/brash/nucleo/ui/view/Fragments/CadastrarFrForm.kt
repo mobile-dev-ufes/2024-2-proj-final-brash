@@ -1,4 +1,5 @@
 package com.example.brash.nucleo.ui.view.Fragments
+import android.app.Application
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,10 +8,16 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.brash.R
 import com.example.brash.databinding.NucCadastrarFrFormBinding
+import com.example.brash.nucleo.data.remoto.services.AccountService
+import com.example.brash.nucleo.ui.view.Fragments.CadastrarFrFormDirections
 import com.example.brash.nucleo.ui.viewModel.CadastrarContaVM
+import com.example.brash.nucleo.ui.viewModel.LoginVM
+import com.example.brash.nucleo.ui.viewModel.viewModelFactory
 import com.example.brash.nucleo.utils.UtilsFoos
+import com.example.brash.utilsGeral.MyApplication
 import kotlinx.coroutines.launch
 
 
@@ -20,6 +27,7 @@ class CadastrarFrForm : Fragment(R.layout.nuc_cadastrar_fr_form) {
     private val binding get() = _binding!!
 
     private lateinit var cadastrarContaVM: CadastrarContaVM
+//    private val args: CadastrarFrFormArgs by navArgs()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -34,33 +42,33 @@ class CadastrarFrForm : Fragment(R.layout.nuc_cadastrar_fr_form) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        cadastrarContaVM = ViewModelProvider(requireActivity()).get(CadastrarContaVM::class.java)
+        val application = requireActivity().application
+
+//        cadastrarContaVM = ViewModelProvider(requireActivity()).get(CadastrarContaVM::class.java)
+        cadastrarContaVM = ViewModelProvider(requireActivity(), viewModelFactory {
+            CadastrarContaVM(application, MyApplication.appModule.accountService)
+        }).get(CadastrarContaVM::class.java)
+
 
         setObservers()
         setOnClickListeners()
     }
 
-    private fun setOnClickListeners(){
-
-        binding.CadastrarContaAcButtonCadastrar.setOnClickListener{
+    private fun setOnClickListeners() {
+        binding.CadastrarContaAcButtonCadastrar.setOnClickListener {
             val userName = binding.CadastrarContaAcTextInputEditTextNome.text.toString()
-            val exhibitionName = binding.CadastrarContaAcTextInputEditTextNomeExibicao.text.toString()
+            val exhibitionName =
+                binding.CadastrarContaAcTextInputEditTextNomeExibicao.text.toString()
             val email = binding.CadastrarContaAcTextInputEditTextEmail.text.toString()
             val password = binding.CadastrarContaAcTextInputEditTextSenha.text.toString()
 
-            lifecycleScope.launch{
-                cadastrarContaVM.handleRegisterForm(userName, exhibitionName, email, password) {
-                    val emailVerificationCode = "777"
-                    actionToCadastrarFrCodigo(userName, exhibitionName, email, password, emailVerificationCode)
-                }
-            }
-
+            cadastrarContaVM.registerNewUser(userName, exhibitionName, email, password, {
+                actionToExito()
+            })
         }
-    }
-
-    private fun actionToCadastrarFrCodigo(userName : String, exhibitionName : String, email : String, password : String, emailVerificationCode : String){
-        val action = CadastrarFrFormDirections.actionCadastrarFrFormToCadastrarFrCodigo(userName, exhibitionName, email, password, emailVerificationCode)
-        findNavController().navigate(action)
+        binding.CadastrarContaAcButtonCancelar.setOnClickListener {
+            requireActivity().finish()
+        }
     }
 
     private fun setObservers(){
@@ -78,5 +86,10 @@ class CadastrarFrForm : Fragment(R.layout.nuc_cadastrar_fr_form) {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding=null
+    }
+
+    private fun actionToExito(){
+        val action = CadastrarFrFormDirections.actionCadastrarFrFormToCadastrarFrExito()
+        findNavController().navigate(action)
     }
 }

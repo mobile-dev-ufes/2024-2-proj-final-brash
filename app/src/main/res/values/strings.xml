@@ -45,6 +45,7 @@
     <string name="nuc_msg_erro_email_ja_cadastrado">Este e-mail já está cadastrado!</string>
     <string name="nuc_msg_erro_nome_usuario_ja_cadastrado">Este nome de usuário já está cadastrado!</string>
     <string name="nuc_msg_erro_codigo_invalido">Código inválido!</string>
+    <string name="nuc_msg_erro_conta_nao_verificada">Confirme primeiro sua conta no email!</string>
     <string name="nuc_enviar_codigo">Enviar código</string>
     <string name="nuc_alterar_senha">alterar senha</string>
 
