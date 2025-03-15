@@ -33,7 +33,7 @@ class AcoesAnotacaoFrDialog() : DialogFragment() {
     private val binding get() = _binding!!
 
 
-    lateinit var listarAnotacaoVM: ListarAnotacaoVM
+    private lateinit var listarAnotacaoVM: ListarAnotacaoVM
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,7 +48,7 @@ class AcoesAnotacaoFrDialog() : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Agora a ViewModel está sendo recuperada corretamente
-        listarAnotacaoVM = ViewModelProvider(requireActivity()).get(ListarAnotacaoVM::class.java)
+        listarAnotacaoVM = ViewModelProvider(requireActivity())[ListarAnotacaoVM::class.java]
 
         setOnClickListeners()
 

@@ -27,7 +27,7 @@ class VisualizarAnotacaoFrDialog() : DialogFragment() {
     private var _binding: GtcListarAnotacaoFrVisualizarAnotacaoBinding? = null
     private val binding get() = _binding!!
 
-    lateinit var listarAnotacaoVM: ListarAnotacaoVM
+    private lateinit var listarAnotacaoVM: ListarAnotacaoVM
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,7 +42,7 @@ class VisualizarAnotacaoFrDialog() : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Agora a ViewModel está sendo recuperada corretamente
-        listarAnotacaoVM = ViewModelProvider(requireActivity()).get(ListarAnotacaoVM::class.java)
+        listarAnotacaoVM = ViewModelProvider(requireActivity())[ListarAnotacaoVM::class.java]
         //Log.d("HomeDialogs", "homeVM iniciado")
 
         //homeVM.baralhoEmFoco.value?.let {

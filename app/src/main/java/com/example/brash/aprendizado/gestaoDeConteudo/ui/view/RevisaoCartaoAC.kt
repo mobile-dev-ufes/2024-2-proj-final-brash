@@ -28,7 +28,7 @@ class RevisaoCartaoAC : AppCompatActivity(), View.OnClickListener{
 
         binding = GtcRevisaoCartaoAcBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        revisaoCartaoVM = ViewModelProvider(this).get(RevisaoCartaoVM::class.java)
+        revisaoCartaoVM = ViewModelProvider(this)[RevisaoCartaoVM::class.java]
         appVM = (application as MyApplication).appSharedInformation
 
         appVM.baralhoEmAC.value?.let {

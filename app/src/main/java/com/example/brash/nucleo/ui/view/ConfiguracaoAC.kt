@@ -24,7 +24,7 @@ class ConfiguracaoAC : AppCompatActivity(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        configuracaoVM = ViewModelProvider(this).get(ConfiguracaoVM::class.java)
+        configuracaoVM = ViewModelProvider(this)[ConfiguracaoVM::class.java]
 
         binding = NucConfiguracaoAcBinding.inflate(layoutInflater)
         setContentView(binding.root)

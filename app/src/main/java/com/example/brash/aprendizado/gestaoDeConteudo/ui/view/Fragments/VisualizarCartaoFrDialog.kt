@@ -25,7 +25,7 @@ class VisualizarCartaoFrDialog() : DialogFragment() {
     private var _binding: GtcListarCartaoFrVisualizarCartaoBinding? = null
     private val binding get() = _binding!!
 
-    lateinit var listarCartaoVM: ListarCartaoVM
+    private lateinit var listarCartaoVM: ListarCartaoVM
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,7 +40,7 @@ class VisualizarCartaoFrDialog() : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Agora a ViewModel está sendo recuperada corretamente
-        listarCartaoVM = ViewModelProvider(requireActivity()).get(ListarCartaoVM::class.java)
+        listarCartaoVM = ViewModelProvider(requireActivity())[ListarCartaoVM::class.java]
         //Log.d("HomeDialogs", "homeVM iniciado")
 
         //homeVM.baralhoEmFoco.value?.let {

@@ -35,7 +35,7 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
     val pastaEmFoco get() = _pastaEmFoco
     val baralhoEmFoco get() = _baralhoEmFoco
 
-    val _pastaEmMover = MutableLiveData<Pasta?>()
+    private val _pastaEmMover = MutableLiveData<Pasta?>()
     val pastaEmMover get() = _pastaEmMover
 
     private val baralhoRepository = BaralhoRepository()
@@ -91,7 +91,7 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
 
         p.baralhos = listaBaralho
 
-        var listaHomeAcListItem = listOf<HomeAcListItem>(
+        val listaHomeAcListItem = listOf<HomeAcListItem>(
             HomeAcListItem.HomeAcPastaItem(pasta = Pasta(nome = "Roupas ")),
             HomeAcListItem.HomeAcPastaItem(isExpanded = true, pasta = p),
             HomeAcListItem.HomeAcPastaItem(pasta = Pasta(nome =  "Alimentos")),

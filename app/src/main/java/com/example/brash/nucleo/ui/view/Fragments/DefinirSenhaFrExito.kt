@@ -33,7 +33,7 @@ class DefinirSenhaFrExito : Fragment(R.layout.nuc_definir_senha_fr_exito) {
         super.onViewCreated(view, savedInstanceState)
 
 
-        definirSenhaVM = ViewModelProvider(requireActivity()).get(DefinirSenhaVM::class.java)
+        definirSenhaVM = ViewModelProvider(requireActivity())[DefinirSenhaVM::class.java]
         setObservers()
         setOnClickListeners()
         setOnBackPressedToLoginAc()

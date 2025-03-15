@@ -40,7 +40,7 @@ class ListarBaralhoPublicoAC : AppCompatActivity() {
         binding = GtcListarBaralhoPublicoAcBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        listarBaralhoPublicoVM = ViewModelProvider(this).get(ListarBaralhoPublicoVM::class.java)
+        listarBaralhoPublicoVM = ViewModelProvider(this)[ListarBaralhoPublicoVM::class.java]
 
 
         // Inicializando o listener diretamente

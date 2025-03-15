@@ -40,7 +40,7 @@ class CadastrarFrCodigo : Fragment(R.layout.nuc_cadastrar_fr_codigo) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        cadastrarContaVM = ViewModelProvider(requireActivity()).get(CadastrarContaVM::class.java)
+        cadastrarContaVM = ViewModelProvider(requireActivity())[CadastrarContaVM::class.java]
         setObservers()
         setOnClickListeners()
     }

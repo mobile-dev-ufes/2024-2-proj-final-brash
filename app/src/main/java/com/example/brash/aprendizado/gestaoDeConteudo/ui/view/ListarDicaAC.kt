@@ -57,7 +57,7 @@ class ListarDicaAC : AppCompatActivity() {
         binding = GtcListarDicaAcBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        listarDicaVM = ViewModelProvider(this).get(ListarDicaVM::class.java)
+        listarDicaVM = ViewModelProvider(this)[ListarDicaVM::class.java]
         appVM = (application as MyApplication).appSharedInformation
 
 

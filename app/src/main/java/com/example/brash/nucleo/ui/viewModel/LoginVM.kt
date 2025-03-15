@@ -38,12 +38,18 @@ class LoginVM(application: Application) : AndroidViewModel(application) {
         }.addOnFailureListener {
 
             var msg = getStringApplication(R.string.nuc_msg_erro_login_default)
-            if (it is FirebaseAuthInvalidUserException) {
-                msg = getStringApplication(R.string.nuc_msg_erro_usuario_nao_existe)
-            } else if (it is FirebaseAuthInvalidCredentialsException) {
-                msg = getStringApplication(R.string.nuc_msg_erro_usario_ou_senha_incorretos)
-            } else if (it is FirebaseNetworkException) {
-                msg = getStringApplication(R.string.nuc_msg_erro_falha_conectar_internet)
+            when (it) {
+                is FirebaseAuthInvalidUserException -> {
+                    msg = getStringApplication(R.string.nuc_msg_erro_usuario_nao_existe)
+                }
+
+                is FirebaseAuthInvalidCredentialsException -> {
+                    msg = getStringApplication(R.string.nuc_msg_erro_usario_ou_senha_incorretos)
+                }
+
+                is FirebaseNetworkException -> {
+                    msg = getStringApplication(R.string.nuc_msg_erro_falha_conectar_internet)
+                }
             }
             //UtilsFoos.showToast(getApplication(), msg)
 

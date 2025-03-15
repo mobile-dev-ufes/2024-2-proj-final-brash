@@ -53,7 +53,7 @@ class ListarCartaoAC : AppCompatActivity() {
         binding = GtcListarCartaoAcBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        listarCartaoVM = ViewModelProvider(this).get(ListarCartaoVM::class.java)
+        listarCartaoVM = ViewModelProvider(this)[ListarCartaoVM::class.java]
         appVM = (application as MyApplication).appSharedInformation
 
 

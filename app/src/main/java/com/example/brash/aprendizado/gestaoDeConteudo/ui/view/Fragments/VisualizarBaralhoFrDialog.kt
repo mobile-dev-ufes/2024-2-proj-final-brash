@@ -39,7 +39,7 @@ class VisualizarBaralhoFrDialog() : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Agora a ViewModel está sendo recuperada corretamente
-        homeVM = ViewModelProvider(requireActivity()).get(HomeVM::class.java)
+        homeVM = ViewModelProvider(requireActivity())[HomeVM::class.java]
         Log.d("HomeDialogs", "homeVM iniciado")
 
         homeVM.baralhoEmFoco.value?.let {

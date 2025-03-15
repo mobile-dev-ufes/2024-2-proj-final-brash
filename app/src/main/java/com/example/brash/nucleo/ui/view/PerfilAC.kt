@@ -24,7 +24,7 @@ class PerfilAC : AppCompatActivity(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        perfilVM = ViewModelProvider(this).get(PerfilVM::class.java)
+        perfilVM = ViewModelProvider(this)[PerfilVM::class.java]
 
         binding = NucPerfilAcBinding.inflate(layoutInflater)
 
@@ -37,7 +37,7 @@ class PerfilAC : AppCompatActivity(), View.OnClickListener {
         initAC()
 
     }
-    fun initAC(){
+    private fun initAC(){
 
         appVM.usuarioLogado.value?.let { usuario ->
             binding.PerfilAcShapeableImageViewIconePerfil.setImageResource(usuario.iconeDeUsuario.imagemPath.drawableRes)

@@ -10,7 +10,7 @@ import java.time.LocalDateTime
 class nucleoUtils {
     companion object{
         fun getCartoes() : List<Cartao>{
-            var listCartoes = mutableListOf<Cartao>()
+            val listCartoes = mutableListOf<Cartao>()
             for (i in 1..20){
                 val card = Cartao(
                     idCartao = 1,

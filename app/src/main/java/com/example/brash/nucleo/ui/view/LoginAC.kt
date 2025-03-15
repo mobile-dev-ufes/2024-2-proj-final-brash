@@ -20,7 +20,7 @@ class LoginAC : AppCompatActivity(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        loginVM = ViewModelProvider(this).get(LoginVM::class.java)
+        loginVM = ViewModelProvider(this)[LoginVM::class.java]
 
         loginVM.userStored({
             intentToHomeActivity()

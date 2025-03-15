@@ -36,7 +36,7 @@ class AcoesCartaoFrDialog() : DialogFragment() {
     private val binding get() = _binding!!
 
 
-    lateinit var listarCartaoVM: ListarCartaoVM
+    private lateinit var listarCartaoVM: ListarCartaoVM
     private lateinit var appVM: AppVM
 
     override fun onCreateView(
@@ -52,7 +52,7 @@ class AcoesCartaoFrDialog() : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Agora a ViewModel está sendo recuperada corretamente
-        listarCartaoVM = ViewModelProvider(requireActivity()).get(ListarCartaoVM::class.java)
+        listarCartaoVM = ViewModelProvider(requireActivity())[ListarCartaoVM::class.java]
         appVM = (requireActivity().application as MyApplication).appSharedInformation
         setOnClickListeners()
 

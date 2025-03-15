@@ -24,7 +24,7 @@ class EditarPerfilAC : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        perfilVM = ViewModelProvider(this).get(PerfilVM::class.java)
+        perfilVM = ViewModelProvider(this)[PerfilVM::class.java]
         appVM = (application as MyApplication).appSharedInformation
         binding = NucEditarPerfilAcBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -34,7 +34,7 @@ class EditarPerfilAC : AppCompatActivity() {
         initView()
     }
 
-    fun initView(){
+    private fun initView(){
         appVM.usuarioLogado.value?.let { usuario ->
             perfilVM.setImagemEmFoco(usuario.iconeDeUsuario.imagemPath)
             perfilVM.setCorEmFoco(usuario.iconeDeUsuario.cor)

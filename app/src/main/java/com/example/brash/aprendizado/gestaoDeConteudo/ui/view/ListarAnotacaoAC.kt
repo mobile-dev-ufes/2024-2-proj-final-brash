@@ -35,7 +35,7 @@ class ListarAnotacaoAC : AppCompatActivity() {
         binding = GtcListarAnotacaoAcBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        listarAnotacaoVM = ViewModelProvider(this).get(ListarAnotacaoVM::class.java)
+        listarAnotacaoVM = ViewModelProvider(this)[ListarAnotacaoVM::class.java]
         appVM = (application as MyApplication).appSharedInformation
 
 

@@ -18,7 +18,7 @@ class ImportarBaralhoPublicoFrDialog() : DialogFragment() {
     private var _binding: GtcListarBaralhoPublicoFrImportarBaralhoBinding? = null
     private val binding get() = _binding!!
 
-    lateinit var listarBaralhoPublicoVM: ListarBaralhoPublicoVM
+    private lateinit var listarBaralhoPublicoVM: ListarBaralhoPublicoVM
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,7 +33,7 @@ class ImportarBaralhoPublicoFrDialog() : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Agora a ViewModel está sendo recuperada corretamente
-        listarBaralhoPublicoVM = ViewModelProvider(requireActivity()).get(ListarBaralhoPublicoVM::class.java)
+        listarBaralhoPublicoVM = ViewModelProvider(requireActivity())[ListarBaralhoPublicoVM::class.java]
         //Log.d("HomeDialogs", "homeVM iniciado")
 
         listarBaralhoPublicoVM.baralhoPublicoEmFoco.value?.let {

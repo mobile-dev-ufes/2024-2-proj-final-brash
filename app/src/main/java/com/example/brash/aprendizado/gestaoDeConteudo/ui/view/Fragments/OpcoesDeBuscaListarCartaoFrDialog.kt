@@ -22,7 +22,7 @@ class OpcoesDeBuscaListarCartaoFrDialog: DialogFragment() {
     private var _binding: GtcListarCartaoFrOpcoesDeBuscaBinding? = null
     private val binding get() = _binding!!
 
-    lateinit var listarCartaoVM: ListarCartaoVM
+    private lateinit var listarCartaoVM: ListarCartaoVM
 
 
     override fun onCreateView(
@@ -39,7 +39,7 @@ class OpcoesDeBuscaListarCartaoFrDialog: DialogFragment() {
 
         Log.d("HomeDialogs", "OPCOES DE BUSCA onViewCreated Inicio")
 
-        listarCartaoVM = ViewModelProvider(requireActivity()).get(ListarCartaoVM::class.java)
+        listarCartaoVM = ViewModelProvider(requireActivity())[ListarCartaoVM::class.java]
 
         setupSpinners()
         setObservers()

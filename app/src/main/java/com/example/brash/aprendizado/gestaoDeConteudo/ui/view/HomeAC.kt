@@ -38,7 +38,7 @@ class HomeAC : AppCompatActivity(), AlertDialogFr.OnConfirmListener {
 
         binding = GtcHomeAcBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        homeVM = ViewModelProvider(this).get(HomeVM::class.java)
+        homeVM = ViewModelProvider(this)[HomeVM::class.java]
 
         appVM = (application as MyApplication).appSharedInformation
 

@@ -20,7 +20,7 @@ class ListaPastaAdapter(private val pastaDoBaralhoEmFoco: Pasta?) : RecyclerView
     private lateinit var listener: OnPastaListener
 
     // Variável para controlar a posição do item selecionado
-    var selectedPosition: Int = -1
+    private var selectedPosition: Int = -1
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListaPastaVH {
         val item = GtcItemPastaComIconeBinding.inflate(

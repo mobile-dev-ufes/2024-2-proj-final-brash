@@ -40,7 +40,7 @@ class DefinirSenhaFrEnvioCodigo : Fragment(R.layout.nuc_definir_senha_fr_envio_c
     }
 
     private fun initViewModel(){
-        definirSenhaVM = ViewModelProvider(requireActivity()).get(DefinirSenhaVM::class.java)
+        definirSenhaVM = ViewModelProvider(requireActivity())[DefinirSenhaVM::class.java]
         definirSenhaVM.setCurrentUserEmail()
     }
 
