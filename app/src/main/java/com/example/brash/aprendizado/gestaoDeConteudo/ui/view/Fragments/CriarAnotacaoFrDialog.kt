@@ -56,9 +56,14 @@ class CriarAnotacaoFrDialog : DialogFragment() {
             dismiss()
         }
         binding.ListarAnotacaoFrCriarAnotacaoButtonCriar.setOnClickListener {
-            dismiss()
+            //dismiss()
             //TODO:: Fazer verificação??, se for pode confirmar, requisitar isso ao HomeVM
-            Toast.makeText(requireContext(), "Anotacao criada", Toast.LENGTH_SHORT).show()
+            val annotationName = binding.ListarAnotacaoFrCriarAnotacaoInputNome.text.toString()
+            val annotationText = binding.ListarAnotacaoFrCriarAnotacaoInputTexto.text.toString()
+            listarAnotacaoVM.criarAnotacao(annotationName, annotationText) {
+                dismiss()
+                Toast.makeText(requireContext(), "Anotacao criada", Toast.LENGTH_SHORT).show()
+            }
         }
 
     }

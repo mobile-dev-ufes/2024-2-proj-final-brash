@@ -56,8 +56,12 @@ class CriarCartaoFrDialog : DialogFragment() {
         }
         binding.ListarCartaoFrCriarCartaoButtonCriar.setOnClickListener {
             dismiss()
-            //TODO:: Fazer verificação??, se for pode confirmar, requisitar isso ao HomeVM
-            Toast.makeText(requireContext(), "Pasta criada", Toast.LENGTH_SHORT).show()
+            val pergunta = binding.ListarCartaoFrCriarCartaoInputPergunta.text.toString()
+            val resposta = binding.ListarCartaoFrCriarCartaoInputResposta.text.toString()
+            listarCartaoVM.criarCartao(pergunta, resposta) {
+                dismiss()
+                Toast.makeText(requireContext(), "Cartão criado", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 

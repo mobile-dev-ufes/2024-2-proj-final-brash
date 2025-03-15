@@ -76,8 +76,16 @@ class VisualizarBaralhoFrDialog() : DialogFragment() {
             dismiss()
         }
         binding.HomeFrVisualizarBaralhoButtonConfirmar.setOnClickListener {
-            dismiss()
-            Toast.makeText(requireContext(), "Baralho Editado", Toast.LENGTH_SHORT).show()
+            val deckName = binding.HomeFrVisualizarBaralhoInputTitulo.text.toString()
+            val deckDescription = binding.HomeFrVisualizarBaralhoInputDescricao.text.toString()
+            homeVM.baralhoEmFoco.value?.let { baralho ->
+                homeVM.editarBaralho(baralho, deckName, deckDescription) {
+                    dismiss()
+                    Toast.makeText(requireContext(), "Baralho Editado", Toast.LENGTH_SHORT).show()
+                }
+            } ?: run {
+                Toast.makeText(requireContext(), "Nenhum baralho selecionado", Toast.LENGTH_SHORT).show()
+            }
         }
 
     }

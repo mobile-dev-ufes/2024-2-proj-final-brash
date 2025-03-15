@@ -35,7 +35,6 @@ class CriarPastaFrDialog : DialogFragment() {
 
         // Agora a ViewModel está sendo recuperada corretamente
         homeVM = ViewModelProvider(requireActivity())[HomeVM::class.java]
-
         setOnClickListeners()
     }
 

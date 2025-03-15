@@ -73,7 +73,14 @@ class AcoesDicaFrDialog() : DialogFragment() {
             dismiss()
             
             UtilsGeral.showAlertDialog(requireContext(),"Deseja realmente excluir essa Dica??",{
-                Toast.makeText(requireContext(), "Excluir Dica", Toast.LENGTH_SHORT).show()
+                listarDicaVM.dicaEmFoco.value?.let { dica ->
+                    listarDicaVM.excluirDica(dica){
+                        Toast.makeText(requireContext(), "Excluir Dica", Toast.LENGTH_SHORT).show()
+                    }
+                } ?: run {
+                    Toast.makeText(requireContext(), "Nenhuma Dica selecionada", Toast.LENGTH_SHORT).show()
+                }
+
             })
         }
 

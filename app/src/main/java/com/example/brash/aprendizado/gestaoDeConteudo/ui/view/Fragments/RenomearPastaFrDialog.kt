@@ -64,9 +64,17 @@ class RenomearPastaFrDialog() : DialogFragment() {
             dismiss()
         }
         binding.HomeFrRenomearPastaButtonConfirmar.setOnClickListener {
+
             //TODO:: Fazer verificação de se eh nome único, se for pode confirmar
-            dismiss()
-            Toast.makeText(requireContext(), "Pasta renomeada", Toast.LENGTH_SHORT).show()
+            homeVM.pastaEmFoco.value?.let { pasta ->
+                val novoNome = binding.HomeFrRenomearPastaInput.text.toString()
+                homeVM.editarPasta(pasta, novoNome){
+                    Toast.makeText(requireContext(), "Editar Pasta", Toast.LENGTH_SHORT).show()
+                }
+                dismiss()
+            } ?: run {
+                Toast.makeText(requireContext(), "Nenhuma pasta selecionada", Toast.LENGTH_SHORT).show()
+            }
         }
 
     }

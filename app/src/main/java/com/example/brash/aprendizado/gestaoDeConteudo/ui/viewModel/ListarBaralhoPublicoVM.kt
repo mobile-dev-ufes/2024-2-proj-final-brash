@@ -57,9 +57,9 @@ class ListarBaralhoPublicoVM(application: Application) : AndroidViewModel(applic
         Log.d("HomeDialogs", filtro.toString())
     }*/
 
-    fun importarBaralhoPublico(baralho: Baralho){
+    fun importarBaralhoPublico(baralho: Baralho, novoNome: String, onSuccess : () -> Unit){
         //TODO:: Fazer a requisição do firebase copiar esse baralho para a root do usuário
-
+        onSuccess()
     }
 
     fun updateFilterBaralhoPublicoList(filtro: String){
@@ -77,6 +77,7 @@ class ListarBaralhoPublicoVM(application: Application) : AndroidViewModel(applic
         }
 
     }
+
 
 }
 

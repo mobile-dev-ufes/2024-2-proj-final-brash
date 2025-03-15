@@ -59,7 +59,6 @@ class CriarBaralhoFrDialog : DialogFragment() {
                 dismiss()
             }
         }
-
     }
 
     override fun onDestroyView() {

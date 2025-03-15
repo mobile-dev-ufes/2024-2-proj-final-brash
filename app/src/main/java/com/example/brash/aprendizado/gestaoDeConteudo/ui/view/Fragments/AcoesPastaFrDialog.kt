@@ -20,6 +20,7 @@ class AcoesPastaFrDialog() : DialogFragment() {
 
     private var _binding: GtcHomeFrAcoesPastaBinding? = null
     private val binding get() = _binding!!
+    lateinit var homeVM: HomeVM
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,7 +33,7 @@ class AcoesPastaFrDialog() : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        homeVM = ViewModelProvider(requireActivity())[HomeVM::class.java]
         setOnClickListeners()
     }
 
@@ -48,9 +49,17 @@ class AcoesPastaFrDialog() : DialogFragment() {
             RenomearPastaFrDialog().show(parentFragmentManager, "RenomearPastaDialog")
         }
         binding.HomeFrAcoesPastaTextViewExcluirPasta.setOnClickListener {
-            dismiss()
             UtilsGeral.showAlertDialog(requireContext(),"Deseja realmente excluir essa Pasta?? Essa ação irá excluir TODOS os baralhos da pasta",{
-                Toast.makeText(requireContext(), "Excluir Pasta", Toast.LENGTH_SHORT).show()
+
+                dismiss()
+                homeVM.pastaEmFoco.value?.let { pasta ->
+                    homeVM.excluirPasta(pasta){
+                        Toast.makeText(requireContext(), "Excluir Pasta", Toast.LENGTH_SHORT).show()
+                    }
+                } ?: run {
+                    Toast.makeText(requireContext(), "Nenhuma pasta selecionada", Toast.LENGTH_SHORT).show()
+                }
+
             })
         }
 

@@ -73,23 +73,28 @@ class ListarCartaoVM(application: Application) : AndroidViewModel(application) {
         Log.d("HomeDialogs", filtro.toString())
     }*/
 
-    fun criarCartao(cartao: Cartao){
+    fun criarCartao(pergunta: String, resposta: String, onSuccess : () -> Unit){
         //TODO:: Fazer a criação de cartão do firebase também
 
+
+        onSuccess()
         // request para atualizar dados
-        getAllCartoes()
+        //getAllCartoes()
     }
-    fun editarCartao(cartao: Cartao){
+    fun editarCartao(cartao: Cartao,pergunta: String, resposta: String, onSuccess : () -> Unit){
         //TODO:: Fazer a edição de cartão do firebase também
         //TODO:: apenas requisitar se tiver ALGUMA informação diferente
         // request para atualizar dados
-        getAllCartoes()
+
+        onSuccess()
+        //getAllCartoes()
     }
-    fun excluirCartao(cartao: Cartao){
+    fun excluirCartao(cartao: Cartao, onSuccess : () -> Unit){
         //TODO:: Fazer a exclusão de cartão do firebase também
 
+        onSuccess()
         // request para atualizar dados
-        getAllCartoes()
+        //getAllCartoes()
     }
 
     fun updateOpcoesDeBusca(filtro : FiltroDeBuscaListarCartao){

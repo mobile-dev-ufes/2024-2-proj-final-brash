@@ -82,7 +82,15 @@ class VisualizarDicaFrDialog() : DialogFragment() {
             dismiss()
         }
         binding.ListarDicaFrVisualizarDicaButtonConfirmar.setOnClickListener{
-            //TODO:: Lógica de modificar
+            val hintText = binding.ListarDicaFrVisualizarDicaInputTexto.text.toString()
+            listarDicaVM.dicaEmFoco.value?.let { cartao ->
+                listarDicaVM.editarDica(cartao, hintText) {
+                    dismiss()
+                    Toast.makeText(requireContext(), "Dica Editada", Toast.LENGTH_SHORT).show()
+                }
+            } ?: run {
+                Toast.makeText(requireContext(), "Nenhum Dica selecionado", Toast.LENGTH_SHORT).show()
+            }
         }
 
     }

@@ -83,7 +83,16 @@ class VisualizarAnotacaoFrDialog() : DialogFragment() {
             dismiss()
         }
         binding.ListarAnotacaoFrVisualizarAnotacaoButtonConfirmar.setOnClickListener{
-            //TODO:: Lógica de importar/copiar baralho
+            val annotationName = binding.ListarAnotacaoFrVisualizarAnotacaoInputNome.text.toString()
+            val annotationText = binding.ListarAnotacaoFrVisualizarAnotacaoInputTexto.text.toString()
+            listarAnotacaoVM.anotacaoEmFoco.value?.let { anotacao ->
+                listarAnotacaoVM.editarAnotacao(anotacao, annotationName, annotationText) {
+                    dismiss()
+                    Toast.makeText(requireContext(), "Anotacao Editado", Toast.LENGTH_SHORT).show()
+                }
+            } ?: run {
+                Toast.makeText(requireContext(), "Nenhum Anotacao selecionado", Toast.LENGTH_SHORT).show()
+            }
         }
 
     }

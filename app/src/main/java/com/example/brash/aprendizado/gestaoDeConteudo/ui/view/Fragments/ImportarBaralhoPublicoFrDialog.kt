@@ -66,7 +66,15 @@ class ImportarBaralhoPublicoFrDialog() : DialogFragment() {
         }
         binding.ListarBaralhoPublicoFrImportarBaralhoButtonImportar.setOnClickListener{
             //TODO:: Lógica de importar/copiar baralho
-            dismiss()
+            listarBaralhoPublicoVM.baralhoPublicoEmFoco.value?.let { it1 ->
+                val novoNome = binding.ListarBaralhoPublicoFrImportarBaralhoInputNovoNome.text.toString()
+                listarBaralhoPublicoVM.importarBaralhoPublico(it1, novoNome) {
+                    Toast.makeText(requireContext(), "Baralho público importado", Toast.LENGTH_SHORT).show()
+                    dismiss()
+                }
+            } ?: run {
+                Toast.makeText(requireContext(), "Nenhum baralho selecionado", Toast.LENGTH_SHORT).show()
+            }
         }
 
     }

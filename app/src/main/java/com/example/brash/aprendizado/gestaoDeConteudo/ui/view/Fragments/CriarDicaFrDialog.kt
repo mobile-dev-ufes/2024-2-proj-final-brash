@@ -56,9 +56,12 @@ class CriarDicaFrDialog : DialogFragment() {
             dismiss()
         }
         binding.ListarDicaFrCriarDicaButtonCriar.setOnClickListener {
-            dismiss()
-            //TODO:: Fazer verificação de se eh nome único, se for pode confirmar, requisitar isso ao DicaVM
-            Toast.makeText(requireContext(), "Pasta criada", Toast.LENGTH_SHORT).show()
+            val hintText = binding.ListarDicaFrCriarDicaInputTexto.text.toString()
+            listarDicaVM.criarDica(hintText){
+                dismiss()
+                Toast.makeText(requireContext(), "Dica criada", Toast.LENGTH_SHORT).show()
+            }
+
         }
 
     }

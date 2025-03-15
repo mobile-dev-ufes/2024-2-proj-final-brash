@@ -110,6 +110,9 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
 
     fun setBaralhoEmFoco(baralho: Baralho){
         baralhoEmFoco.value = baralho
+        baralho.pasta?.let { pasta ->
+            setPastaEmMover(pasta)
+        }
         Log.d("HomeDialogs", "Defini Baralho em FOCO")
     }
     fun resetBaralhoEmFoco(){
@@ -155,21 +158,27 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
         return true
     }
 
-    fun editarBaralho(baralho: Baralho){
+    fun editarBaralho(baralho: Baralho, nome : String, descricao : String, onSuccess : () -> Unit){
         //TODO:: Fazer a edição de baralho do firebase também
         //TODO:: apenas requisitar se tiver ALGUMA informação diferente
         //TODO:: apenas confirmar a mudança do nome se for único para o usuário, o restante pode sempre atualizar
         //TODO:: Se não conseguir alterar o nome ele altera o resto
 
+        onSuccess()
         // request para atualizar dados
-        getAllHomeAcListItem()
+        //getAllHomeAcListItem()
     }
 
-    fun excluirBaralho(baralho: Baralho){
+    fun excluirBaralho(baralho: Baralho, onSuccess : () -> Unit){
         //TODO:: Fazer a exclusão de baralho do firebase também
-
+        onSuccess()
         // request para atualizar dados
-        getAllHomeAcListItem()
+        //getAllHomeAcListItem()
+    }
+
+    fun moverBaralho(pasta: Pasta, baralho: Baralho, onSuccess: () -> Unit){
+        //TODO:: Fazer a lógica
+        onSuccess()
     }
 
     fun criarPasta(nome : String, onSuccess: () -> Unit){
@@ -186,8 +195,9 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
             })
         }
 
+        onSuccess()
         // request para atualizar dados
-        getAllHomeAcListItem()
+        //getAllHomeAcListItem()
     }
     private fun processaInfoPasta(nome : String) : Boolean{
 
@@ -200,20 +210,22 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
         return true
     }
 
-    fun editarPasta(pasta: Pasta){
+    fun editarPasta(pasta: Pasta, nome : String, onSuccess : () -> Unit){
         //TODO:: Fazer a edição de pasta do firebase também
         //TODO:: apenas requisitar se tiver ALGUMA informação diferente
         //TODO:: apenas confirmar a mudança do nome se for único para o usuário
         //TODO:: Se não conseguir alterar o nome ele altera o resto
 
+        onSuccess()
         // request para atualizar dados
-        getAllHomeAcListItem()
+        //getAllHomeAcListItem()
     }
-    fun excluirPasta(pasta: Pasta){
+    fun excluirPasta(pasta: Pasta, onSuccess : () -> Unit){
         //TODO:: Fazer a exclusão de pasta do firebase também
 
+        onSuccess()
         // request para atualizar dados
-        getAllHomeAcListItem()
+        //getAllHomeAcListItem()
     }
 }
 

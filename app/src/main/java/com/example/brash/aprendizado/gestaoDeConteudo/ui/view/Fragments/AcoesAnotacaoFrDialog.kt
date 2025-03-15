@@ -69,9 +69,15 @@ class AcoesAnotacaoFrDialog() : DialogFragment() {
         }
         binding.ListarAnotacaoFrAcoesAnotacaoTextViewExcluirAnotacao.setOnClickListener{
             dismiss()
-            
             UtilsGeral.showAlertDialog(requireContext(),"Deseja realmente excluir essa Anotação??",{
-                Toast.makeText(requireContext(), "Excluir Anotação", Toast.LENGTH_SHORT).show()
+                listarAnotacaoVM.anotacaoEmFoco.value?.let { it ->
+                    listarAnotacaoVM.excluirAnotacao(it){
+                        Toast.makeText(requireContext(), "Excluir Anotacao", Toast.LENGTH_SHORT).show()
+                    }
+                } ?: run {
+                    Toast.makeText(requireContext(), "Nenhuma Anotacao selecionada", Toast.LENGTH_SHORT).show()
+                }
+
             })
         }
 

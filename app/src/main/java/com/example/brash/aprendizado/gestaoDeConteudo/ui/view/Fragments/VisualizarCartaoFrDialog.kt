@@ -81,7 +81,16 @@ class VisualizarCartaoFrDialog() : DialogFragment() {
             dismiss()
         }
         binding.ListarCartaoFrVisualizarCartaoButtonConfirmar.setOnClickListener{
-            //TODO:: Lógica de importar/copiar baralho
+            val cardQuestion = binding.ListarCartaoFrVisualizarCartaoInputPergunta.text.toString()
+            val cardAnswer = binding.ListarCartaoFrVisualizarCartaoInputResposta.text.toString()
+            listarCartaoVM.cartaoEmFoco.value?.let { cartao ->
+                listarCartaoVM.editarCartao(cartao, cardQuestion, cardAnswer) {
+                    dismiss()
+                    Toast.makeText(requireContext(), "Cartão Editado", Toast.LENGTH_SHORT).show()
+                }
+            } ?: run {
+                Toast.makeText(requireContext(), "Nenhum Cartão selecionado", Toast.LENGTH_SHORT).show()
+            }
         }
 
     }

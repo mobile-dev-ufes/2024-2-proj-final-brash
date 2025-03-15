@@ -61,24 +61,27 @@ class ListarDicaVM(application: Application) : AndroidViewModel(application) {
         Log.d("HomeDialogs", filtro.toString())
     }*/
 
-    fun criarDica(dica: Dica){
+    fun criarDica(texto: String, onSuccess : () -> Unit){
         //TODO:: Fazer a criação de dica do firebase também
 
+        onSuccess()
         // request para atualizar dados
-        getAllDicas()
+        //getAllDicas()
     }
-    fun editarDica(dica: Dica){
+    fun editarDica(dica: Dica,texto: String, onSuccess : () -> Unit){
         //TODO:: Fazer a edição de dica do firebase também
         //TODO:: apenas requisitar se tiver ALGUMA informação diferente
 
+        onSuccess()
         // request para atualizar dados
-        getAllDicas()
+        //getAllDicas()
     }
-    fun excluirDica(dica: Dica){
+    fun excluirDica(dica: Dica, onSuccess : () -> Unit){
         //TODO:: Fazer a exclusão de dica do firebase também
 
+        onSuccess()
         // request para atualizar dados
-        getAllDicas()
+        //getAllDicas()
     }
 }
 
