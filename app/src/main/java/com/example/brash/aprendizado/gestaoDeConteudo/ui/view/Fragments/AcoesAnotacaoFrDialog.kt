@@ -33,7 +33,7 @@ class AcoesAnotacaoFrDialog() : DialogFragment() {
     private val binding get() = _binding!!
 
 
-    lateinit var listarAnotacaoVM: ListarAnotacaoVM
+    private lateinit var listarAnotacaoVM: ListarAnotacaoVM
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,7 +48,7 @@ class AcoesAnotacaoFrDialog() : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Agora a ViewModel está sendo recuperada corretamente
-        listarAnotacaoVM = ViewModelProvider(requireActivity()).get(ListarAnotacaoVM::class.java)
+        listarAnotacaoVM = ViewModelProvider(requireActivity())[ListarAnotacaoVM::class.java]
 
         setOnClickListeners()
 
@@ -69,9 +69,15 @@ class AcoesAnotacaoFrDialog() : DialogFragment() {
         }
         binding.ListarAnotacaoFrAcoesAnotacaoTextViewExcluirAnotacao.setOnClickListener{
             dismiss()
-            
             UtilsGeral.showAlertDialog(requireContext(),"Deseja realmente excluir essa Anotação??",{
-                Toast.makeText(requireContext(), "Excluir Anotação", Toast.LENGTH_SHORT).show()
+                listarAnotacaoVM.anotacaoEmFoco.value?.let { it ->
+                    listarAnotacaoVM.excluirAnotacao(it){
+                        Toast.makeText(requireContext(), "Excluir Anotacao", Toast.LENGTH_SHORT).show()
+                    }
+                } ?: run {
+                    Toast.makeText(requireContext(), "Nenhuma Anotacao selecionada", Toast.LENGTH_SHORT).show()
+                }
+
             })
         }
 

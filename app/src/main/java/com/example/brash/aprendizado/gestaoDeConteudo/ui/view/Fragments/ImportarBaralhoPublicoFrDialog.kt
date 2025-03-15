@@ -18,7 +18,7 @@ class ImportarBaralhoPublicoFrDialog() : DialogFragment() {
     private var _binding: GtcListarBaralhoPublicoFrImportarBaralhoBinding? = null
     private val binding get() = _binding!!
 
-    lateinit var listarBaralhoPublicoVM: ListarBaralhoPublicoVM
+    private lateinit var listarBaralhoPublicoVM: ListarBaralhoPublicoVM
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,7 +33,7 @@ class ImportarBaralhoPublicoFrDialog() : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Agora a ViewModel está sendo recuperada corretamente
-        listarBaralhoPublicoVM = ViewModelProvider(requireActivity()).get(ListarBaralhoPublicoVM::class.java)
+        listarBaralhoPublicoVM = ViewModelProvider(requireActivity())[ListarBaralhoPublicoVM::class.java]
         //Log.d("HomeDialogs", "homeVM iniciado")
 
         listarBaralhoPublicoVM.baralhoPublicoEmFoco.value?.let {
@@ -66,7 +66,15 @@ class ImportarBaralhoPublicoFrDialog() : DialogFragment() {
         }
         binding.ListarBaralhoPublicoFrImportarBaralhoButtonImportar.setOnClickListener{
             //TODO:: Lógica de importar/copiar baralho
-            dismiss()
+            listarBaralhoPublicoVM.baralhoPublicoEmFoco.value?.let { it1 ->
+                val novoNome = binding.ListarBaralhoPublicoFrImportarBaralhoInputNovoNome.text.toString()
+                listarBaralhoPublicoVM.importarBaralhoPublico(it1, novoNome) {
+                    Toast.makeText(requireContext(), "Baralho público importado", Toast.LENGTH_SHORT).show()
+                    dismiss()
+                }
+            } ?: run {
+                Toast.makeText(requireContext(), "Nenhum baralho selecionado", Toast.LENGTH_SHORT).show()
+            }
         }
 
     }

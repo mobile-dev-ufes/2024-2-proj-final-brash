@@ -23,7 +23,7 @@ class CriarAnotacaoFrDialog : DialogFragment() {
     private var _binding: GtcListarAnotacaoFrCriarAnotacaoBinding? = null
     private val binding get() = _binding!!
 
-    lateinit var listarAnotacaoVM: ListarAnotacaoVM
+    private lateinit var listarAnotacaoVM: ListarAnotacaoVM
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,7 +38,7 @@ class CriarAnotacaoFrDialog : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Agora a ViewModel está sendo recuperada corretamente
-        listarAnotacaoVM = ViewModelProvider(requireActivity()).get(ListarAnotacaoVM::class.java)
+        listarAnotacaoVM = ViewModelProvider(requireActivity())[ListarAnotacaoVM::class.java]
 
         setOnClickListeners()
     }
@@ -56,9 +56,14 @@ class CriarAnotacaoFrDialog : DialogFragment() {
             dismiss()
         }
         binding.ListarAnotacaoFrCriarAnotacaoButtonCriar.setOnClickListener {
-            dismiss()
+            //dismiss()
             //TODO:: Fazer verificação??, se for pode confirmar, requisitar isso ao HomeVM
-            Toast.makeText(requireContext(), "Anotacao criada", Toast.LENGTH_SHORT).show()
+            val annotationName = binding.ListarAnotacaoFrCriarAnotacaoInputNome.text.toString()
+            val annotationText = binding.ListarAnotacaoFrCriarAnotacaoInputTexto.text.toString()
+            listarAnotacaoVM.criarAnotacao(annotationName, annotationText) {
+                dismiss()
+                Toast.makeText(requireContext(), "Anotacao criada", Toast.LENGTH_SHORT).show()
+            }
         }
 
     }

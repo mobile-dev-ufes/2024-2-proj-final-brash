@@ -10,7 +10,7 @@ import androidx.fragment.app.DialogFragment
 import com.example.brash.R
 import com.example.brash.databinding.AlertDialogFrExclusaoBinding
 
-class AlertDialogFr(val message: String) : DialogFragment() {
+class AlertDialogFr(private val message: String) : DialogFragment() {
 
     private var _binding: AlertDialogFrExclusaoBinding? = null
     private val binding get() = _binding!!

@@ -10,10 +10,7 @@ import com.example.brash.aprendizado.gestaoDeConteudo.data.repository.BaralhoRep
 import com.example.brash.aprendizado.gestaoDeConteudo.data.repository.PastaRepository
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Baralho
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.HomeAcListItem
-import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.OpcoesDeBuscaHome
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Pasta
-import com.example.brash.aprendizado.gestaoDeConteudo.utils.FiltroDeBuscaHome
-import com.example.brash.aprendizado.gestaoDeConteudo.utils.OrdemDeBuscaHome
 import com.example.brash.nucleo.domain.model.Usuario
 import com.example.brash.nucleo.utils.UtilsFoos
 import com.google.firebase.auth.FirebaseAuth
@@ -42,10 +39,7 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
     val pastaEmFoco get() = _pastaEmFoco
     val baralhoEmFoco get() = _baralhoEmFoco
 
-    private var _opcoesDeBusca = MutableLiveData<OpcoesDeBuscaHome>()
-    val opcoesDeBusca get() = _opcoesDeBusca
-
-    val _pastaEmMover = MutableLiveData<Pasta?>()
+    private val _pastaEmMover = MutableLiveData<Pasta?>()
     val pastaEmMover get() = _pastaEmMover
 
     private val baralhoRepository = BaralhoRepository()
@@ -90,7 +84,7 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
 
         p.baralhos = listaBaralho
 
-        var listaHomeAcListItem = listOf<HomeAcListItem>(
+        val listaHomeAcListItem = listOf<HomeAcListItem>(
             HomeAcListItem.HomeAcPastaItem(pasta = Pasta(nome = "Roupas ")),
             HomeAcListItem.HomeAcPastaItem(isExpanded = true, pasta = p),
             HomeAcListItem.HomeAcPastaItem(pasta = Pasta(nome =  "Alimentos")),
@@ -118,19 +112,14 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
 
     fun setBaralhoEmFoco(baralho: Baralho){
         baralhoEmFoco.value = baralho
+        baralho.pasta?.let { pasta ->
+            setPastaEmMover(pasta)
+        }
         Log.d("HomeDialogs", "Defini Baralho em FOCO")
     }
     fun resetBaralhoEmFoco(){
         baralhoEmFoco.value = null
         Log.d("HomeDialogs", "Resetei Baralho em FOCO")
-    }
-
-    fun updateOpcoesDeBusca(ordem: OrdemDeBuscaHome, filtro : FiltroDeBuscaHome){
-        _opcoesDeBusca.value = OpcoesDeBuscaHome(ordem, filtro)
-        Log.d("HomeDialogs", "Defini Pasta em FOCO")
-
-        Log.d("HomeDialogs", ordem.toString())
-        Log.d("HomeDialogs", filtro.toString())
     }
 
     fun setPastaEmMover(pasta: Pasta){
@@ -171,21 +160,27 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
         return true
     }
 
-    fun editarBaralho(baralho: Baralho){
+    fun editarBaralho(baralho: Baralho, nome : String, descricao : String, onSuccess : () -> Unit){
         //TODO:: Fazer a edição de baralho do firebase também
         //TODO:: apenas requisitar se tiver ALGUMA informação diferente
         //TODO:: apenas confirmar a mudança do nome se for único para o usuário, o restante pode sempre atualizar
         //TODO:: Se não conseguir alterar o nome ele altera o resto
 
+        onSuccess()
         // request para atualizar dados
-        getAllHomeAcListItem()
+        //getAllHomeAcListItem()
     }
 
-    fun excluirBaralho(baralho: Baralho){
+    fun excluirBaralho(baralho: Baralho, onSuccess : () -> Unit){
         //TODO:: Fazer a exclusão de baralho do firebase também
-
+        onSuccess()
         // request para atualizar dados
-        getAllHomeAcListItem()
+        //getAllHomeAcListItem()
+    }
+
+    fun moverBaralho(pasta: Pasta, baralho: Baralho, onSuccess: () -> Unit){
+        //TODO:: Fazer a lógica
+        onSuccess()
     }
 
     fun criarPasta(nome : String, onSuccess: () -> Unit){
@@ -203,8 +198,9 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
                 }
         }
 
-
-        getAllHomeAcListItem()
+        onSuccess()
+        // request para atualizar dados
+        //getAllHomeAcListItem()
     }
 
     private fun processaInfoPasta(nome : String) : Boolean{
@@ -218,20 +214,22 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
         return true
     }
 
-    fun editarPasta(pasta: Pasta){
+    fun editarPasta(pasta: Pasta, nome : String, onSuccess : () -> Unit){
         //TODO:: Fazer a edição de pasta do firebase também
         //TODO:: apenas requisitar se tiver ALGUMA informação diferente
         //TODO:: apenas confirmar a mudança do nome se for único para o usuário
         //TODO:: Se não conseguir alterar o nome ele altera o resto
 
+        onSuccess()
         // request para atualizar dados
-        getAllHomeAcListItem()
+        //getAllHomeAcListItem()
     }
-    fun excluirPasta(pasta: Pasta){
+    fun excluirPasta(pasta: Pasta, onSuccess : () -> Unit){
         //TODO:: Fazer a exclusão de pasta do firebase também
 
+        onSuccess()
         // request para atualizar dados
-        getAllHomeAcListItem()
+        //getAllHomeAcListItem()
     }
 }
 

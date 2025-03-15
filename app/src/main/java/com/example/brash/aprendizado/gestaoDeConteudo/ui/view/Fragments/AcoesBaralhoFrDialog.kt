@@ -40,7 +40,7 @@ class AcoesBaralhoFrDialog() : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Agora a ViewModel está sendo recuperada corretamente
-        homeVM = ViewModelProvider(requireActivity()).get(HomeVM::class.java)
+        homeVM = ViewModelProvider(requireActivity())[HomeVM::class.java]
         appVM = (requireActivity().application as MyApplication).appSharedInformation
 
         setOnClickListeners()
@@ -99,10 +99,14 @@ class AcoesBaralhoFrDialog() : DialogFragment() {
             
             UtilsGeral.showAlertDialog(requireContext(),"Deseja realmente excluir esse Baralho??",{
 
-                homeVM.baralhoEmFoco.value?.let {
-                    //Toast.makeText(context, "Não existe um baralho para excluir.", Toast.LENGTH_SHORT).show()
+                homeVM.baralhoEmFoco.value?.let { baralho ->
+                    homeVM.excluirBaralho(baralho){
+                        Toast.makeText(requireContext(), "Excluir Baralho", Toast.LENGTH_SHORT).show()
+                    }
+                } ?: run {
+                    Toast.makeText(requireContext(), "Nenhum Baralho selecionada", Toast.LENGTH_SHORT).show()
                 }
-                Toast.makeText(requireContext(), "Excluir Baralho", Toast.LENGTH_SHORT).show()
+
             })
         }
     }

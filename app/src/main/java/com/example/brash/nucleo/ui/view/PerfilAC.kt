@@ -24,7 +24,7 @@ class PerfilAC : AppCompatActivity(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        perfilVM = ViewModelProvider(this).get(PerfilVM::class.java)
+        perfilVM = ViewModelProvider(this)[PerfilVM::class.java]
 
         binding = NucPerfilAcBinding.inflate(layoutInflater)
 
@@ -37,14 +37,14 @@ class PerfilAC : AppCompatActivity(), View.OnClickListener {
         initAC()
 
     }
-    fun initAC(){
+    private fun initAC(){
 
         appVM.usuarioLogado.value?.let { usuario ->
             binding.PerfilAcShapeableImageViewIconePerfil.setImageResource(usuario.iconeDeUsuario.imagemPath.drawableRes)
             binding.PerfilAcShapeableImageViewIconePerfil.setBackgroundResource(usuario.iconeDeUsuario.cor.colorRes)
             binding.PerfilAcTextViewNomeDeExibicao.text = usuario.nomeDeExibicao
-            binding.PerfilAcTextViewNomeDeUsuario.text =
-                getString(R.string.username_display, usuario.nomeDeUsuario)
+            binding.PerfilAcTextViewNomeDeUsuario.text = getString(R.string.username_display, usuario.nomeDeUsuario)
+
         } ?: run {
             Toast.makeText(this, "Erro ao carregar o ícone do usuário.", Toast.LENGTH_SHORT).show()
         }

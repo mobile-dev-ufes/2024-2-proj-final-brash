@@ -16,7 +16,7 @@ class RevisaoCartaoVM(application: Application) : AndroidViewModel(application) 
     val linearLayoutButtonsAnswerVisibility get() = _linearLayoutButtonsAnswerVisibility
 
     private var _baralhoOwner = MutableLiveData<Baralho>()
-    val baralhoOwner get() = _baralhoOwner
+    private val baralhoOwner get() = _baralhoOwner
 
     private var _newCardsNumber = MutableLiveData<Int>()
     val newCardsNumber get() = _newCardsNumber

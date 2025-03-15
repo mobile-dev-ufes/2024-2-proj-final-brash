@@ -27,7 +27,7 @@ class VisualizarAnotacaoFrDialog() : DialogFragment() {
     private var _binding: GtcListarAnotacaoFrVisualizarAnotacaoBinding? = null
     private val binding get() = _binding!!
 
-    lateinit var listarAnotacaoVM: ListarAnotacaoVM
+    private lateinit var listarAnotacaoVM: ListarAnotacaoVM
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,7 +42,7 @@ class VisualizarAnotacaoFrDialog() : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Agora a ViewModel está sendo recuperada corretamente
-        listarAnotacaoVM = ViewModelProvider(requireActivity()).get(ListarAnotacaoVM::class.java)
+        listarAnotacaoVM = ViewModelProvider(requireActivity())[ListarAnotacaoVM::class.java]
         //Log.d("HomeDialogs", "homeVM iniciado")
 
         //homeVM.baralhoEmFoco.value?.let {
@@ -83,7 +83,16 @@ class VisualizarAnotacaoFrDialog() : DialogFragment() {
             dismiss()
         }
         binding.ListarAnotacaoFrVisualizarAnotacaoButtonConfirmar.setOnClickListener{
-            //TODO:: Lógica de importar/copiar baralho
+            val annotationName = binding.ListarAnotacaoFrVisualizarAnotacaoInputNome.text.toString()
+            val annotationText = binding.ListarAnotacaoFrVisualizarAnotacaoInputTexto.text.toString()
+            listarAnotacaoVM.anotacaoEmFoco.value?.let { anotacao ->
+                listarAnotacaoVM.editarAnotacao(anotacao, annotationName, annotationText) {
+                    dismiss()
+                    Toast.makeText(requireContext(), "Anotacao Editado", Toast.LENGTH_SHORT).show()
+                }
+            } ?: run {
+                Toast.makeText(requireContext(), "Nenhum Anotacao selecionado", Toast.LENGTH_SHORT).show()
+            }
         }
 
     }

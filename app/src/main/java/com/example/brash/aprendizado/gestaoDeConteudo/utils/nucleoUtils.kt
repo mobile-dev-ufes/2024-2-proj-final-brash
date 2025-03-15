@@ -10,7 +10,7 @@ import java.time.LocalDateTime
 class nucleoUtils {
     companion object{
         fun getCartoes() : List<Cartao>{
-            var listCartoes = mutableListOf<Cartao>()
+            val listCartoes = mutableListOf<Cartao>()
             for (i in 1..20){
                 val card = Cartao(
                     idCartao = 1,
@@ -30,8 +30,11 @@ class nucleoUtils {
     }
 }
 
-enum class OrdemDeBuscaHome { ALFANUMERICO, QUANTIDADE_CARTOES, SEM_ORDEM }
-enum class FiltroDeBuscaHome { TODOS, NOME_DE_BARALHO, NOME_DE_PASTA, BARALHOS_PUBLICOS, AREAS_DO_CONHECIMENTO, AREAS_ESPECIFICAS }
+//enum class OrdemDeBuscaHome { ALFANUMERICO, QUANTIDADE_CARTOES, SEM_ORDEM }
+//enum class FiltroDeBuscaHome { TODOS, NOME_DE_BARALHO, NOME_DE_PASTA, BARALHOS_PUBLICOS, AREAS_DO_CONHECIMENTO, AREAS_ESPECIFICAS }
+
+//enum class OrdemDeBuscaListarCartao {ALFANUMERICO}
+enum class FiltroDeBuscaListarCartao {PERGUNTA, RESPOSTA}
 
 
 fun getColorResetMoverBaralho(): Int{

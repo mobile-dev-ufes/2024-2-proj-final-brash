@@ -88,7 +88,7 @@
     <string name="gtc_perfil">Profile</string>
     <string name="gtc_pesquisar_usuarios">Search for Users</string>
     <string name="search_bar_hint"> Search </string>
-    <string name="configuracoes_de_busca">Configuracões de Busca</string>
+    <string name="configuracoes_de_busca">Search Configurations</string>
     <string name="ordenar_por">Order By</string>
     <string name="filtrar_por">Filter By</string>
     <string name="aplicar">Apply</string>
@@ -143,23 +143,27 @@
     <string name="nuc_nova_senha">New Password</string>
     <string name="nuc_repita_a_senha">Repeat Password</string>
     <string name="nuc_redefinir_senha">Reset Password</string>
-    <string name="gtc_excluir_anotacao">Excluir Anotação</string>
-    <string name="gtc_criar_anotacao">Criar Anotação</string>
+
+    <string name="gtc_excluir_anotacao">Delete Note</string>
+    <string name="gtc_criar_anotacao">Create Note</string>
     <string name="number_0">0</string>
-    <string name="gtc_mostrar_resposta">Mostrar resposta</string>
-    <string name="gtc_esqueci">Esqueci</string>
-    <string name="gtc_dificil">Difícil</string>
-    <string name="gtc_bom">Bom</string>
-    <string name="gtc_facil">Facil</string>
-    <string name="nuc_conta">Conta</string>
-    <string name="nuc_definir_email">DEFINIR EMAIL</string>
-    <string name="gtc_amizades">Amizades</string>
+    <string name="gtc_mostrar_resposta">Show Answer</string>
+    <string name="gtc_esqueci">I Forgot</string>
+    <string name="gtc_dificil">Difficult</string>
+    <string name="gtc_bom">Good</string>
+    <string name="gtc_facil">Easy</string>
+    <string name="nuc_conta">Account</string>
+    <string name="nuc_definir_email">SET EMAIL</string>
+    <string name="gtc_amizades">Friendships</string>
     <string name="number_2">2</string>
     <string name="number_3">3</string>
-    <string name="gtaa_relatorio_geral">Relatório Geral</string>
-    <string name="gtaa_competicao">Competição</string>
-    <string name="gtc_novo_nome_do_baralho">Novo Nome do Baralho</string>
-    <string name="gtc_confirmar_nome">Confirmar Nome</string>
+    <string name="gtaa_relatorio_geral">General Report</string>
+    <string name="gtaa_competicao">Competition</string>
+    <string name="gtc_novo_nome_do_baralho">New Deck Name</string>
+    <string name="gtc_confirmar_nome">Confirm Name</string>
 
-
+    <string-array name="nuc_listar_cartao_spinner_filtrar">
+        <item>Question</item>
+        <item>Answer</item>
+    </string-array>
 </resources>

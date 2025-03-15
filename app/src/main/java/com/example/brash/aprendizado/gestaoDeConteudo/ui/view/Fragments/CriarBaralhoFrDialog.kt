@@ -34,7 +34,7 @@ class CriarBaralhoFrDialog : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Agora a ViewModel está sendo recuperada corretamente
-        homeVM = ViewModelProvider(requireActivity()).get(HomeVM::class.java)
+        homeVM = ViewModelProvider(requireActivity())[HomeVM::class.java]
 
         setOnClickListeners()
     }
@@ -59,7 +59,6 @@ class CriarBaralhoFrDialog : DialogFragment() {
                 dismiss()
             }
         }
-
     }
 
     override fun onDestroyView() {

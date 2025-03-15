@@ -21,7 +21,6 @@ import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments.AcoesPas
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments.CriarCartaoFrDialog
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments.CriarDicaFrDialog
 import com.example.brash.nucleo.ui.view.PerfilAC
-import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments.OpcoesDeBuscaHomeFrDialog
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments.VisualizarBaralhoPublicoFrDialog
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments.VisualizarCartaoFrDialog
 
@@ -58,7 +57,7 @@ class ListarDicaAC : AppCompatActivity() {
         binding = GtcListarDicaAcBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        listarDicaVM = ViewModelProvider(this).get(ListarDicaVM::class.java)
+        listarDicaVM = ViewModelProvider(this)[ListarDicaVM::class.java]
         appVM = (application as MyApplication).appSharedInformation
 
 

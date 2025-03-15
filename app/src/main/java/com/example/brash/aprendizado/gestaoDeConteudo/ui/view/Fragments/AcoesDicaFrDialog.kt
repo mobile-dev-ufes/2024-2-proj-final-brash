@@ -35,7 +35,7 @@ class AcoesDicaFrDialog() : DialogFragment() {
     private val binding get() = _binding!!
 
 
-    lateinit var listarDicaVM: ListarDicaVM
+    private lateinit var listarDicaVM: ListarDicaVM
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,7 +50,7 @@ class AcoesDicaFrDialog() : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Agora a ViewModel está sendo recuperada corretamente
-        listarDicaVM = ViewModelProvider(requireActivity()).get(ListarDicaVM::class.java)
+        listarDicaVM = ViewModelProvider(requireActivity())[ListarDicaVM::class.java]
 
         setOnClickListeners()
 
@@ -73,7 +73,14 @@ class AcoesDicaFrDialog() : DialogFragment() {
             dismiss()
             
             UtilsGeral.showAlertDialog(requireContext(),"Deseja realmente excluir essa Dica??",{
-                Toast.makeText(requireContext(), "Excluir Dica", Toast.LENGTH_SHORT).show()
+                listarDicaVM.dicaEmFoco.value?.let { dica ->
+                    listarDicaVM.excluirDica(dica){
+                        Toast.makeText(requireContext(), "Excluir Dica", Toast.LENGTH_SHORT).show()
+                    }
+                } ?: run {
+                    Toast.makeText(requireContext(), "Nenhuma Dica selecionada", Toast.LENGTH_SHORT).show()
+                }
+
             })
         }
 

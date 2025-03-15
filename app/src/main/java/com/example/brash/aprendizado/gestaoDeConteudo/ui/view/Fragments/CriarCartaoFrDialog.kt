@@ -22,7 +22,7 @@ class CriarCartaoFrDialog : DialogFragment() {
     private var _binding: GtcListarCartaoFrCriarCartaoBinding? = null
     private val binding get() = _binding!!
 
-    lateinit var listarCartaoVM: ListarCartaoVM
+    private lateinit var listarCartaoVM: ListarCartaoVM
 
 
     override fun onCreateView(
@@ -38,7 +38,7 @@ class CriarCartaoFrDialog : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Agora a ViewModel está sendo recuperada corretamente
-        listarCartaoVM = ViewModelProvider(requireActivity()).get(ListarCartaoVM::class.java)
+        listarCartaoVM = ViewModelProvider(requireActivity())[ListarCartaoVM::class.java]
 
         setOnClickListeners()
     }
@@ -56,8 +56,12 @@ class CriarCartaoFrDialog : DialogFragment() {
         }
         binding.ListarCartaoFrCriarCartaoButtonCriar.setOnClickListener {
             dismiss()
-            //TODO:: Fazer verificação??, se for pode confirmar, requisitar isso ao HomeVM
-            Toast.makeText(requireContext(), "Pasta criada", Toast.LENGTH_SHORT).show()
+            val pergunta = binding.ListarCartaoFrCriarCartaoInputPergunta.text.toString()
+            val resposta = binding.ListarCartaoFrCriarCartaoInputResposta.text.toString()
+            listarCartaoVM.criarCartao(pergunta, resposta) {
+                dismiss()
+                Toast.makeText(requireContext(), "Cartão criado", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 

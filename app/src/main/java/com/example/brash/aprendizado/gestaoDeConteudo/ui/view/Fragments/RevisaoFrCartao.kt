@@ -33,7 +33,7 @@ class RevisaoFrCartao : Fragment(R.layout.gtc_revisao_fr_cartao) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        revisaoCartaoVM = ViewModelProvider(requireActivity()).get(RevisaoCartaoVM::class.java)
+        revisaoCartaoVM = ViewModelProvider(requireActivity())[RevisaoCartaoVM::class.java]
         setObservers()
         setOnClickListeners()
     }
