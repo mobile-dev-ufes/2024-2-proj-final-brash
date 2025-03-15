@@ -91,7 +91,8 @@ class BaralhoRepository {
         }
 
         return try {
-            val folder = deck.pasta!!
+
+            val folder = deck.pasta ?: return Result.failure(Throwable("Pasta do deck não encontrada (deleteDeck)"))
             val userRef = fireStoreDB.collection("users")
                 .document(currentUserEmail)
 
@@ -110,6 +111,7 @@ class BaralhoRepository {
             Result.failure(e)
         }
     }
+
     private suspend fun deleteCards(cardsRef: CollectionReference) {
         val cardsSnapshot = cardsRef.get().await()
         for (card in cardsSnapshot) {
@@ -118,12 +120,76 @@ class BaralhoRepository {
             card.reference.delete().await()
         }
     }
+
     private suspend fun deleteHints(hintsRef: CollectionReference) {
         val hintsSnapshot = hintsRef.get().await()
         for (hint in hintsSnapshot) {
             hint.reference.delete().await()
         }
     }
+
+    private fun getDeckReference(deck: Baralho, folder: Pasta, currentUserEmail: String): DocumentReference {
+        val userRef = fireStoreDB.collection("users").document(currentUserEmail)
+        return if (folder.idPasta != "root") {
+            userRef.collection("folders").document(folder.idPasta).collection("decks").document(deck.idBaralho)
+        } else {
+            userRef.collection("root").document(deck.idBaralho)
+        }
+    }
+
+    suspend fun getCards(deck : Baralho) : Result<List<Cartao>>{
+
+        val currentUserEmail = fireBaseAuth.currentUser?.email
+        if (currentUserEmail.isNullOrEmpty()) {
+            return Result.failure(Throwable("Usuário não autenticado"))
+        }
+        return try {
+            val folder = deck.pasta ?: return Result.failure(Throwable("Pasta do deck não encontrada (getCards)"))
+            val deckRef = getDeckReference(deck, folder, currentUserEmail)
+            val cardsRef = deckRef.collection("cards")
+
+            val cardsSnapshot = cardsRef.get().await()
+            val cardsList = mutableListOf<Cartao>()
+            for (document in cardsSnapshot){
+                val cardData = document.data
+
+                val reviewDateTimestamp = cardData["reviewDate"] as Timestamp
+                val reviewDate = reviewDateTimestamp.toInstant()
+                    .atZone(ZoneId.systemDefault())
+                    .toLocalDateTime()
+
+                val _card = Cartao(
+                    idCartao = cardData["id"].toString(),
+                    pergunta = cardData["question"].toString(),
+                    resposta = cardData["answer"].toString(),
+                    fatorDeRevisao = cardData["reviewFactor"].toString().toDouble(),
+                    intervaloRevisao = cardData["reviewInterval"].toString().toInt(),
+                    dataDeRevisao = reviewDate,
+                    baralho = deck,
+                    categoriaDoAprendizado = CategoriaDoAprendizado.valueOf(cardData["categoryOfLearning"].toString())
+                )
+                cardsList.add(_card)
+            }
+            return Result.success(cardsList)
+        }
+        catch (e : Exception){
+            return Result.failure(e)
+        }
+    }
+
+    /*
+    * val foldersSnapshot = foldersRef.get().await()
+            for (document in foldersSnapshot) {
+                val documentData = document.data
+                val folder = Pasta(
+                    idPasta = documentData["id"].toString(),
+                    nome = documentData["name"].toString(),
+                )
+                foldersList.add(folder)
+
+                recGetDecks(document.reference.collection("decks"), folder)
+            }
+    * */
 
 
 

@@ -13,7 +13,7 @@ class nucleoUtils {
             val listCartoes = mutableListOf<Cartao>()
             for (i in 1..20){
                 val card = Cartao(
-                    idCartao = 1,
+                    idCartao = "1",
                      pergunta = "pergunta $i",
                      resposta= "resposta $i",
                      fatorDeRevisao = 2.5,

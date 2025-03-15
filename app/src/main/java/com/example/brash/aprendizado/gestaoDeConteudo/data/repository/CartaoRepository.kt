@@ -5,6 +5,7 @@ import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Cartao
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Pasta
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
@@ -21,8 +22,7 @@ class CartaoRepository {
         if (currentUserEmail.isNullOrEmpty()) {
             return Result.failure(Throwable("Usuário não autenticado"))
         }
-
-        val folder = deck.pasta ?: return Result.failure(Throwable("Pasta do deck não encontrada"))
+        val folder = deck.pasta ?: return Result.failure(Throwable("Pasta do deck não encontrada (createCard)"))
 
         return try {
             val deckRef = getDeckReference(deck, folder, currentUserEmail)
@@ -30,6 +30,7 @@ class CartaoRepository {
 
             val cardRef = cardsRef.add(hashMapOf<String, Any>()).await()
             val generatedId = cardRef.id
+
 
             val newCard = hashMapOf(
                 "id" to generatedId,
@@ -48,7 +49,7 @@ class CartaoRepository {
         }
     }
 
-    private fun getDeckReference(deck: Baralho, folder : Pasta, currentUserEmail: String): DocumentReference {
+    private fun getDeckReference(deck: Baralho, folder: Pasta, currentUserEmail: String): DocumentReference {
         val userRef = fireStoreDB.collection("users").document(currentUserEmail)
         return if (folder.idPasta != "root") {
             userRef.collection("folders").document(folder.idPasta).collection("decks").document(deck.idBaralho)
@@ -57,14 +58,38 @@ class CartaoRepository {
         }
     }
 
-    suspend fun deleteCard(card : Cartao) : Result<Unit>{
-        return try{
-            return Result.success(Unit)
-        }
-        catch (e : Exception){
-            return Result.failure(e)
+    private fun getCardRef(folder: Pasta, deck: Baralho, card: Cartao, currentUserEmail: String): DocumentReference {
+        val deckRef = getDeckReference(deck, folder, currentUserEmail)
+        return deckRef.collection("cards").document(card.idCartao)
+    }
+
+    suspend fun deleteCard(card: Cartao): Result<Unit> {
+        val currentUserEmail = fireBaseAuth.currentUser?.email
+        if (currentUserEmail.isNullOrEmpty()) {
+            return Result.failure(Throwable("Usuário não autenticado (deleteCard)"))
         }
 
+        return try {
+            val deck = card.baralho
+            val folder = deck.pasta ?: return Result.failure(Throwable("Pasta do deck não encontrada (deleteCard)"))
+
+            val cardRef = getCardRef(folder, deck, card, currentUserEmail)
+            val hintsRef = cardRef.collection("hints")
+
+            deleteHints(hintsRef)
+            cardRef.delete().await()
+
+            Result.success(Unit)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    private suspend fun deleteHints(hintsRef: CollectionReference) {
+        val hintsSnapshot = hintsRef.get().await()
+        for (hint in hintsSnapshot) {
+            hint.reference.delete().await()
+        }
     }
 
 
