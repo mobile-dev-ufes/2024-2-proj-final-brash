@@ -124,10 +124,10 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
 
     }
 
-    fun initPastaList(folders: List<Pasta>){
+    private fun initPastaList(folders: List<Pasta>){
         _pastaList.value = folders
     }
-    fun initHomeAcListItemList(folders: List<Pasta>){
+    private fun initHomeAcListItemList(folders: List<Pasta>){
         // Criação do homeAcListItem, onde vamos adicionar as pastas e baralhos
         val homeAcListItem = folders.flatMap { folder ->
             if (folder.idPasta == "root") {
