@@ -9,7 +9,10 @@ import com.example.brash.nucleo.domain.model.Usuario
 import com.example.brash.nucleo.utils.UtilsFoos
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.tasks.await
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.util.Date
@@ -20,43 +23,109 @@ class BaralhoRepository {
     private val fireBaseAuth = FirebaseAuth.getInstance()
 
 
-    fun createDeck(deck : Baralho, onSuccess: () -> Unit, onFailure : () -> Unit){
-
+    suspend fun createDeck(deck: Baralho): Result<Unit> {
         val currentUserEmail = fireBaseAuth.currentUser?.email
         if (currentUserEmail.isNullOrEmpty()) {
-            onFailure()
-            return
+            return Result.failure(Throwable("Usuário não autenticado"))
         }
 
-        val rootRef = fireStoreDB.collection("users")
-            .document(currentUserEmail)
-            .collection("root")
+        return try {
+            val rootRef = fireStoreDB.collection("users")
+                .document(currentUserEmail)
+                .collection("root")
 
-        val deckRef = rootRef.add(hashMapOf<String, Any>())
-        deckRef
-            .addOnSuccessListener { document ->
-                val generatedId = document.id
+            val documentRef = rootRef.add(hashMapOf<String, Any>()).await()
+            val generatedId = documentRef.id
 
-                val newDeck = hashMapOf(
-                    "id" to generatedId,
-                    "name" to deck.nome,
-                    "description" to deck.descricao,
-                    "public" to deck.publico,
-                    "numberNewCardsPerDay" to deck.cartoesNovosPorDia,
-                )
-                document.set(newDeck)
-                    .addOnSuccessListener {
-                        onSuccess()
-                    }
-                    .addOnFailureListener {
-                        onFailure()
-                    }
-            }
-            .addOnFailureListener {
-                onFailure()
-            }
-        return
+            val newDeck = hashMapOf(
+                "id" to generatedId,
+                "name" to deck.nome,
+                "description" to deck.descricao,
+                "public" to deck.publico,
+                "numberNewCardsPerDay" to deck.cartoesNovosPorDia
+            )
+
+            documentRef.set(newDeck).await()
+
+            Result.success(Unit)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
     }
+
+
+    suspend fun updateDeck(deck : Baralho, name : String, description : String, numberNewCardsPerDay : Int, public : Boolean): Result<Unit>{
+        val currentUserEmail = fireBaseAuth.currentUser?.email
+        if (currentUserEmail.isNullOrEmpty()) {
+            return Result.failure(Throwable("Usuário não autenticado"))
+        }
+        try {
+            val folder = deck.pasta!!
+            val userRef = fireStoreDB.collection("users").document(currentUserEmail)
+
+            val decksRef = if(folder.idPasta != "root"){
+                userRef.collection("folders").document(folder.idPasta).collection("decks")
+            }
+            else{
+                userRef.collection("root")
+            }
+            val deckRef = decksRef.document(deck.idBaralho)
+            val newInfo = mapOf(
+                "name" to name,
+                "description" to description,
+                "numberNewCardsPerDay" to numberNewCardsPerDay,
+                "public" to public
+            )
+            deckRef.update(newInfo).await()
+            return Result.success(Unit)
+        }
+        catch (e : Exception){
+            return Result.failure(e)
+        }
+    }
+
+    suspend fun deleteDeck(deck: Baralho): Result<Unit> {
+        val currentUserEmail = fireBaseAuth.currentUser?.email
+        if (currentUserEmail.isNullOrEmpty()) {
+            return Result.failure(Throwable("Usuário não autenticado"))
+        }
+
+        return try {
+            val folder = deck.pasta!!
+            val userRef = fireStoreDB.collection("users")
+                .document(currentUserEmail)
+
+            val decksRef = if (folder.idPasta != "root") {
+                userRef.collection("folders").document(folder.idPasta).collection("decks")
+            } else {
+                userRef.collection("root")
+            }
+            val deckRef = decksRef.document(deck.idBaralho)
+
+            deleteCards(deckRef.collection("cards"))
+            deckRef.delete().await()
+
+            Result.success(Unit)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+    private suspend fun deleteCards(cardsRef: CollectionReference) {
+        val cardsSnapshot = cardsRef.get().await()
+        for (card in cardsSnapshot) {
+            val hintsRef = card.reference.collection("hints")
+            deleteHints(hintsRef)
+            card.reference.delete().await()
+        }
+    }
+    private suspend fun deleteHints(hintsRef: CollectionReference) {
+        val hintsSnapshot = hintsRef.get().await()
+        for (hint in hintsSnapshot) {
+            hint.reference.delete().await()
+        }
+    }
+
+
 
     fun addCard(deck : Baralho, card : Cartao){
 
