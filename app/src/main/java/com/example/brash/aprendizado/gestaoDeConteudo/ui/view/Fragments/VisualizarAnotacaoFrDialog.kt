@@ -92,6 +92,7 @@ class VisualizarAnotacaoFrDialog() : DialogFragment() {
                 }
             } ?: run {
                 Toast.makeText(requireContext(), "Nenhum Anotacao selecionado", Toast.LENGTH_SHORT).show()
+                dismiss()
             }
         }
 

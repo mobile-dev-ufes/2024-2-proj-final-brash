@@ -51,18 +51,17 @@ class AcoesPastaFrDialog() : DialogFragment() {
         binding.HomeFrAcoesPastaTextViewExcluirPasta.setOnClickListener {
             UtilsGeral.showAlertDialog(requireContext(),"Deseja realmente excluir essa Pasta?? Essa ação irá excluir TODOS os baralhos da pasta",{
 
-                dismiss()
                 homeVM.pastaEmFoco.value?.let { pasta ->
                     homeVM.excluirPasta(pasta){
-                        Toast.makeText(requireContext(), "Excluir Pasta", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, "Excluir Pasta", Toast.LENGTH_SHORT).show()
+                        dismiss()
                     }
                 } ?: run {
-                    Toast.makeText(requireContext(), "Nenhuma pasta selecionada", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Nenhuma pasta selecionada", Toast.LENGTH_SHORT).show()
+                    dismiss()
                 }
-
             })
         }
-
     }
 
     override fun onDestroyView() {

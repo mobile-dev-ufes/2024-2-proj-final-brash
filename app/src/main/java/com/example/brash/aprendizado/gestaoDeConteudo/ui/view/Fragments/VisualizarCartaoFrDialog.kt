@@ -90,6 +90,7 @@ class VisualizarCartaoFrDialog() : DialogFragment() {
                 }
             } ?: run {
                 Toast.makeText(requireContext(), "Nenhum Cartão selecionado", Toast.LENGTH_SHORT).show()
+                dismiss()
             }
         }
 
