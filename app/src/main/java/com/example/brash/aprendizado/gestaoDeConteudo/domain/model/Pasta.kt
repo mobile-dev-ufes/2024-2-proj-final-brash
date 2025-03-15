@@ -4,7 +4,7 @@ import com.example.brash.nucleo.domain.model.Usuario
 
 data class Pasta (
     val idPasta: String = "",
-    val nome: String = "",
+    var nome: String = "",
     val usuario: Usuario? = null,
     var baralhos: MutableList<Baralho> = mutableListOf()
 )

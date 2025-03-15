@@ -156,6 +156,21 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
         _homeAcListItemList.value = sortedPastas + sortedBaralhos
     }
 
+    private fun sortPastaList(){
+        _pastaList.value = _pastaList.value?.sortedBy { it.nome }
+    }
+    private fun sortHomeAcListItemList(){
+        _homeAcListItemList.value = _homeAcListItemList.value?.sortedWith(
+            compareBy<HomeAcListItem> {
+                // Ordena depois pelos itens HomeAcBaralhoItem e pelo nome do baralho
+                (it as? HomeAcListItem.HomeAcBaralhoItem)?.baralho?.nome ?: ""
+            }.thenBy {
+                // Ordena primeiro pelos itens HomeAcPastaItem e pelo nome da pasta
+                (it as? HomeAcListItem.HomeAcPastaItem)?.pasta?.nome ?: ""
+            }
+        )
+    }
+
     fun setPastaEmFoco(pasta: Pasta){
         pastaEmFoco.value = pasta
         Log.d("HomeDialogs", "Defini Pasta em FOCO")
@@ -197,18 +212,16 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
                 val result = baralhoRepository.createDeck(baralho)
                 result
                     .onSuccess {
+                        _homeAcListItemList.value = _homeAcListItemList.value?.plus(HomeAcListItem.HomeAcBaralhoItem(baralho = baralho))
+                        sortHomeAcListItemList()
                         onSuccess()
                     }
                     .onFailure {
                         UtilsFoos.showToast(getApplication(), "Ocorreu algum erro na criação da baralho")
                         Log.e("criar baralho debug", "Ocorreu algum erro na criação da baralho")
                     }
-
             }
-
         }
-
-        getAllHomeAcListItem()
     }
 
     private fun processaInforBaralho(name : String, description : String) : Boolean{
@@ -224,13 +237,34 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
         return true
     }
 
-    fun editarBaralho(baralho: Baralho, nome : String, descricao : String, onSuccess : () -> Unit){
+    fun editarBaralho(baralho: Baralho, nome : String, descricao : String, numberNewCardsPerDay: Int, public: Boolean, onSuccess : () -> Unit){
         //TODO:: Fazer a edição de baralho do firebase também
         //TODO:: apenas requisitar se tiver ALGUMA informação diferente
         //TODO:: apenas confirmar a mudança do nome se for único para o usuário, o restante pode sempre atualizar
         //TODO:: Se não conseguir alterar o nome ele altera o resto
+        if(numberNewCardsPerDay <= 0){
+            UtilsFoos.showToast(getApplication(), getStringApplication(R.string.nuc_preencha_todos_campos))
+        }
+        else if(processaInforBaralho(nome, descricao) ){
+            viewModelScope.launch{
+                val result = baralhoRepository.updateDeck(baralho, nome, descricao,numberNewCardsPerDay, public)
 
-        onSuccess()
+                result
+                    .onSuccess {
+                        onSuccess()
+                        baralho.nome = nome
+                        baralho.descricao = descricao
+                        baralho.publico = public
+                        baralho.cartoesNovosPorDia = numberNewCardsPerDay
+                        sortHomeAcListItemList()
+                    }
+                    .onFailure {
+                        UtilsFoos.showToast(getApplication(), "Ocorreu algum erro na edição do baralho")
+                        Log.e("criar Pasta debug", "Ocorreu algum erro na criação da pasta")
+                    }
+            }
+        }
+
         // request para atualizar dados
         //getAllHomeAcListItem()
     }
@@ -238,6 +272,7 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
     fun excluirBaralho(baralho: Baralho, onSuccess : () -> Unit){
         //TODO:: Fazer a exclusão de baralho do firebase também
         onSuccess()
+        sortHomeAcListItemList()
         // request para atualizar dados
         //getAllHomeAcListItem()
     }
@@ -254,6 +289,8 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
             val result = pastaRepository.createFolder(nome)
             result
                 .onSuccess {
+                    _homeAcListItemList.value = _homeAcListItemList.value?.plus(HomeAcListItem.HomeAcPastaItem(pasta = Pasta(nome)))
+                    sortHomeAcListItemList()
                     onSuccess()
                 }
                 .onFailure {
@@ -261,8 +298,6 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
                     Log.e("criar Pasta debug", "Ocorreu algum erro na criação da pasta")
                 }
         }
-
-        onSuccess()
         // request para atualizar dados
         //getAllHomeAcListItem()
     }
@@ -285,13 +320,14 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
         //TODO:: Se não conseguir alterar o nome ele altera o resto
 
         viewModelScope.launch {
-            val outraPasta = Pasta(
-                idPasta = "mzfMtBVIUNDfOsPU3q2D"
-            )
-            val result = pastaRepository.updateFolder(outraPasta, nome)
+
+            val result = pastaRepository.updateFolder(pasta, nome)
             result
                 .onSuccess {
                     onSuccess()
+                    pasta.nome = nome
+                    sortPastaList()
+                    sortHomeAcListItemList()
                 }
                 .onFailure {
                     UtilsFoos.showToast(getApplication(), "Ocorreu algum erro na edição da pasta")
@@ -307,6 +343,9 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
         //TODO:: Fazer a exclusão de pasta do firebase também
 
         onSuccess()
+        sortHomeAcListItemList()
+        sortPastaList()
+
         // request para atualizar dados
         //getAllHomeAcListItem()
     }

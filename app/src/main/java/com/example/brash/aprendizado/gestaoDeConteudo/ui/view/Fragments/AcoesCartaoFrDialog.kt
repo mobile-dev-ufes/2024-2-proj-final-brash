@@ -85,7 +85,6 @@ class AcoesCartaoFrDialog() : DialogFragment() {
             UtilsGeral.showAlertDialog(requireContext(),"Deseja realmente excluir esse Cartão??",{
                 listarCartaoVM.cartaoEmFoco.value?.let { cartao ->
                     listarCartaoVM.excluirCartao(cartao){
-                        Toast.makeText(context, "Excluir Cartão", Toast.LENGTH_SHORT).show()
                         dismiss()
                     }
                 } ?: run {

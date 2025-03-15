@@ -53,7 +53,6 @@ class AcoesPastaFrDialog() : DialogFragment() {
 
                 homeVM.pastaEmFoco.value?.let { pasta ->
                     homeVM.excluirPasta(pasta){
-                        Toast.makeText(context, "Excluir Pasta", Toast.LENGTH_SHORT).show()
                         dismiss()
                     }
                 } ?: run {

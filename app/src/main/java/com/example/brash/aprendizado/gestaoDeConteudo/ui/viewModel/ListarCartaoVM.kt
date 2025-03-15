@@ -6,12 +6,15 @@ import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Baralho
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Cartao
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.HomeAcListItem
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.OpcoesDeBuscaListarCartao
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Pasta
 import com.example.brash.aprendizado.gestaoDeConteudo.utils.FiltroDeBuscaListarCartao
+import com.example.brash.nucleo.utils.UtilsFoos
+import kotlinx.coroutines.launch
 import java.lang.Exception
 
 class ListarCartaoVM(application: Application) : AndroidViewModel(application) {
@@ -31,6 +34,7 @@ class ListarCartaoVM(application: Application) : AndroidViewModel(application) {
 
     private var _baralhoOwner = MutableLiveData<Baralho>()
 
+    private val _textoBusca = MutableLiveData<String>()
     private var _opcoesDeBusca = MutableLiveData<OpcoesDeBuscaListarCartao>(OpcoesDeBuscaListarCartao())
     val opcoesDeBusca get() = _opcoesDeBusca
 
@@ -75,10 +79,20 @@ class ListarCartaoVM(application: Application) : AndroidViewModel(application) {
 
     fun criarCartao(pergunta: String, resposta: String, onSuccess : () -> Unit){
         //TODO:: Fazer a criação de cartão do firebase também
-
-
-        onSuccess()
-        // request para atualizar dados
+        val cartao = Cartao(pergunta = pergunta, resposta = resposta)
+        viewModelScope.launch{
+            val result = cartaoRepository.createCard(cartao)
+            result
+                .onSuccess {
+                    _cartaoList.value = _cartaoList.value?.plus(cartao)
+                    updateFilterCartaoList(_filtroBusca.value?: "")
+                    onSuccess()
+                }
+                .onFailure {
+                    UtilsFoos.showToast(getApplication(), "Ocorreu algum erro na criação da pasta")
+                    Log.e("criar Pasta debug", "Ocorreu algum erro na criação da pasta")
+                }
+        }
         //getAllCartoes()
     }
     fun editarCartao(cartao: Cartao,pergunta: String, resposta: String, onSuccess : () -> Unit){
@@ -104,16 +118,16 @@ class ListarCartaoVM(application: Application) : AndroidViewModel(application) {
         Log.d("HomeDialogs", filtro.toString())
     }
 
-    fun updateFilterCartaoList(filtro: String){
-
-        if(filtro.isEmpty()){
+    fun updateFilterCartaoList(busca: String){
+        _textoBusca.value = busca
+        if(busca.isEmpty()){
             _cartaoListSort.value = _cartaoList.value!!
         }
         else if(_opcoesDeBusca.value!!.filtrar == FiltroDeBuscaListarCartao.PERGUNTA){
-            _cartaoListSort.value = _cartaoList.value!!.filter{it.pergunta.contains(filtro, ignoreCase = true)}
+            _cartaoListSort.value = _cartaoList.value!!.filter{it.pergunta.contains(busca, ignoreCase = true)}
         }
         else{
-            _cartaoListSort.value = _cartaoList.value!!.filter{it.resposta.contains(filtro, ignoreCase = true)}
+            _cartaoListSort.value = _cartaoList.value!!.filter{it.resposta.contains(busca, ignoreCase = true)}
         }
 
         // Garantindo que _cartaoListSort nunca seja nulo

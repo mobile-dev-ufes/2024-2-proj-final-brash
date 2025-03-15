@@ -62,7 +62,6 @@ class CriarAnotacaoFrDialog : DialogFragment() {
             val annotationText = binding.ListarAnotacaoFrCriarAnotacaoInputTexto.text.toString()
             listarAnotacaoVM.criarAnotacao(annotationName, annotationText) {
                 dismiss()
-                Toast.makeText(requireContext(), "Anotacao criada", Toast.LENGTH_SHORT).show()
             }
         }
 

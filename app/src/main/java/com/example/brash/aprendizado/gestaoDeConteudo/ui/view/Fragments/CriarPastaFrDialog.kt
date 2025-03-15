@@ -56,10 +56,8 @@ class CriarPastaFrDialog : DialogFragment() {
             //TODO:: Fazer verificação de se eh nome único, se for pode confirmar, requisitar isso ao HomeVM
             val nome = binding.HomeFrCriarPastaInput.text.toString()
             homeVM.criarPasta(nome){
-                Toast.makeText(requireContext(), "Pasta criada", Toast.LENGTH_SHORT).show()
                 dismiss()
             }
-
         }
 
     }
