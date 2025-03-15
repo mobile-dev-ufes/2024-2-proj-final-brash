@@ -357,31 +357,34 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
     }
     fun excluirPasta(pasta: Pasta, onSuccess : () -> Unit){
 
-        /*viewModelScope.launch{
-            val result = pastaRepository.deleteFolder(pasta)
-
-            result
-                .onSuccess {
-
-                    _homeAcListItemList.value = _homeAcListItemList.value?.toMutableList()?.apply {
-                        removeAll {
-                            (it as? HomeAcListItem.HomeAcPastaItem)?.pasta == pasta
+        if(pasta.baralhos.isEmpty()){
+            viewModelScope.launch{
+                val result = pastaRepository.deleteFolder(pasta)
+                result
+                    .onSuccess {
+                        _homeAcListItemList.value = _homeAcListItemList.value?.toMutableList()?.apply {
+                            removeAll {
+                                (it as? HomeAcListItem.HomeAcPastaItem)?.pasta == pasta
+                            }
                         }
-                    }
-                    _pastaList.value = _pastaList.value?.toMutableList()?.apply {
-                        removeAll {
-                            it  == pasta
+                        _pastaList.value = _pastaList.value?.toMutableList()?.apply {
+                            removeAll {
+                                it  == pasta
+                            }
                         }
+                        onSuccess()
+                        sortHomeAcListItemList()
                     }
-                    onSuccess()
-                    sortHomeAcListItemList()
-                }
-                .onFailure {
-                    UtilsFoos.showToast(getApplication(), "Ocorreu algum erro na edição do baralho")
-                    Log.e("criar Pasta debug", "Ocorreu algum erro na criação da pasta")
-                }
-        }*/
-        onSuccess()
+                    .onFailure {
+                        UtilsFoos.showToast(getApplication(), "Ocorreu algum erro na edição do baralho")
+                        Log.e("criar Pasta debug", "Ocorreu algum erro na criação da pasta")
+                    }
+            }
+        }
+        else{
+            UtilsFoos.showToast(getApplication(), "Esta pasta contém baralhos")
+        }
+
     }
 }
 
