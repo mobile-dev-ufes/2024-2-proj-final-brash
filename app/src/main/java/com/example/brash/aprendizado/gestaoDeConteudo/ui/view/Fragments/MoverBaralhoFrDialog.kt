@@ -79,7 +79,6 @@ class MoverBaralhoFrDialog() : DialogFragment() {
         setOnClickListeners()
 
         // Chamar o métod da ViewModel para obter os dados
-        homeVM.getAllPastas()
         Log.d("HomeDialogs", "MOVER BARALHO PASSOU DO GETALLPASTAS")
 
     }
@@ -98,7 +97,6 @@ class MoverBaralhoFrDialog() : DialogFragment() {
                 }
             }
         })
-
         homeVM.pastaList.observe(viewLifecycleOwner, Observer {
             if (!it.isNullOrEmpty()) {
                 adapter.updateProdList(it)

@@ -50,6 +50,7 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
     }
 
 
+    /*
     fun getAllPastas() {
 
         //TODO:: requisitar do firebase
@@ -66,13 +67,13 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
             Pasta(nome =  "Frutas"))
 
         Log.d("ListaPastaAdapter", "DEFINIÇÃO DAS PASTAS")
-    }
+    }*/
 
     fun getAllHomeAcListItem(){
 
         //TODO:: requisitar do firebase
-
-        val p = Pasta(nome =  "Eletrônicos", idPasta ="1" )
+        /*
+        val pastaComBaralhos = Pasta(nome =  "Eletrônicos", idPasta ="1" )
 
         val listaBaralho = mutableListOf(
             Baralho(nome = "Celular", pasta = p),
@@ -80,11 +81,11 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
             Baralho(nome = "Fone de ouvido", pasta = p)
         )
 
-        p.baralhos = listaBaralho
+        pastaComBaralhos.baralhos = listaBaralho
 
         val listaHomeAcListItem = listOf<HomeAcListItem>(
             HomeAcListItem.HomeAcPastaItem(pasta = Pasta(nome = "Roupas ")),
-            HomeAcListItem.HomeAcPastaItem(isExpanded = true, pasta = p),
+            HomeAcListItem.HomeAcPastaItem(isExpanded = true, pasta = pastaComBaralhos),
             HomeAcListItem.HomeAcPastaItem(pasta = Pasta(nome =  "Alimentos")),
             HomeAcListItem.HomeAcPastaItem(pasta = Pasta(nome =  "Frutas")),
             HomeAcListItem.HomeAcPastaItem(pasta = Pasta(nome =  "Verduras")),
@@ -97,6 +98,52 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
 
 
         _homeAcListItemList.value = listaHomeAcListItem
+        */
+
+        pastaRepository.getFolders(
+            onSuccess = { folders ->
+                // A operação foi bem-sucedida, faça algo com as pastas (folders)
+                Log.d("Pasta", "Pastas carregadas: $folders")
+
+                //TODO:: transformar em homeAcListItem
+                _pastaList.value = folders
+
+                // Criação do homeAcListItem, onde vamos adicionar as pastas e baralhos
+                val homeAcListItem = folders.flatMap { folder ->
+                    if (folder.idPasta == "root") {
+                        // Se for a pasta "root", adicione os baralhos
+                        folder.baralhos.map { baralho ->
+                            HomeAcListItem.HomeAcBaralhoItem(baralho = baralho)
+                        }
+                    } else {
+                        // Caso contrário, adicione a pasta
+                        listOf(HomeAcListItem.HomeAcPastaItem(pasta = folder, isExpanded = folder.baralhos.isNotEmpty()))
+                    }
+                }.toMutableList()
+
+                // Primeiro, ordena as pastas pelo nome
+                val (pastas, baralhos) = homeAcListItem.partition {
+                    it is HomeAcListItem.HomeAcPastaItem
+                }
+
+                // Ordena as pastas pelo nome
+                val sortedPastas = pastas.sortedBy { (it as HomeAcListItem.HomeAcPastaItem).pasta.nome }
+
+                // Ordena os baralhos pelo nome
+                val sortedBaralhos = baralhos.sortedBy { (it as HomeAcListItem.HomeAcBaralhoItem).baralho.nome }
+
+                // Junta as pastas ordenadas com os baralhos, com os baralhos vindo após as pastas
+                _homeAcListItemList.value = sortedPastas + sortedBaralhos
+            },
+            onFailure = {
+                // A operação falhou, trate o erro
+                Log.e("Pasta", "Erro ao carregar pastas do firebase")
+
+                _pastaList.value = emptyList()
+                _homeAcListItemList.value = emptyList()
+            }
+        )
+
     }
 
     fun setPastaEmFoco(pasta: Pasta){
