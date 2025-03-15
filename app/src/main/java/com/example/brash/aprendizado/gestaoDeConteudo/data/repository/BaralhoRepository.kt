@@ -22,7 +22,6 @@ class BaralhoRepository {
     private val fireStoreDB = FirebaseFirestore.getInstance()
     private val fireBaseAuth = FirebaseAuth.getInstance()
 
-
     suspend fun createDeck(deck: Baralho): Result<Unit> {
         val currentUserEmail = fireBaseAuth.currentUser?.email
         if (currentUserEmail.isNullOrEmpty()) {
