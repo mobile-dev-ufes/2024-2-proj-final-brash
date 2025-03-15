@@ -65,7 +65,7 @@ class RevisaoFrInicio : Fragment(R.layout.gtc_revisao_fr_inicio) {
             val cartaoRepository = CartaoRepository()
 
             lifecycleScope.launch {
-                val id = "RzfUMsMYE6mTTlHKYZsW"
+                val baralhoid = "Cmpzp5ySYkWqoSKzzTNq"
                 val result = pastaRepository.getFolders()
                 result
                     .onSuccess { listaPastas ->
@@ -73,12 +73,15 @@ class RevisaoFrInicio : Fragment(R.layout.gtc_revisao_fr_inicio) {
                         for(pasta in listaPastas){
                             if(pasta.idPasta == "root"){
                                 for(baralho in pasta.baralhos){
-                                    if(baralho.idBaralho == id){
-                                        val cartao = Cartao(
-                                            pergunta = "ola5",
-                                            resposta = "mundo5"
-                                        )
-                                        cartaoRepository.createCard(baralho, cartao)
+                                    if(baralho.idBaralho == baralhoid){
+                                        val result = baralhoRepository.getCards(baralho)
+                                        result
+                                            .onSuccess { listaCartoes ->
+                                                Log.e("printado cartoes", "$listaCartoes")
+                                            }
+                                            .onFailure {
+                                                Log.e("printando cartoes", "algo deu errado")
+                                            }
                                     }
                                 }
                             }

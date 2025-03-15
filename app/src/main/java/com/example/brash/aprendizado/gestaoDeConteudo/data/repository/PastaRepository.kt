@@ -13,6 +13,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QueryDocumentSnapshot
 import com.google.firebase.firestore.QuerySnapshot
 import kotlinx.coroutines.tasks.await
+import org.jetbrains.annotations.Async.Execute
 
 class PastaRepository {
 
@@ -69,6 +70,21 @@ class PastaRepository {
         }
     }
 
+    suspend fun deleteFolder(folder: Pasta): Result<Unit> {
+        val currentUserEmail = fireBaseAuth.currentUser?.email
+        if (currentUserEmail.isNullOrEmpty()) {
+            return Result.failure(Throwable("Usuário não autenticado"))
+        }
+        return runCatching { // a pasta vai estar vazia
+            val folderRef = fireStoreDB
+                .collection("users")
+                .document(currentUserEmail)
+                .collection("folders")
+                .document(folder.idPasta)
+            folderRef.delete().await()
+            Unit
+        }
+    }
 
     fun moveDeck(targetFolder : Pasta, sourceFolder : Pasta, deck : Baralho, onFailure: () -> Unit){
 
