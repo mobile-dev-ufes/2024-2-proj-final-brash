@@ -255,8 +255,6 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
                     Log.e("criar Pasta debug", "Ocorreu algum erro na criação da pasta")
                 }
         }
-
-        onSuccess()
         // request para atualizar dados
         //getAllHomeAcListItem()
     }
