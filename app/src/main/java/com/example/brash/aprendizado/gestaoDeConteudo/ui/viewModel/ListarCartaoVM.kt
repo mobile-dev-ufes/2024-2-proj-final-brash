@@ -7,6 +7,8 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.brash.aprendizado.gestaoDeConteudo.data.repository.CartaoRepository
+import com.example.brash.aprendizado.gestaoDeConteudo.data.repository.PastaRepository
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Baralho
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Cartao
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.HomeAcListItem
@@ -38,6 +40,8 @@ class ListarCartaoVM(application: Application) : AndroidViewModel(application) {
     private var _opcoesDeBusca = MutableLiveData<OpcoesDeBuscaListarCartao>(OpcoesDeBuscaListarCartao())
     val opcoesDeBusca get() = _opcoesDeBusca
 
+    private val cartaoRepository = CartaoRepository()
+
     fun setBaralhoOwner(baralho: Baralho){
         _baralhoOwner.value = baralho
     }
@@ -47,7 +51,7 @@ class ListarCartaoVM(application: Application) : AndroidViewModel(application) {
     fun getAllCartoes() {
         //TODO:: requisitar do firebase
 
-        _cartaoList.value = listOf(
+        /*_cartaoList.value = listOf(
             Cartao(pergunta =  "Alimentos", resposta = "teste"),
             Cartao(pergunta =  "Frutas", resposta = "Cartoes sao legais"),
             Cartao(pergunta =  "VerdurasVerdurasAlimentosmorango", resposta = "Um exemplo"),
@@ -60,7 +64,8 @@ class ListarCartaoVM(application: Application) : AndroidViewModel(application) {
 
         Log.d("ListaPastaAdapter", "DEFINIÇÃO DAS PASTAS")
 
-        updateFilterCartaoList("")
+        updateFilterCartaoList("")*/
+
     }
 
     fun setCartaoEmFoco(cartao: Cartao){
@@ -78,14 +83,14 @@ class ListarCartaoVM(application: Application) : AndroidViewModel(application) {
     }*/
 
     fun criarCartao(pergunta: String, resposta: String, onSuccess : () -> Unit){
-        //TODO:: Fazer a criação de cartão do firebase também
+
         val cartao = Cartao(pergunta = pergunta, resposta = resposta)
         viewModelScope.launch{
-            val result = cartaoRepository.createCard(cartao)
+            val result = cartaoRepository.createCard(_baralhoOwner.value!!, cartao )
             result
                 .onSuccess {
                     _cartaoList.value = _cartaoList.value?.plus(cartao)
-                    updateFilterCartaoList(_filtroBusca.value?: "")
+                    updateFilterCartaoList(_textoBusca.value?: "")
                     onSuccess()
                 }
                 .onFailure {
@@ -99,16 +104,42 @@ class ListarCartaoVM(application: Application) : AndroidViewModel(application) {
         //TODO:: Fazer a edição de cartão do firebase também
         //TODO:: apenas requisitar se tiver ALGUMA informação diferente
         // request para atualizar dados
+        viewModelScope.launch{/*
+            val result = cartaoRepository.updateCard(cartao, pergunta, resposta)
 
-        onSuccess()
+            result
+                .onSuccess {
+                    cartao.pergunta = pergunta
+                    cartao.resposta = resposta
+                    updateFilterCartaoList(_textoBusca.value?: "")
+                    onSuccess()
+                }
+                .onFailure {
+                    UtilsFoos.showToast(getApplication(), "Ocorreu algum erro na edição do baralho")
+                    Log.e("criar Pasta debug", "Ocorreu algum erro na criação da pasta")
+                }*/
+        }
         //getAllCartoes()
     }
     fun excluirCartao(cartao: Cartao, onSuccess : () -> Unit){
-        //TODO:: Fazer a exclusão de cartão do firebase também
+        viewModelScope.launch{
+            val result = cartaoRepository.deleteCard(cartao)
 
-        onSuccess()
-        // request para atualizar dados
-        //getAllCartoes()
+            result
+                .onSuccess {
+                    _cartaoList.value = _cartaoList.value?.toMutableList()?.apply {
+                        removeAll {
+                            it  == cartao
+                        }
+                    }
+                    updateFilterCartaoList(_textoBusca.value?: "")
+                    onSuccess()
+                }
+                .onFailure {
+                    UtilsFoos.showToast(getApplication(), "Ocorreu algum erro na exclusão do cartão")
+                    Log.e("criar Pasta debug", "Ocorreu algum erro na criação da pasta")
+                }
+        }
     }
 
     fun updateOpcoesDeBusca(filtro : FiltroDeBuscaListarCartao){
@@ -134,7 +165,6 @@ class ListarCartaoVM(application: Application) : AndroidViewModel(application) {
         if (_cartaoListSort.value == null) {
             _cartaoListSort.value = emptyList()
         }
-
     }
 }
 

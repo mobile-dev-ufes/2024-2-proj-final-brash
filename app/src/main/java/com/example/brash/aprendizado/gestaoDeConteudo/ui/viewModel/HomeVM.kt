@@ -17,6 +17,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.launch
 import java.lang.Exception
+import java.util.Locale
 
 class HomeVM(application: Application) : AndroidViewModel(application) {
 
@@ -162,10 +163,10 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
     private fun sortHomeAcListItemList(){
         _homeAcListItemList.value = _homeAcListItemList.value?.sortedWith(
             compareBy<HomeAcListItem> {
-                // Ordena depois pelos itens HomeAcBaralhoItem e pelo nome do baralho
+                // Ordena pelos itens HomeAcBaralhoItem e pelo nome do baralho
                 (it as? HomeAcListItem.HomeAcBaralhoItem)?.baralho?.nome ?: ""
             }.thenBy {
-                // Ordena primeiro pelos itens HomeAcPastaItem e pelo nome da pasta
+                // Ordena pelos itens HomeAcPastaItem e pelo nome da pasta
                 (it as? HomeAcListItem.HomeAcPastaItem)?.pasta?.nome ?: ""
             }
         )
@@ -270,11 +271,26 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
     }
 
     fun excluirBaralho(baralho: Baralho, onSuccess : () -> Unit){
-        //TODO:: Fazer a exclusão de baralho do firebase também
-        onSuccess()
-        sortHomeAcListItemList()
-        // request para atualizar dados
-        //getAllHomeAcListItem()
+        viewModelScope.launch{
+            val result = baralhoRepository.deleteDeck(baralho)
+
+            result
+                .onSuccess {
+                    _homeAcListItemList.value = _homeAcListItemList.value?.toMutableList()?.apply {
+                        removeAll {
+                            (it as? HomeAcListItem.HomeAcBaralhoItem)?.baralho == baralho
+                        }
+                    }
+                    val pastaDona = baralho.pasta
+                    pastaDona?.baralhos?.remove(baralho)
+                    onSuccess()
+                    sortHomeAcListItemList()
+                }
+                .onFailure {
+                    UtilsFoos.showToast(getApplication(), "Ocorreu algum erro na edição do baralho")
+                    Log.e("criar Pasta debug", "Ocorreu algum erro na criação da pasta")
+                }
+        }
     }
 
     fun moverBaralho(pasta: Pasta, baralho: Baralho, onSuccess: () -> Unit){
@@ -340,14 +356,32 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
         //getAllHomeAcListItem()
     }
     fun excluirPasta(pasta: Pasta, onSuccess : () -> Unit){
-        //TODO:: Fazer a exclusão de pasta do firebase também
 
+        /*viewModelScope.launch{
+            val result = pastaRepository.deleteFolder(pasta)
+
+            result
+                .onSuccess {
+
+                    _homeAcListItemList.value = _homeAcListItemList.value?.toMutableList()?.apply {
+                        removeAll {
+                            (it as? HomeAcListItem.HomeAcPastaItem)?.pasta == pasta
+                        }
+                    }
+                    _pastaList.value = _pastaList.value?.toMutableList()?.apply {
+                        removeAll {
+                            it  == pasta
+                        }
+                    }
+                    onSuccess()
+                    sortHomeAcListItemList()
+                }
+                .onFailure {
+                    UtilsFoos.showToast(getApplication(), "Ocorreu algum erro na edição do baralho")
+                    Log.e("criar Pasta debug", "Ocorreu algum erro na criação da pasta")
+                }
+        }*/
         onSuccess()
-        sortHomeAcListItemList()
-        sortPastaList()
-
-        // request para atualizar dados
-        //getAllHomeAcListItem()
     }
 }
 
