@@ -82,18 +82,18 @@ class AcoesCartaoFrDialog() : DialogFragment() {
             //Toast.makeText(requireContext(), "Visualizar Cartões", Toast.LENGTH_SHORT).show()
         }
         binding.ListarCartaoFrAcoesCartaoTextViewExcluirCartao.setOnClickListener {
-            dismiss()
             UtilsGeral.showAlertDialog(requireContext(),"Deseja realmente excluir esse Cartão??",{
                 listarCartaoVM.cartaoEmFoco.value?.let { cartao ->
                     listarCartaoVM.excluirCartao(cartao){
-                        Toast.makeText(requireContext(), "Excluir Cartão", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, "Excluir Cartão", Toast.LENGTH_SHORT).show()
+                        dismiss()
                     }
                 } ?: run {
-                    Toast.makeText(requireContext(), "Nenhum Cartão selecionada", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Nenhum Cartão selecionada", Toast.LENGTH_SHORT).show()
+                    dismiss()
                 }
             })
         }
-
     }
 
     override fun onDestroyView() {

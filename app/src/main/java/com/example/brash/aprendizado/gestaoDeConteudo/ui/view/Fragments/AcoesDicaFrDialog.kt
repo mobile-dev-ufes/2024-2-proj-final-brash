@@ -70,20 +70,18 @@ class AcoesDicaFrDialog() : DialogFragment() {
             }
         }
         binding.ListarDicaFrAcoesDicaTextViewExcluirDica.setOnClickListener {
-            dismiss()
-            
             UtilsGeral.showAlertDialog(requireContext(),"Deseja realmente excluir essa Dica??",{
                 listarDicaVM.dicaEmFoco.value?.let { dica ->
                     listarDicaVM.excluirDica(dica){
-                        Toast.makeText(requireContext(), "Excluir Dica", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, "Excluir Dica", Toast.LENGTH_SHORT).show()
+                        dismiss()
                     }
                 } ?: run {
-                    Toast.makeText(requireContext(), "Nenhuma Dica selecionada", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Nenhuma Dica selecionada", Toast.LENGTH_SHORT).show()
+                    dismiss()
                 }
-
             })
         }
-
     }
 
     override fun onDestroyView() {

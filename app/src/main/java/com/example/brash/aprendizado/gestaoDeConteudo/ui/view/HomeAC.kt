@@ -89,17 +89,18 @@ class HomeAC : AppCompatActivity(), AlertDialogFr.OnConfirmListener {
 
         homeVM.getAllHomeAcListItem()
 
-        adapter = ListaExpandableAdapter(homeVM.homeAcListItemList.value!!,
-            onPastaItemLongClick = { item ->
-            //Toast.makeText(this, "Clicou no pasta: ${item.pasta.nome}", Toast.LENGTH_SHORT).show()
-                homeVM.setPastaEmFoco(item.pasta)
-                AcoesPastaFrDialog().show(supportFragmentManager, "AcoesAdicionaisDialog")
+        adapter = ListaExpandableAdapter(homeVM.homeAcListItemList.value ?: run {
+            // Caso homeVM.homeAcListItemList.value seja nulo, você pode tratar aqui ou atribuir um valor padrão
+            emptyList() // Exemplo: Retorna uma lista vazia no caso de nulo
+        }, onPastaItemLongClick = { item ->
+            //Toast.makeText(this, "Clicou na pasta: ${item.pasta.nome}", Toast.LENGTH_SHORT).show()
+            homeVM.setPastaEmFoco(item.pasta)
+            AcoesPastaFrDialog().show(supportFragmentManager, "AcoesAdicionaisDialog")
         }, onBaralhoItemClick = { item ->
             //Toast.makeText(this, "Clicou no baralho: ${item.baralho.nome}", Toast.LENGTH_SHORT).show()
-                homeVM.setBaralhoEmFoco(item.baralho)
-                AcoesBaralhoFrDialog().show(supportFragmentManager, "AcoesAdicionaisDialog")
+            homeVM.setBaralhoEmFoco(item.baralho)
+            AcoesBaralhoFrDialog().show(supportFragmentManager, "AcoesAdicionaisDialog")
         })
-
 
         recyclerView.adapter = adapter
     }

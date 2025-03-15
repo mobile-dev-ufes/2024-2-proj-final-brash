@@ -68,19 +68,18 @@ class AcoesAnotacaoFrDialog() : DialogFragment() {
             }
         }
         binding.ListarAnotacaoFrAcoesAnotacaoTextViewExcluirAnotacao.setOnClickListener{
-            dismiss()
             UtilsGeral.showAlertDialog(requireContext(),"Deseja realmente excluir essa Anotação??",{
                 listarAnotacaoVM.anotacaoEmFoco.value?.let { it ->
                     listarAnotacaoVM.excluirAnotacao(it){
-                        Toast.makeText(requireContext(), "Excluir Anotacao", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, "Excluir Anotacao", Toast.LENGTH_SHORT).show()
+                        dismiss()
                     }
                 } ?: run {
-                    Toast.makeText(requireContext(), "Nenhuma Anotacao selecionada", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Nenhuma Anotacao selecionada", Toast.LENGTH_SHORT).show()
+                    dismiss()
                 }
-
             })
         }
-
     }
 
     override fun onDestroyView() {

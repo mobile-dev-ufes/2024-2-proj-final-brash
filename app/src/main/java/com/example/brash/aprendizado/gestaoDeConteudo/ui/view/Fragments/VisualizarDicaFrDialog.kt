@@ -90,6 +90,7 @@ class VisualizarDicaFrDialog() : DialogFragment() {
                 }
             } ?: run {
                 Toast.makeText(requireContext(), "Nenhum Dica selecionado", Toast.LENGTH_SHORT).show()
+                dismiss()
             }
         }
 

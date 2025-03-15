@@ -85,6 +85,7 @@ class VisualizarBaralhoFrDialog() : DialogFragment() {
                 }
             } ?: run {
                 Toast.makeText(requireContext(), "Nenhum baralho selecionado", Toast.LENGTH_SHORT).show()
+                dismiss()
             }
         }
 

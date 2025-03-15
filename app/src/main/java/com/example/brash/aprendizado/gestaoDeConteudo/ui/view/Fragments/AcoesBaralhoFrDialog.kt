@@ -95,18 +95,16 @@ class AcoesBaralhoFrDialog() : DialogFragment() {
             }
         }
         binding.HomeFrAcoesBaralhoTextViewExcluirBaralho.setOnClickListener {
-            dismiss()
-            
             UtilsGeral.showAlertDialog(requireContext(),"Deseja realmente excluir esse Baralho??",{
-
                 homeVM.baralhoEmFoco.value?.let { baralho ->
                     homeVM.excluirBaralho(baralho){
-                        Toast.makeText(requireContext(), "Excluir Baralho", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, "Excluir Baralho", Toast.LENGTH_SHORT).show()
+                        dismiss()
                     }
                 } ?: run {
-                    Toast.makeText(requireContext(), "Nenhum Baralho selecionada", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Nenhum Baralho selecionada", Toast.LENGTH_SHORT).show()
+                    dismiss()
                 }
-
             })
         }
     }
