@@ -110,34 +110,8 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
                     Log.d("Pasta", "Pastas carregadas: $folders")
 
                     //TODO:: transformar em homeAcListItem
-                    _pastaList.value = folders
-
-                    // Criação do homeAcListItem, onde vamos adicionar as pastas e baralhos
-                    val homeAcListItem = folders.flatMap { folder ->
-                        if (folder.idPasta == "root") {
-                            // Se for a pasta "root", adicione os baralhos
-                            folder.baralhos.map { baralho ->
-                                HomeAcListItem.HomeAcBaralhoItem(baralho = baralho)
-                            }
-                        } else {
-                            // Caso contrário, adicione a pasta
-                            listOf(HomeAcListItem.HomeAcPastaItem(pasta = folder, isExpanded = folder.baralhos.isNotEmpty()))
-                        }
-                    }.toMutableList()
-
-                    // Primeiro, ordena as pastas pelo nome
-                    val (pastas, baralhos) = homeAcListItem.partition {
-                        it is HomeAcListItem.HomeAcPastaItem
-                    }
-
-                    // Ordena as pastas pelo nome
-                    val sortedPastas = pastas.sortedBy { (it as HomeAcListItem.HomeAcPastaItem).pasta.nome }
-
-                    // Ordena os baralhos pelo nome
-                    val sortedBaralhos = baralhos.sortedBy { (it as HomeAcListItem.HomeAcBaralhoItem).baralho.nome }
-
-                    // Junta as pastas ordenadas com os baralhos, com os baralhos vindo após as pastas
-                    _homeAcListItemList.value = sortedPastas + sortedBaralhos
+                    initPastaList(folders)
+                    initHomeAcListItemList(folders)
                 }
                 .onFailure {
                     Log.e("Pasta", "Erro ao carregar pastas do firebase")
@@ -148,6 +122,38 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
 
         }
 
+    }
+
+    private fun initPastaList(folders: List<Pasta>){
+        _pastaList.value = folders
+    }
+    private fun initHomeAcListItemList(folders: List<Pasta>){
+        // Criação do homeAcListItem, onde vamos adicionar as pastas e baralhos
+        val homeAcListItem = folders.flatMap { folder ->
+            if (folder.idPasta == "root") {
+                // Se for a pasta "root", adicione os baralhos
+                folder.baralhos.map { baralho ->
+                    HomeAcListItem.HomeAcBaralhoItem(baralho = baralho)
+                }
+            } else {
+                // Caso contrário, adicione a pasta
+                listOf(HomeAcListItem.HomeAcPastaItem(pasta = folder, isExpanded = folder.baralhos.isNotEmpty()))
+            }
+        }.toMutableList()
+
+        // Primeiro, ordena as pastas pelo nome
+        val (pastas, baralhos) = homeAcListItem.partition {
+            it is HomeAcListItem.HomeAcPastaItem
+        }
+
+        // Ordena as pastas pelo nome
+        val sortedPastas = pastas.sortedBy { (it as HomeAcListItem.HomeAcPastaItem).pasta.nome }
+
+        // Ordena os baralhos pelo nome
+        val sortedBaralhos = baralhos.sortedBy { (it as HomeAcListItem.HomeAcBaralhoItem).baralho.nome }
+
+        // Junta as pastas ordenadas com os baralhos, com os baralhos vindo após as pastas
+        _homeAcListItemList.value = sortedPastas + sortedBaralhos
     }
 
     fun setPastaEmFoco(pasta: Pasta){
