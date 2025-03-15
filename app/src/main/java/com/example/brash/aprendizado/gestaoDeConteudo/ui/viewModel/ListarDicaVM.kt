@@ -9,12 +9,6 @@ import androidx.lifecycle.MutableLiveData
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Baralho
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Cartao
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Dica
-import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.HomeAcListItem
-import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.OpcoesDeBuscaHome
-import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Pasta
-import com.example.brash.aprendizado.gestaoDeConteudo.utils.FiltroDeBuscaHome
-import com.example.brash.aprendizado.gestaoDeConteudo.utils.OrdemDeBuscaHome
-import java.lang.Exception
 
 class ListarDicaVM(application: Application) : AndroidViewModel(application) {
 

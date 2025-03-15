@@ -8,12 +8,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Anotacao
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Baralho
-import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.HomeAcListItem
-import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.OpcoesDeBuscaHome
-import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Pasta
-import com.example.brash.aprendizado.gestaoDeConteudo.utils.FiltroDeBuscaHome
-import com.example.brash.aprendizado.gestaoDeConteudo.utils.OrdemDeBuscaHome
-import java.lang.Exception
+import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Cartao
+import com.example.brash.aprendizado.gestaoDeConteudo.utils.FiltroDeBuscaListarCartao
 
 class ListarBaralhoPublicoVM(application: Application) : AndroidViewModel(application) {
 
@@ -23,13 +19,12 @@ class ListarBaralhoPublicoVM(application: Application) : AndroidViewModel(applic
     private var _listBaralhoPublicoMsg = MutableLiveData<Int>()
     private var _baralhoPublicoList = MutableLiveData<List<Baralho>>()
     val listBaralhoPublicoMsg get() = _listBaralhoPublicoMsg
-    val baralhoPublicoList get() = _baralhoPublicoList
+
+    private var _baralhoPublicoListSort = MutableLiveData<List<Baralho>>(emptyList())
+    val baralhoPublicoListSort get() = _baralhoPublicoListSort
 
     private var _baralhoPublicoEmFoco = MutableLiveData<Baralho>()
     val baralhoPublicoEmFoco get() = _baralhoPublicoEmFoco
-
-    //private var _opcoesDeBusca = MutableLiveData<OpcoesDeBuscaBaralhoPublico>()
-    //val opcoesDeBusca get() = _opcoesDeBusca
 
     fun getAllBaralhosPublicos() {
 
@@ -45,6 +40,7 @@ class ListarBaralhoPublicoVM(application: Application) : AndroidViewModel(applic
             Baralho(nome =  "Frutas"))
 
         Log.d("ListaPastaAdapter", "DEFINIÇÃO DAS PASTAS")
+        updateFilterBaralhoPublicoList("")
     }
 
     fun setBaralhoPublicoEmFoco(baralho: Baralho){
@@ -63,6 +59,22 @@ class ListarBaralhoPublicoVM(application: Application) : AndroidViewModel(applic
 
     fun importarBaralhoPublico(baralho: Baralho){
         //TODO:: Fazer a requisição do firebase copiar esse baralho para a root do usuário
+
+    }
+
+    fun updateFilterBaralhoPublicoList(filtro: String){
+
+        if(filtro.isEmpty()){
+            _baralhoPublicoListSort.value = _baralhoPublicoList.value!!
+        }
+        else{
+            _baralhoPublicoListSort.value = _baralhoPublicoList.value!!.filter{it.nome.contains(filtro, ignoreCase = true)}
+        }
+
+        // Garantindo que _cartaoListSort nunca seja nulo
+        if (_baralhoPublicoListSort.value == null) {
+            _baralhoPublicoListSort.value = emptyList()
+        }
 
     }
 

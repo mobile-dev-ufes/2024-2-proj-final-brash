@@ -159,5 +159,8 @@
     <string name="gtc_novo_nome_do_baralho">Novo Nome do Baralho</string>
     <string name="gtc_confirmar_nome">Confirmar Nome</string>
 
-
+    <string-array name="nuc_listar_cartao_spinner_filtrar">
+        <item>Question</item>
+        <item>Answer</item>
+    </string-array>
 </resources>

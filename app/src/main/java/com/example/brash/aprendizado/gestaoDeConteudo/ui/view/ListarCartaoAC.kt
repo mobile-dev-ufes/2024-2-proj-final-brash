@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContentProviderCompat.requireContext
@@ -19,7 +20,7 @@ import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments.AcoesCar
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments.AcoesPastaFrDialog
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments.CriarCartaoFrDialog
 import com.example.brash.nucleo.ui.view.PerfilAC
-import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments.OpcoesDeBuscaHomeFrDialog
+import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments.OpcoesDeBuscaListarCartaoFrDialog
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments.VisualizarBaralhoPublicoFrDialog
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments.VisualizarCartaoFrDialog
 
@@ -89,14 +90,25 @@ class ListarCartaoAC : AppCompatActivity() {
     }
     private fun setOnClickListeners(){
 
-        binding.ListarCartaoAcImageViewRetornar.setOnClickListener {
-            finish()
+        binding.ListarCartaoAcInputDePesquisa.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_NEXT) {
+                // O usuário pressionou "Done"
+                listarCartaoVM.updateFilterCartaoList(binding.ListarCartaoAcInputDePesquisa.text.toString())
+
+                true // Retorna true para indicar que o evento foi tratado
+            } else {
+                false // Permite que o evento continue propagando
+            }
         }
+
         binding.ListarCartaoAcImageViewOpcoesDeBusca.setOnClickListener {
-            OpcoesDeBuscaHomeFrDialog().show(supportFragmentManager, "OpcaoDialog")
+            OpcoesDeBuscaListarCartaoFrDialog().show(supportFragmentManager, "OpcaoDialog")
         }
         binding.ListarCartaoAcButtonCriar.setOnClickListener{
             CriarCartaoFrDialog().show(supportFragmentManager, "OpcaoDialog")
+        }
+        binding.ListarCartaoAcImageViewRetornar.setOnClickListener {
+            finish()
         }
 
     }
@@ -106,13 +118,18 @@ class ListarCartaoAC : AppCompatActivity() {
             //binding.LoginAcTextViewErroEntrar.text = it
             //binding.LoginAcTextViewErroEntrar.visibility = View.VISIBLE
         //})
-        listarCartaoVM.cartaoList.observe(this, Observer { cartaoList ->
-            if (cartaoList != null && cartaoList.isNotEmpty()) {
-                adapter.updateCartaoList(cartaoList)
-                Log.d("ListaBaralhoPublico", "Lista atualizada com sucesso.")
-            } else {
-                Log.d("ListaBaralhoPublico", "A lista de baralhos públicos está vazia.")
-            }
+        listarCartaoVM.cartaoListSort.observe(this, Observer { cartaoListSort ->
+            //if (cartaoListSort != null && cartaoListSort.isNotEmpty()) {
+                adapter.updateCartaoList(cartaoListSort)
+                //Log.d("ListaBaralhoPublico", "Lista atualizada com sucesso.")
+            //} else {
+                //Log.d("ListaBaralhoPublico", "A lista de baralhos públicos está vazia.")
+            //}
+        })
+
+        listarCartaoVM.opcoesDeBusca.observe(this, Observer{
+            Toast.makeText(applicationContext, "Opcoes de busca foram alteradas", Toast.LENGTH_SHORT).show()
+            listarCartaoVM.updateFilterCartaoList(binding.ListarCartaoAcInputDePesquisa.text.toString())
         })
     }
     private fun intentToCadastrarContaActivity(){

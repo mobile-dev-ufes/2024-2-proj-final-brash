@@ -7,10 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.brash.aprendizado.gestaoDeConteudo.data.repository.BaralhoRepository
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Baralho
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.HomeAcListItem
-import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.OpcoesDeBuscaHome
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Pasta
-import com.example.brash.aprendizado.gestaoDeConteudo.utils.FiltroDeBuscaHome
-import com.example.brash.aprendizado.gestaoDeConteudo.utils.OrdemDeBuscaHome
 import com.example.brash.nucleo.domain.model.Usuario
 import com.example.brash.nucleo.utils.UtilsFoos
 import com.google.firebase.auth.FirebaseAuth
@@ -37,9 +34,6 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
 
     val pastaEmFoco get() = _pastaEmFoco
     val baralhoEmFoco get() = _baralhoEmFoco
-
-    private var _opcoesDeBusca = MutableLiveData<OpcoesDeBuscaHome>()
-    val opcoesDeBusca get() = _opcoesDeBusca
 
     val _pastaEmMover = MutableLiveData<Pasta?>()
     val pastaEmMover get() = _pastaEmMover
@@ -130,14 +124,6 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
     fun resetBaralhoEmFoco(){
         baralhoEmFoco.value = null
         Log.d("HomeDialogs", "Resetei Baralho em FOCO")
-    }
-
-    fun updateOpcoesDeBusca(ordem: OrdemDeBuscaHome, filtro : FiltroDeBuscaHome){
-        _opcoesDeBusca.value = OpcoesDeBuscaHome(ordem, filtro)
-        Log.d("HomeDialogs", "Defini Pasta em FOCO")
-
-        Log.d("HomeDialogs", ordem.toString())
-        Log.d("HomeDialogs", filtro.toString())
     }
 
     fun setPastaEmMover(pasta: Pasta){

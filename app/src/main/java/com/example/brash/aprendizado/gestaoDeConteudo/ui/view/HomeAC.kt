@@ -13,7 +13,6 @@ import com.example.brash.databinding.GtcHomeAcBinding
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.viewModel.HomeVM
 import com.example.brash.nucleo.ui.view.ConfiguracaoAC
 import com.example.brash.nucleo.ui.view.PerfilAC
-import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments.OpcoesDeBuscaHomeFrDialog
 
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments.AcoesAdicionaisFrDialog
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments.AcoesBaralhoFrDialog
@@ -54,10 +53,6 @@ class HomeAC : AppCompatActivity(), AlertDialogFr.OnConfirmListener {
     private fun setOnClickListeners(){
         binding.HomeAcButtonAcoesAdicionais.setOnClickListener{
             AcoesAdicionaisFrDialog().show(supportFragmentManager, "AcoesAdicionaisDialog")
-        }
-        binding.HomeAcImageViewConfiguracoes.setOnClickListener{
-            Toast.makeText(applicationContext, "Você clicou em Configuracoes", Toast.LENGTH_SHORT).show()
-            intentToConfiguracaoActivity()
         }
         binding.HomeAcShapeableImageViewIconePerfil.setOnClickListener{
             intentToPerfilActivity()

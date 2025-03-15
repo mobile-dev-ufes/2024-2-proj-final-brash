@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -15,7 +16,6 @@ import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Baralho
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Pasta
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments.AcoesPastaFrDialog
 import com.example.brash.nucleo.ui.view.PerfilAC
-import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments.OpcoesDeBuscaHomeFrDialog
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments.VisualizarBaralhoPublicoFrDialog
 
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.adapter.ListaBaralhoPublicoAdapter
@@ -41,7 +41,6 @@ class ListarBaralhoPublicoAC : AppCompatActivity() {
         setContentView(binding.root)
 
         listarBaralhoPublicoVM = ViewModelProvider(this).get(ListarBaralhoPublicoVM::class.java)
-
 
 
         // Inicializando o listener diretamente
@@ -70,27 +69,30 @@ class ListarBaralhoPublicoAC : AppCompatActivity() {
 
     }
     private fun setOnClickListeners(){
+        binding.ListarBaralhoPublicoAcInputDePesquisa.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_NEXT) {
+                // O usuário pressionou "Done"
+                listarBaralhoPublicoVM.updateFilterBaralhoPublicoList(binding.ListarBaralhoPublicoAcInputDePesquisa.text.toString())
+
+                true // Retorna true para indicar que o evento foi tratado
+            } else {
+                false // Permite que o evento continue propagando
+            }
+        }
         binding.ListarBaralhoPublicoAcImageViewRetornar.setOnClickListener {
             finish()
         }
-        binding.ListarBaralhoPublicoAcImageViewOpcoesDeBusca.setOnClickListener {
-            OpcoesDeBuscaHomeFrDialog().show(supportFragmentManager, "OpcaoDialog")
-        }
-
     }
 
     private fun setObservers(){
-        //loginVM.erroMessageLD.observe(this, Observer{
-            //binding.LoginAcTextViewErroEntrar.text = it
-            //binding.LoginAcTextViewErroEntrar.visibility = View.VISIBLE
-        //})
-        listarBaralhoPublicoVM.baralhoPublicoList.observe(this, Observer { baralhoList ->
-            if (baralhoList != null && baralhoList.isNotEmpty()) {
-                adapter.updateBaralhoPublicoList(baralhoList)
-                Log.d("ListaBaralhoPublico", "Lista atualizada com sucesso.")
-            } else {
-                Log.d("ListaBaralhoPublico", "A lista de baralhos públicos está vazia.")
-            }
+
+        listarBaralhoPublicoVM.baralhoPublicoListSort.observe(this, Observer { baralhoListSort ->
+            //if (baralhoListSort != null && baralhoListSort.isNotEmpty()) {
+                adapter.updateBaralhoPublicoList(baralhoListSort)
+                //Log.d("ListaBaralhoPublico", "Lista atualizada com sucesso.")
+            //} else {
+                //Log.d("ListaBaralhoPublico", "A lista de baralhos públicos está vazia.")
+            //}
         })
     }
     private fun intentToCadastrarContaActivity(){

@@ -156,4 +156,9 @@
     <string name="gtc_confirmar_nome">Confirmar Nome</string>
 
 
+    <string-array name="nuc_listar_cartao_spinner_filtrar">
+        <item>Pergunta</item>
+        <item>Resposta</item>
+    </string-array>
+
 </resources>
