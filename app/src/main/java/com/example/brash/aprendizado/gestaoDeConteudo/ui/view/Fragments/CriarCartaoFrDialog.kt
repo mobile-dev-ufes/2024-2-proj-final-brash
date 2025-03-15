@@ -60,7 +60,6 @@ class CriarCartaoFrDialog : DialogFragment() {
             val resposta = binding.ListarCartaoFrCriarCartaoInputResposta.text.toString()
             listarCartaoVM.criarCartao(pergunta, resposta) {
                 dismiss()
-                Toast.makeText(requireContext(), "Cartão criado", Toast.LENGTH_SHORT).show()
             }
         }
     }

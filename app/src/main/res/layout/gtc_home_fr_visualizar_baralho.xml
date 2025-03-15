@@ -95,6 +95,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <CheckBox
+        android:id="@+id/HomeFrVisualizarBaralhoCheckBoxPublico"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/gtc_baralho_publico"

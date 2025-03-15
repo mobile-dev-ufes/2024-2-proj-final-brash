@@ -59,7 +59,6 @@ class CriarDicaFrDialog : DialogFragment() {
             val hintText = binding.ListarDicaFrCriarDicaInputTexto.text.toString()
             listarDicaVM.criarDica(hintText){
                 dismiss()
-                Toast.makeText(requireContext(), "Dica criada", Toast.LENGTH_SHORT).show()
             }
 
         }

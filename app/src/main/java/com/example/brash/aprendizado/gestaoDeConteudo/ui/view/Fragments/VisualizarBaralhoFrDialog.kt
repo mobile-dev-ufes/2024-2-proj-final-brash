@@ -78,8 +78,10 @@ class VisualizarBaralhoFrDialog() : DialogFragment() {
         binding.HomeFrVisualizarBaralhoButtonConfirmar.setOnClickListener {
             val deckName = binding.HomeFrVisualizarBaralhoInputTitulo.text.toString()
             val deckDescription = binding.HomeFrVisualizarBaralhoInputDescricao.text.toString()
+            val deckCardsPerDay = binding.HomeFrVisualizarBaralhoInputCartoesNovos.text.toString().ifEmpty { "0" }.toInt()
+            val deckPublic = binding.HomeFrVisualizarBaralhoCheckBoxPublico.isChecked
             homeVM.baralhoEmFoco.value?.let { baralho ->
-                homeVM.editarBaralho(baralho, deckName, deckDescription) {
+                homeVM.editarBaralho(baralho, deckName, deckDescription, deckCardsPerDay, deckPublic) {
                     dismiss()
                     Toast.makeText(requireContext(), "Baralho Editado", Toast.LENGTH_SHORT).show()
                 }

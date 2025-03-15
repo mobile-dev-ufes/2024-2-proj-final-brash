@@ -35,7 +35,7 @@
 
             android:inputType="textMultiLine"
             style="@style/EditTextMaxCharNome"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
 
             />
     </com.google.android.material.textfield.TextInputLayout>

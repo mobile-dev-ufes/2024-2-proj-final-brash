@@ -5,12 +5,12 @@ import com.example.brash.nucleo.domain.model.Usuario
 
 data class Baralho (
     val idBaralho: String = "",
-    val nome: String = "",
-    val descricao: String = "",
+    var nome: String = "",
+    var descricao: String = "",
     val areasDoConhecimento: MutableList<String> = mutableListOf(),
     val areasEspecificas: MutableList<String> = mutableListOf(),
-    val publico: Boolean = false,
-    val cartoesNovosPorDia: Int = 20,
+    var publico: Boolean = false,
+    var cartoesNovosPorDia: Int = 20,
     val usuario: Usuario? = null,
     var pasta: Pasta? = null
 ){
