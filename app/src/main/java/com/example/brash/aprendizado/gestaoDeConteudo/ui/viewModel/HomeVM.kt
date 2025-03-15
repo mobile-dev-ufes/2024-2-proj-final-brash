@@ -4,6 +4,7 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.brash.R
 import com.example.brash.aprendizado.gestaoDeConteudo.data.repository.BaralhoRepository
 import com.example.brash.aprendizado.gestaoDeConteudo.data.repository.PastaRepository
@@ -17,6 +18,7 @@ import com.example.brash.nucleo.domain.model.Usuario
 import com.example.brash.nucleo.utils.UtilsFoos
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.launch
 import java.lang.Exception
 
 class HomeVM(application: Application) : AndroidViewModel(application) {
@@ -189,20 +191,22 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
     fun criarPasta(nome : String, onSuccess: () -> Unit){
         //TODO:: apenas confirmar a criação se o nome for único para o usuário
 
-        if(processaInfoPasta(nome)){
-            val pasta = Pasta(
-                nome = nome
-            )
-            pastaRepository.createFolder(pasta, {
-                onSuccess()
-            }, {
-                UtilsFoos.showToast(getApplication(), getStringApplication(R.string.gtc_nao_foi_possivel_criar_pasta))
-            })
+        viewModelScope.launch{
+            val result = pastaRepository.createFolder(nome)
+            result
+                .onSuccess {
+                    onSuccess()
+                }
+                .onFailure {
+                    UtilsFoos.showToast(getApplication(), "Ocorreu algum erro na criação da pasta")
+                    Log.e("criar Pasta debug", "Ocorreu algum erro na criação da pasta")
+                }
         }
 
-        // request para atualizar dados
+
         getAllHomeAcListItem()
     }
+
     private fun processaInfoPasta(nome : String) : Boolean{
 
         if(nome.isEmpty()){

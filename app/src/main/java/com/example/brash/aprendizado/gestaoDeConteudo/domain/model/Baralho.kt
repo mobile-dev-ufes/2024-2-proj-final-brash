@@ -15,6 +15,6 @@ data class Baralho (
     var pasta: Pasta? = null
 ){
     override fun toString(): String {
-        return "Baralho(id='$idBaralho', nome='$nome', pastaId='${pasta?.nome}')"
+        return "Baralho(id='$idBaralho', nome='$nome', pastaId='${pasta?.idPasta}')"
     }
 }

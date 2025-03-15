@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.brash.R
 import com.example.brash.aprendizado.gestaoDeConteudo.data.repository.BaralhoRepository
@@ -24,6 +25,7 @@ import com.example.brash.databinding.GtcRevisaoFrFinalBinding
 import com.example.brash.databinding.GtcRevisaoFrInicioBinding
 import com.example.brash.databinding.NucCadastrarFrExitoBinding
 import com.example.brash.nucleo.utils.UtilsFoos
+import kotlinx.coroutines.launch
 
 class RevisaoFrInicio : Fragment(R.layout.gtc_revisao_fr_inicio) {
 
@@ -63,11 +65,17 @@ class RevisaoFrInicio : Fragment(R.layout.gtc_revisao_fr_inicio) {
 
             val pastaRepository = PastaRepository()
 
-            pastaRepository.getFolders({ pastas ->
-                Log.e("debug lendo pastas", "$pastas")
-            },{
 
-            })
+            lifecycleScope.launch {
+                val result = pastaRepository.getFolders()
+
+                result.onSuccess { foldersList ->
+                    println("Pastas carregadas com sucesso: $foldersList")
+                    Log.e("degub printando pastas", "$foldersList")
+                }.onFailure { error ->
+                    Log.e("degub printando pastas", "$error")
+                }
+            }
 
 
             //Log.e("debug get pastas", "$pastasTudo")
