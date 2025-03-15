@@ -13,6 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.brash.R
 import com.example.brash.aprendizado.gestaoDeConteudo.data.repository.BaralhoRepository
+import com.example.brash.aprendizado.gestaoDeConteudo.data.repository.CartaoRepository
 import com.example.brash.aprendizado.gestaoDeConteudo.data.repository.PastaRepository
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Baralho
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Cartao
@@ -61,18 +62,23 @@ class RevisaoFrInicio : Fragment(R.layout.gtc_revisao_fr_inicio) {
 
             val pastaRepository = PastaRepository()
             val baralhoRepository = BaralhoRepository()
+            val cartaoRepository = CartaoRepository()
 
             lifecycleScope.launch {
-                val id = "YGnkjJK531mUL1e71iUB"
+                val id = "RzfUMsMYE6mTTlHKYZsW"
                 val result = pastaRepository.getFolders()
                 result
                     .onSuccess { listaPastas ->
 
                         for(pasta in listaPastas){
-                            if(pasta.idPasta == "mzfMtBVIUNDfOsPU3q2D"){
+                            if(pasta.idPasta == "root"){
                                 for(baralho in pasta.baralhos){
                                     if(baralho.idBaralho == id){
-                                        baralhoRepository.updateDeck(baralho, "teste1", "teste2", 40, true)
+                                        val cartao = Cartao(
+                                            pergunta = "ola5",
+                                            resposta = "mundo5"
+                                        )
+                                        cartaoRepository.createCard(baralho, cartao)
                                     }
                                 }
                             }
