@@ -19,7 +19,7 @@ class CartaoRepository {
     private val fireStoreDB = FirebaseFirestore.getInstance()
     private val fireBaseAuth = FirebaseAuth.getInstance()
 
-    suspend fun createCard(deck: Baralho, card: Cartao): Result<Unit> {
+    suspend fun createCard(deck: Baralho, card: Cartao): Result<String> {
         val currentUserEmail = fireBaseAuth.currentUser?.email
         if (currentUserEmail.isNullOrEmpty()) {
             return Result.failure(Throwable("Usuário não autenticado"))
@@ -44,7 +44,7 @@ class CartaoRepository {
             )
 
             cardRef.set(newCard).await()
-            Result.success(Unit)
+            Result.success(generatedId)
         } catch (e: Exception) {
             Result.failure(e)
         }

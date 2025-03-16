@@ -3,7 +3,7 @@ package com.example.brash.aprendizado.gestaoDeConteudo.domain.model
 import com.example.brash.nucleo.domain.model.Usuario
 
 data class Pasta (
-    val idPasta: String = "",
+    var idPasta: String = "",
     var nome: String = "",
     val usuario: Usuario? = null,
     var baralhos: MutableList<Baralho> = mutableListOf()
