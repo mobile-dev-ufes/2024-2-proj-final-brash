@@ -46,7 +46,7 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
     private val baralhoRepository = BaralhoRepository()
     private val pastaRepository = PastaRepository()
 
-
+    private val pastaRoot = MutableLiveData<Pasta>(Pasta(idPasta = "root", nome ="root"))
 
     private fun getStringApplication(id : Int) : String{
         return getApplication<Application>().getString(id)
@@ -207,18 +207,21 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
 
             viewModelScope.launch {
                 val baralho = Baralho(
+                    idBaralho = "0",
                     nome = nome,
                     descricao = descricao
                 )
                 val result = baralhoRepository.createDeck(baralho)
                 result
-                    .onSuccess {
+                    .onSuccess { id ->
+                        baralho.idBaralho = id
+                        baralho.pasta = pastaRoot.value
                         _homeAcListItemList.value = _homeAcListItemList.value?.plus(HomeAcListItem.HomeAcBaralhoItem(baralho = baralho))
                         sortHomeAcListItemList()
                         onSuccess()
                     }
-                    .onFailure {
-                        UtilsFoos.showToast(getApplication(), "Ocorreu algum erro na criação da baralho")
+                    .onFailure { e ->
+                        UtilsFoos.showToast(getApplication(), "Ocorreu algum erro na criação da baralho:: ${e}")
                         Log.e("criar baralho debug", "Ocorreu algum erro na criação da baralho")
                     }
             }
@@ -259,8 +262,8 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
                         baralho.cartoesNovosPorDia = numberNewCardsPerDay
                         sortHomeAcListItemList()
                     }
-                    .onFailure {
-                        UtilsFoos.showToast(getApplication(), "Ocorreu algum erro na edição do baralho")
+                    .onFailure { e ->
+                        UtilsFoos.showToast(getApplication(), "Ocorreu algum erro na edição do baralho: ${e}")
                         Log.e("criar Pasta debug", "Ocorreu algum erro na criação da pasta")
                     }
             }
@@ -294,25 +297,46 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
     }
 
     fun moverBaralho(pasta: Pasta, baralho: Baralho, onSuccess: () -> Unit){
-        //TODO:: Fazer a lógica
-        onSuccess()
+        viewModelScope.launch{
+            val resultCopy = pastaRepository.copyDeck(pasta, baralho)
+            resultCopy
+                .onSuccess {id ->
+                    val resultDelete = baralhoRepository.deleteDeck(baralho)
+                    resultDelete.onSuccess {
+
+                        getAllHomeAcListItem()
+                        onSuccess()
+                        Log.e("criarPastadebug", "Sexo")
+                    }.onFailure { eDelete->
+                        Log.e("criarPastadebug", "Ocorreu algum erro na criação da pasta:: ${eDelete}")
+                    }
+                }
+                .onFailure { eCopy->
+                    UtilsFoos.showToast(getApplication(), "Ocorreu algum erro na criação da pasta")
+                    Log.e("criarPastadebug", "Ocorreu algum erro na criação da pasta:: ${eCopy}")
+                }
+        }
     }
 
     fun criarPasta(nome : String, onSuccess: () -> Unit){
         //TODO:: apenas confirmar a criação se o nome for único para o usuário
 
-        viewModelScope.launch{
-            val result = pastaRepository.createFolder(nome)
-            result
-                .onSuccess {
-                    _homeAcListItemList.value = _homeAcListItemList.value?.plus(HomeAcListItem.HomeAcPastaItem(pasta = Pasta(nome)))
-                    sortHomeAcListItemList()
-                    onSuccess()
-                }
-                .onFailure {
-                    UtilsFoos.showToast(getApplication(), "Ocorreu algum erro na criação da pasta")
-                    Log.e("criar Pasta debug", "Ocorreu algum erro na criação da pasta")
-                }
+        if(processaInfoPasta(nome)){
+            val pasta = Pasta(nome= nome)
+            viewModelScope.launch{
+                val result = pastaRepository.createFolder(pasta)
+                result
+                    .onSuccess {id ->
+                        pasta.idPasta = id
+                        _homeAcListItemList.value = _homeAcListItemList.value?.plus(HomeAcListItem.HomeAcPastaItem(pasta = pasta))
+                        sortHomeAcListItemList()
+                        onSuccess()
+                    }
+                    .onFailure {
+                        UtilsFoos.showToast(getApplication(), "Ocorreu algum erro na criação da pasta")
+                        Log.e("criar Pasta debug", "Ocorreu algum erro na criação da pasta")
+                    }
+            }
         }
         // request para atualizar dados
         //getAllHomeAcListItem()
@@ -334,24 +358,25 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
         //TODO:: apenas requisitar se tiver ALGUMA informação diferente
         //TODO:: apenas confirmar a mudança do nome se for único para o usuário
         //TODO:: Se não conseguir alterar o nome ele altera o resto
-
-        viewModelScope.launch {
-
-            val result = pastaRepository.updateFolder(pasta, nome)
-            result
-                .onSuccess {
-                    onSuccess()
-                    pasta.nome = nome
-                    sortPastaList()
-                    sortHomeAcListItemList()
-                }
-                .onFailure {
-                    UtilsFoos.showToast(getApplication(), "Ocorreu algum erro na edição da pasta")
-                    Log.e("editar Pasta debug", "Ocorreu algum erro na edição da pasta")
-                }
-
+        if(processaInfoPasta(nome)){
+            viewModelScope.launch{
+                val result = pastaRepository.updateFolder(pasta, nome)
+                result
+                    .onSuccess {
+                        onSuccess()
+                        pasta.nome = nome
+                        sortPastaList()
+                        sortHomeAcListItemList()
+                    }
+                    .onFailure {
+                        UtilsFoos.showToast(
+                            getApplication(),
+                            "Ocorreu algum erro na edição da pasta"
+                        )
+                        Log.e("editar Pasta debug", "Ocorreu algum erro na edição da pasta")
+                    }
+            }
         }
-
         // request para atualizar dados
         //getAllHomeAcListItem()
     }

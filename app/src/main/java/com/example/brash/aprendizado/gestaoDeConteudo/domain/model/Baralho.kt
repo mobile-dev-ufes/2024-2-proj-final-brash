@@ -4,7 +4,7 @@ import com.example.brash.nucleo.domain.model.Usuario
 
 
 data class Baralho (
-    val idBaralho: String = "",
+    var idBaralho: String = "",
     var nome: String = "",
     var descricao: String = "",
     val areasDoConhecimento: MutableList<String> = mutableListOf(),

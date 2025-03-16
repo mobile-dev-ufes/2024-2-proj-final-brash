@@ -37,7 +37,7 @@ class DicaRepository {
     }
 
     // testar
-    suspend fun createHint(card : Cartao, hint : Dica) : Result<Unit>{
+    suspend fun createHint(card : Cartao, hint : Dica) : Result<String>{
         val currentUserEmail = fireBaseAuth.currentUser?.email
             ?: return Result.failure(Throwable("Usuário não autenticado"))
 
@@ -53,6 +53,8 @@ class DicaRepository {
             val hintId = hintsRef.document().id
             val newHintInfo = constructFireStoreHint(hintId, hint.texto)
             hintsRef.document(hintId).set(newHintInfo).await()
+
+            hintId
         }
     }
 

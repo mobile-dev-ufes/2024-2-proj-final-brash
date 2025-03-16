@@ -83,6 +83,7 @@ class VisualizarCartaoFrDialog() : DialogFragment() {
         binding.ListarCartaoFrVisualizarCartaoButtonConfirmar.setOnClickListener{
             val cardQuestion = binding.ListarCartaoFrVisualizarCartaoInputPergunta.text.toString()
             val cardAnswer = binding.ListarCartaoFrVisualizarCartaoInputResposta.text.toString()
+            Toast.makeText(requireContext(), "Cartão a editar", Toast.LENGTH_SHORT).show()
             listarCartaoVM.cartaoEmFoco.value?.let { cartao ->
                 listarCartaoVM.editarCartao(cartao, cardQuestion, cardAnswer) {
                     dismiss()

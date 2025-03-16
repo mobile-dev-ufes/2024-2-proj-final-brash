@@ -2,7 +2,7 @@ package com.example.brash.nucleo.domain.model
 import java.time.LocalDateTime
 
 data class Usuario (
-    val idUsuario: Long = 0,
+    val idUsuario: String = "0",
     val nomeDeExibicao: String = "",
     val nomeDeUsuario: String = "",
     //val senha: String,

@@ -73,10 +73,7 @@ class PerfilVM(application: Application) : AndroidViewModel(application) {
     }*/
 
     fun editarUsuario(usuario: Usuario){
-        //TODO:: requisitar o firebase a edição do usuário
-        //TODO:: apenas requisitar se tiver ALGUMA informação diferente
-        //TODO:: apenas confirmar a mudança do nome de usuário se for único no sistema, o restante pode sempre atualizar
-        //TODO:: Se não conseguir alterar o nome de usuário ele altera o resto
+
     }
 
 }

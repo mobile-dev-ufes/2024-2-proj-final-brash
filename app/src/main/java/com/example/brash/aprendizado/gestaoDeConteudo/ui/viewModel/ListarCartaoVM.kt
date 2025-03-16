@@ -7,6 +7,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.brash.R
 import com.example.brash.aprendizado.gestaoDeConteudo.data.repository.BaralhoRepository
 import com.example.brash.aprendizado.gestaoDeConteudo.data.repository.CartaoRepository
 import com.example.brash.aprendizado.gestaoDeConteudo.data.repository.PastaRepository
@@ -50,6 +51,10 @@ class ListarCartaoVM(application: Application) : AndroidViewModel(application) {
     }
     //private var _opcoesDeBusca = MutableLiveData<OpcoesDeBuscaBaralhoPublico>()
     //val opcoesDeBusca get() = _opcoesDeBusca
+
+    private fun getStringApplication(id : Int) : String{
+        return getApplication<Application>().getString(id)
+    }
 
     fun getAllCartoes() {
         //TODO:: requisitar do firebase
@@ -106,46 +111,63 @@ class ListarCartaoVM(application: Application) : AndroidViewModel(application) {
 
     fun criarCartao(pergunta: String, resposta: String, onSuccess : () -> Unit){
 
-        val cartao = Cartao(pergunta = pergunta, resposta = resposta)
-        viewModelScope.launch{
-            val result = cartaoRepository.createCard(_baralhoOwner.value!!, cartao )
-            result
-                .onSuccess {
-                    if(_cartaoList.value == null){
-                        _cartaoList.value = listOf(cartao)
+        if(processaInfoCartao(pergunta, resposta)) {
+            val cartao = Cartao(pergunta = pergunta, resposta = resposta)
+            viewModelScope.launch {
+                val result = cartaoRepository.createCard(_baralhoOwner.value!!, cartao)
+                result
+                    .onSuccess { id->
+                        cartao.idCartao = id
+                        cartao.baralho = _baralhoOwner.value!!
+                        if (_cartaoList.value == null) {
+                            _cartaoList.value = listOf(cartao)
+                        } else {
+                            _cartaoList.value = _cartaoList.value!!.plus(cartao)
+                        }
+                        updateFilterCartaoList(_textoBusca.value ?: "")
+                        onSuccess()
                     }
-                    else{
-                        _cartaoList.value = _cartaoList.value!!.plus(cartao)
+                    .onFailure { e->
+                        UtilsFoos.showToast(
+                            getApplication(),
+                            "Ocorreu algum erro na criação do cartão:: ${e}"
+                        )
+                        Log.e("criar Pasta debug", "Ocorreu algum erro na criação do cartão:: ${e}")
                     }
-
-                    updateFilterCartaoList(_textoBusca.value?: "")
-                    onSuccess()
-                }
-                .onFailure {
-                    UtilsFoos.showToast(getApplication(), "Ocorreu algum erro na criação da pasta")
-                    Log.e("criar Pasta debug", "Ocorreu algum erro na criação da pasta")
-                }
+            }
         }
         //getAllCartoes()
+    }
+    private fun processaInfoCartao(pergunta: String, resposta: String) : Boolean{
+
+        if(pergunta.isEmpty() || resposta.isEmpty()){
+            UtilsFoos.showToast(getApplication(), getStringApplication(R.string.nuc_preencha_todos_campos))
+            return false
+        }else if(false){ // verificacao de nome único
+            return false
+        }
+        return true
     }
     fun editarCartao(cartao: Cartao,pergunta: String, resposta: String, onSuccess : () -> Unit){
         //TODO:: Fazer a edição de cartão do firebase também
         //TODO:: apenas requisitar se tiver ALGUMA informação diferente
         // request para atualizar dados
-        viewModelScope.launch{/*
-            val result = cartaoRepository.updateCard(cartao, pergunta, resposta)
+        if(processaInfoCartao(pergunta, resposta)) {
+            viewModelScope.launch{
+                val result = cartaoRepository.updateCardQA(cartao, pergunta, resposta)
 
-            result
-                .onSuccess {
-                    cartao.pergunta = pergunta
-                    cartao.resposta = resposta
-                    updateFilterCartaoList(_textoBusca.value?: "")
-                    onSuccess()
-                }
-                .onFailure {
-                    UtilsFoos.showToast(getApplication(), "Ocorreu algum erro na edição do baralho")
-                    Log.e("criar Pasta debug", "Ocorreu algum erro na criação da pasta")
-                }*/
+                result
+                    .onSuccess {
+                        cartao.pergunta = pergunta
+                        cartao.resposta = resposta
+                        updateFilterCartaoList(_textoBusca.value?: "")
+                        onSuccess()
+                    }
+                    .onFailure { e->
+                        UtilsFoos.showToast(getApplication(), "Ocorreu algum erro na edição do cartão:: ${e}")
+                        Log.e("criar Pasta debug", "Ocorreu algum erro na criação da pasta:: ${e}")
+                    }
+            }
         }
         //getAllCartoes()
     }
@@ -183,14 +205,26 @@ class ListarCartaoVM(application: Application) : AndroidViewModel(application) {
         if(_cartaoList.value == null){
             _cartaoListSort.value = emptyList()
         }
-        else if(busca.isEmpty()){
-            _cartaoListSort.value = _cartaoList.value
-        }
-        else if(_opcoesDeBusca.value!!.filtrar == FiltroDeBuscaListarCartao.PERGUNTA){
-            _cartaoListSort.value = _cartaoList.value!!.filter{it.pergunta.contains(busca, ignoreCase = true)}
-        }
-        else{
-            _cartaoListSort.value = _cartaoList.value!!.filter{it.resposta.contains(busca, ignoreCase = true)}
+        else if (_opcoesDeBusca.value!!.filtrar == FiltroDeBuscaListarCartao.PERGUNTA) {
+            if(busca.isEmpty()){
+                _cartaoListSort.value = _cartaoList.value!!
+                    .sortedBy { it.pergunta } // Ordena pela pergunta
+            }
+            else{
+                _cartaoListSort.value = _cartaoList.value!!
+                    .filter { it.pergunta.contains(busca, ignoreCase = true) }
+                    .sortedBy { it.pergunta } // Ordena pela pergunta após filtrar
+            }
+        } else {
+            if(busca.isEmpty()){
+                _cartaoListSort.value = _cartaoList.value!!
+                    .sortedBy { it.resposta } // Ordena pela resposta
+            }
+            else{
+                _cartaoListSort.value = _cartaoList.value!!
+                    .filter { it.resposta.contains(busca, ignoreCase = true) }
+                    .sortedBy { it.resposta } // Ordena pela resposta após filtrar
+            }
         }
 
         // Garantindo que _cartaoListSort nunca seja nulo

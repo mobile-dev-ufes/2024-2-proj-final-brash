@@ -53,7 +53,6 @@ class CriarPastaFrDialog : DialogFragment() {
         }
         binding.HomeFrCriarPastaButtonCriar.setOnClickListener {
 
-            //TODO:: Fazer verificação de se eh nome único, se for pode confirmar, requisitar isso ao HomeVM
             val nome = binding.HomeFrCriarPastaInput.text.toString()
             homeVM.criarPasta(nome){
                 dismiss()

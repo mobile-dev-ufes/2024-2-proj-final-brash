@@ -64,21 +64,21 @@
                 android:id="@+id/DefinirSenhaAcButtonCancelar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/cancelar"
+                android:text="TESTANDO"
 
                 app:layout_constraintHorizontal_chainStyle="packed"
 
                 android:layout_marginEnd="16dp"
                 android:backgroundTint="@color/charcoal_gray"
 
-                app:layout_constraintEnd_toStartOf="@id/DefinirSenhaAcButtonCadastrar"
+                app:layout_constraintEnd_toStartOf="@id/DefinirSenhaAcButtonEnviar"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 >
             </Button>
 
             <Button
-                android:id="@+id/DefinirSenhaAcButtonCadastrar"
+                android:id="@+id/DefinirSenhaAcButtonEnviar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 

@@ -57,6 +57,9 @@ class HomeAC : AppCompatActivity(), AlertDialogFr.OnConfirmListener {
         binding.HomeAcShapeableImageViewIconePerfil.setOnClickListener{
             intentToPerfilActivity()
         }
+        binding.HomeAcImageViewConfiguracoes.setOnClickListener{
+            intentToConfiguracaoActivity()
+        }
     }
 
     private fun setObservers(){
@@ -79,7 +82,6 @@ class HomeAC : AppCompatActivity(), AlertDialogFr.OnConfirmListener {
             imagem?.let { binding.EditarPerfilAcImageViewCor5.setImageResource(it.drawableRes) }
         })
          */
-
     }
 
     private fun initResultadoBusca(){
@@ -104,13 +106,11 @@ class HomeAC : AppCompatActivity(), AlertDialogFr.OnConfirmListener {
 
         recyclerView.adapter = adapter
     }
-
     override fun onStop() {
         super.onStop()
         //binding.LoginAcTextViewErroEntrar.visibility = View.GONE // esconder o erro depois que sair da tela
         // não vai previsar por causa do finish
     }
-
     private fun intentToConfiguracaoActivity(){
         val intent = Intent(this, ConfiguracaoAC::class.java)
         startActivity(intent)

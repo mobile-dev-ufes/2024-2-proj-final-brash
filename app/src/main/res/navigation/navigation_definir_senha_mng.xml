@@ -30,9 +30,6 @@
             app:exitAnim="@android:anim/fade_out"
             app:popEnterAnim="@android:anim/fade_in"
             app:popExitAnim="@android:anim/fade_out" />
-        <argument
-            android:name="verificationCode"
-            app:argType="string" />
     </fragment>
     <fragment
         tools:layout="@layout/nuc_definir_senha_fr_nova_senha"

@@ -22,7 +22,7 @@ class BaralhoRepository {
     private val fireStoreDB = FirebaseFirestore.getInstance()
     private val fireBaseAuth = FirebaseAuth.getInstance()
 
-    suspend fun createDeck(deck: Baralho): Result<Unit> {
+    suspend fun createDeck(deck: Baralho): Result<String> {
         val currentUserEmail = fireBaseAuth.currentUser?.email
         if (currentUserEmail.isNullOrEmpty()) {
             return Result.failure(Throwable("Usuário não autenticado"))
@@ -46,7 +46,7 @@ class BaralhoRepository {
 
             documentRef.set(newDeck).await()
 
-            Result.success(Unit)
+            Result.success(generatedId)
         } catch (e: Exception) {
             Result.failure(e)
         }

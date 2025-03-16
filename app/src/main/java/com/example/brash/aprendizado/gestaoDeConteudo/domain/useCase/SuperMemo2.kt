@@ -2,22 +2,24 @@ package com.example.brash.aprendizado.gestaoDeConteudo.domain.useCase
 
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Cartao
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.CategoriaDoAprendizado
+import com.example.brash.aprendizado.gestaoDeConteudo.utils.NivelRevisao
 import java.time.LocalDateTime
 import kotlin.math.max
 import kotlin.math.roundToInt
 
 class SuperMemo2 {
+
     companion object{
 
-        fun reviewCard(card : Cartao, quality : Int) : Cartao{
+        fun reviewCard(card : Cartao, nivelRevisao: NivelRevisao) : Cartao{
 
-            val newEfactor = calculateNewEFactor(card.fatorDeRevisao, quality)
-            if(quality == 3){ // selecionou difícil, não muda nada no cartão, só efactor
+            val newEfactor = calculateNewEFactor(card.fatorDeRevisao, nivelRevisao.valor)
+            if(nivelRevisao == NivelRevisao.DIFICIL){ // selecionou difícil, não muda nada no cartão, só efactor
                 card.fatorDeRevisao = newEfactor
                 card.dataDeRevisao = LocalDateTime.now()
                 return card
             }
-            val newInterval = calculateNewInterval(card, newEfactor, quality)
+            val newInterval = calculateNewInterval(card, newEfactor, nivelRevisao.valor)
             val newReviewDate = LocalDateTime.now().plusDays(newInterval.toLong())
             val newCategory = defineNewCategory(newInterval, card.categoriaDoAprendizado)
 

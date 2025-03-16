@@ -30,7 +30,7 @@
 
     <androidx.fragment.app.FragmentContainerView
 
-        android:id="@+id/CadastrarContaActivityFragment"
+        android:id="@+id/DefinirSenhaAcvityFragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
         app:defaultNavHost="true"
         app:navGraph="@navigation/navigation_definir_senha_mng"

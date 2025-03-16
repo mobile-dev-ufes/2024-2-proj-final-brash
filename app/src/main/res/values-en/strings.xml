@@ -46,8 +46,10 @@
     <string name="nuc_msg_erro_email_ja_cadastrado">This email is currently in use!</string>
     <string name="nuc_msg_erro_nome_usuario_ja_cadastrado">This username is currently in use!</string>
     <string name="nuc_msg_erro_codigo_invalido">Wrong verification code!</string>
+    <string name="nuc_msg_erro_conta_nao_verificada">Please verify your account via email first!</string>
     <string name="nuc_enviar_codigo">Send</string>
     <string name="nuc_alterar_senha">new password</string>
+    <string name="nuc_email_alterar_senha">A reset link has been sent to your email</string>
 
     <string-array name="nuc_home_spinner_ordenar">
         <item>Alphanumeric Order</item>

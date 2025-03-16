@@ -19,7 +19,7 @@ class PastaRepository {
     private val fireStoreDB = FirebaseFirestore.getInstance()
     private val fireBaseAuth = FirebaseAuth.getInstance()
 
-    suspend fun createFolder(name : String): Result<Unit> {
+    suspend fun createFolder(pasta: Pasta): Result<String> {
         val currentUserEmail = fireBaseAuth.currentUser?.email
         if (currentUserEmail.isNullOrEmpty()) {
             return Result.failure(Throwable("Usuário não autenticado"))
@@ -35,11 +35,11 @@ class PastaRepository {
 
             val newFolder = hashMapOf(
                 "id" to generatedId,
-                "name" to name,
+                "name" to pasta.nome,
             )
             documentRef.set(newFolder).await()
 
-            Result.success(Unit)
+            Result.success(generatedId)
         } catch (e: Exception) {
             Result.failure(e)
         }
@@ -85,9 +85,20 @@ class PastaRepository {
         }
     }
 
-    suspend fun moveDeck(targetFolder : Pasta, sourceFolder : Pasta, deck : Baralho){
+    /*suspend fun moveDeck(targetFolder : Pasta, sourceFolder : Pasta, deck : Baralho): Result <String>{
+        return runCatching {
+            copyDeck(targetFolder, deck).onSuccess { id ->
+                BaralhoRepository().deleteDeck(deck).onSuccess {
+                    Result.success(id)
+                }.onFailure { e->
+                    Result.failure(e)
+                }
+            }.onFailure { e->
+                Result.failure(e)
+            }
+        }
 
-    }
+    }*/
 
     fun addDeck(folder : Pasta, deck : Baralho){
 
