@@ -301,18 +301,20 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
     fun criarPasta(nome : String, onSuccess: () -> Unit){
         //TODO:: apenas confirmar a criação se o nome for único para o usuário
 
-        viewModelScope.launch{
-            val result = pastaRepository.createFolder(nome)
-            result
-                .onSuccess {
-                    _homeAcListItemList.value = _homeAcListItemList.value?.plus(HomeAcListItem.HomeAcPastaItem(pasta = Pasta(nome)))
-                    sortHomeAcListItemList()
-                    onSuccess()
-                }
-                .onFailure {
-                    UtilsFoos.showToast(getApplication(), "Ocorreu algum erro na criação da pasta")
-                    Log.e("criar Pasta debug", "Ocorreu algum erro na criação da pasta")
-                }
+        if(processaInfoPasta(nome)){
+            viewModelScope.launch{
+                val result = pastaRepository.createFolder(nome)
+                result
+                    .onSuccess {
+                        _homeAcListItemList.value = _homeAcListItemList.value?.plus(HomeAcListItem.HomeAcPastaItem(pasta = Pasta(nome)))
+                        sortHomeAcListItemList()
+                        onSuccess()
+                    }
+                    .onFailure {
+                        UtilsFoos.showToast(getApplication(), "Ocorreu algum erro na criação da pasta")
+                        Log.e("criar Pasta debug", "Ocorreu algum erro na criação da pasta")
+                    }
+            }
         }
         // request para atualizar dados
         //getAllHomeAcListItem()
@@ -334,24 +336,25 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
         //TODO:: apenas requisitar se tiver ALGUMA informação diferente
         //TODO:: apenas confirmar a mudança do nome se for único para o usuário
         //TODO:: Se não conseguir alterar o nome ele altera o resto
-
-        viewModelScope.launch {
-
-            val result = pastaRepository.updateFolder(pasta, nome)
-            result
-                .onSuccess {
-                    onSuccess()
-                    pasta.nome = nome
-                    sortPastaList()
-                    sortHomeAcListItemList()
-                }
-                .onFailure {
-                    UtilsFoos.showToast(getApplication(), "Ocorreu algum erro na edição da pasta")
-                    Log.e("editar Pasta debug", "Ocorreu algum erro na edição da pasta")
-                }
-
+        if(processaInfoPasta(nome)){
+            viewModelScope.launch{
+                val result = pastaRepository.updateFolder(pasta, nome)
+                result
+                    .onSuccess {
+                        onSuccess()
+                        pasta.nome = nome
+                        sortPastaList()
+                        sortHomeAcListItemList()
+                    }
+                    .onFailure {
+                        UtilsFoos.showToast(
+                            getApplication(),
+                            "Ocorreu algum erro na edição da pasta"
+                        )
+                        Log.e("editar Pasta debug", "Ocorreu algum erro na edição da pasta")
+                    }
+            }
         }
-
         // request para atualizar dados
         //getAllHomeAcListItem()
     }

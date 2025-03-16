@@ -82,7 +82,7 @@ class AcoesBaralhoFrDialog() : DialogFragment() {
             homeVM.baralhoEmFoco.value?.let {
                 appVM.setBaralhoEmAC(it)
             } ?: run {
-                Toast.makeText(context, "Não foi possível carregar o baralho para revisão.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "REVISAOAC--->Não foi possível carregar o baralho para revisão.", Toast.LENGTH_SHORT).show()
             }
             intentToRevisaoCartaoActivity()
         }

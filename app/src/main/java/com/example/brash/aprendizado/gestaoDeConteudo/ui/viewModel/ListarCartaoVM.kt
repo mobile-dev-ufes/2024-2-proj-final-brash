@@ -7,6 +7,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.brash.R
 import com.example.brash.aprendizado.gestaoDeConteudo.data.repository.BaralhoRepository
 import com.example.brash.aprendizado.gestaoDeConteudo.data.repository.CartaoRepository
 import com.example.brash.aprendizado.gestaoDeConteudo.data.repository.PastaRepository
@@ -50,6 +51,10 @@ class ListarCartaoVM(application: Application) : AndroidViewModel(application) {
     }
     //private var _opcoesDeBusca = MutableLiveData<OpcoesDeBuscaBaralhoPublico>()
     //val opcoesDeBusca get() = _opcoesDeBusca
+
+    private fun getStringApplication(id : Int) : String{
+        return getApplication<Application>().getString(id)
+    }
 
     fun getAllCartoes() {
         //TODO:: requisitar do firebase
@@ -106,27 +111,41 @@ class ListarCartaoVM(application: Application) : AndroidViewModel(application) {
 
     fun criarCartao(pergunta: String, resposta: String, onSuccess : () -> Unit){
 
-        val cartao = Cartao(pergunta = pergunta, resposta = resposta)
-        viewModelScope.launch{
-            val result = cartaoRepository.createCard(_baralhoOwner.value!!, cartao )
-            result
-                .onSuccess {
-                    if(_cartaoList.value == null){
-                        _cartaoList.value = listOf(cartao)
-                    }
-                    else{
-                        _cartaoList.value = _cartaoList.value!!.plus(cartao)
-                    }
+        if(processaInfoCartao(pergunta, resposta)) {
+            val cartao = Cartao(pergunta = pergunta, resposta = resposta)
+            viewModelScope.launch {
+                val result = cartaoRepository.createCard(_baralhoOwner.value!!, cartao)
+                result
+                    .onSuccess {
+                        if (_cartaoList.value == null) {
+                            _cartaoList.value = listOf(cartao)
+                        } else {
+                            _cartaoList.value = _cartaoList.value!!.plus(cartao)
+                        }
 
-                    updateFilterCartaoList(_textoBusca.value?: "")
-                    onSuccess()
-                }
-                .onFailure {
-                    UtilsFoos.showToast(getApplication(), "Ocorreu algum erro na criação da pasta")
-                    Log.e("criar Pasta debug", "Ocorreu algum erro na criação da pasta")
-                }
+                        updateFilterCartaoList(_textoBusca.value ?: "")
+                        onSuccess()
+                    }
+                    .onFailure {
+                        UtilsFoos.showToast(
+                            getApplication(),
+                            "Ocorreu algum erro na criação da pasta"
+                        )
+                        Log.e("criar Pasta debug", "Ocorreu algum erro na criação da pasta")
+                    }
+            }
         }
         //getAllCartoes()
+    }
+    private fun processaInfoCartao(pergunta: String, resposta: String) : Boolean{
+
+        if(pergunta.isEmpty() || resposta.isEmpty()){
+            UtilsFoos.showToast(getApplication(), getStringApplication(R.string.nuc_preencha_todos_campos))
+            return false
+        }else if(false){ // verificacao de nome único
+            return false
+        }
+        return true
     }
     fun editarCartao(cartao: Cartao,pergunta: String, resposta: String, onSuccess : () -> Unit){
         //TODO:: Fazer a edição de cartão do firebase também
