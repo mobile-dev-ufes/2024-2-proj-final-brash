@@ -26,7 +26,9 @@ import com.example.brash.databinding.GtcRevisaoFrFinalBinding
 import com.example.brash.databinding.GtcRevisaoFrInicioBinding
 import com.example.brash.databinding.NucCadastrarFrExitoBinding
 import com.example.brash.nucleo.utils.UtilsFoos
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 
 class RevisaoFrInicio : Fragment(R.layout.gtc_revisao_fr_inicio) {
 
@@ -58,6 +60,17 @@ class RevisaoFrInicio : Fragment(R.layout.gtc_revisao_fr_inicio) {
 
     private fun setOnClickListeners(){
 
+        binding.RevisaoCartaoAcButtonIniciarRevisao.setOnClickListener {
+
+            lifecycleScope.launch {
+                val result = FirebaseAuth.getInstance().currentUser?.sendEmailVerification()?.await()
+            }
+
+        }
+
+    }
+
+    private fun aux(){
         binding.RevisaoCartaoAcButtonIniciarRevisao.setOnClickListener {
 
             val pastaRepository = PastaRepository()
@@ -92,15 +105,8 @@ class RevisaoFrInicio : Fragment(R.layout.gtc_revisao_fr_inicio) {
                     .onFailure {
                         Log.e("teste no revisao inicio", "algo deu errado")
                     }
-
-
             }
-
-
-            //Log.e("debug get pastas", "$pastasTudo")
-            //findNavController().navigate(R.id.action_revisaoFrInicio_to_revisaoFrCartao)
         }
-
     }
 
     override fun onDestroyView() {
