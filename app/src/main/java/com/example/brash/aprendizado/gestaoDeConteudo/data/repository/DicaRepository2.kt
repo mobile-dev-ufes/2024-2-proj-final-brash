@@ -11,7 +11,6 @@ class DicaRepository2 {
     private val fireStoreDB = FirebaseFirestore.getInstance()
     private val fireBaseAuth = FirebaseAuth.getInstance()
 
-
     suspend fun createHint2(card : Cartao, hint : Dica) : Result<String>{
         val currentUserEmail = fireBaseAuth.currentUser?.email
             ?: return Result.failure(Throwable("Usuário não autenticado"))
@@ -28,6 +27,29 @@ class DicaRepository2 {
             )
             newHintRef.set(newHintInfo).await()
             newHintId
+        }
+    }
+
+    suspend fun deleteHint2(hint : Dica) : Result<Unit>{
+        val currentUserEmail = fireBaseAuth.currentUser?.email
+            ?: return Result.failure(Throwable("Usuário não autenticado"))
+        return runCatching {
+            val hintsRef = fireStoreDB.collection("hints")
+            val hintRef = hintsRef.document(hint.idDica)
+            hintRef.delete().await()
+        }
+    }
+
+    suspend fun updateHint2(hint : Dica, text : String) : Result<Unit>{
+        val currentUserEmail = fireBaseAuth.currentUser?.email
+            ?: return Result.failure(Throwable("Usuário não autenticado"))
+        return runCatching {
+            val hintsRef = fireStoreDB.collection("hints")
+            val hintRef = hintsRef.document(hint.idDica)
+            val hintUpdateInfo = mapOf(
+                "text" to text
+            )
+            hintRef.update(hintUpdateInfo).await()
         }
     }
 
