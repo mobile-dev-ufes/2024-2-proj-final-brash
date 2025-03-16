@@ -45,7 +45,7 @@ class AcoesPastaFrDialog() : DialogFragment() {
 
         binding.HomeFrAcoesPastaTextViewRenomearPasta.setOnClickListener {
             dismiss()
-            Toast.makeText(requireContext(), "Renomear Pasta", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(requireContext(), "Renomear Pasta", Toast.LENGTH_SHORT).show()
             RenomearPastaFrDialog().show(parentFragmentManager, "RenomearPastaDialog")
         }
         binding.HomeFrAcoesPastaTextViewExcluirPasta.setOnClickListener {
@@ -56,7 +56,7 @@ class AcoesPastaFrDialog() : DialogFragment() {
                         dismiss()
                     }
                 } ?: run {
-                    Toast.makeText(context, "Nenhuma pasta selecionada", Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(context, "Nenhuma pasta selecionada", Toast.LENGTH_SHORT).show()
                     dismiss()
                 }
             })

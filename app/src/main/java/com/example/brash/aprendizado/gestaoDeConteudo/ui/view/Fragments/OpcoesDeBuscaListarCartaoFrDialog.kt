@@ -75,7 +75,7 @@ class OpcoesDeBuscaListarCartaoFrDialog: DialogFragment() {
 
         binding.HomeFrOpcoesDeBuscaButtonCancelar.setOnClickListener {
             dismiss()
-            Toast.makeText(requireContext(), "Cancelar Configurações de Busca", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(requireContext(), "Cancelar Configurações de Busca", Toast.LENGTH_SHORT).show()
         }
 
         binding.HomeFrOpcoesDeBuscaButtonAplicar.setOnClickListener {
@@ -83,7 +83,7 @@ class OpcoesDeBuscaListarCartaoFrDialog: DialogFragment() {
                 binding.ListarCartaoFrOpcoesDeBuscaSpinnerFiltrar.selectedItemPosition.toFiltroDeBuscaListarCartao()
             )
             dismiss()
-            Toast.makeText(requireContext(), "Aplicar Configurações de Busca", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(requireContext(), "Aplicar Configurações de Busca", Toast.LENGTH_SHORT).show()
         }
     }
 

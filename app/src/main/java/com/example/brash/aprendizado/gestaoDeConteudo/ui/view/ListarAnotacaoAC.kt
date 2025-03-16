@@ -86,12 +86,7 @@ class ListarAnotacaoAC : AppCompatActivity() {
             //binding.LoginAcTextViewErroEntrar.visibility = View.VISIBLE
         //})
         listarAnotacaoVM.anotacaoList.observe(this, Observer { anotacaoList ->
-            if (anotacaoList != null && anotacaoList.isNotEmpty()) {
-                adapter.updateAnotacaoList(anotacaoList)
-                Log.d("ListaBaralhoPublico", "Lista atualizada com sucesso.")
-            } else {
-                Log.d("ListaBaralhoPublico", "A lista de baralhos públicos está vazia.")
-            }
+            adapter.updateAnotacaoList(anotacaoList)
         })
     }
     private fun intentToCadastrarContaActivity(){

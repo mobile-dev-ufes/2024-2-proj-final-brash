@@ -190,4 +190,27 @@
         >
     </Button>
 
+    <Button
+        android:id="@+id/RevisaoCartaoAcButtonIniciarRevisaoTotal"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/iniciar_revisao_total"
+
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+
+        android:backgroundTint="@color/medium_gray"
+        android:textSize="16sp"
+        android:textColor="@color/white"
+        app:cornerRadius="8dp"
+
+        app:layout_constraintTop_toBottomOf="@id/RevisaoCartaoAcButtonIniciarRevisao"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+
+        >
+    </Button>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

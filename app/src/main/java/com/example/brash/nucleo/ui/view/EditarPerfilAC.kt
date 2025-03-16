@@ -36,9 +36,9 @@ class EditarPerfilAC : AppCompatActivity() {
 
     private fun initView(){
         appVM.usuarioLogado.value?.let { usuario ->
-            perfilVM.setImagemEmFoco(usuario.iconeDeUsuario.imagemPath)
+            perfilVM.setImagemEmFoco(usuario.iconeDeUsuario.imagem)
             perfilVM.setCorEmFoco(usuario.iconeDeUsuario.cor)
-            binding.EditarPerfilAcShapeableImageViewIconePerfil.setImageResource(usuario.iconeDeUsuario.imagemPath.drawableRes)
+            binding.EditarPerfilAcShapeableImageViewIconePerfil.setImageResource(usuario.iconeDeUsuario.imagem.drawableRes)
             binding.EditarPerfilAcShapeableImageViewIconePerfil.setBackgroundResource(usuario.iconeDeUsuario.cor.colorRes)
             binding.EditarPerfilInputNomeDeExibicao.setText(usuario.nomeDeExibicao)
             binding.EditarPerfilInputNomeDeUsuario.setText(usuario.nomeDeUsuario)
@@ -52,15 +52,14 @@ class EditarPerfilAC : AppCompatActivity() {
             finish()
         }
         binding.EditarPerfilButtonConfirmar.setOnClickListener{
-            // TODO:: Obter todas as informações
 
-            appVM.updateUsuarioLogado(
-                Usuario(nomeDeUsuario = binding.EditarPerfilInputNomeDeUsuario.text.toString(),
-                        nomeDeExibicao = binding.EditarPerfilInputNomeDeExibicao.text.toString(),
-                        iconeDeUsuario = IconeDeUsuario(imagemPath = perfilVM.imagemEmFoco.value!!, cor = perfilVM.corEmFoco.value!!)
-                )
-            )
-            finish()
+            appVM.updateUsuarioLogado( binding.EditarPerfilInputNomeDeUsuario.text.toString(),
+                binding.EditarPerfilInputNomeDeExibicao.text.toString(),
+                perfilVM.corEmFoco.value!!,
+                perfilVM.imagemEmFoco.value!! ){
+                finish()
+            }
+
 
         }
         binding.EditarPerfilAcImageViewIcone1.setOnClickListener{
@@ -122,7 +121,7 @@ class EditarPerfilAC : AppCompatActivity() {
             }
         })
         appVM.usuarioLogado.observe(this, Observer{
-            binding.EditarPerfilAcShapeableImageViewIconePerfil.setImageResource(it.iconeDeUsuario.imagemPath.drawableRes)
+            binding.EditarPerfilAcShapeableImageViewIconePerfil.setImageResource(it.iconeDeUsuario.imagem.drawableRes)
             binding.EditarPerfilAcShapeableImageViewIconePerfil.setBackgroundResource(it.iconeDeUsuario.cor.colorRes)
         })
     }

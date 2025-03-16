@@ -6,7 +6,7 @@ import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.listener.OnPastaLi
 import com.example.brash.aprendizado.gestaoDeConteudo.utils.getColorSetMoverBaralho
 import com.example.brash.databinding.GtcItemPastaComIconeBinding
 
-class ListaPastaVH (private val binding: GtcItemPastaComIconeBinding, private val listener: OnPastaListener) : RecyclerView.ViewHolder(binding.root) {
+class ListaPastaVH (val binding: GtcItemPastaComIconeBinding, private val listener: OnPastaListener) : RecyclerView.ViewHolder(binding.root) {
 
 
     fun bindVH(pasta: Pasta){

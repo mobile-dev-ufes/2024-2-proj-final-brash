@@ -76,7 +76,7 @@ class AcoesDicaFrDialog() : DialogFragment() {
                         dismiss()
                     }
                 } ?: run {
-                    Toast.makeText(context, "Nenhuma Dica selecionada", Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(context, "Nenhuma Dica selecionada", Toast.LENGTH_SHORT).show()
                     dismiss()
                 }
             })

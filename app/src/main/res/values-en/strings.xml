@@ -18,18 +18,18 @@
     <!-- -->
     <!-- -->
     <!-- -->
-    <string name="nuc_name">Núcleo</string>
+    <string name="nuc_name">Core</string>
     <string name="nuc_entrar">Log in</string>
     <string name="nuc_criar_usuario">Create user</string>
     <string name="nuc_esqueceu_senha">Forgot password?</string>
     <string name="nuc_cadastrar_titulo">Register</string>
     <string name="nuc_msg_default_erro_login">Incorrect username and/or password, please try again.</string>
-    <string name="nuc_nome_de_usuario">User name</string>
-    <string name="nuc_nome_de_exibicao">Exhibition Name</string>
+    <string name="nuc_nome_de_usuario">Username</string>
+    <string name="nuc_nome_de_exibicao">Display Name</string>
     <string name="nuc_email">Email</string>
     <string name="nuc_senha">Password</string>
-    <string name="nuc_criar_conta">Criar Conta</string>
-    <string name="nuc_msg_default_erro_cadastro">The user name or email is already used.</string>
+    <string name="nuc_criar_conta">Create Account</string>
+    <string name="nuc_msg_default_erro_cadastro">The username or email is already used.</string>
     <string name="nuc_mesagem_confirmacao_envio_email">A verification code was sent to your email</string>
     <string name="nuc_codigo">Verification code</string>
     <string name="nuc_msg_confirmacao_criacao_conta_default">Your account was successfully created, go and log in.</string>
@@ -38,7 +38,7 @@
     <string name="nuc_digite_email_valido">Type a valid email!</string>
     <string name="nuc_msg_erro_envio_email">An error happened trying to send the code to the email.</string>
     <string name="nuc_msg_erro_usuario_nao_existe">This user doesn\'t exist.</string>
-    <string name="nuc_msg_erro_usario_ou_senha_incorretos">Wrong user or password.</string>
+    <string name="nuc_msg_erro_usario_ou_senha_incorretos">Wrong email or password.</string>
     <string name="nuc_msg_erro_falha_conectar_internet">It was not possible to connect to the internet.</string>
     <string name="nuc_msg_erro_login_default">An error has occurred logging in. Please try again.</string>
     <string name="nuc_msg_erro_acesso_banco_dados">It was not possible to access the data base, try again later.</string>
@@ -69,7 +69,7 @@
     <!-- -->
     <!-- -->
     <!-- -->
-    <string name="gtc_name">Gestão de conteúdo</string>
+    <string name="gtc_name">Content Management</string>
     <string name="gtc_criar_baralho">Create Deck</string>
     <string name="gtc_criar_pasta">Create Folder</string>
     <string name="gtc_procurar_baralhos_publicos">Search for Public Decks</string>
@@ -86,7 +86,7 @@
     <!-- -->
     <!-- -->
     <!-- -->
-    <string name="gtaa_name">Gestão de auxílio de aprendizado</string>
+    <string name="gtaa_name">Learning Aid Management</string>
     <string name="gtc_perfil">Profile</string>
     <string name="gtc_pesquisar_usuarios">Search for Users</string>
     <string name="search_bar_hint"> Search </string>
@@ -163,9 +163,13 @@
     <string name="gtaa_competicao">Competition</string>
     <string name="gtc_novo_nome_do_baralho">New Deck Name</string>
     <string name="gtc_confirmar_nome">Confirm Name</string>
+    <string name="mostrar_dicas">Show Hints</string>
+    <string name="iniciar_revisao_total">Start Full Review</string>
 
     <string-array name="nuc_listar_cartao_spinner_filtrar">
         <item>Question</item>
         <item>Answer</item>
     </string-array>
+
+
 </resources>

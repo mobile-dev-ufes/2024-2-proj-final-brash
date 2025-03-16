@@ -54,9 +54,9 @@ class CriarPastaFrDialog : DialogFragment() {
         binding.HomeFrCriarPastaButtonCriar.setOnClickListener {
 
             val nome = binding.HomeFrCriarPastaInput.text.toString()
-            homeVM.criarPasta(nome){
+            homeVM.criarPasta(nome, {
                 dismiss()
-            }
+            })
         }
 
     }

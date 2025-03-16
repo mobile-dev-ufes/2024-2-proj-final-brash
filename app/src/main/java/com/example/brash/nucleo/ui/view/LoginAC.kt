@@ -15,6 +15,9 @@ import com.example.brash.nucleo.data.remoto.services.impl.AccountServiceImpl
 import com.example.brash.nucleo.ui.viewModel.LoginVM
 import com.example.brash.nucleo.ui.viewModel.viewModelFactory
 import com.example.brash.nucleo.utils.UtilsFoos
+import com.example.brash.nucleo.utils.getSavedLanguage
+import com.example.brash.nucleo.utils.saveLanguagePreference
+import com.example.brash.nucleo.utils.setAppLocale
 import com.example.brash.utilsGeral.MyApplication
 
 class LoginAC : AppCompatActivity(), View.OnClickListener {
@@ -24,6 +27,9 @@ class LoginAC : AppCompatActivity(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val language = getSavedLanguage(this)
+        setAppLocale(this, language)
 
         loginVM = ViewModelProvider(this, viewModelFactory {
             LoginVM(application, MyApplication.appModule.accountService)
@@ -88,12 +94,12 @@ class LoginAC : AppCompatActivity(), View.OnClickListener {
             }
 
             R.id.LoginAcRadioButtonIdiomaPt -> {
-                UtilsFoos.changeLanguage(this, "pt")
+                saveLanguagePreference(this, "pt")
                 restartToLoginAc()
             }
 
             R.id.LoginAcRadioButtonIdiomaEn -> {
-                UtilsFoos.changeLanguage(this, "en")
+                saveLanguagePreference(this, "en")
                 restartToLoginAc()
             }
         }

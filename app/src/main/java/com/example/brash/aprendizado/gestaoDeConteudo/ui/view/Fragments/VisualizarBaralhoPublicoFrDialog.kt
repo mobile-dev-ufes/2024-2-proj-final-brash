@@ -56,7 +56,7 @@ class VisualizarBaralhoPublicoFrDialog() : DialogFragment() {
             //binding.HomeFrVisualizarBaralhoInputCartoesNovos.setText(String.format(it.cartoesNovosPorDia.toString()))
         } ?: run {
             // Se o valor for null, exibe uma mensagem de erro
-            Toast.makeText(requireContext(), "Erro: Baralho não encontrado em VisualizarBaralhoHome!", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(requireContext(), "Erro: Baralho não encontrado em VisualizarBaralhoHome!", Toast.LENGTH_SHORT).show()
         }
         // Configurar os observadores para LiveData
         setObservers()

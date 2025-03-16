@@ -158,7 +158,8 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
     }
 
     private fun sortPastaList(){
-        _pastaList.value = _pastaList.value?.sortedBy { it.nome }
+        _pastaList.value = _pastaList.value?.sortedWith(compareBy<Pasta> { it.idPasta != "root" }.thenBy { it.nome })
+
     }
     private fun sortHomeAcListItemList(){
         _homeAcListItemList.value = _homeAcListItemList.value?.sortedWith(
@@ -201,8 +202,6 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
     }
 
     fun criarBaralho(nome : String, descricao : String, onSuccess : () -> Unit){
-        //TODO:: apenas confirmar a criação se o nome for único para o usuário
-
         if(processaInforBaralho(nome, descricao)){
 
             viewModelScope.launch {
@@ -233,19 +232,28 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
 
             UtilsFoos.showToast(getApplication(), getStringApplication(R.string.nuc_preencha_todos_campos))
             return false
-        }else if(false){
-
+        }else if(!verificaBaralhoNomeUnico(name)){
+            UtilsFoos.showToast(getApplication(), "Digite um nome único para o baralho")
             return false
         }
 
         return true
     }
 
+    private fun verificaBaralhoNomeUnico(name : String): Boolean{
+
+        for (pasta in _pastaList.value.orEmpty()) {  // Usando orEmpty() para garantir que seja uma lista não-nula
+            for (baralho in pasta.baralhos) {  // Usando orEmpty() para evitar NPE
+                if (baralho.nome == name) {
+                    return false  // Retorna false caso o nome do baralho seja encontrado
+                }
+            }
+        }
+        return true  // Retorna true caso o nome do baralho não seja encontrado em nenhuma pasta
+
+    }
+
     fun editarBaralho(baralho: Baralho, nome : String, descricao : String, numberNewCardsPerDay: Int, public: Boolean, onSuccess : () -> Unit){
-        //TODO:: Fazer a edição de baralho do firebase também
-        //TODO:: apenas requisitar se tiver ALGUMA informação diferente
-        //TODO:: apenas confirmar a mudança do nome se for único para o usuário, o restante pode sempre atualizar
-        //TODO:: Se não conseguir alterar o nome ele altera o resto
         if(numberNewCardsPerDay <= 0){
             UtilsFoos.showToast(getApplication(), getStringApplication(R.string.nuc_preencha_todos_campos))
         }
@@ -283,7 +291,7 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
                         removeAll {
                             (it as? HomeAcListItem.HomeAcBaralhoItem)?.baralho == baralho
                         }
-                    }
+                    }?: emptyList()
                     val pastaDona = baralho.pasta
                     pastaDona?.baralhos?.remove(baralho)
                     onSuccess()
@@ -296,9 +304,10 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun moverBaralho(pasta: Pasta, baralho: Baralho, onSuccess: () -> Unit){
+    fun moverBaralho(pastaDestino: Pasta, baralho: Baralho, onSuccess: () -> Unit){
+        UtilsFoos.showToast(getApplication(), "Movendo --${baralho.nome}-- da pasta -- ${baralho.pasta?.nome} -- para pasta --${pastaDestino.nome}--")
         viewModelScope.launch{
-            val resultCopy = pastaRepository.copyDeck(pasta, baralho)
+            val resultCopy = pastaRepository.copyDeck(pastaDestino, baralho)
             resultCopy
                 .onSuccess {id ->
                     val resultDelete = baralhoRepository.deleteDeck(baralho)
@@ -306,21 +315,19 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
 
                         getAllHomeAcListItem()
                         onSuccess()
-                        Log.e("criarPastadebug", "Sexo")
+                        Log.e("homeVM", "Copia e delete sucedidos\n\"Movendo --${baralho.nome}-- da pasta -- ${baralho.pasta?.nome} -- para pasta --${pastaDestino.nome}--\"")
                     }.onFailure { eDelete->
-                        Log.e("criarPastadebug", "Ocorreu algum erro na criação da pasta:: ${eDelete}")
+                        Log.e("homeVM", "Ocorreu algum erro na exclusão do baralho:: ${eDelete}\n\"Movendo --${baralho.nome}-- da pasta -- ${baralho.pasta?.nome} -- para pasta --${pastaDestino.nome}--\"")
                     }
                 }
                 .onFailure { eCopy->
-                    UtilsFoos.showToast(getApplication(), "Ocorreu algum erro na criação da pasta")
-                    Log.e("criarPastadebug", "Ocorreu algum erro na criação da pasta:: ${eCopy}")
+                    UtilsFoos.showToast(getApplication(), "Ocorreu algum erro na cópia do baralho")
+                    Log.e("homeVM", "Ocorreu algum erro na cópia do baralho:: ${eCopy}\n\"Movendo --${baralho.nome}-- da pasta -- ${baralho.pasta?.nome} -- para pasta --${pastaDestino.nome}--\"")
                 }
         }
     }
 
     fun criarPasta(nome : String, onSuccess: () -> Unit){
-        //TODO:: apenas confirmar a criação se o nome for único para o usuário
-
         if(processaInfoPasta(nome)){
             val pasta = Pasta(nome= nome)
             viewModelScope.launch{
@@ -347,17 +354,24 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
         if(nome.isEmpty()){
             UtilsFoos.showToast(getApplication(), getStringApplication(R.string.nuc_preencha_todos_campos))
             return false
-        }else if(false){ // verificacao de nome único
+        }else if(!verificaPastaNomeUnico(nome)){ // verificacao de nome único
+            UtilsFoos.showToast(getApplication(), "Digite um nome único para a pasta")
             return false
         }
         return true
     }
 
+    private fun verificaPastaNomeUnico(name : String): Boolean{
+
+        for(pasta in _pastaList.value!!){
+            if(pasta.nome == name){
+                return false
+            }
+        }
+        return true
+    }
+
     fun editarPasta(pasta: Pasta, nome : String, onSuccess : () -> Unit){
-        //TODO:: Fazer a edição de pasta do firebase também
-        //TODO:: apenas requisitar se tiver ALGUMA informação diferente
-        //TODO:: apenas confirmar a mudança do nome se for único para o usuário
-        //TODO:: Se não conseguir alterar o nome ele altera o resto
         if(processaInfoPasta(nome)){
             viewModelScope.launch{
                 val result = pastaRepository.updateFolder(pasta, nome)
@@ -391,12 +405,12 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
                             removeAll {
                                 (it as? HomeAcListItem.HomeAcPastaItem)?.pasta == pasta
                             }
-                        }
+                        }?: emptyList()
                         _pastaList.value = _pastaList.value?.toMutableList()?.apply {
                             removeAll {
                                 it  == pasta
                             }
-                        }
+                        }?: emptyList()
                         onSuccess()
                         sortHomeAcListItemList()
                     }

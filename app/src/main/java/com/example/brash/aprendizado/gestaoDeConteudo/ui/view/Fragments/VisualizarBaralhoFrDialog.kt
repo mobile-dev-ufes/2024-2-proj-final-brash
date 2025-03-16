@@ -49,7 +49,7 @@ class VisualizarBaralhoFrDialog() : DialogFragment() {
             binding.HomeFrVisualizarBaralhoInputCartoesNovos.setText(String.format(it.cartoesNovosPorDia.toString()))
         } ?: run {
             // Se o valor for null, exibe uma mensagem de erro
-            Toast.makeText(requireContext(), "Erro: Baralho não encontrado em VisualizarBaralhoHome!", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(requireContext(), "Erro: Baralho não encontrado em VisualizarBaralhoHome!", Toast.LENGTH_SHORT).show()
         }
         //binding.HomeFrVisualizarBaralhoInputDescricao.setText("123456789A123456789B123456789A123456789B123456789A123456789B123456789A123456789B123456789A123456789B123456789A123456789B")
 
@@ -83,10 +83,10 @@ class VisualizarBaralhoFrDialog() : DialogFragment() {
             homeVM.baralhoEmFoco.value?.let { baralho ->
                 homeVM.editarBaralho(baralho, deckName, deckDescription, deckCardsPerDay, deckPublic) {
                     dismiss()
-                    Toast.makeText(requireContext(), "Baralho Editado", Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(requireContext(), "Baralho Editado", Toast.LENGTH_SHORT).show()
                 }
             } ?: run {
-                Toast.makeText(requireContext(), "Nenhum baralho selecionado", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(requireContext(), "Nenhum baralho selecionado", Toast.LENGTH_SHORT).show()
                 dismiss()
             }
         }

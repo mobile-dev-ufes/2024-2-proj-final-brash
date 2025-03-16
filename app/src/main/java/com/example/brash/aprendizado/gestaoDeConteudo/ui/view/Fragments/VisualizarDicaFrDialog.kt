@@ -59,7 +59,7 @@ class VisualizarDicaFrDialog() : DialogFragment() {
             //binding.HomeFrVisualizarBaralhoInputCartoesNovos.setText(String.format(it.cartoesNovosPorDia.toString()))
         } ?: run {
             // Se o valor for null, exibe uma mensagem de erro
-            Toast.makeText(requireContext(), "Erro: Dica não encontrado em VisualizarDica!", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(requireContext(), "Erro: Dica não encontrado em VisualizarDica!", Toast.LENGTH_SHORT).show()
         }
         // Configurar os observadores para LiveData
         setObservers()
@@ -86,10 +86,10 @@ class VisualizarDicaFrDialog() : DialogFragment() {
             listarDicaVM.dicaEmFoco.value?.let { cartao ->
                 listarDicaVM.editarDica(cartao, hintText) {
                     dismiss()
-                    Toast.makeText(requireContext(), "Dica Editada", Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(requireContext(), "Dica Editada", Toast.LENGTH_SHORT).show()
                 }
             } ?: run {
-                Toast.makeText(requireContext(), "Nenhum Dica selecionado", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(requireContext(), "Nenhum Dica selecionado", Toast.LENGTH_SHORT).show()
                 dismiss()
             }
         }

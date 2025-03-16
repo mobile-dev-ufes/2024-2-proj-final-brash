@@ -63,7 +63,7 @@ class AcoesBaralhoFrDialog() : DialogFragment() {
             homeVM.baralhoEmFoco.value?.let {
                 appVM.setBaralhoEmAC(it)
             } ?: run {
-                Toast.makeText(context, "Não foi possível carregar o baralho para cartão.", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(context, "Não foi possível carregar o baralho para cartão.", Toast.LENGTH_SHORT).show()
             }
             intentToListarCartaoActivity()
             //Toast.makeText(requireContext(), "Visualizar Cartões", Toast.LENGTH_SHORT).show()
@@ -73,7 +73,7 @@ class AcoesBaralhoFrDialog() : DialogFragment() {
             homeVM.baralhoEmFoco.value?.let {
                 appVM.setBaralhoEmAC(it)
             } ?: run {
-                Toast.makeText(context, "Não foi possível carregar o baralho para anotação.", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(context, "Não foi possível carregar o baralho para anotação.", Toast.LENGTH_SHORT).show()
             }
             intentToListarAnotacaoActivity()
         }
@@ -82,7 +82,7 @@ class AcoesBaralhoFrDialog() : DialogFragment() {
             homeVM.baralhoEmFoco.value?.let {
                 appVM.setBaralhoEmAC(it)
             } ?: run {
-                Toast.makeText(context, "REVISAOAC--->Não foi possível carregar o baralho para revisão.", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(context, "REVISAOAC--->Não foi possível carregar o baralho para revisão.", Toast.LENGTH_SHORT).show()
             }
             intentToRevisaoCartaoActivity()
         }
@@ -101,7 +101,7 @@ class AcoesBaralhoFrDialog() : DialogFragment() {
                         dismiss()
                     }
                 } ?: run {
-                    Toast.makeText(context, "Nenhum Baralho selecionada", Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(context, "Nenhum Baralho selecionada", Toast.LENGTH_SHORT).show()
                     dismiss()
                 }
             })

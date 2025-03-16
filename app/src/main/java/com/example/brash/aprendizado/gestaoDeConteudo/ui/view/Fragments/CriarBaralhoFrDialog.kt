@@ -55,9 +55,9 @@ class CriarBaralhoFrDialog : DialogFragment() {
             //TODO:: Fazer verificação de se eh nome único, se for pode confirmar, requisitar isso ao HomeVM
             val deckName = binding.HomeFrCriarBaralhoInputTitulo.text.toString()
             val deckDescription = binding.HomeFrCriarBaralhoInputDescricao.text.toString()
-            homeVM.criarBaralho(deckName, deckDescription) {
+            homeVM.criarBaralho(deckName, deckDescription, {
                 dismiss()
-            }
+            })
         }
     }
 

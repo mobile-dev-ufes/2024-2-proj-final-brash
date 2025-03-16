@@ -11,10 +11,10 @@ import com.google.firebase.auth.FirebaseAuthInvalidUserException
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
-import com.example.brash.nucleo.utils.MyPreferences
 import kotlin.math.sign
 
 import android.util.Log
+import com.example.brash.nucleo.data.repository.UsuarioRepository
 import com.example.brash.nucleo.domain.model.IconeDeUsuario
 import com.example.brash.nucleo.domain.model.Usuario
 import com.example.brash.nucleo.utils.IconeCor
@@ -39,12 +39,12 @@ class PerfilVM(application: Application) : AndroidViewModel(application) {
     val imagemEmFoco get() = _imagemEmFoco
     //private var _opcoesDeBusca = MutableLiveData<OpcoesDeBuscaBaralhoPublico>()
     //val opcoesDeBusca get() = _opcoesDeBusca
+    val usuarioRepository = UsuarioRepository()
 
     fun getIconeUsuarioLogado() {
-
-        _iconeEmFoco.value = IconeDeUsuario(imagemPath = IconeImagem.PADRAO, cor = IconeCor.DEEP_PURPLE )
+        _iconeEmFoco.value = IconeDeUsuario(imagem = IconeImagem.PADRAO, cor = IconeCor.DEEP_PURPLE )
         _corEmFoco.value = _iconeEmFoco.value!!.cor
-        _imagemEmFoco.value = _iconeEmFoco.value!!.imagemPath
+        _imagemEmFoco.value = _iconeEmFoco.value!!.imagem
         Log.d("ListaPastaAdapter", "DEFINIÇÃO DAS PASTAS")
     }
 
@@ -73,7 +73,6 @@ class PerfilVM(application: Application) : AndroidViewModel(application) {
     }*/
 
     fun editarUsuario(usuario: Usuario){
-
     }
 
 }

@@ -101,6 +101,10 @@ class DefinirSenhaVM(
 //            }
     }
 
+    fun currentUserEmail(): String?{
+        return accountService.getUserEmail()
+    }
+
     fun clearNewPasswordMessageError(){
         _newPasswordMessageError.value = ""
     }

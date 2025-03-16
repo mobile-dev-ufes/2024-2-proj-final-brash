@@ -42,7 +42,7 @@ class ImportarBaralhoPublicoFrDialog() : DialogFragment() {
             binding.ListarBaralhoPublicoFrImportarBaralhoTextViewNomeOriginal.text = it.nome
         } ?: run {
             // Se o valor for null, exibe uma mensagem de erro
-            Toast.makeText(requireContext(), "Erro: Baralho não encontrado em VisualizarBaralhoHome!", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(requireContext(), "Erro: Baralho não encontrado em VisualizarBaralhoHome!", Toast.LENGTH_SHORT).show()
         }
         // Configurar os observadores para LiveData
         setObservers()
@@ -69,11 +69,11 @@ class ImportarBaralhoPublicoFrDialog() : DialogFragment() {
             listarBaralhoPublicoVM.baralhoPublicoEmFoco.value?.let { it1 ->
                 val novoNome = binding.ListarBaralhoPublicoFrImportarBaralhoInputNovoNome.text.toString()
                 listarBaralhoPublicoVM.importarBaralhoPublico(it1, novoNome) {
-                    Toast.makeText(requireContext(), "Baralho público importado", Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(requireContext(), "Baralho público importado", Toast.LENGTH_SHORT).show()
                     dismiss()
                 }
             } ?: run {
-                Toast.makeText(requireContext(), "Nenhum baralho selecionado", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(requireContext(), "Nenhum baralho selecionado", Toast.LENGTH_SHORT).show()
                 dismiss()
             }
         }

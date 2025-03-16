@@ -55,9 +55,9 @@ class MoverBaralhoFrDialog() : DialogFragment() {
         adapter = ListaPastaAdapter(homeVM.baralhoEmFoco.value?.pasta)
 
 
-        if(homeVM.baralhoEmFoco.value?.pasta == null){
-            setBackgroundLayoutRaiz()
-        }
+        //if(homeVM.baralhoEmFoco.value?.pasta == null){
+            //setBackgroundLayoutRaiz()
+        //}
         // Configurar RecyclerView com Adapter
         binding.HomeFrMoverBaralhoRecycleViewListaPastas.layoutManager = LinearLayoutManager(context)
         binding.HomeFrMoverBaralhoRecycleViewListaPastas.adapter = adapter
@@ -65,9 +65,8 @@ class MoverBaralhoFrDialog() : DialogFragment() {
         // Configuração do listener do produto
         val listener = object : OnPastaListener {
             override fun onClick(p: Pasta) {
-                Toast.makeText(context, p.nome, Toast.LENGTH_SHORT).show()
-
-                resetBackgroundLayoutRaiz()
+                //Toast.makeText(context, p.nome, Toast.LENGTH_SHORT).show()
+                //resetBackgroundLayoutRaiz()
                 homeVM.setPastaEmMover(p)
             }
         }
@@ -87,13 +86,13 @@ class MoverBaralhoFrDialog() : DialogFragment() {
         homeVM.listPastaMsg.observe(viewLifecycleOwner, Observer {
             when (it) {
                 Constants.BD_MSGS.SUCCESS -> {
-                    Toast.makeText(context, "R.string.success_search", Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(context, "R.string.success_search", Toast.LENGTH_SHORT).show()
                 }
                 Constants.BD_MSGS.NOT_FOUND -> {
-                    Toast.makeText(context, "R.string.not_found_search", Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(context, "R.string.not_found_search", Toast.LENGTH_SHORT).show()
                 }
                 else -> {
-                    Toast.makeText(context, "R.string.fail_search", Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(context, "R.string.fail_search", Toast.LENGTH_SHORT).show()
                 }
             }
         })
@@ -121,22 +120,22 @@ class MoverBaralhoFrDialog() : DialogFragment() {
             homeVM.pastaEmMover.value?.let { pasta ->
                 homeVM.baralhoEmFoco.value?.let { baralho ->
                     homeVM.moverBaralho(pasta, baralho) {
-                        Toast.makeText(requireContext(), "Mover Baralho", Toast.LENGTH_SHORT).show()
+                        //Toast.makeText(requireContext(), "Mover Baralho", Toast.LENGTH_SHORT).show()
                         dismiss()
                     }
                 } ?: run {
-                    Toast.makeText(requireContext(), "Nenhum baralho selecionado", Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(requireContext(), "Nenhum baralho selecionado", Toast.LENGTH_SHORT).show()
                     dismiss()
                 }
             } ?: run {
-                Toast.makeText(requireContext(), "Nenhuma pasta selecionada para mover o baralho", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(requireContext(), "Nenhuma pasta selecionada para mover o baralho", Toast.LENGTH_SHORT).show()
                 dismiss()
             }
         }
-        binding.HomeFrMoverBaralhoLayoutRaiz.setOnClickListener {
-            Toast.makeText(context, "Root Clicado", Toast.LENGTH_SHORT).show()
-            clickPastaRaiz()
-        }
+        //binding.HomeFrMoverBaralhoLayoutRaiz.setOnClickListener {
+            //Toast.makeText(context, "Root Clicado", Toast.LENGTH_SHORT).show()
+            //clickPastaRaiz()
+        //}
     }
 
     override fun onDestroyView() {
@@ -145,11 +144,12 @@ class MoverBaralhoFrDialog() : DialogFragment() {
     }
 
     private fun clickPastaRaiz(){
-        setBackgroundLayoutRaiz()
+        //setBackgroundLayoutRaiz()
         adapter.resetSelectedItem()
         homeVM.resetPastaEmMover()
     }
 
+    /*
     private fun setBackgroundLayoutRaiz(){
         binding.HomeFrMoverBaralhoLayoutRaiz.setBackgroundColor(
             ContextCompat.getColor(requireContext(), getColorSetMoverBaralho())
@@ -160,6 +160,6 @@ class MoverBaralhoFrDialog() : DialogFragment() {
         binding.HomeFrMoverBaralhoLayoutRaiz.setBackgroundColor(
             ContextCompat.getColor(requireContext(), getColorResetMoverBaralho())
         )
-    }
+    }*/
 
 }

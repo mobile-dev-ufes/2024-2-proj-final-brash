@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.example.brash.R
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Pasta
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.listener.OnPastaListener
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.viewHolder.ListaPastaVH
@@ -37,7 +38,12 @@ class ListaPastaAdapter(private val pastaDoBaralhoEmFoco: Pasta?) : RecyclerView
         // Mudando o fundo do item selecionado
         //  if (position != selectedPosition)
         //  else if(selectedPosition == -1)
-
+        if(position == 0){
+            holder.binding.ItemPastaComIconeTextViewNome.text = holder.itemView.context.getString(R.string.nuc_raiz)
+            holder.binding.ItemPastaComIconeImageViewIcone.setImageTintList(
+                ContextCompat.getColorStateList(holder.itemView.context, R.color.golden_yellow)
+            )
+        }
 
         if(selectedPosition == -1){
             if(pastaDoBaralhoEmFoco != null && pastaDoBaralhoEmFoco.idPasta  == pastaList[position].idPasta){

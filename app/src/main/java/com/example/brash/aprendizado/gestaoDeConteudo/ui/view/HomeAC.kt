@@ -19,6 +19,8 @@ import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments.AcoesBar
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments.AcoesPastaFrDialog
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.adapter.ListaExpandableAdapter
 import com.example.brash.nucleo.ui.view.Fragments.AlertDialogFr
+import com.example.brash.nucleo.utils.getSavedLanguage
+import com.example.brash.nucleo.utils.setAppLocale
 import com.example.brash.utilsGeral.AppVM
 import com.example.brash.utilsGeral.MyApplication
 
@@ -36,6 +38,9 @@ class HomeAC : AppCompatActivity(), AlertDialogFr.OnConfirmListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        val language = getSavedLanguage(this)
+        setAppLocale(this, language)
+
         binding = GtcHomeAcBinding.inflate(layoutInflater)
         setContentView(binding.root)
         homeVM = ViewModelProvider(this)[HomeVM::class.java]
@@ -48,7 +53,6 @@ class HomeAC : AppCompatActivity(), AlertDialogFr.OnConfirmListener {
 
         appVM.requestUsuarioLogado()
     }
-
 
     private fun setOnClickListeners(){
         binding.HomeAcButtonAcoesAdicionais.setOnClickListener{
@@ -68,7 +72,7 @@ class HomeAC : AppCompatActivity(), AlertDialogFr.OnConfirmListener {
         })
 
         appVM.usuarioLogado.observe(this, Observer{
-            binding.HomeAcShapeableImageViewIconePerfil.setImageResource(it.iconeDeUsuario.imagemPath.drawableRes)
+            binding.HomeAcShapeableImageViewIconePerfil.setImageResource(it.iconeDeUsuario.imagem.drawableRes)
             binding.HomeAcShapeableImageViewIconePerfil.setBackgroundResource(it.iconeDeUsuario.cor.colorRes)
         })
 
