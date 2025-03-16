@@ -43,6 +43,7 @@ class DicaRepository2 {
     suspend fun updateHint2(hint : Dica, text : String) : Result<Unit>{
         val currentUserEmail = fireBaseAuth.currentUser?.email
             ?: return Result.failure(Throwable("Usuário não autenticado"))
+
         return runCatching {
             val hintsRef = fireStoreDB.collection("hints")
             val hintRef = hintsRef.document(hint.idDica)

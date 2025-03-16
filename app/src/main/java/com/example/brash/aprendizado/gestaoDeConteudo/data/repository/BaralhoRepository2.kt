@@ -259,4 +259,17 @@ class BaralhoRepository2 {
     }
 
 
+    suspend fun getPublicDecks() : Result<List<String>>{
+        val currentUserEmail = fireBaseAuth.currentUser?.email
+            ?: return Result.failure(Throwable("Usuário não autenticado"))
+
+        return runCatching {
+            val publicDeckList = listOf<String>()
+
+
+            publicDeckList
+        }
+    }
+
+
 }
