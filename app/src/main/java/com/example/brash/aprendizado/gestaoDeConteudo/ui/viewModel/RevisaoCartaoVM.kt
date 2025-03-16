@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.brash.R
 import com.example.brash.aprendizado.gestaoDeConteudo.data.repository.BaralhoRepository
 import com.example.brash.aprendizado.gestaoDeConteudo.data.repository.CartaoRepository
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Baralho
@@ -59,6 +60,9 @@ class RevisaoCartaoVM(application: Application) : AndroidViewModel(application) 
     private val baralhoRepository = BaralhoRepository()
     private val cartaoRepository = CartaoRepository()
 
+    private fun getStringApplication(id : Int) : String{
+        return getApplication<Application>().getString(id)
+    }
 
     fun getAllCartoes() {
 
@@ -73,6 +77,7 @@ class RevisaoCartaoVM(application: Application) : AndroidViewModel(application) 
                     updateCategories()
                 }
                 .onFailure {
+                    UtilsFoos.showToast(getApplication(), getStringApplication(R.string.erro_requisicao_banco_dados_firebase))
                     Log.e("Pasta", "Erro ao carregar pastas do firebase")
                     _cartaoList.value = emptyList()
                 }
@@ -90,15 +95,12 @@ class RevisaoCartaoVM(application: Application) : AndroidViewModel(application) 
                 _dicaList.value = it
             }
             result.onFailure { e->
-                UtilsFoos.showToast(
-                    getApplication(),
-                    "Ocorreu algum erro ao obter as dicas do cartão:: ${e}"
-                )
+                UtilsFoos.showToast(getApplication(), getStringApplication(R.string.erro_requisicao_banco_dados_firebase))
+                //UtilsFoos.showToast(getApplication(), "Ocorreu algum erro ao obter as dicas do cartão:: ${e}")
             }
         }
     }
     private fun setCartoesToRevisao(){
-        //TODO:: SETAR QUAIS CARTÕES COM O SUPERMEMO2
         _cartaoQueue.value = ArrayDeque(
             (_cartaoList.value ?: emptyList()).filter { cartao ->
                 cartao.dataDeRevisao.toLocalDate() == LocalDateTime.now().toLocalDate()

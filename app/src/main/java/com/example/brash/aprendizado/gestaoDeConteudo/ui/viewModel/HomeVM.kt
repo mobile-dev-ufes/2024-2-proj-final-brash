@@ -115,6 +115,7 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
                     initHomeAcListItemList(folders)
                 }
                 .onFailure {
+                    UtilsFoos.showToast(getApplication(), getStringApplication(R.string.erro_requisicao_banco_dados_firebase))
                     Log.e("Pasta", "Erro ao carregar pastas do firebase")
 
                     _pastaList.value = emptyList()
@@ -219,8 +220,9 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
                         sortHomeAcListItemList()
                         onSuccess()
                     }
-                    .onFailure { e ->
-                        UtilsFoos.showToast(getApplication(), "Ocorreu algum erro na criação da baralho:: ${e}")
+                    .onFailure {
+                        UtilsFoos.showToast(getApplication(), getStringApplication(R.string.erro_requisicao_banco_dados_firebase))
+                        //UtilsFoos.showToast(getApplication(), "Ocorreu algum erro na criação da baralho:: ${e}")
                         Log.e("criar baralho debug", "Ocorreu algum erro na criação da baralho")
                     }
             }
@@ -233,7 +235,7 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
             UtilsFoos.showToast(getApplication(), getStringApplication(R.string.nuc_preencha_todos_campos))
             return false
         }else if(!verificaBaralhoNomeUnico(name)){
-            UtilsFoos.showToast(getApplication(), "Digite um nome único para o baralho")
+            UtilsFoos.showToast(getApplication(), getStringApplication(R.string.gtc_nome_unico_baralho))
             return false
         }
 
@@ -255,7 +257,7 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
 
     fun editarBaralho(baralho: Baralho, nome : String, descricao : String, numberNewCardsPerDay: Int, public: Boolean, onSuccess : () -> Unit){
         if(numberNewCardsPerDay <= 0){
-            UtilsFoos.showToast(getApplication(), getStringApplication(R.string.nuc_preencha_todos_campos))
+            UtilsFoos.showToast(getApplication(), getStringApplication(R.string.gtc_numero_cartoes_maior_que_zero))
         }
         else if(processaInforBaralho(nome, descricao) ){
             viewModelScope.launch{
@@ -270,8 +272,9 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
                         baralho.cartoesNovosPorDia = numberNewCardsPerDay
                         sortHomeAcListItemList()
                     }
-                    .onFailure { e ->
-                        UtilsFoos.showToast(getApplication(), "Ocorreu algum erro na edição do baralho: ${e}")
+                    .onFailure {
+                        UtilsFoos.showToast(getApplication(), getStringApplication(R.string.erro_requisicao_banco_dados_firebase))
+                        //UtilsFoos.showToast(getApplication(), "Ocorreu algum erro na edição do baralho: ${e}")
                         Log.e("criar Pasta debug", "Ocorreu algum erro na criação da pasta")
                     }
             }
@@ -298,14 +301,14 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
                     sortHomeAcListItemList()
                 }
                 .onFailure {
-                    UtilsFoos.showToast(getApplication(), "Ocorreu algum erro na edição do baralho")
+                    UtilsFoos.showToast(getApplication(), getStringApplication(R.string.erro_requisicao_banco_dados_firebase))
+                    //UtilsFoos.showToast(getApplication(), "Ocorreu algum erro na edição do baralho")
                     Log.e("criar Pasta debug", "Ocorreu algum erro na criação da pasta")
                 }
         }
     }
 
     fun moverBaralho(pastaDestino: Pasta, baralho: Baralho, onSuccess: () -> Unit){
-        UtilsFoos.showToast(getApplication(), "Movendo --${baralho.nome}-- da pasta -- ${baralho.pasta?.nome} -- para pasta --${pastaDestino.nome}--")
         viewModelScope.launch{
             val resultCopy = pastaRepository.copyDeck(pastaDestino, baralho)
             resultCopy
@@ -317,11 +320,13 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
                         onSuccess()
                         Log.e("homeVM", "Copia e delete sucedidos\n\"Movendo --${baralho.nome}-- da pasta -- ${baralho.pasta?.nome} -- para pasta --${pastaDestino.nome}--\"")
                     }.onFailure { eDelete->
+                        UtilsFoos.showToast(getApplication(), getStringApplication(R.string.erro_requisicao_banco_dados_firebase))
                         Log.e("homeVM", "Ocorreu algum erro na exclusão do baralho:: ${eDelete}\n\"Movendo --${baralho.nome}-- da pasta -- ${baralho.pasta?.nome} -- para pasta --${pastaDestino.nome}--\"")
                     }
                 }
                 .onFailure { eCopy->
-                    UtilsFoos.showToast(getApplication(), "Ocorreu algum erro na cópia do baralho")
+                    UtilsFoos.showToast(getApplication(), getStringApplication(R.string.erro_requisicao_banco_dados_firebase))
+                    //UtilsFoos.showToast(getApplication(), "Ocorreu algum erro na cópia do baralho")
                     Log.e("homeVM", "Ocorreu algum erro na cópia do baralho:: ${eCopy}\n\"Movendo --${baralho.nome}-- da pasta -- ${baralho.pasta?.nome} -- para pasta --${pastaDestino.nome}--\"")
                 }
         }
@@ -340,7 +345,8 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
                         onSuccess()
                     }
                     .onFailure {
-                        UtilsFoos.showToast(getApplication(), "Ocorreu algum erro na criação da pasta")
+                        UtilsFoos.showToast(getApplication(), getStringApplication(R.string.erro_requisicao_banco_dados_firebase))
+                        //UtilsFoos.showToast(getApplication(), "Ocorreu algum erro na criação da pasta")
                         Log.e("criar Pasta debug", "Ocorreu algum erro na criação da pasta")
                     }
             }
@@ -355,7 +361,7 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
             UtilsFoos.showToast(getApplication(), getStringApplication(R.string.nuc_preencha_todos_campos))
             return false
         }else if(!verificaPastaNomeUnico(nome)){ // verificacao de nome único
-            UtilsFoos.showToast(getApplication(), "Digite um nome único para a pasta")
+            UtilsFoos.showToast(getApplication(), getStringApplication(R.string.gtc_nome_unico_pasta))
             return false
         }
         return true
@@ -383,10 +389,8 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
                         sortHomeAcListItemList()
                     }
                     .onFailure {
-                        UtilsFoos.showToast(
-                            getApplication(),
-                            "Ocorreu algum erro na edição da pasta"
-                        )
+                        UtilsFoos.showToast(getApplication(), getStringApplication(R.string.erro_requisicao_banco_dados_firebase))
+                        //UtilsFoos.showToast(getApplication(), "Ocorreu algum erro na edição da pasta")
                         Log.e("editar Pasta debug", "Ocorreu algum erro na edição da pasta")
                     }
             }
@@ -415,13 +419,14 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
                         sortHomeAcListItemList()
                     }
                     .onFailure {
-                        UtilsFoos.showToast(getApplication(), "Ocorreu algum erro na edição do baralho")
+                        UtilsFoos.showToast(getApplication(), getStringApplication(R.string.erro_requisicao_banco_dados_firebase))
+                        //UtilsFoos.showToast(getApplication(), "Ocorreu algum erro na edição do baralho")
                         Log.e("criar Pasta debug", "Ocorreu algum erro na criação da pasta")
                     }
             }
         }
         else{
-            UtilsFoos.showToast(getApplication(), "Esta pasta contém baralhos")
+            UtilsFoos.showToast(getApplication(), getStringApplication(R.string.gtc_pasta_contem_baralhos))
         }
 
     }

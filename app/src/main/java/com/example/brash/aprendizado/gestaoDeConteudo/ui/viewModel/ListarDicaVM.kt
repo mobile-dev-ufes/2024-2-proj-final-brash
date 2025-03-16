@@ -59,7 +59,10 @@ class ListarDicaVM(application: Application) : AndroidViewModel(application) {
                     _dicaList.value = dicas
                     sortDicaList()
                 }
-                .onFailure {
+                .onFailure { e->
+                    UtilsFoos.showToast(getApplication(), e.toString())
+                    Log.e("ListarDicaVM", "${e}")
+                    UtilsFoos.showToast(getApplication(), getStringApplication(R.string.erro_requisicao_banco_dados_firebase))
                     Log.e("Pasta", "Erro ao carregar pastas do firebase")
 
                     _dicaList.value = emptyList()
@@ -100,11 +103,10 @@ class ListarDicaVM(application: Application) : AndroidViewModel(application) {
                         onSuccess()
                     }
                     .onFailure { e->
-                        UtilsFoos.showToast(
-                            getApplication(),
-                            "Ocorreu algum erro na criação do cartão:: ${e}"
-                        )
-                        Log.e("criar Pasta debug", "Ocorreu algum erro na criação do cartão:: ${e}")
+                        UtilsFoos.showToast(getApplication(), e.toString())
+                        UtilsFoos.showToast(getApplication(), getStringApplication(R.string.erro_requisicao_banco_dados_firebase))
+                        //UtilsFoos.showToast(getApplication(),"Ocorreu algum erro na criação do cartão:: ${e}")
+                        Log.e("ListarDicaVM", "Ocorreu algum erro na criação do cartão:: ${e}")
                     }
             }
         }
@@ -130,10 +132,8 @@ class ListarDicaVM(application: Application) : AndroidViewModel(application) {
                         onSuccess()
                     }
                     .onFailure { e->
-                        UtilsFoos.showToast(
-                            getApplication(),
-                            "Ocorreu algum erro na edição da dica:: ${e}"
-                        )
+                        UtilsFoos.showToast(getApplication(), getStringApplication(R.string.erro_requisicao_banco_dados_firebase))
+                        //UtilsFoos.showToast(getApplication(),"Ocorreu algum erro na edição da dica:: ${e}")
                         Log.e("criar Pasta debug", "Ocorreu algum erro na edição da dica:: ${e}")
                     }
             }
@@ -157,7 +157,9 @@ class ListarDicaVM(application: Application) : AndroidViewModel(application) {
                     sortDicaList()
                 }
                 .onFailure { e->
-                    UtilsFoos.showToast(getApplication(), "Ocorreu algum erro na exclusão da dica:: ${e}")
+                    UtilsFoos.showToast(getApplication(), getStringApplication(R.string.erro_requisicao_banco_dados_firebase))
+                    //
+                    // UtilsFoos.showToast(getApplication(), "Ocorreu algum erro na exclusão da dica:: ${e}")
                     Log.e("criar Pasta debug", "Ocorreu algum erro na criação na exclusão da dica:: ${e}")
                 }
         }

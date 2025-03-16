@@ -36,7 +36,7 @@ class RevisaoCartaoAC : AppCompatActivity(), View.OnClickListener{
         appVM.baralhoEmAC.value?.let {
             revisaoCartaoVM.setBaralhoOwner(it)
         } ?: run {
-            Toast.makeText(applicationContext, "Erro: Baralho não encontrado para revisão.", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(applicationContext, "Erro: Baralho não encontrado para revisão.", Toast.LENGTH_SHORT).show()
         }
 
         setOnClickListeners()

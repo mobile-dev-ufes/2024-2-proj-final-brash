@@ -42,7 +42,7 @@ class ListarAnotacaoAC : AppCompatActivity() {
         // Inicializando o listener diretamente
         val listener = object : OnAnotacaoListener {
             override fun onClick(anotacao: Anotacao) {
-                Toast.makeText(applicationContext, anotacao.nome, Toast.LENGTH_SHORT).show()
+                //Toast.makeText(applicationContext, anotacao.nome, Toast.LENGTH_SHORT).show()
                 listarAnotacaoVM.setAnotacaoEmFoco(anotacao)
                 AcoesAnotacaoFrDialog().show(supportFragmentManager, "VisualizarCartaoDialog")
             }
@@ -62,7 +62,7 @@ class ListarAnotacaoAC : AppCompatActivity() {
         appVM.baralhoEmAC.value?.let {
             listarAnotacaoVM.setBaralhoOwner(it)
         } ?: run {
-            Toast.makeText(applicationContext, "Baralho não encontrado para obter anotacoes.", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(applicationContext, "Baralho não encontrado para obter anotacoes.", Toast.LENGTH_SHORT).show()
         }
 
         listarAnotacaoVM.getAllAnotacoes()

@@ -80,11 +80,13 @@ class ListarCartaoVM(application: Application) : AndroidViewModel(application) {
             result
                 .onSuccess {
                         cartoes ->
-
                     _cartaoList.value = cartoes
                     updateFilterCartaoList(_textoBusca.value!!)
                 }
-                .onFailure {
+                .onFailure {e->
+                    UtilsFoos.showToast(getApplication(), e.toString())
+                    Log.e("ListarCartaoVM", "${e}")
+                    UtilsFoos.showToast(getApplication(), getStringApplication(R.string.erro_requisicao_banco_dados_firebase))
                     Log.e("Pasta", "Erro ao carregar pastas do firebase")
 
                     _cartaoList.value = emptyList()
@@ -125,11 +127,9 @@ class ListarCartaoVM(application: Application) : AndroidViewModel(application) {
                         updateFilterCartaoList(_textoBusca.value ?: "")
                         onSuccess()
                     }
-                    .onFailure { e->
-                        UtilsFoos.showToast(
-                            getApplication(),
-                            "Ocorreu algum erro na criação do cartão:: ${e}"
-                        )
+                    .onFailure {e->
+                        UtilsFoos.showToast(getApplication(), getStringApplication(R.string.erro_requisicao_banco_dados_firebase))
+                        //UtilsFoos.showToast(getApplication(),"Ocorreu algum erro na criação do cartão:: ${e}")
                         Log.e("criar Pasta debug", "Ocorreu algum erro na criação do cartão:: ${e}")
                     }
             }
@@ -161,8 +161,9 @@ class ListarCartaoVM(application: Application) : AndroidViewModel(application) {
                         updateFilterCartaoList(_textoBusca.value?: "")
                         onSuccess()
                     }
-                    .onFailure { e->
-                        UtilsFoos.showToast(getApplication(), "Ocorreu algum erro na edição do cartão:: ${e}")
+                    .onFailure {e->
+                        UtilsFoos.showToast(getApplication(), getStringApplication(R.string.erro_requisicao_banco_dados_firebase))
+                        //UtilsFoos.showToast(getApplication(), "Ocorreu algum erro na edição do cartão:: ${e}")
                         Log.e("criar Pasta debug", "Ocorreu algum erro na criação da pasta:: ${e}")
                     }
             }
@@ -185,7 +186,8 @@ class ListarCartaoVM(application: Application) : AndroidViewModel(application) {
                     onSuccess()
                 }
                 .onFailure {
-                    UtilsFoos.showToast(getApplication(), "Ocorreu algum erro na exclusão do cartão")
+                    UtilsFoos.showToast(getApplication(), getStringApplication(R.string.erro_requisicao_banco_dados_firebase))
+                    //UtilsFoos.showToast(getApplication(), "Ocorreu algum erro na exclusão do cartão")
                     Log.e("criar Pasta debug", "Ocorreu algum erro na criação da pasta")
                 }
         }
@@ -231,6 +233,8 @@ class ListarCartaoVM(application: Application) : AndroidViewModel(application) {
             _cartaoListSort.value = emptyList()
         }
     }
+
+
 }
 
 /*

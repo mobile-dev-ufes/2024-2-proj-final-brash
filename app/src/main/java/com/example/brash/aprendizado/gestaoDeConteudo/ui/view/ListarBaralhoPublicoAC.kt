@@ -46,7 +46,7 @@ class ListarBaralhoPublicoAC : AppCompatActivity() {
         // Inicializando o listener diretamente
         val listener = object : OnBaralhoPublicoListener {
             override fun onClick(b: Baralho) {
-                Toast.makeText(applicationContext, b.nome, Toast.LENGTH_SHORT).show()
+                //Toast.makeText(applicationContext, b.nome, Toast.LENGTH_SHORT).show()
                 listarBaralhoPublicoVM.setBaralhoPublicoEmFoco(b)
                 VisualizarBaralhoPublicoFrDialog().show(supportFragmentManager, "AcoesAdicionaisDialog")
             }

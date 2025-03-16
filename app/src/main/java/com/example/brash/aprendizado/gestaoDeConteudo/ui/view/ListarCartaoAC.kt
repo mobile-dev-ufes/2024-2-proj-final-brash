@@ -60,7 +60,7 @@ class ListarCartaoAC : AppCompatActivity() {
         // Inicializando o listener diretamente
         val listener = object : OnCartaoListener {
             override fun onClick(c: Cartao) {
-                Toast.makeText(applicationContext, c.pergunta, Toast.LENGTH_SHORT).show()
+                //Toast.makeText(applicationContext, c.pergunta, Toast.LENGTH_SHORT).show()
                 listarCartaoVM.setCartaoEmFoco(c)
                 AcoesCartaoFrDialog().show(supportFragmentManager, "VisualizarCartaoDialog")
             }
@@ -80,7 +80,7 @@ class ListarCartaoAC : AppCompatActivity() {
             binding.ListarCartaoAcTextViewTitulo.text = it.nome
             listarCartaoVM.setBaralhoOwner(it)
         } ?: run {
-            Toast.makeText(applicationContext, "Baralho não encontrado para nomear o título.", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(applicationContext, "Baralho não encontrado para nomear o título.", Toast.LENGTH_SHORT).show()
         }
 
         setOnClickListeners()
@@ -124,7 +124,7 @@ class ListarCartaoAC : AppCompatActivity() {
         })
 
         listarCartaoVM.opcoesDeBusca.observe(this, Observer{
-            Toast.makeText(applicationContext, "Opcoes de busca foram alteradas", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(applicationContext, "Opcoes de busca foram alteradas", Toast.LENGTH_SHORT).show()
             listarCartaoVM.updateFilterCartaoList(binding.ListarCartaoAcInputDePesquisa.text.toString())
         })
     }

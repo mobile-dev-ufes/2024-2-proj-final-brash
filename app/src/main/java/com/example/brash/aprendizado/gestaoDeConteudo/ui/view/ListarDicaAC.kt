@@ -64,7 +64,7 @@ class ListarDicaAC : AppCompatActivity() {
         // Inicializando o listener diretamente
         val listener = object : OnDicaListener {
             override fun onClick(d: Dica) {
-                Toast.makeText(applicationContext, d.texto, Toast.LENGTH_SHORT).show()
+                //Toast.makeText(applicationContext, d.texto, Toast.LENGTH_SHORT).show()
                 listarDicaVM.setDicaEmFoco(d)
                 AcoesDicaFrDialog().show(supportFragmentManager, "VisualizarCartaoDialog")
             }
@@ -85,7 +85,7 @@ class ListarDicaAC : AppCompatActivity() {
         appVM.cartaoEmAC.value?.let {
             listarDicaVM.setCartaoOwner(it)
         } ?: run {
-            Toast.makeText(applicationContext, "Cartao não encontrado para obter dicas.", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(applicationContext, "Cartao não encontrado para obter dicas.", Toast.LENGTH_SHORT).show()
         }
         listarDicaVM.getAllDicas()
 

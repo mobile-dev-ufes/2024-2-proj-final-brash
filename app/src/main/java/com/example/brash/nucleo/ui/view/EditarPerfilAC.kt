@@ -43,7 +43,7 @@ class EditarPerfilAC : AppCompatActivity() {
             binding.EditarPerfilInputNomeDeExibicao.setText(usuario.nomeDeExibicao)
             binding.EditarPerfilInputNomeDeUsuario.setText(usuario.nomeDeUsuario)
         } ?: run {
-            Toast.makeText(this, "Erro ao carregar o ícone do usuário.", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(this, "Erro ao carregar o ícone do usuário.", Toast.LENGTH_SHORT).show()
         }
     }
 

@@ -128,6 +128,6 @@ class HomeAC : AppCompatActivity(), AlertDialogFr.OnConfirmListener {
     // Implementação da interface
     override fun onConfirmAlertDialog() {
         // Aqui você pode navegar para outra Activity ou realizar alguma ação
-        Toast.makeText(this, "Confirmado Exclusao!", Toast.LENGTH_SHORT).show()
+        //Toast.makeText(this, "Confirmado Exclusao!", Toast.LENGTH_SHORT).show()
     }
 }

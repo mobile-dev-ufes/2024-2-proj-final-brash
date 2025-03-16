@@ -36,40 +36,46 @@ class AppVM(application: Application) : AndroidViewModel(application) {
 
     // Função para definir o usuário logado
     fun updateUsuarioLogado(userName : String, exhibitionName : String, iconColor : IconeCor, iconImage: IconeImagem, onSuccess : () -> Unit) {
-        viewModelScope.launch {
-            if(_usuarioLogado.value!!.nomeDeUsuario == userName){
-                atualizaUsuario(userName , exhibitionName , iconColor , iconImage,{
-                    onSuccess()
-                })
-            }
-            else{
-                val result = usuarioRepository.checkExistsUserName(userName)
-                result.onSuccess {
+
+        if (processaInfoUser(userName, exhibitionName)) {
+            viewModelScope.launch {
+                if(_usuarioLogado.value!!.nomeDeUsuario == userName){
                     atualizaUsuario(userName , exhibitionName , iconColor , iconImage,{
                         onSuccess()
                     })
-                }.onFailure { e->
-                    UtilsFoos.showToast(
-                        getApplication(),
-                        "Ocorreu algum erro ao checar nome do usuário:: ${e}"
-                    )
+                }
+                else{
+                    val result = usuarioRepository.checkExistsUserName(userName)
+                    result.onSuccess {
+                        atualizaUsuario(userName , exhibitionName , iconColor , iconImage,{
+                            onSuccess()
+                        })
+                    }.onFailure { e->
+                        UtilsFoos.showToast(getApplication(), getStringApplication(R.string.erro_requisicao_banco_dados_firebase))
+                    }
                 }
             }
         }
     }
-    private suspend fun atualizaUsuario(userName : String, exhibitionName : String, iconColor : IconeCor, iconImage: IconeImagem, onSuccess : () -> Unit){
-        val result2 = usuarioRepository.updateUser(
-            userName, exhibitionName, iconColor, iconImage)
-        result2.onSuccess {
-            _usuarioLogado.value = Usuario(
-                nomeDeUsuario = userName, nomeDeExibicao = exhibitionName, iconeDeUsuario = IconeDeUsuario(iconColor, iconImage)
+    private suspend fun atualizaUsuario(userName : String, exhibitionName : String, iconColor : IconeCor, iconImage: IconeImagem, onSuccess : () -> Unit) {
+
+        if (processaInfoUser(userName, exhibitionName)) {
+            val result2 = usuarioRepository.updateUser(
+                userName, exhibitionName, iconColor, iconImage
             )
-            onSuccess()
-        }.onFailure { e->
-            UtilsFoos.showToast(
-                getApplication(),
-                "Ocorreu algum erro ao dar update no usuário:: ${e}"
-            )
+            result2.onSuccess {
+                _usuarioLogado.value = Usuario(
+                    nomeDeUsuario = userName,
+                    nomeDeExibicao = exhibitionName,
+                    iconeDeUsuario = IconeDeUsuario(iconColor, iconImage)
+                )
+                onSuccess()
+            }.onFailure { e ->
+                UtilsFoos.showToast(
+                    getApplication(),
+                    getStringApplication(R.string.erro_requisicao_banco_dados_firebase)
+                )
+            }
         }
     }
     fun processaInfoUser(userName : String, exhibitionName : String): Boolean{
@@ -91,10 +97,7 @@ class AppVM(application: Application) : AndroidViewModel(application) {
                     _usuarioLogado.value = user
 
                 }.onFailure { e ->
-                    UtilsFoos.showToast(
-                        getApplication(),
-                        "Ocorreu algum erro ao obter usuário:: ${e}"
-                    )
+                    UtilsFoos.showToast(getApplication(), getStringApplication(R.string.erro_requisicao_banco_dados_firebase))
                 }
         }
         //_usuarioLogado.value = Usuario(nomeDeUsuario = "MerlinMago", nomeDeExibicao = "CaixinhaMaker", iconeDeUsuario = IconeDeUsuario(cor = IconeCor.HOT_PINK, imagem = IconeImagem.CARRO))
