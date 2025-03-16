@@ -1,5 +1,6 @@
 package com.example.brash.aprendizado.gestaoDeConteudo.data.repository
 
+import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Anotacao
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Baralho
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Cartao
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.CategoriaDoAprendizado
@@ -65,6 +66,7 @@ class BaralhoRepository2 {
         if (currentUserEmail.isNullOrEmpty()) {
             return Result.failure(Throwable("Usuário não autenticado"))
         }
+
         return runCatching {
             val deckRef = fireStoreDB.collection("decks").document(deck.idBaralho)
             val deckData = deckRef.get().await().data ?: return Result.failure(Exception("Erro pegando data do baralho (deleteDeck::BaralhoRepository2)"))
@@ -77,6 +79,7 @@ class BaralhoRepository2 {
             }
 
             deleteCards2(deckRef.id)
+            deleteNotes2(deckRef.id)
             deckRef.delete().await()
         }
     }
@@ -100,6 +103,42 @@ class BaralhoRepository2 {
         }
     }
 
+    private suspend fun deleteNotes2(deckId : String){
+        val notesQuerySnapshot = fireStoreDB.collection("notes")
+            .whereEqualTo("deckId", deckId)
+            .get().await()
+        for(noteDocument in notesQuerySnapshot){
+            noteDocument.reference.delete().await()
+        }
+    }
+
+    suspend fun getNotes2(deck : Baralho) : Result<List<Anotacao>>{
+        val currentUserEmail = fireBaseAuth.currentUser?.email
+        if (currentUserEmail.isNullOrEmpty()) {
+            return Result.failure(Throwable("Usuário não autenticado"))
+        }
+
+        return runCatching {
+            val noteList = mutableListOf<Anotacao>()
+            val deckId = deck.idBaralho
+
+            val notesQuerySnapshot = fireStoreDB.collection("notes")
+                .whereEqualTo("deckId", deckId)
+                .get().await()
+
+            for(noteDocument in notesQuerySnapshot){
+                val noteData = noteDocument.data
+                val noteObject = Anotacao(
+                    idAnotacao = noteData["id"].toString(),
+                    nome = noteData["name"].toString(),
+                    texto = noteData["text"].toString(),
+                    baralho = deck
+                )
+                noteList.add(noteObject)
+            }
+            noteList
+        }
+    }
 
     suspend fun getCards2(deck : Baralho) : Result<List<Cartao>>{
         val currentUserEmail = fireBaseAuth.currentUser?.email
