@@ -1,6 +1,5 @@
 package com.example.brash.nucleo.ui.viewModel
 
-import android.accounts.Account
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
@@ -10,30 +9,41 @@ import com.example.brash.nucleo.data.remoto.services.AccountService
 import com.example.brash.nucleo.utils.UtilsFoos
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
-import com.google.firebase.auth.FirebaseAuthUserCollisionException
-import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.launch
 
+/**
+ * ViewModel for managing password reset process and validation.
+ *
+ * This ViewModel includes logic to handle password reset flow, including verification
+ * code checks, new password validation, and updating the password in Firebase.
+ *
+ * @param application The application context.
+ * @param accountService The service for account-related actions, such as password update.
+ */
 class DefinirSenhaVM(
     application : Application,
     private val accountService: AccountService
 ) : AndroidViewModel(application) {
 
+    // LiveData for storing the current user's email
     private var _currentUserEmail = MutableLiveData<String>()
     val curretUserEmail get() = _currentUserEmail
 
+    // Firebase Firestore and FirebaseAuth instances
     private val fireStoreDB = FirebaseFirestore.getInstance()
     private val fireBaseAuth = FirebaseAuth.getInstance()
 
+    // LiveData for error messages during password reset process
     private var _errorMessageLD  = MutableLiveData<String>()
     val erroMessageLD get() = _errorMessageLD
 
+    // LiveData for error messages related to verification code
     private var _verificationCodeMessageError = MutableLiveData<String>()
     val verificationCodeMessageError get() = _verificationCodeMessageError
 
+    // LiveData for error messages related to new password
     private var _newPasswordMessageError = MutableLiveData<String>()
     val newPasswordMessageError get() = _newPasswordMessageError
 
@@ -42,11 +52,21 @@ class DefinirSenhaVM(
         _newPasswordMessageError.value = ""
     }
 
+    /**
+     * Sets the current user's email address.
+     */
     fun setCurrentUserEmail(){
         val email = fireBaseAuth.currentUser!!.email!!
         _currentUserEmail.value = email
     }
 
+    /**
+     * Checks if the entered verification code matches the expected one.
+     *
+     * @param typedVerificationCode The verification code typed by the user.
+     * @param verificationCode The expected verification code.
+     * @return True if the verification codes match; otherwise, false.
+     */
     fun checkVerificationCode(typedVerificationCode : String, verificationCode : String) : Boolean{
         if(typedVerificationCode.isEmpty()){
             _verificationCodeMessageError.value = getStringApplication(R.string.nuc_preencha_todos_campos)
@@ -59,6 +79,13 @@ class DefinirSenhaVM(
         return true
     }
 
+    /**
+     * Validates the new password and its retyped version.
+     *
+     * @param newPassword The new password entered by the user.
+     * @param newPasswordRetyped The retyped new password.
+     * @return True if the passwords are valid and match; otherwise, false.
+     */
     fun checkNewPassword(newPassword : String, newPasswordRetyped : String) : Boolean{
         if(newPassword.isEmpty() || newPasswordRetyped.isEmpty()){
             _newPasswordMessageError.value = getStringApplication(R.string.nuc_preencha_todos_campos)
@@ -74,6 +101,12 @@ class DefinirSenhaVM(
         return true
     }
 
+    /**
+     * Updates the user's password in Firebase.
+     *
+     * @param email The email address of the user.
+     * @param onSuccess A callback to be invoked on successful password change.
+     */
     fun updateUsersPassword(email : String, onSuccess: () -> Unit){
         if(!handleChangePasswordInfo(email)){
             return
@@ -101,26 +134,52 @@ class DefinirSenhaVM(
 //            }
     }
 
+    /**
+     * Retrieves the current user's email stored in the account service.
+     *
+     * @return The current user's email, or null if not found.
+     */
     fun currentUserEmail(): String?{
         return accountService.getUserEmail()
     }
 
+    /**
+     * Clears the new password error message.
+     */
     fun clearNewPasswordMessageError(){
         _newPasswordMessageError.value = ""
     }
 
+    /**
+     * Clears the verification code error message.
+     */
     fun clearVerificationCodeMessageError(){
         _verificationCodeMessageError.value = ""
     }
 
+    /**
+     * Retrieves a string resource from the application context.
+     *
+     * @param id The resource ID of the string.
+     * @return The string value associated with the given resource ID.
+     */
     private fun getStringApplication(id : Int) : String{
         return getApplication<Application>().getString(id)
     }
 
+    /**
+     * Signs out the current user from Firebase.
+     */
     fun signOut(){
         fireBaseAuth.signOut()
     }
 
+    /**
+     * Validates the information for changing the password.
+     *
+     * @param email The email address entered by the user.
+     * @return True if the email is valid and not empty; otherwise, false.
+     */
     private fun handleChangePasswordInfo(email : String) : Boolean{
 
         if(email.isNotEmpty() and !UtilsFoos.isValidEmail(email)){

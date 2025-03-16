@@ -17,6 +17,11 @@ import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
 
 
+/**
+ * ViewModel responsible for managing user-related data and application state.
+ *
+ * @param application The application context.
+ */
 class AppVM(application: Application) : AndroidViewModel(application) {
 
     private var _usuarioLogado = MutableLiveData<Usuario>()
@@ -30,11 +35,25 @@ class AppVM(application: Application) : AndroidViewModel(application) {
     val usuarioRepository = UsuarioRepository()
     private val auth = FirebaseAuth.getInstance()
 
+    /**
+     * Retrieves a string resource from the application context.
+     *
+     * @param id The resource ID.
+     * @return The corresponding string.
+     */
     private fun getStringApplication(id : Int) : String{
         return getApplication<Application>().getString(id)
     }
 
-    // Função para definir o usuário logado
+    /**
+     * Updates the logged-in user information.
+     *
+     * @param userName The new username.
+     * @param exhibitionName The new display name.
+     * @param iconColor The new user icon color.
+     * @param iconImage The new user icon image.
+     * @param onSuccess Callback executed if the update is successful.
+     */
     fun updateUsuarioLogado(userName : String, exhibitionName : String, iconColor : IconeCor, iconImage: IconeImagem, onSuccess : () -> Unit) {
 
         if (processaInfoUser(userName, exhibitionName)) {
@@ -57,6 +76,16 @@ class AppVM(application: Application) : AndroidViewModel(application) {
             }
         }
     }
+
+    /**
+     * Updates the user information in the repository.
+     *
+     * @param userName The new username.
+     * @param exhibitionName The new display name.
+     * @param iconColor The new user icon color.
+     * @param iconImage The new user icon image.
+     * @param onSuccess Callback executed if the update is successful.
+     */
     private suspend fun atualizaUsuario(userName : String, exhibitionName : String, iconColor : IconeCor, iconImage: IconeImagem, onSuccess : () -> Unit) {
 
         if (processaInfoUser(userName, exhibitionName)) {
@@ -78,6 +107,14 @@ class AppVM(application: Application) : AndroidViewModel(application) {
             }
         }
     }
+
+    /**
+     * Validates user input for username and display name.
+     *
+     * @param userName The username.
+     * @param exhibitionName The display name.
+     * @return `true` if the input is valid, `false` otherwise.
+     */
     fun processaInfoUser(userName : String, exhibitionName : String): Boolean{
         if(userName.isEmpty() || exhibitionName.isEmpty()){
             UtilsFoos.showToast(getApplication(), getStringApplication(R.string.nuc_preencha_todos_campos))
@@ -86,10 +123,10 @@ class AppVM(application: Application) : AndroidViewModel(application) {
         return true
     }
 
-    // Função para solicitar os dados do usuário logado
+    /**
+     * Requests the logged-in user's data from the repository.
+     */
     fun requestUsuarioLogado() {
-        // Aqui, você pode obter dados do Firebase ou de outro serviço
-        // Exemplo com dados mockados para demonstração:
         viewModelScope.launch {
             val result = usuarioRepository.getUser()
             result
@@ -100,21 +137,41 @@ class AppVM(application: Application) : AndroidViewModel(application) {
                     UtilsFoos.showToast(getApplication(), getStringApplication(R.string.erro_requisicao_banco_dados_firebase))
                 }
         }
-        //_usuarioLogado.value = Usuario(nomeDeUsuario = "MerlinMago", nomeDeExibicao = "CaixinhaMaker", iconeDeUsuario = IconeDeUsuario(cor = IconeCor.HOT_PINK, imagem = IconeImagem.CARRO))
     }
 
+    /**
+     * Sets the active deck in the application.
+     *
+     * @param baralho The deck to be set.
+     */
     fun setBaralhoEmAC(baralho: Baralho){
         _baralhoEmAC.value = baralho
     }
 
+    /**
+     * Updates the active deck in the database.
+     *
+     * @param baralho The deck to be updated.
+     */
     fun updateBaralhoEmAC(baralho: Baralho){
-        //TODO:: Requisição ao banco de dados para alterar o baralho
+        // TODO: Database request to update the deck
     }
 
+    /**
+     * Sets the active flashcard in the application.
+     *
+     * @param cartao The flashcard to be set.
+     */
     fun setCartaoEmAC(cartao: Cartao){
         _cartaoEmAC.value = cartao
     }
+
+    /**
+     * Updates the active flashcard in the database.
+     *
+     * @param cartao The flashcard to be updated.
+     */
     fun updateCartaoEmAC(cartao: Cartao){
-        //TODO:: Requisição ao banco de dados para alterar o baralho
+        // TODO: Database request to update the flashcard
     }
 }

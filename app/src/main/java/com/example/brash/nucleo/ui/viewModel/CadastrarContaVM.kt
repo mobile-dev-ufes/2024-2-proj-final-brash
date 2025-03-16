@@ -1,32 +1,29 @@
 package com.example.brash.nucleo.ui.viewModel
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.brash.R
-import com.example.brash.network.ClientRetrofit
-import com.example.brash.nucleo.data.remoto.entities.EmailRequestEntity
 import com.example.brash.nucleo.data.remoto.services.AccountService
-import com.example.brash.nucleo.data.remoto.services.EmailApi
 import com.example.brash.nucleo.utils.UtilsFoos
-import com.example.brash.utilsGeral.Constants
 import com.google.firebase.FirebaseNetworkException
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
-import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.tasks.await
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
+
+/**
+ * ViewModel for managing user account registration.
+ *
+ * This ViewModel handles the registration of new users by validating the input,
+ * interacting with Firebase for user authentication, and storing user details in Firestore.
+ *
+ * @param application The application context.
+ * @param accountService The service for handling Firebase authentication operations.
+ */
 class CadastrarContaVM (
     application: Application,
     private val accountService: AccountService
@@ -40,14 +37,27 @@ class CadastrarContaVM (
 
     private val fireStoreDB = FirebaseFirestore.getInstance()
 
+    /**
+     * Clears any existing form error messages.
+     */
     fun clearFormMessageError(){
         _formMessageError.value = ""
     }
 
+    /**
+     * Clears any existing verification code error messages.
+     */
     fun clearVerificationCodeMessageError(){
         _verificationCodeMessageError.value = ""
     }
 
+    /**
+     * Validates the verification code entered by the user.
+     *
+     * @param typedVerificationCode The verification code entered by the user.
+     * @param verificationCode The expected verification code.
+     * @return True if the codes match and the field is not empty, false otherwise.
+     */
     fun checkVerificationCode(typedVerificationCode : String, verificationCode : String) : Boolean{
 
         if(typedVerificationCode.isEmpty()){
@@ -62,6 +72,15 @@ class CadastrarContaVM (
         return true
     }
 
+    /**
+     * Registers a new user in Firebase and stores their information in Firestore.
+     *
+     * @param userName The username of the new user.
+     * @param exhibitionName The exhibition name of the new user.
+     * @param email The email address of the new user.
+     * @param password The password for the new user.
+     * @param onSuccess A callback to be invoked if the registration is successful.
+     */
     fun registerNewUser(userName : String, exhibitionName: String, email:String, password: String, onSuccess: () -> Unit) {
         if(!handleRegisterForm(userName, exhibitionName, email, password)){
             return
@@ -69,7 +88,10 @@ class CadastrarContaVM (
 
         viewModelScope.launch {
             try {
+                // Register user in Firebase
                 accountService.signUp(email, password)
+
+                // Store user details in Firestore
                 val userMap = hashMapOf(
                     "userName" to userName,
                     "exhibitionName" to exhibitionName,
@@ -78,7 +100,7 @@ class CadastrarContaVM (
                 fireStoreDB.collection("users").document(email)
                     .set(userMap)
                     .addOnSuccessListener {
-                        onSuccess()
+                        onSuccess() // Callback on successful registration
                     }
                     .addOnFailureListener {
                         _verificationCodeMessageError.value =
@@ -96,13 +118,28 @@ class CadastrarContaVM (
         }
     }
 
+    /**
+     * Helper function to retrieve string resources from the application context.
+     *
+     * @param id The resource ID of the string.
+     * @return The string value associated with the resource ID.
+     */
     private fun getStringApplication(id : Int) : String{
         return getApplication<Application>().getString(id)
     }
 
+    /**
+     * Validates the registration form input.
+     *
+     * @param userName The username input by the user.
+     * @param exhibitionName The exhibition name input by the user.
+     * @param email The email input by the user.
+     * @param password The password input by the user.
+     * @return True if all fields are valid, false otherwise.
+     */
     fun handleRegisterForm(userName : String, exhibitionName: String, email:String, password: String) : Boolean{
 
-        //TODO VERIFICAR SE JA EXISTE NOME DE USUARIO
+        //TODO:: VERIFICAR SE JA EXISTE NOME DE USUARIO
         if (userName.isEmpty() || exhibitionName.isEmpty() || email.isEmpty() || password.isEmpty()) {
             _formMessageError.value = getStringApplication(R.string.nuc_preencha_todos_campos)
             return false

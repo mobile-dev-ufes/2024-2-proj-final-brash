@@ -3,15 +3,6 @@ package com.example.brash.nucleo.ui.viewModel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import com.example.brash.nucleo.utils.UtilsFoos
-import com.google.firebase.FirebaseNetworkException
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
-import com.google.firebase.auth.FirebaseAuthInvalidUserException
-
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
-import kotlin.math.sign
 
 import android.util.Log
 import com.example.brash.nucleo.data.repository.UsuarioRepository
@@ -19,8 +10,16 @@ import com.example.brash.nucleo.domain.model.IconeDeUsuario
 import com.example.brash.nucleo.domain.model.Usuario
 import com.example.brash.nucleo.utils.IconeCor
 import com.example.brash.nucleo.utils.IconeImagem
-import java.lang.Exception
 
+
+/**
+ * ViewModel responsible for managing the profile-related data and logic.
+ *
+ * It holds the user's icon information, including the image and color, and provides
+ * methods to update and retrieve this information.
+ *
+ * @param application The application context.
+ */
 class PerfilVM(application: Application) : AndroidViewModel(application) {
 
     private var _teste = MutableLiveData<Boolean>()
@@ -41,6 +40,9 @@ class PerfilVM(application: Application) : AndroidViewModel(application) {
     //val opcoesDeBusca get() = _opcoesDeBusca
     val usuarioRepository = UsuarioRepository()
 
+    /**
+     * Initializes the user's icon with a default value and sets it as the focused icon.
+     */
     fun getIconeUsuarioLogado() {
         _iconeEmFoco.value = IconeDeUsuario(imagem = IconeImagem.PADRAO, cor = IconeCor.DEEP_PURPLE )
         _corEmFoco.value = _iconeEmFoco.value!!.cor
@@ -48,31 +50,46 @@ class PerfilVM(application: Application) : AndroidViewModel(application) {
         Log.d("ListaPastaAdapter", "DEFINIÇÃO DAS PASTAS")
     }
 
+    /**
+     * Sets the given [iconeDeUsuario] as the focused icon.
+     *
+     * @param iconeDeUsuario The icon to be set as the focused one.
+     */
     fun setIconeEmFoco(iconeDeUsuario: IconeDeUsuario){
         _iconeEmFoco.value = iconeDeUsuario
         Log.d("HomeDialogs", "Defini Baralho em FOCO")
     }
 
+    /**
+     * Sets the given [iconeImagem] as the focused image.
+     *
+     * @param iconeImagem The image to be set as the focused one.
+     */
     fun setImagemEmFoco(iconeImagem: IconeImagem){
         _imagemEmFoco.value = iconeImagem
         Log.d("HomeDialogs", "Defini Baralho em FOCO")
     }
 
+    /**
+     * Sets the given [iconeCor] as the focused color.
+     *
+     * @param iconeCor The color to be set as the focused one.
+     */
     fun setCorEmFoco(iconeCor: IconeCor){
         _corEmFoco.value = iconeCor
         Log.d("HomeDialogs", "Defini Baralho em FOCO")
     }
 
-    /*
-    fun updateOpcoesDeBusca(ordem: OrdemDeBuscaHome, filtro : FiltroDeBuscaHome){
-        _opcoesDeBusca.value = OpcoesDeBuscaHome(ordem, filtro)
-        Log.d("HomeDialogs", "Defini Pasta em FOCO")
-
-        Log.d("HomeDialogs", ordem.toString())
-        Log.d("HomeDialogs", filtro.toString())
-    }*/
-
+    /**
+     * Method for editing the user details.
+     *
+     * Currently, it is a placeholder function and does not contain logic.
+     * It can be implemented to handle user data editing in the future.
+     *
+     * @param usuario The user whose data is to be edited.
+     */
     fun editarUsuario(usuario: Usuario){
+        // Logic to edit the user's details can be implemented here.
     }
 
 }
