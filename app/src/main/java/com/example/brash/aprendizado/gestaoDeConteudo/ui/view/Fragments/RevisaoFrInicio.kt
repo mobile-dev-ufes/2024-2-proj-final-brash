@@ -61,7 +61,7 @@ class RevisaoFrInicio : Fragment(R.layout.gtc_revisao_fr_inicio) {
             revisaoCartaoVM.getAllCartoes()
             binding.RevisaoCartaoAcTextViewNomeBaralho.text = it.nome
         } ?: run {
-            Toast.makeText(requireContext(), "Baralho não encontrado para nomear o título da revisão.", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(requireContext(), "Baralho não encontrado para nomear o título da revisão.", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -87,11 +87,24 @@ class RevisaoFrInicio : Fragment(R.layout.gtc_revisao_fr_inicio) {
 
             revisaoCartaoVM.getNext(
                 onSucess = {
-                    Toast.makeText(requireContext(), "Iniciando a revisão", Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(requireContext(), "Iniciando a revisão", Toast.LENGTH_SHORT).show()
                     findNavController().navigate(R.id.action_revisaoFrInicio_to_revisaoFrCartao)
                 },
                 onFailure = {
-                    Toast.makeText(context, "Não há cartões a serem revisados para esse baralho.", Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(context, "Não há cartões a serem revisados para esse baralho.", Toast.LENGTH_SHORT).show()
+                }
+            )
+        }
+        binding.RevisaoCartaoAcButtonIniciarRevisaoTotal.setOnClickListener {
+
+            revisaoCartaoVM.setAllCartoesToRevisao()
+            revisaoCartaoVM.getNext(
+                onSucess = {
+                    //Toast.makeText(requireContext(), "Iniciando a revisão", Toast.LENGTH_SHORT).show()
+                    findNavController().navigate(R.id.action_revisaoFrInicio_to_revisaoFrCartao)
+                },
+                onFailure = {
+                    //Toast.makeText(context, "Não há cartões a serem revisados para esse baralho.", Toast.LENGTH_SHORT).show()
                 }
             )
         }

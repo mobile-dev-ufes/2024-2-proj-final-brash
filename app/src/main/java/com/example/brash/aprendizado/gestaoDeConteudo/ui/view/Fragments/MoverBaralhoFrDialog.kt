@@ -86,13 +86,13 @@ class MoverBaralhoFrDialog() : DialogFragment() {
         homeVM.listPastaMsg.observe(viewLifecycleOwner, Observer {
             when (it) {
                 Constants.BD_MSGS.SUCCESS -> {
-                    Toast.makeText(context, "R.string.success_search", Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(context, "R.string.success_search", Toast.LENGTH_SHORT).show()
                 }
                 Constants.BD_MSGS.NOT_FOUND -> {
-                    Toast.makeText(context, "R.string.not_found_search", Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(context, "R.string.not_found_search", Toast.LENGTH_SHORT).show()
                 }
                 else -> {
-                    Toast.makeText(context, "R.string.fail_search", Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(context, "R.string.fail_search", Toast.LENGTH_SHORT).show()
                 }
             }
         })
@@ -120,15 +120,15 @@ class MoverBaralhoFrDialog() : DialogFragment() {
             homeVM.pastaEmMover.value?.let { pasta ->
                 homeVM.baralhoEmFoco.value?.let { baralho ->
                     homeVM.moverBaralho(pasta, baralho) {
-                        Toast.makeText(requireContext(), "Mover Baralho", Toast.LENGTH_SHORT).show()
+                        //Toast.makeText(requireContext(), "Mover Baralho", Toast.LENGTH_SHORT).show()
                         dismiss()
                     }
                 } ?: run {
-                    Toast.makeText(requireContext(), "Nenhum baralho selecionado", Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(requireContext(), "Nenhum baralho selecionado", Toast.LENGTH_SHORT).show()
                     dismiss()
                 }
             } ?: run {
-                Toast.makeText(requireContext(), "Nenhuma pasta selecionada para mover o baralho", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(requireContext(), "Nenhuma pasta selecionada para mover o baralho", Toast.LENGTH_SHORT).show()
                 dismiss()
             }
         }

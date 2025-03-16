@@ -29,9 +29,6 @@
             android:name=".nucleo.ui.view.DefinirSenhaAC"
             android:exported="false" />
         <activity
-            android:name=".nucleo.ui.view.DefinirEmailAC"
-            android:exported="false" />
-        <activity
             android:name=".nucleo.ui.view.PerfilAC"
             android:exported="false" />
         <activity

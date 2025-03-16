@@ -57,9 +57,9 @@ class CriarDicaFrDialog : DialogFragment() {
         }
         binding.ListarDicaFrCriarDicaButtonCriar.setOnClickListener {
             val hintText = binding.ListarDicaFrCriarDicaInputTexto.text.toString()
-            listarDicaVM.criarDica(hintText){
+            listarDicaVM.criarDica(hintText, {
                 dismiss()
-            }
+            })
 
         }
 

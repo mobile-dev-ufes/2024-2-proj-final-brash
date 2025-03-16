@@ -74,7 +74,7 @@ class AcoesAnotacaoFrDialog() : DialogFragment() {
                         dismiss()
                     }
                 } ?: run {
-                    Toast.makeText(context, "Nenhuma Anotacao selecionada", Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(context, "Nenhuma Anotacao selecionada", Toast.LENGTH_SHORT).show()
                     dismiss()
                 }
             })

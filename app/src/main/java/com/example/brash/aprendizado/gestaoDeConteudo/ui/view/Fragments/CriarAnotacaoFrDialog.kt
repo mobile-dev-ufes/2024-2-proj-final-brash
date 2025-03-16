@@ -60,9 +60,9 @@ class CriarAnotacaoFrDialog : DialogFragment() {
             //TODO:: Fazer verificação??, se for pode confirmar, requisitar isso ao HomeVM
             val annotationName = binding.ListarAnotacaoFrCriarAnotacaoInputNome.text.toString()
             val annotationText = binding.ListarAnotacaoFrCriarAnotacaoInputTexto.text.toString()
-            listarAnotacaoVM.criarAnotacao(annotationName, annotationText) {
+            listarAnotacaoVM.criarAnotacao(annotationName, annotationText, {
                 dismiss()
-            }
+            })
         }
 
     }

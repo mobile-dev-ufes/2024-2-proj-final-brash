@@ -15,3 +15,8 @@ data class Cartao(
     var baralho: Baralho = Baralho(),
     var categoriaDoAprendizado: CategoriaDoAprendizado = CategoriaDoAprendizado.NOVO
 )
+{
+    override fun toString(): String {
+        return "Cartao(id='$idCartao', pergunta='$pergunta', resposta='$resposta', idBaralho='${baralho.idBaralho}')"
+    }
+}

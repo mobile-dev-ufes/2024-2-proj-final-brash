@@ -202,25 +202,6 @@
         />
 
     <TextView
-        android:id="@+id/ConfiguracaoAcTextViewTrocarEmail"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/nuc_trocar_email"
-        android:textSize="20sp"
-
-        android:paddingStart="15dp"
-        android:paddingEnd="15dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-
-        android:textColor="@color/white"
-
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ConfiguracaoAcTextViewTrocarSenha"
-        />
-
-    <TextView
         android:id="@+id/ConfiguracaoAcTextViewSairDaConta"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -239,7 +220,7 @@
 
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ConfiguracaoAcTextViewTrocarEmail"
+        app:layout_constraintTop_toBottomOf="@+id/ConfiguracaoAcTextViewTrocarSenha"
         />
 
 

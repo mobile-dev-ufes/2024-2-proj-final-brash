@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.ListarBaralhoPublicoAC
 import com.example.brash.databinding.GtcHomeFrAcoesAdicionaisBinding
@@ -38,19 +37,16 @@ class AcoesAdicionaisFrDialog : DialogFragment() {
 
         binding.HomeFrOpcoesAdicionaisTextViewCriarBaralho.setOnClickListener {
             dismiss()
-            Toast.makeText(requireContext(), "Criar Baralho", Toast.LENGTH_SHORT).show()
             CriarBaralhoFrDialog().show(parentFragmentManager, "CriarBaralhoDialog")
         }
 
         binding.HomeFrOpcoesAdicionaisTextViewCriarPasta.setOnClickListener {
             dismiss()
-            Toast.makeText(requireContext(), "Criar Pasta", Toast.LENGTH_SHORT).show()
             CriarPastaFrDialog().show(parentFragmentManager, "CriarPastaDialog")
         }
 
         binding.HomeFrOpcoesAdicionaisTextViewProcurarBaralhosPublicos.setOnClickListener {
             dismiss()
-            Toast.makeText(requireContext(), "Procurar Baralhos Públicos", Toast.LENGTH_SHORT).show()
             intentToListarBaralhoPublicoAc()
         }
 

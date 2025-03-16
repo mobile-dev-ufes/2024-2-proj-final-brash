@@ -58,7 +58,7 @@ class VisualizarCartaoFrDialog() : DialogFragment() {
             //binding.HomeFrVisualizarBaralhoInputCartoesNovos.setText(String.format(it.cartoesNovosPorDia.toString()))
         } ?: run {
             // Se o valor for null, exibe uma mensagem de erro
-            Toast.makeText(requireContext(), "Erro: Baralho não encontrado em VisualizarBaralhoHome!", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(requireContext(), "Erro: Baralho não encontrado em VisualizarBaralhoHome!", Toast.LENGTH_SHORT).show()
         }
         // Configurar os observadores para LiveData
         setObservers()
@@ -83,14 +83,14 @@ class VisualizarCartaoFrDialog() : DialogFragment() {
         binding.ListarCartaoFrVisualizarCartaoButtonConfirmar.setOnClickListener{
             val cardQuestion = binding.ListarCartaoFrVisualizarCartaoInputPergunta.text.toString()
             val cardAnswer = binding.ListarCartaoFrVisualizarCartaoInputResposta.text.toString()
-            Toast.makeText(requireContext(), "Cartão a editar", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(requireContext(), "Cartão a editar", Toast.LENGTH_SHORT).show()
             listarCartaoVM.cartaoEmFoco.value?.let { cartao ->
                 listarCartaoVM.editarCartao(cartao, cardQuestion, cardAnswer) {
                     dismiss()
-                    Toast.makeText(requireContext(), "Cartão Editado", Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(requireContext(), "Cartão Editado", Toast.LENGTH_SHORT).show()
                 }
             } ?: run {
-                Toast.makeText(requireContext(), "Nenhum Cartão selecionado", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(requireContext(), "Nenhum Cartão selecionado", Toast.LENGTH_SHORT).show()
                 dismiss()
             }
         }

@@ -12,8 +12,10 @@ import com.example.brash.aprendizado.gestaoDeConteudo.data.repository.CartaoRepo
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Baralho
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Cartao
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.CategoriaDoAprendizado
+import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Dica
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.useCase.SuperMemo2
 import com.example.brash.aprendizado.gestaoDeConteudo.utils.NivelRevisao
+import com.example.brash.nucleo.utils.UtilsFoos
 import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 import java.util.LinkedList
@@ -26,6 +28,12 @@ class RevisaoCartaoVM(application: Application) : AndroidViewModel(application) 
 
     private var _linearLayoutButtonsAnswerVisibility = MutableLiveData<Int>()
     val linearLayoutButtonsAnswerVisibility get() = _linearLayoutButtonsAnswerVisibility
+
+    private var _buttonShowHintsVisibility = MutableLiveData<Int>()
+    val buttonShowHintsVisibility get() = _buttonShowHintsVisibility
+
+    private var _recycleViewHintsVisibility = MutableLiveData<Int>()
+    val recycleViewHintsVisibility get() = _recycleViewHintsVisibility
 
     private var _baralhoOwner = MutableLiveData<Baralho>()
     val baralhoOwner get() = _baralhoOwner
@@ -43,6 +51,8 @@ class RevisaoCartaoVM(application: Application) : AndroidViewModel(application) 
     val cartaoEmFoco get() = _cartaoEmFoco
 
     private var _cartaoList = MutableLiveData<List<Cartao>>()
+    private var _dicaList = MutableLiveData<List<Dica>>()
+    val dicaList get() = _dicaList
 
     private var _cartaoQueue = MutableLiveData<ArrayDeque<Cartao>>()
 
@@ -71,11 +81,37 @@ class RevisaoCartaoVM(application: Application) : AndroidViewModel(application) 
 
     }
 
+    fun getDicasDoCartao(){
+        _dicaList.value = listOf(Dica(texto ="Testador"), Dica(texto ="Opara"))
 
+        viewModelScope.launch {
+            val result = cartaoRepository.getHints(_cartaoEmFoco.value!!)
+            result.onSuccess {
+                _dicaList.value = it
+            }
+            result.onFailure { e->
+                UtilsFoos.showToast(
+                    getApplication(),
+                    "Ocorreu algum erro ao obter as dicas do cartão:: ${e}"
+                )
+            }
+        }
+    }
     private fun setCartoesToRevisao(){
         //TODO:: SETAR QUAIS CARTÕES COM O SUPERMEMO2
-        _cartaoQueue.value = ArrayDeque(_cartaoList.value ?: emptyList())
+        _cartaoQueue.value = ArrayDeque(
+            (_cartaoList.value ?: emptyList()).filter { cartao ->
+                cartao.dataDeRevisao.toLocalDate() == LocalDateTime.now().toLocalDate()
+            }
+        )
         logCartaoQueue()
+    }
+
+    fun setAllCartoesToRevisao(){
+        _cartaoQueue.value = ArrayDeque(_cartaoList.value ?: emptyList())
+
+        Log.e("RevisaoCartaoVM", "Lista de todos os cartõew ${_cartaoList.value}")
+
     }
 
     private fun updateCategories(){
@@ -108,13 +144,16 @@ class RevisaoCartaoVM(application: Application) : AndroidViewModel(application) 
     fun updateCategoriaDoCartaoEmFoco(nivelRevisao: NivelRevisao){
         //TODO:: dar update no cartão do firebase
         _cartaoEmFoco.value?.let { cartao ->
-            SuperMemo2.reviewCard(cartao, nivelRevisao)
+            val newCard = SuperMemo2.reviewCard(cartao, nivelRevisao)
             updateCategories()
-
+            viewModelScope.launch {
+                cartaoRepository.updateCardFromReview(cartao,
+                    newCard.fatorDeRevisao, newCard.intervaloRevisao, newCard.dataDeRevisao, newCard.categoriaDoAprendizado)
+                Log.d("RevisaoCartaoVM","Erro: Fila de cartões está nula.")
+            }
             if (nivelRevisao == NivelRevisao.ESQUECI) {
                 _cartaoQueue.value?.addLast(cartao) ?: run {
                     // Caso _cartaoQueue seja nulo, você pode lidar com isso aqui
-                    Log.d("RevisaoCartaoVM","Erro: Fila de cartões está nula.")
                 }
             }
         } ?: run {
@@ -139,6 +178,9 @@ class RevisaoCartaoVM(application: Application) : AndroidViewModel(application) 
             if (queue.isNotEmpty()) {
                 _cartaoEmFoco.value = queue.removeFirst()
                 Log.d("RevisaoCartaoVM","\n\nEsse eh o cartao a ser revisado: ${_cartaoEmFoco.value!!.pergunta}")
+
+                getDicasDoCartao()
+
                 onSucess()
             } else {
                 Log.d("RevisaoCartaoVM","\n\nFila da revisão está vazia")
@@ -170,6 +212,16 @@ class RevisaoCartaoVM(application: Application) : AndroidViewModel(application) 
     fun hideAnswers(){
         _buttonShowAnswersVisibility.value = View.VISIBLE
         _linearLayoutButtonsAnswerVisibility.value = View.GONE
+    }
+
+    fun showHints(){
+        _buttonShowHintsVisibility.value = View.GONE
+        _recycleViewHintsVisibility.value = View.VISIBLE
+    }
+
+    fun hideHints(){
+        _buttonShowHintsVisibility.value = View.VISIBLE
+        _recycleViewHintsVisibility.value = View.GONE
     }
 
     fun setBaralhoOwner(baralho: Baralho){

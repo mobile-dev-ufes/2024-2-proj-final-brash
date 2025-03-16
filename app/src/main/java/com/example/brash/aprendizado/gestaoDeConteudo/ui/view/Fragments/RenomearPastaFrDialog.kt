@@ -69,11 +69,11 @@ class RenomearPastaFrDialog() : DialogFragment() {
             homeVM.pastaEmFoco.value?.let { pasta ->
                 val novoNome = binding.HomeFrRenomearPastaInput.text.toString()
                 homeVM.editarPasta(pasta, novoNome){
-                    Toast.makeText(requireContext(), "Editar Pasta", Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(requireContext(), "Editar Pasta", Toast.LENGTH_SHORT).show()
                     dismiss()
                 }
             } ?: run {
-                Toast.makeText(requireContext(), "Nenhuma pasta selecionada", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(requireContext(), "Nenhuma pasta selecionada", Toast.LENGTH_SHORT).show()
                 dismiss()
             }
         }

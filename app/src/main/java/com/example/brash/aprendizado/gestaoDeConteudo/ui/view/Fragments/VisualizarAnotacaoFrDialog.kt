@@ -60,7 +60,7 @@ class VisualizarAnotacaoFrDialog() : DialogFragment() {
             //binding.HomeFrVisualizarBaralhoInputCartoesNovos.setText(String.format(it.cartoesNovosPorDia.toString()))
         } ?: run {
             // Se o valor for null, exibe uma mensagem de erro
-            Toast.makeText(requireContext(), "Erro: Baralho não encontrado em VisualizarBaralhoHome!", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(requireContext(), "Erro: Baralho não encontrado em VisualizarBaralhoHome!", Toast.LENGTH_SHORT).show()
         }
         // Configurar os observadores para LiveData
         setObservers()
@@ -88,10 +88,10 @@ class VisualizarAnotacaoFrDialog() : DialogFragment() {
             listarAnotacaoVM.anotacaoEmFoco.value?.let { anotacao ->
                 listarAnotacaoVM.editarAnotacao(anotacao, annotationName, annotationText) {
                     dismiss()
-                    Toast.makeText(requireContext(), "Anotacao Editado", Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(requireContext(), "Anotacao Editado", Toast.LENGTH_SHORT).show()
                 }
             } ?: run {
-                Toast.makeText(requireContext(), "Nenhum Anotacao selecionado", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(requireContext(), "Nenhum Anotacao selecionado", Toast.LENGTH_SHORT).show()
                 dismiss()
             }
         }

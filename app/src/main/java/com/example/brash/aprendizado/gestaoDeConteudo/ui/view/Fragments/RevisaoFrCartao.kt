@@ -4,6 +4,7 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,10 +14,16 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.transition.Visibility
 import com.example.brash.R
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.CategoriaDoAprendizado
+import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Dica
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.useCase.SuperMemo2
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.RevisaoCartaoAC
+import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.adapter.ListaDicaAdapter
+import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.listener.OnDicaListener
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.viewModel.RevisaoCartaoVM
 import com.example.brash.aprendizado.gestaoDeConteudo.utils.NivelRevisao
 import com.example.brash.aprendizado.gestaoDeConteudo.utils.nucleoUtils
@@ -30,7 +37,10 @@ class RevisaoFrCartao : Fragment(R.layout.gtc_revisao_fr_cartao) {
     private var _binding : GtcRevisaoFrCartaoBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var recyclerView: RecyclerView
+
     private val revisaoCartaoVM: RevisaoCartaoVM by activityViewModels()
+    private lateinit var adapter : ListaDicaAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -43,6 +53,26 @@ class RevisaoFrCartao : Fragment(R.layout.gtc_revisao_fr_cartao) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
+
+        // Inicializando o listener diretamente
+        val listener = object : OnDicaListener {
+            override fun onClick(d: Dica) {
+            }
+        }
+
+        // Inicializando o adapter com o listener
+        adapter = ListaDicaAdapter().apply {
+            setListener(listener) // Garanta que o listener seja configurado
+        }
+
+        recyclerView = binding.RevisaoCartaoAcRecycleViewDicas
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        recyclerView.adapter = adapter // Defina o adapter na RecyclerView
+
+
+        revisaoCartaoVM.getDicasDoCartao()
 
         setObservers()
         setOnClickListeners()
@@ -81,7 +111,10 @@ class RevisaoFrCartao : Fragment(R.layout.gtc_revisao_fr_cartao) {
                 }
             })
         }
-
+        revisaoCartaoVM.dicaList.observe(viewLifecycleOwner){
+            Log.d("RevisaoCartaoVM", "Tamanho da lista de dicas: ${it.size}")
+            adapter.updateDicaList(it)
+        }
         revisaoCartaoVM.buttonShowAnswersVisibility.observe(viewLifecycleOwner){
             binding.RevisaoCartaoAcButtonMostrarResposta.visibility = it
         }
@@ -89,6 +122,13 @@ class RevisaoFrCartao : Fragment(R.layout.gtc_revisao_fr_cartao) {
             binding.RevisaoCartaoAcLinearLayoutBotoesResposta.visibility = it
             binding.RevisaoCartaoAcTextViewResposta.visibility = it
             binding.RevisaoCartaoAcViewSeparador.visibility = it
+        }
+        revisaoCartaoVM.buttonShowHintsVisibility.observe(viewLifecycleOwner){
+            binding.RevisaoCartaoAcButtonMostrarRecycleViewDicas.visibility = it
+        }
+        revisaoCartaoVM.recycleViewHintsVisibility.observe(viewLifecycleOwner){
+            binding.RevisaoCartaoAcRecycleViewDicas.visibility = it
+            binding.RevisaoCartaoAcRecycleViewSeparador.visibility = it
         }
 
         revisaoCartaoVM.cardsToReviewNumber.observe(viewLifecycleOwner) { cardsToReview ->
@@ -113,6 +153,7 @@ class RevisaoFrCartao : Fragment(R.layout.gtc_revisao_fr_cartao) {
             revisaoCartaoVM.getNext(
                 onSucess = {
                     revisaoCartaoVM.hideAnswers()
+                    revisaoCartaoVM.hideHints()
                 },
                 onFailure = {
                     findNavController().navigate(R.id.action_revisaoFrCartao_to_revisaoFrFinal)
@@ -124,6 +165,7 @@ class RevisaoFrCartao : Fragment(R.layout.gtc_revisao_fr_cartao) {
             revisaoCartaoVM.getNext(
                 onSucess = {
                     revisaoCartaoVM.hideAnswers()
+                    revisaoCartaoVM.hideHints()
                 },
                 onFailure = {
                     findNavController().navigate(R.id.action_revisaoFrCartao_to_revisaoFrFinal)
@@ -135,6 +177,7 @@ class RevisaoFrCartao : Fragment(R.layout.gtc_revisao_fr_cartao) {
             revisaoCartaoVM.getNext(
                 onSucess = {
                     revisaoCartaoVM.hideAnswers()
+                    revisaoCartaoVM.hideHints()
                 },
                 onFailure = {
                     findNavController().navigate(R.id.action_revisaoFrCartao_to_revisaoFrFinal)
@@ -146,6 +189,7 @@ class RevisaoFrCartao : Fragment(R.layout.gtc_revisao_fr_cartao) {
             revisaoCartaoVM.getNext(
                 onSucess = {
                     revisaoCartaoVM.hideAnswers()
+                    revisaoCartaoVM.hideHints()
                 },
                 onFailure = {
                     findNavController().navigate(R.id.action_revisaoFrCartao_to_revisaoFrFinal)
@@ -154,6 +198,10 @@ class RevisaoFrCartao : Fragment(R.layout.gtc_revisao_fr_cartao) {
         }
         binding.RevisaoCartaoAcConstraintLayoutQuantidadeCartoes.setOnClickListener{
             showCartoesInfoDialog(requireContext())
+        }
+
+        binding.RevisaoCartaoAcButtonMostrarRecycleViewDicas.setOnClickListener{
+            revisaoCartaoVM.showHints()
         }
     }
 

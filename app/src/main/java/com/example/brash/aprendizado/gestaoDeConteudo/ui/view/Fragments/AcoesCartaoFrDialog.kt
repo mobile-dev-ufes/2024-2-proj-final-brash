@@ -76,7 +76,7 @@ class AcoesCartaoFrDialog() : DialogFragment() {
             listarCartaoVM.cartaoEmFoco.value?.let {
                 appVM.setCartaoEmAC(it)
             } ?: run {
-                Toast.makeText(context, "Não foi possível carregar o cartão para dica.", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(context, "Não foi possível carregar o cartão para dica.", Toast.LENGTH_SHORT).show()
             }
             intentToListarDicaActivity()
             //Toast.makeText(requireContext(), "Visualizar Cartões", Toast.LENGTH_SHORT).show()
@@ -88,7 +88,7 @@ class AcoesCartaoFrDialog() : DialogFragment() {
                         dismiss()
                     }
                 } ?: run {
-                    Toast.makeText(context, "Nenhum Cartão selecionada", Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(context, "Nenhum Cartão selecionada", Toast.LENGTH_SHORT).show()
                     dismiss()
                 }
             })

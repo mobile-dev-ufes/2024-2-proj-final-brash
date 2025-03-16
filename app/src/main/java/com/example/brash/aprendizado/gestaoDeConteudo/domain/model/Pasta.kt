@@ -7,8 +7,11 @@ data class Pasta (
     var nome: String = "",
     val usuario: Usuario? = null,
     var baralhos: MutableList<Baralho> = mutableListOf()
-)
-
+){
+    override fun toString(): String {
+        return "Pasta(id='$idPasta', nome='$nome')"
+    }
+}
 
 
 /*

@@ -55,12 +55,11 @@ class CriarCartaoFrDialog : DialogFragment() {
             dismiss()
         }
         binding.ListarCartaoFrCriarCartaoButtonCriar.setOnClickListener {
-            dismiss()
             val pergunta = binding.ListarCartaoFrCriarCartaoInputPergunta.text.toString()
             val resposta = binding.ListarCartaoFrCriarCartaoInputResposta.text.toString()
-            listarCartaoVM.criarCartao(pergunta, resposta) {
+            listarCartaoVM.criarCartao(pergunta, resposta, {
                 dismiss()
-            }
+            })
         }
     }
 

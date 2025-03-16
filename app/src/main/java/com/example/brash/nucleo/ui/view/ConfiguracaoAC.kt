@@ -14,6 +14,7 @@ import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.HomeAC
 import com.example.brash.databinding.NucConfiguracaoAcBinding
 import com.example.brash.nucleo.ui.viewModel.ConfiguracaoVM
 import com.example.brash.nucleo.utils.UtilsFoos
+import com.example.brash.nucleo.utils.saveLanguagePreference
 import java.util.Locale
 
 
@@ -36,7 +37,6 @@ class ConfiguracaoAC : AppCompatActivity(), View.OnClickListener {
     }
     private fun setOnClickListeners(){
         binding.ConfiguracaoAcTextViewTrocarSenha.setOnClickListener(this)
-        binding.ConfiguracaoAcTextViewTrocarEmail.setOnClickListener(this)
         binding.ConfiguracaoAcTextViewSairDaConta.setOnClickListener(this)
         binding.ConfiguracaoAcImageViewRetornar.setOnClickListener(this)
         binding.ConfiguracaoAcTextViewIdioma.setOnClickListener(this)
@@ -57,9 +57,6 @@ class ConfiguracaoAC : AppCompatActivity(), View.OnClickListener {
             R.id.ConfiguracaoAcTextViewTrocarSenha -> {
                 //UtilsFoos.showToast(this, "Você clicou na mensgem de ir cadastrar")
                 intentToDefinirSenhaActivity()
-            }
-            R.id.ConfiguracaoAcTextViewTrocarEmail -> {
-                intentToDefinirEmailActivity()
             }
             R.id.ConfiguracaoAcTextViewSairDaConta ->{
                 configuracaoVM.signOut()
@@ -85,12 +82,12 @@ class ConfiguracaoAC : AppCompatActivity(), View.OnClickListener {
             }
 
             R.id.ConfiguracaoAcRadioButtonIdiomaPt -> {
-                UtilsFoos.changeLanguage(this, "pt")
+                saveLanguagePreference(this, "pt")
                 restartToHome()
             }
 
             R.id.ConfiguracaoAcRadioButtonIdiomaEn -> {
-                UtilsFoos.changeLanguage(this, "en")
+                saveLanguagePreference(this, "en")
                 restartToHome()
             }
 
