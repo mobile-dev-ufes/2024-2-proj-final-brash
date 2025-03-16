@@ -151,20 +151,22 @@ class ListarCartaoVM(application: Application) : AndroidViewModel(application) {
         //TODO:: Fazer a edição de cartão do firebase também
         //TODO:: apenas requisitar se tiver ALGUMA informação diferente
         // request para atualizar dados
-        viewModelScope.launch{/*
-            val result = cartaoRepository.updateCard(cartao, pergunta, resposta)
+        if(processaInfoCartao(pergunta, resposta)) {
+            viewModelScope.launch{/*
+                val result = cartaoRepository.updateCard(cartao, pergunta, resposta)
 
-            result
-                .onSuccess {
-                    cartao.pergunta = pergunta
-                    cartao.resposta = resposta
-                    updateFilterCartaoList(_textoBusca.value?: "")
-                    onSuccess()
-                }
-                .onFailure {
-                    UtilsFoos.showToast(getApplication(), "Ocorreu algum erro na edição do baralho")
-                    Log.e("criar Pasta debug", "Ocorreu algum erro na criação da pasta")
-                }*/
+                result
+                    .onSuccess {
+                        cartao.pergunta = pergunta
+                        cartao.resposta = resposta
+                        updateFilterCartaoList(_textoBusca.value?: "")
+                        onSuccess()
+                    }
+                    .onFailure {
+                        UtilsFoos.showToast(getApplication(), "Ocorreu algum erro na edição do baralho")
+                        Log.e("criar Pasta debug", "Ocorreu algum erro na criação da pasta")
+                    }*/
+            }
         }
         //getAllCartoes()
     }
@@ -202,14 +204,26 @@ class ListarCartaoVM(application: Application) : AndroidViewModel(application) {
         if(_cartaoList.value == null){
             _cartaoListSort.value = emptyList()
         }
-        else if(busca.isEmpty()){
-            _cartaoListSort.value = _cartaoList.value
-        }
-        else if(_opcoesDeBusca.value!!.filtrar == FiltroDeBuscaListarCartao.PERGUNTA){
-            _cartaoListSort.value = _cartaoList.value!!.filter{it.pergunta.contains(busca, ignoreCase = true)}
-        }
-        else{
-            _cartaoListSort.value = _cartaoList.value!!.filter{it.resposta.contains(busca, ignoreCase = true)}
+        else if (_opcoesDeBusca.value!!.filtrar == FiltroDeBuscaListarCartao.PERGUNTA) {
+            if(busca.isEmpty()){
+                _cartaoListSort.value = _cartaoList.value!!
+                    .sortedBy { it.pergunta } // Ordena pela pergunta
+            }
+            else{
+                _cartaoListSort.value = _cartaoList.value!!
+                    .filter { it.pergunta.contains(busca, ignoreCase = true) }
+                    .sortedBy { it.pergunta } // Ordena pela pergunta após filtrar
+            }
+        } else {
+            if(busca.isEmpty()){
+                _cartaoListSort.value = _cartaoList.value!!
+                    .sortedBy { it.resposta } // Ordena pela resposta
+            }
+            else{
+                _cartaoListSort.value = _cartaoList.value!!
+                    .filter { it.resposta.contains(busca, ignoreCase = true) }
+                    .sortedBy { it.resposta } // Ordena pela resposta após filtrar
+            }
         }
 
         // Garantindo que _cartaoListSort nunca seja nulo
