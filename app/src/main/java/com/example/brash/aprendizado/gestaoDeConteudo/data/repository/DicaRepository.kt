@@ -79,7 +79,7 @@ class DicaRepository {
     }
 
     // testar
-    suspend fun updateHint(hint : Dica) : Result<Unit>{
+    suspend fun updateHint(hint : Dica, text : String) : Result<Unit>{
         val currentUserEmail = fireBaseAuth.currentUser?.email
             ?: return Result.failure(Throwable("Usuário não autenticado"))
         return runCatching {
@@ -93,9 +93,8 @@ class DicaRepository {
                 .document(card.idCartao)
                 .collection("hints")
                 .document(hint.idDica)
-
             val updateInfo = mapOf(
-                "text" to hint.texto
+                "text" to text
             )
             hintRef.update(updateInfo).await()
         }

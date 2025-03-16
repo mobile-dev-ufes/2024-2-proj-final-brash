@@ -74,5 +74,21 @@ class UsuarioRepository {
         }
     }
 
+    suspend fun checkExistsUserName(userName: String): Result<Boolean> {
+        val currentUserEmail = fireBaseAuth.currentUser?.email
+        if (currentUserEmail.isNullOrEmpty()) {
+            return Result.failure(Throwable("Usuário não autenticado"))
+        }
+        return runCatching {
+            val usersRef = fireStoreDB.collection("users")
+            val querySnapshot = usersRef
+                .whereEqualTo("name", userName)
+                .limit(1)
+                .get()
+                .await()
+            !querySnapshot.isEmpty
+        }
+    }
+
 
 }
