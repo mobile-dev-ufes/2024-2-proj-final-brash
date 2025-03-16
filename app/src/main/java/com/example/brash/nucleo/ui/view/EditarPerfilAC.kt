@@ -52,15 +52,14 @@ class EditarPerfilAC : AppCompatActivity() {
             finish()
         }
         binding.EditarPerfilButtonConfirmar.setOnClickListener{
-            // TODO:: Obter todas as informações
 
-            appVM.updateUsuarioLogado(
-                Usuario(nomeDeUsuario = binding.EditarPerfilInputNomeDeUsuario.text.toString(),
-                        nomeDeExibicao = binding.EditarPerfilInputNomeDeExibicao.text.toString(),
-                        iconeDeUsuario = IconeDeUsuario(imagem = perfilVM.imagemEmFoco.value!!, cor = perfilVM.corEmFoco.value!!)
-                )
-            )
-            finish()
+            appVM.updateUsuarioLogado( binding.EditarPerfilInputNomeDeUsuario.text.toString(),
+                binding.EditarPerfilInputNomeDeExibicao.text.toString(),
+                perfilVM.corEmFoco.value!!,
+                perfilVM.imagemEmFoco.value!! ){
+                finish()
+            }
+
 
         }
         binding.EditarPerfilAcImageViewIcone1.setOnClickListener{
