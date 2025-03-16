@@ -152,8 +152,8 @@ class ListarCartaoVM(application: Application) : AndroidViewModel(application) {
         //TODO:: apenas requisitar se tiver ALGUMA informação diferente
         // request para atualizar dados
         if(processaInfoCartao(pergunta, resposta)) {
-            viewModelScope.launch{/*
-                val result = cartaoRepository.updateCard(cartao, pergunta, resposta)
+            viewModelScope.launch{
+                val result = cartaoRepository.updateCardQA(cartao, pergunta, resposta)
 
                 result
                     .onSuccess {
@@ -165,7 +165,7 @@ class ListarCartaoVM(application: Application) : AndroidViewModel(application) {
                     .onFailure {
                         UtilsFoos.showToast(getApplication(), "Ocorreu algum erro na edição do baralho")
                         Log.e("criar Pasta debug", "Ocorreu algum erro na criação da pasta")
-                    }*/
+                    }
             }
         }
         //getAllCartoes()
