@@ -82,7 +82,7 @@ class UsuarioRepository {
         return runCatching {
             val usersRef = fireStoreDB.collection("users")
             val querySnapshot = usersRef
-                .whereEqualTo("name", userName)
+                .whereEqualTo("userName", userName)
                 .limit(1)
                 .get()
                 .await()
