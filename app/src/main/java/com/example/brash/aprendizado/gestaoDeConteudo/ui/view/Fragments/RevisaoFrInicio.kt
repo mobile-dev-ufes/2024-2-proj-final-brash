@@ -74,13 +74,13 @@ class RevisaoFrInicio : Fragment(R.layout.gtc_revisao_fr_inicio) {
                             if(pasta.idPasta == "root"){
                                 for(baralho in pasta.baralhos){
                                     if(baralho.idBaralho == baralhoid){
-                                        val result = baralhoRepository.getCards(baralho)
+                                        val result = pastaRepository.copyDeck(pasta, baralho)
                                         result
-                                            .onSuccess { listaCartoes ->
-                                                Log.e("printado cartoes", "$listaCartoes")
+                                            .onSuccess { novoId ->
+                                                Log.e("teste copiar baralho para pasta", "deu tudo certo ${novoId}")
                                             }
-                                            .onFailure {
-                                                Log.e("printando cartoes", "algo deu errado")
+                                            .onFailure { e ->
+                                                Log.e("teste copiar baralho para pasta", "algo deu errado ${e}")
                                             }
                                     }
                                 }

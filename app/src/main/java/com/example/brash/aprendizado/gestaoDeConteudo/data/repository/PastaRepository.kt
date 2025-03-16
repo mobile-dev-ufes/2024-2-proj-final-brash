@@ -3,17 +3,16 @@ package com.example.brash.aprendizado.gestaoDeConteudo.data.repository
 import android.util.Log
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Baralho
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Pasta
-import com.example.brash.nucleo.domain.model.Usuario
-import com.google.android.gms.tasks.Task
-import com.google.android.gms.tasks.Tasks
+import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.QueryDocumentSnapshot
-import com.google.firebase.firestore.QuerySnapshot
 import kotlinx.coroutines.tasks.await
-import org.jetbrains.annotations.Async.Execute
+import org.w3c.dom.Document
+import java.time.ZoneId
+import java.util.Date
 
 class PastaRepository {
 
@@ -75,7 +74,7 @@ class PastaRepository {
         if (currentUserEmail.isNullOrEmpty()) {
             return Result.failure(Throwable("Usuário não autenticado"))
         }
-        return runCatching { // a pasta vai estar vazia
+        return runCatching { // A pasta vai estar vazia, não precisa de exclusão recursiva.
             val folderRef = fireStoreDB
                 .collection("users")
                 .document(currentUserEmail)
@@ -182,5 +181,70 @@ class PastaRepository {
         return
     }
 
+    private fun getDeckReference(deck: Baralho, folder: Pasta, currentUserEmail: String): DocumentReference {
+        val userRef = fireStoreDB.collection("users").document(currentUserEmail)
+        return if (folder.idPasta != "root") {
+            userRef.collection("folders").document(folder.idPasta).collection("decks").document(deck.idBaralho)
+        } else {
+            userRef.collection("root").document(deck.idBaralho)
+        }
+    }
 
+    private fun getDecksReference(folder : Pasta, currentUserEmail : String) : CollectionReference{
+        val userRef = fireStoreDB.collection("users").document(currentUserEmail)
+        return if (folder.idPasta != "root") {
+            userRef.collection("folders").document(folder.idPasta).collection("decks")
+        } else {
+            userRef.collection("root")
+        }
+    }
+
+    // users/emaildousuariopostoubaralho/root
+
+    suspend fun copyDeck(folder: Pasta, deck: Baralho): Result<String> {
+        val currentUserEmail = fireBaseAuth.currentUser?.email
+            ?: return Result.failure(Throwable("Usuário não autenticado"))
+
+        return runCatching {
+            val folderDeck = deck.pasta ?: return Result.failure(Throwable("Pasta do deck não encontrada (copyDeck)"))
+            val deckRef = getDeckReference(deck, folderDeck, currentUserEmail) // Localização original do baralho
+
+            val decksRef = getDecksReference(folder, currentUserEmail) // destino da cópia
+            val newDeckRef = decksRef.add(hashMapOf<String, Any>()).await()
+            val newDeckGeneratedId = newDeckRef.id
+
+            val newDeckInfo = hashMapOf(
+                "id" to newDeckGeneratedId,
+                "name" to deck.nome,
+                "description" to deck.descricao,
+                "public" to deck.publico,
+                "numberNewCardsPerDay" to deck.cartoesNovosPorDia,
+            )
+            newDeckRef.set(newDeckInfo).await()
+
+            val newCardsRef = newDeckRef.collection("cards")
+            val cardsRef = deckRef.collection("cards")
+
+            val cardsSnapshot = cardsRef.get().await()
+            for (card in cardsSnapshot) {
+                val originalCardId = card.id
+                val newCardRef = newCardsRef.document(originalCardId)
+
+                val cardData = card.data.toMutableMap()
+                newCardRef.set(cardData).await()
+
+                val hintsRefSnapshot = card.reference.collection("hints").get().await()
+                val newHintsRef = newCardRef.collection("hints")
+                for (hint in hintsRefSnapshot) {
+                    val originalHintId = hint.id
+                    val newHintRef = newHintsRef.document(originalHintId)
+
+                    val hintData = hint.data.toMutableMap()
+                    newHintRef.set(hintData).await()
+                }
+            }
+
+            newDeckGeneratedId
+        }
+    }
 }

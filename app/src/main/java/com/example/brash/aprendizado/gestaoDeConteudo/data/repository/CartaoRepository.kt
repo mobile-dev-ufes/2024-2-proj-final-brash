@@ -31,7 +31,6 @@ class CartaoRepository {
             val cardRef = cardsRef.add(hashMapOf<String, Any>()).await()
             val generatedId = cardRef.id
 
-
             val newCard = hashMapOf(
                 "id" to generatedId,
                 "question" to card.pergunta,
