@@ -39,6 +39,10 @@ class AccountServiceImpl () : AccountService {
         return Firebase.auth.currentUser != null
     }
 
+    override fun getUserEmail(): String? {
+        return Firebase.auth.currentUser?.email
+    }
+
     override suspend fun signIn(email: String, password: String) {
         try{
             val authResult = Firebase.auth.signInWithEmailAndPassword(email, password).await()
