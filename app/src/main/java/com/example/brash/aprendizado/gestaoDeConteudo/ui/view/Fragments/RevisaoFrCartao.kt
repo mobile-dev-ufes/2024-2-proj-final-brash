@@ -8,30 +8,29 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.transition.Visibility
 import com.example.brash.R
-import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.CategoriaDoAprendizado
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Dica
-import com.example.brash.aprendizado.gestaoDeConteudo.domain.useCase.SuperMemo2
-import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.RevisaoCartaoAC
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.adapter.ListaDicaAdapter
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.listener.OnDicaListener
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.viewModel.RevisaoCartaoVM
 import com.example.brash.aprendizado.gestaoDeConteudo.utils.NivelRevisao
-import com.example.brash.aprendizado.gestaoDeConteudo.utils.nucleoUtils
 import com.example.brash.aprendizado.gestaoDeConteudo.utils.showCartoesInfoDialog
 import com.example.brash.databinding.GtcRevisaoFrCartaoBinding
-import com.example.brash.databinding.NucCadastrarFrExitoBinding
 import java.util.Locale
 
+/**
+ * Fragment responsible for displaying and managing the card review process.
+ *
+ * This fragment presents the flashcard question and answer, allows users to interact with the card by rating
+ * the review difficulty, and shows hints and answers dynamically. It also handles the display of related tips.
+ *
+ * @constructor Creates an instance of [RevisaoFrCartao].
+ */
 class RevisaoFrCartao : Fragment(R.layout.gtc_revisao_fr_cartao) {
 
     private var _binding : GtcRevisaoFrCartaoBinding? = null
@@ -41,7 +40,17 @@ class RevisaoFrCartao : Fragment(R.layout.gtc_revisao_fr_cartao) {
 
     private val revisaoCartaoVM: RevisaoCartaoVM by activityViewModels()
     private lateinit var adapter : ListaDicaAdapter
-
+    /**
+     * Called when the fragment's view is created.
+     *
+     * This method inflates the layout using ViewBinding and initializes the RecyclerView with its adapter.
+     * It also fetches the tips for the card and sets up click listeners for user interaction.
+     *
+     * @param inflater The LayoutInflater object that can be used to inflate the fragment's view.
+     * @param container The parent view that the fragment's UI will be attached to.
+     * @param savedInstanceState A [Bundle] containing the fragment's previously saved state.
+     * @return The root view of the fragment.
+     */
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         super.onCreateView(inflater, container, savedInstanceState)
@@ -50,7 +59,14 @@ class RevisaoFrCartao : Fragment(R.layout.gtc_revisao_fr_cartao) {
 
         return binding.root
     }
-
+    /**
+     * Called after the fragment's view has been created.
+     *
+     * This method initializes the RecyclerView, sets the adapter, and sets up click listeners for the fragment's UI.
+     *
+     * @param view The root view of the fragment.
+     * @param savedInstanceState A [Bundle] containing the fragment's previously saved state.
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -77,7 +93,12 @@ class RevisaoFrCartao : Fragment(R.layout.gtc_revisao_fr_cartao) {
         setObservers()
         setOnClickListeners()
     }
-
+    /**
+     * Sets up observers for LiveData variables in the ViewModel and updates the UI accordingly.
+     *
+     * This method observes changes to the card question/answer, tip list, visibility of UI elements,
+     * and number of cards to review.
+     */
     private fun setObservers(){
 
         revisaoCartaoVM.cartaoEmFoco.observe(viewLifecycleOwner){
@@ -143,7 +164,11 @@ class RevisaoFrCartao : Fragment(R.layout.gtc_revisao_fr_cartao) {
             binding.RevisaoCartaoAcTextViewCartoesEsquecidosQuantidade.text = String.format(Locale.getDefault(), "%d", forgottenCards)
         }
     }
-
+    /**
+     * Sets up click listeners for various buttons in the fragment.
+     *
+     * This method sets up actions for buttons such as showing the answer, rating the card, and navigating to the next card.
+     */
     private fun setOnClickListeners(){
         binding.RevisaoCartaoAcButtonMostrarResposta.setOnClickListener {
             revisaoCartaoVM.showAnswers()
@@ -204,7 +229,9 @@ class RevisaoFrCartao : Fragment(R.layout.gtc_revisao_fr_cartao) {
             revisaoCartaoVM.showHints()
         }
     }
-
+    /**
+     * Cleans up the fragment's view by setting the binding to null.
+     */
     override fun onDestroyView() {
         super.onDestroyView()
         _binding=null

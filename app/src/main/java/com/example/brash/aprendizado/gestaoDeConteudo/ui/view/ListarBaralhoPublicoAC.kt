@@ -1,30 +1,29 @@
 package com.example.brash.aprendizado.gestaoDeConteudo.ui.view
 
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.view.View
 import android.view.inputmethod.EditorInfo
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.brash.R
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Baralho
-import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Pasta
-import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments.AcoesPastaFrDialog
-import com.example.brash.nucleo.ui.view.PerfilAC
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments.VisualizarBaralhoPublicoFrDialog
-
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.adapter.ListaBaralhoPublicoAdapter
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.listener.OnBaralhoPublicoListener
-import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.listener.OnPastaListener
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.viewModel.ListarBaralhoPublicoVM
 import com.example.brash.databinding.GtcListarBaralhoPublicoAcBinding
-import com.example.brash.nucleo.ui.view.Fragments.AlertDialogFr
 
+/**
+ * Activity for listing public decks and allowing interaction with them.
+ *
+ * This activity displays a list of public decks that the user can interact with, including
+ * the option to view more details of a specific deck. It also provides search functionality
+ * to filter the list of public decks based on user input. The activity uses a ViewModel to
+ * manage data and LiveData for updating the UI.
+ *
+ * @constructor Creates an instance of [ListarBaralhoPublicoAC].
+ */
 class ListarBaralhoPublicoAC : AppCompatActivity() {
 
     private lateinit var binding: GtcListarBaralhoPublicoAcBinding
@@ -34,6 +33,15 @@ class ListarBaralhoPublicoAC : AppCompatActivity() {
 
     private lateinit var adapter : ListaBaralhoPublicoAdapter
 
+    /**
+     * Called when the activity is first created.
+     *
+     * Initializes the layout, ViewModel, RecyclerView for displaying the public decks,
+     * and sets up the listener for interactions with the public decks. It also fetches
+     * the list of public decks to display.
+     *
+     * @param savedInstanceState A [Bundle] containing the activity's previously saved state.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -68,6 +76,12 @@ class ListarBaralhoPublicoAC : AppCompatActivity() {
 
 
     }
+
+    /**
+     * Sets click listeners for the activity's UI elements.
+     *
+     * Binds actions to buttons and UI elements, such as the search input and the back button.
+     */
     private fun setOnClickListeners(){
         binding.ListarBaralhoPublicoAcInputDePesquisa.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_NEXT) {
@@ -84,6 +98,12 @@ class ListarBaralhoPublicoAC : AppCompatActivity() {
         }
     }
 
+    /**
+     * Sets up the observers for LiveData from the ViewModel.
+     *
+     * Observes changes in the list of public decks and updates the RecyclerView adapter
+     * accordingly with the sorted list of public decks.
+     */
     private fun setObservers(){
 
         listarBaralhoPublicoVM.baralhoPublicoListSort.observe(this, Observer { baralhoListSort ->
@@ -100,6 +120,12 @@ class ListarBaralhoPublicoAC : AppCompatActivity() {
         //startActivity(intent)
     }
 
+    /**
+     * Called when the activity is stopped.
+     *
+     * This method is invoked when the activity is no longer in the foreground, allowing for any
+     * necessary cleanup when the activity is stopped.
+     */
     override fun onStop() {
         super.onStop()
         //binding.LoginAcTextViewErroEntrar.visibility = View.GONE // esconder o erro depois que sair da tela

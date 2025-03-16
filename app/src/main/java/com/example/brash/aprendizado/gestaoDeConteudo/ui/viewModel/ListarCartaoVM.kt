@@ -2,25 +2,26 @@ package com.example.brash.aprendizado.gestaoDeConteudo.ui.viewModel
 
 import android.app.Application
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.brash.R
 import com.example.brash.aprendizado.gestaoDeConteudo.data.repository.BaralhoRepository
 import com.example.brash.aprendizado.gestaoDeConteudo.data.repository.CartaoRepository
-import com.example.brash.aprendizado.gestaoDeConteudo.data.repository.PastaRepository
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Baralho
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Cartao
-import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.HomeAcListItem
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.OpcoesDeBuscaListarCartao
-import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Pasta
 import com.example.brash.aprendizado.gestaoDeConteudo.utils.FiltroDeBuscaListarCartao
 import com.example.brash.nucleo.utils.UtilsFoos
 import kotlinx.coroutines.launch
-import java.lang.Exception
 
+/**
+ * ViewModel responsible for managing the state and business logic related to Cartão (Card) entities.
+ * It handles operations such as retrieving, creating, updating, deleting, and filtering cards
+ * within a specific "Baralho" (Deck).
+ *
+ * @param application The application instance used for accessing resources and context.
+ */
 class ListarCartaoVM(application: Application) : AndroidViewModel(application) {
 
     private var _teste = MutableLiveData<Boolean>()
@@ -46,6 +47,11 @@ class ListarCartaoVM(application: Application) : AndroidViewModel(application) {
 
     private val baralhoRepository = BaralhoRepository()
 
+    /**
+     * Sets the baralho (deck) that owns the list of cards.
+     *
+     * @param baralho The deck that contains the cards to be managed.
+     */
     fun setBaralhoOwner(baralho: Baralho){
         _baralhoOwner.value = baralho
     }
@@ -56,6 +62,10 @@ class ListarCartaoVM(application: Application) : AndroidViewModel(application) {
         return getApplication<Application>().getString(id)
     }
 
+    /**
+     * Retrieves all cards associated with the currently set baralho (deck).
+     * The cards are fetched from the Firebase repository and filtered based on the search text.
+     */
     fun getAllCartoes() {
         //TODO:: requisitar do firebase
 
@@ -95,6 +105,12 @@ class ListarCartaoVM(application: Application) : AndroidViewModel(application) {
         }
 
     }
+
+    /**
+     * Sets the card that is currently in focus.
+     *
+     * @param cartao The card to set as the current focus.
+     */
     fun setCartaoEmFoco(cartao: Cartao){
         cartaoEmFoco.value = cartao
         Log.d("HomeDialogs", "Defini Baralho em FOCO")
@@ -109,6 +125,13 @@ class ListarCartaoVM(application: Application) : AndroidViewModel(application) {
         Log.d("HomeDialogs", filtro.toString())
     }*/
 
+    /**
+     * Creates a new card with the specified question and answer.
+     *
+     * @param pergunta The question text for the card.
+     * @param resposta The answer text for the card.
+     * @param onSuccess A lambda function to be invoked upon successful creation.
+     */
     fun criarCartao(pergunta: String, resposta: String, onSuccess : () -> Unit){
 
         if(processaInfoCartao(pergunta, resposta)) {
@@ -136,6 +159,14 @@ class ListarCartaoVM(application: Application) : AndroidViewModel(application) {
         }
         //getAllCartoes()
     }
+
+    /**
+     * Processes the card information to ensure it is valid before creating or editing a card.
+     *
+     * @param pergunta The question text for the card.
+     * @param resposta The answer text for the card.
+     * @return A boolean indicating whether the provided information is valid.
+     */
     private fun processaInfoCartao(pergunta: String, resposta: String) : Boolean{
 
         if(pergunta.isEmpty() || resposta.isEmpty()){
@@ -146,6 +177,15 @@ class ListarCartaoVM(application: Application) : AndroidViewModel(application) {
         }
         return true
     }
+
+    /**
+     * Edits an existing card with new question and answer text.
+     *
+     * @param cartao The card to edit.
+     * @param pergunta The updated question text for the card.
+     * @param resposta The updated answer text for the card.
+     * @param onSuccess A lambda function to be invoked upon successful update.
+     */
     fun editarCartao(cartao: Cartao,pergunta: String, resposta: String, onSuccess : () -> Unit){
         //TODO:: Fazer a edição de cartão do firebase também
         //TODO:: apenas requisitar se tiver ALGUMA informação diferente
@@ -170,6 +210,13 @@ class ListarCartaoVM(application: Application) : AndroidViewModel(application) {
         }
         //getAllCartoes()
     }
+
+    /**
+     * Deletes a specified card.
+     *
+     * @param cartao The card to delete.
+     * @param onSuccess A lambda function to be invoked upon successful deletion.
+     */
     fun excluirCartao(cartao: Cartao, onSuccess : () -> Unit){
         viewModelScope.launch{
             val result = cartaoRepository.deleteCard(cartao)
@@ -193,6 +240,11 @@ class ListarCartaoVM(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    /**
+     * Updates the search filter options for the card list.
+     *
+     * @param filtro The filter options to apply to the card list.
+     */
     fun updateOpcoesDeBusca(filtro : FiltroDeBuscaListarCartao){
         _opcoesDeBusca.value = OpcoesDeBuscaListarCartao( filtro)
         Log.d("HomeDialogs", "Defini Pasta em FOCO")
@@ -200,6 +252,11 @@ class ListarCartaoVM(application: Application) : AndroidViewModel(application) {
         Log.d("HomeDialogs", filtro.toString())
     }
 
+    /**
+     * Filters and sorts the list of cards based on the current search query and filter options.
+     *
+     * @param busca The search query to filter the list of cards.
+     */
     fun updateFilterCartaoList(busca: String){
         _textoBusca.value = busca
 

@@ -1,42 +1,33 @@
 package com.example.brash.aprendizado.gestaoDeConteudo.ui.view
 
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.view.View
 import android.view.inputmethod.EditorInfo
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.brash.R
-import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Baralho
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Cartao
-import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Pasta
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments.AcoesCartaoFrDialog
-import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments.AcoesPastaFrDialog
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments.CriarCartaoFrDialog
-import com.example.brash.nucleo.ui.view.PerfilAC
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments.OpcoesDeBuscaListarCartaoFrDialog
-import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments.VisualizarBaralhoPublicoFrDialog
-import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments.VisualizarCartaoFrDialog
-
-import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.adapter.ListaBaralhoPublicoAdapter
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.adapter.ListaCartaoAdapter
-import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.listener.OnBaralhoPublicoListener
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.listener.OnCartaoListener
-import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.listener.OnPastaListener
-import com.example.brash.aprendizado.gestaoDeConteudo.ui.viewModel.ListarBaralhoPublicoVM
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.viewModel.ListarCartaoVM
-import com.example.brash.databinding.GtcListarBaralhoPublicoAcBinding
 import com.example.brash.databinding.GtcListarCartaoAcBinding
-import com.example.brash.nucleo.ui.view.Fragments.AlertDialogFr
 import com.example.brash.utilsGeral.AppVM
 import com.example.brash.utilsGeral.MyApplication
 
+/**
+ * Activity for listing and interacting with cards within a deck.
+ *
+ * This activity displays a list of cards associated with a specific deck. It allows the
+ * user to view, filter, and create new cards. The activity uses a ViewModel to manage the
+ * data and updates the UI via LiveData. It also includes a listener for interactions with
+ * the cards and a search functionality to filter the card list.
+ *
+ * @constructor Creates an instance of [ListarCartaoAC].
+ */
 class ListarCartaoAC : AppCompatActivity() {
 
     private lateinit var binding: GtcListarCartaoAcBinding
@@ -47,6 +38,15 @@ class ListarCartaoAC : AppCompatActivity() {
 
     private lateinit var adapter : ListaCartaoAdapter
 
+    /**
+     * Called when the activity is first created.
+     *
+     * Initializes the layout, ViewModel, RecyclerView for displaying the card list,
+     * and sets up the listener for card interactions. It also loads the deck's data
+     * and fetches the cards associated with the deck.
+     *
+     * @param savedInstanceState A [Bundle] containing the activity's previously saved state.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -88,6 +88,13 @@ class ListarCartaoAC : AppCompatActivity() {
 
         listarCartaoVM.getAllCartoes()
     }
+
+    /**
+     * Sets click listeners for the activity's UI elements.
+     *
+     * Binds actions to buttons and UI elements, such as the search input, search options
+     * button, create card button, and the back button.
+     */
     private fun setOnClickListeners(){
 
         binding.ListarCartaoAcInputDePesquisa.setOnEditorActionListener { _, actionId, _ ->
@@ -113,6 +120,12 @@ class ListarCartaoAC : AppCompatActivity() {
 
     }
 
+    /**
+     * Sets up the observers for LiveData from the ViewModel.
+     *
+     * Observes changes in the list of cards and the search options, updating the RecyclerView
+     * adapter and filtering the card list accordingly.
+     */
     private fun setObservers(){
         //loginVM.erroMessageLD.observe(this, Observer{
             //binding.LoginAcTextViewErroEntrar.text = it
@@ -133,6 +146,12 @@ class ListarCartaoAC : AppCompatActivity() {
         //startActivity(intent)
     }
 
+    /**
+     * Called when the activity is stopped.
+     *
+     * This method is invoked when the activity is no longer in the foreground. It is used
+     * to handle any cleanup tasks when the activity is stopped.
+     */
     override fun onStop() {
         super.onStop()
         //binding.LoginAcTextViewErroEntrar.visibility = View.GONE // esconder o erro depois que sair da tela

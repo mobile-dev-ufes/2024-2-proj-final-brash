@@ -2,7 +2,6 @@ package com.example.brash.aprendizado.gestaoDeConteudo.ui.view
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -24,6 +23,16 @@ import com.example.brash.nucleo.utils.setAppLocale
 import com.example.brash.utilsGeral.AppVM
 import com.example.brash.utilsGeral.MyApplication
 
+/**
+ * Activity representing the home screen of the application, displaying a list of items
+ * and providing navigation options for profile and settings.
+ *
+ * This activity fetches and displays a list of items (e.g., decks and folders) in an expandable
+ * list. It also allows the user to interact with the list, view additional options for items,
+ * and navigate to profile and configuration screens.
+ *
+ * @constructor Creates an instance of [HomeAC].
+ */
 class HomeAC : AppCompatActivity(), AlertDialogFr.OnConfirmListener {
 
     private lateinit var binding: GtcHomeAcBinding
@@ -35,6 +44,14 @@ class HomeAC : AppCompatActivity(), AlertDialogFr.OnConfirmListener {
     private lateinit var adapter: ListaExpandableAdapter
 
 
+    /**
+     * Called when the activity is first created.
+     *
+     * Initializes the layout, ViewModel, RecyclerView, and sets up observers for LiveData.
+     * It also configures language settings based on the saved language.
+     *
+     * @param savedInstanceState A [Bundle] containing the activity's previously saved state.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -54,6 +71,12 @@ class HomeAC : AppCompatActivity(), AlertDialogFr.OnConfirmListener {
         appVM.requestUsuarioLogado()
     }
 
+    /**
+     * Sets the click listeners for the activity's UI elements.
+     *
+     * This includes handling clicks for the additional actions button, profile icon,
+     * and settings icon.
+     */
     private fun setOnClickListeners(){
         binding.HomeAcButtonAcoesAdicionais.setOnClickListener{
             AcoesAdicionaisFrDialog().show(supportFragmentManager, "AcoesAdicionaisDialog")
@@ -65,7 +88,12 @@ class HomeAC : AppCompatActivity(), AlertDialogFr.OnConfirmListener {
             intentToConfiguracaoActivity()
         }
     }
-
+    /**
+     * Sets up the observers for LiveData from the ViewModel.
+     *
+     * Observes changes in the list of home items and updates the UI accordingly.
+     * Also updates the profile icon when the logged-in user data changes.
+     */
     private fun setObservers(){
         homeVM.homeAcListItemList.observe(this, Observer{
             adapter.updateProdList(homeVM.homeAcListItemList.value!!)
@@ -87,7 +115,10 @@ class HomeAC : AppCompatActivity(), AlertDialogFr.OnConfirmListener {
         })
          */
     }
-
+    /**
+     * Initializes the search result display by setting up the RecyclerView and adapter.
+     * It also fetches the list of home items.
+     */
     private fun initResultadoBusca(){
         recyclerView = findViewById(R.id.HomeAcExpandableListViewResultadoBusca)
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -110,22 +141,38 @@ class HomeAC : AppCompatActivity(), AlertDialogFr.OnConfirmListener {
 
         recyclerView.adapter = adapter
     }
+    /**
+     * Called when the activity is stopped.
+     *
+     * This method is invoked when the activity is no longer in the foreground, allowing for any
+     * necessary cleanup when the activity is stopped.
+     */
     override fun onStop() {
         super.onStop()
         //binding.LoginAcTextViewErroEntrar.visibility = View.GONE // esconder o erro depois que sair da tela
         // não vai previsar por causa do finish
     }
+    /**
+     * Navigates to the Configuration screen.
+     */
     private fun intentToConfiguracaoActivity(){
         val intent = Intent(this, ConfiguracaoAC::class.java)
         startActivity(intent)
         // vai ter que botar finish
     }
+    /**
+     * Navigates to the Profile screen.
+     */
     private fun intentToPerfilActivity(){
         val intent = Intent(this, PerfilAC::class.java)
         startActivity(intent)
     }
 
-    // Implementação da interface
+    /**
+     * Called when the confirmation button is clicked on the alert dialog.
+     *
+     * This method implements [AlertDialogFr.OnConfirmListener] to handle confirmation actions.
+     */
     override fun onConfirmAlertDialog() {
         // Aqui você pode navegar para outra Activity ou realizar alguma ação
         //Toast.makeText(this, "Confirmado Exclusao!", Toast.LENGTH_SHORT).show()

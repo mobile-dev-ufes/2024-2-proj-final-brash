@@ -2,13 +2,20 @@ package com.example.brash.aprendizado.gestaoDeConteudo.ui.viewModel
 
 import android.app.Application
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Anotacao
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Baralho
 
+
+/**
+ * ViewModel for managing and manipulating notes (Anotacao) in the application.
+ *
+ * This ViewModel is responsible for retrieving, creating, updating, and deleting notes. It also maintains the note list and the currently focused note.
+ * Additionally, it manages the associated deck (Baralho) for each note.
+ *
+ * @param application The application context used to initialize the ViewModel.
+ */
 class ListarAnotacaoVM(application: Application) : AndroidViewModel(application) {
 
     private var _teste = MutableLiveData<Boolean>()
@@ -24,12 +31,22 @@ class ListarAnotacaoVM(application: Application) : AndroidViewModel(application)
 
     private var _baralhoOwner = MutableLiveData<Baralho>()
 
+    /**
+     * Sets the provided deck (Baralho) as the owner of the notes.
+     * This helps in associating the notes with a particular deck.
+     *
+     * @param baralho The deck that owns the notes.
+     */
     fun setBaralhoOwner(baralho: Baralho){
         _baralhoOwner.value = baralho
     }
     //private var _opcoesDeBusca = MutableLiveData<OpcoesDeBuscaBaralhoPublico>()
     //val opcoesDeBusca get() = _opcoesDeBusca
 
+    /**
+     * Retrieves all the notes from the data source (mocked for now).
+     * Sets the initial list of notes.
+     */
     fun getAllAnotacoes() {
 
         //TODO:: requisitar do firebase
@@ -48,6 +65,12 @@ class ListarAnotacaoVM(application: Application) : AndroidViewModel(application)
         Log.d("ListaPastaAdapter", "DEFINIÇÃO DAS PASTAS")
     }
 
+    /**
+     * Sets the provided note as the note currently in focus.
+     * This helps in showing the relevant details for the selected note.
+     *
+     * @param anotacao The note to set in focus.
+     */
     fun setAnotacaoEmFoco(anotacao: Anotacao){
         anotacaoEmFoco.value = anotacao
         Log.d("HomeDialogs", "Defini Baralho em FOCO")
@@ -62,6 +85,14 @@ class ListarAnotacaoVM(application: Application) : AndroidViewModel(application)
         Log.d("HomeDialogs", filtro.toString())
     }*/
 
+    /**
+     * Creates a new note with the specified name and text.
+     * This function will eventually be implemented to interact with Firebase for creating the note.
+     *
+     * @param nome The name of the note.
+     * @param texto The text of the note.
+     * @param onSuccess Callback to execute when the note is successfully created.
+     */
     fun criarAnotacao(nome : String, texto : String, onSuccess : () -> Unit){
         //TODO:: Fazer a criação de anotação do firebase também
         //TODO:: apenas confirmar a criação se o nome for único para o usuário
@@ -70,6 +101,16 @@ class ListarAnotacaoVM(application: Application) : AndroidViewModel(application)
         // request para atualizar dados
         //getAllAnotacoes()
     }
+
+    /**
+     * Edits an existing note by updating its name and text.
+     * This function will eventually be implemented to interact with Firebase for updating the note.
+     *
+     * @param anotacao The note to edit.
+     * @param nome The new name of the note.
+     * @param texto The new text of the note.
+     * @param onSuccess Callback to execute when the note is successfully edited.
+     */
     fun editarAnotacao(anotacao: Anotacao, nome : String, texto : String, onSuccess : () -> Unit){
         //TODO:: Fazer a edição de anotação do firebase também
         //TODO:: apenas requisitar se tiver ALGUMA informação diferente
@@ -79,6 +120,14 @@ class ListarAnotacaoVM(application: Application) : AndroidViewModel(application)
         // request para atualizar dados
         //getAllAnotacoes()
     }
+
+    /**
+     * Deletes the specified note.
+     * This function will eventually be implemented to interact with Firebase for deleting the note.
+     *
+     * @param anotacao The note to delete.
+     * @param onSuccess Callback to execute when the note is successfully deleted.
+     */
     fun excluirAnotacao(anotacao: Anotacao, onSuccess : () -> Unit){
         //TODO:: Fazer a exclusão de anotação do firebase também
 

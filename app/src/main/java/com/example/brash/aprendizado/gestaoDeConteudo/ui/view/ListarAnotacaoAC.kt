@@ -2,8 +2,6 @@ package com.example.brash.aprendizado.gestaoDeConteudo.ui.view
 
 
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -19,6 +17,16 @@ import com.example.brash.databinding.GtcListarAnotacaoAcBinding
 import com.example.brash.utilsGeral.AppVM
 import com.example.brash.utilsGeral.MyApplication
 
+/**
+ * Activity for listing annotations associated with a deck and allowing interaction with them.
+ *
+ * This activity displays a list of annotations that the user can interact with,
+ * including viewing more details or creating new annotations. The activity uses a ViewModel
+ * to manage data and LiveData for updating the UI. It supports actions like viewing, creating,
+ * and managing annotations within a specific deck.
+ *
+ * @constructor Creates an instance of [ListarAnotacaoAC].
+ */
 class ListarAnotacaoAC : AppCompatActivity() {
 
     private lateinit var binding: GtcListarAnotacaoAcBinding
@@ -29,6 +37,15 @@ class ListarAnotacaoAC : AppCompatActivity() {
 
     private lateinit var adapter : ListaAnotacaoAdapter
 
+    /**
+     * Called when the activity is first created.
+     *
+     * Initializes the layout, ViewModel, RecyclerView for displaying the annotations,
+     * and sets up the listener for interactions with annotations. It also fetches
+     * the list of annotations to display.
+     *
+     * @param savedInstanceState A [Bundle] containing the activity's previously saved state.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -69,6 +86,13 @@ class ListarAnotacaoAC : AppCompatActivity() {
 
 
     }
+
+    /**
+     * Sets click listeners for the activity's UI elements.
+     *
+     * Binds actions to buttons and UI elements, such as the "Create Annotation" button
+     * and the back button for returning to the previous screen.
+     */
     private fun setOnClickListeners(){
 
         binding.ListarAnotacaoAcImageViewRetornar.setOnClickListener {
@@ -80,6 +104,12 @@ class ListarAnotacaoAC : AppCompatActivity() {
 
     }
 
+    /**
+     * Sets up the observers for LiveData from the ViewModel.
+     *
+     * Observes changes in the list of annotations and updates the RecyclerView adapter
+     * accordingly with the latest list of annotations.
+     */
     private fun setObservers(){
         //loginVM.erroMessageLD.observe(this, Observer{
             //binding.LoginAcTextViewErroEntrar.text = it
@@ -89,6 +119,13 @@ class ListarAnotacaoAC : AppCompatActivity() {
             adapter.updateAnotacaoList(anotacaoList)
         })
     }
+
+    /**
+     * Called when the activity is stopped.
+     *
+     * This method is invoked when the activity is no longer in the foreground, allowing for any
+     * necessary cleanup when the activity is stopped.
+     */
     private fun intentToCadastrarContaActivity(){
         //val intent = Intent(this, CadastrarContaAC::class.java)
         //startActivity(intent)

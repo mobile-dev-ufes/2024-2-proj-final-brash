@@ -1,46 +1,31 @@
 package com.example.brash.aprendizado.gestaoDeConteudo.ui.view
 
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.brash.R
-import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Baralho
-import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Cartao
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Dica
-import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Pasta
-import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments.AcoesCartaoFrDialog
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments.AcoesDicaFrDialog
-import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments.AcoesPastaFrDialog
-import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments.CriarCartaoFrDialog
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments.CriarDicaFrDialog
-import com.example.brash.nucleo.ui.view.PerfilAC
-import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments.VisualizarBaralhoPublicoFrDialog
-import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments.VisualizarCartaoFrDialog
-
-import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.adapter.ListaBaralhoPublicoAdapter
-import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.adapter.ListaCartaoAdapter
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.adapter.ListaDicaAdapter
-import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.listener.OnBaralhoPublicoListener
-import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.listener.OnCartaoListener
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.listener.OnDicaListener
-import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.listener.OnPastaListener
-import com.example.brash.aprendizado.gestaoDeConteudo.ui.viewModel.ListarBaralhoPublicoVM
-import com.example.brash.aprendizado.gestaoDeConteudo.ui.viewModel.ListarCartaoVM
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.viewModel.ListarDicaVM
-import com.example.brash.databinding.GtcListarBaralhoPublicoAcBinding
-import com.example.brash.databinding.GtcListarCartaoAcBinding
 import com.example.brash.databinding.GtcListarDicaAcBinding
-import com.example.brash.nucleo.ui.view.Fragments.AlertDialogFr
 import com.example.brash.utilsGeral.AppVM
 import com.example.brash.utilsGeral.MyApplication
 
+/**
+ * Activity for listing tips related to a specific card.
+ *
+ * This activity manages the listing of all tips associated with a card and allows the user
+ * to view, create, and interact with the tips. The activity uses a ViewModel to fetch the
+ * data and updates the UI via LiveData. It also includes a listener for interactions with
+ * the tips, and manages RecyclerView for displaying the list of tips.
+ *
+ * @constructor Creates an instance of [ListarDicaAC].
+ */
 class ListarDicaAC : AppCompatActivity() {
 
     private lateinit var binding: GtcListarDicaAcBinding
@@ -51,6 +36,15 @@ class ListarDicaAC : AppCompatActivity() {
 
     private lateinit var adapter : ListaDicaAdapter
 
+    /**
+     * Called when the activity is first created.
+     *
+     * Initializes the layout, ViewModel, and RecyclerView for displaying the tips list.
+     * Also sets up the listener for tip interactions and starts fetching the data for
+     * the tips related to the current card.
+     *
+     * @param savedInstanceState A [Bundle] containing the activity's previously saved state.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -91,6 +85,13 @@ class ListarDicaAC : AppCompatActivity() {
 
 
     }
+
+    /**
+     * Sets click listeners for the activity's UI elements.
+     *
+     * Binds actions to the buttons and UI elements in the layout, such as the "back"
+     * button and the "create tip" button.
+     */
     private fun setOnClickListeners(){
 
         binding.ListarDicaAcImageViewRetornar.setOnClickListener {
@@ -102,6 +103,12 @@ class ListarDicaAC : AppCompatActivity() {
 
     }
 
+    /**
+     * Sets up the observers for LiveData from the ViewModel.
+     *
+     * Observes changes in the list of tips and updates the RecyclerView adapter when
+     * the data is fetched or changed.
+     */
     private fun setObservers(){
         //loginVM.erroMessageLD.observe(this, Observer{
             //binding.LoginAcTextViewErroEntrar.text = it
@@ -117,6 +124,12 @@ class ListarDicaAC : AppCompatActivity() {
         //startActivity(intent)
     }
 
+    /**
+     * Called when the activity is stopped.
+     *
+     * This method is invoked when the activity is no longer in the foreground. It is used
+     * to handle any cleanup tasks when the activity is stopped.
+     */
     override fun onStop() {
         super.onStop()
         //binding.LoginAcTextViewErroEntrar.visibility = View.GONE // esconder o erro depois que sair da tela

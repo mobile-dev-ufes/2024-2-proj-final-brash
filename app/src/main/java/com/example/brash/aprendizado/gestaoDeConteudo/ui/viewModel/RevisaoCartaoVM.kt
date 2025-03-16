@@ -3,7 +3,6 @@ package com.example.brash.aprendizado.gestaoDeConteudo.ui.viewModel
 import android.app.Application
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -19,9 +18,13 @@ import com.example.brash.aprendizado.gestaoDeConteudo.utils.NivelRevisao
 import com.example.brash.nucleo.utils.UtilsFoos
 import kotlinx.coroutines.launch
 import java.time.LocalDateTime
-import java.util.LinkedList
-import java.util.Queue
 
+/**
+ * ViewModel for handling the review of cards in the context of learning content management.
+ * Provides functionality to manage card states, hints, and categories.
+ *
+ * @param application The application context to access resources.
+ */
 class RevisaoCartaoVM(application: Application) : AndroidViewModel(application) {
 
     private var _buttonShowAnswersVisibility = MutableLiveData<Int>()
@@ -60,10 +63,20 @@ class RevisaoCartaoVM(application: Application) : AndroidViewModel(application) 
     private val baralhoRepository = BaralhoRepository()
     private val cartaoRepository = CartaoRepository()
 
+    /**
+     * Gets the string resource based on the provided resource ID.
+     *
+     * @param id The resource ID.
+     * @return The string corresponding to the provided resource ID.
+     */
     private fun getStringApplication(id : Int) : String{
         return getApplication<Application>().getString(id)
     }
 
+    /**
+     * Fetches all cards from the current deck and processes them.
+     * Updates the card categories and sets cards to review.
+     */
     fun getAllCartoes() {
 
         viewModelScope.launch {
@@ -86,6 +99,9 @@ class RevisaoCartaoVM(application: Application) : AndroidViewModel(application) 
 
     }
 
+    /**
+     * Fetches the hints for the current focused card.
+     */
     fun getDicasDoCartao(){
         _dicaList.value = listOf(Dica(texto ="Testador"), Dica(texto ="Opara"))
 
@@ -100,6 +116,10 @@ class RevisaoCartaoVM(application: Application) : AndroidViewModel(application) 
             }
         }
     }
+
+    /**
+     * Sets the cards that need to be reviewed based on the current date.
+     */
     private fun setCartoesToRevisao(){
         _cartaoQueue.value = ArrayDeque(
             (_cartaoList.value ?: emptyList()).filter { cartao ->
@@ -109,6 +129,9 @@ class RevisaoCartaoVM(application: Application) : AndroidViewModel(application) 
         logCartaoQueue()
     }
 
+    /**
+     * Sets all cards to be reviewed.
+     */
     fun setAllCartoesToRevisao(){
         _cartaoQueue.value = ArrayDeque(_cartaoList.value ?: emptyList())
 
@@ -116,6 +139,9 @@ class RevisaoCartaoVM(application: Application) : AndroidViewModel(application) 
 
     }
 
+    /**
+     * Updates the number of new cards, cards to review, and forgotten cards based on the current list of cards.
+     */
     private fun updateCategories(){
         var newCardsNumberAux = 0
         var cardsToReviewNumberAux = 0
@@ -143,6 +169,12 @@ class RevisaoCartaoVM(application: Application) : AndroidViewModel(application) 
 
     }
 
+    /**
+     * Updates the category of the focused card based on the review level.
+     * It also updates the card data in the repository.
+     *
+     * @param nivelRevisao The review level (easy, good, hard, or forgot).
+     */
     fun updateCategoriaDoCartaoEmFoco(nivelRevisao: NivelRevisao){
         //TODO:: dar update no cartão do firebase
         _cartaoEmFoco.value?.let { cartao ->
@@ -164,6 +196,9 @@ class RevisaoCartaoVM(application: Application) : AndroidViewModel(application) 
         }
     }
 
+    /**
+     * Logs the content of the card queue for debugging purposes.
+     */
     private fun logCartaoQueue(){
         var msg = ""
         if(_cartaoQueue.value!=null){
@@ -175,6 +210,12 @@ class RevisaoCartaoVM(application: Application) : AndroidViewModel(application) 
         Log.d("RevisaoCartaoVM","Essa eh a lista de cartoes: ${msg}")
     }
 
+    /**
+     * Gets the next card in the review queue.
+     *
+     * @param onSucess Callback function to handle success.
+     * @param onFailure Callback function to handle failure.
+     */
     fun getNext(onSucess: () -> Unit, onFailure:() -> Unit){
         _cartaoQueue.value?.let { queue ->
             if (queue.isNotEmpty()) {
@@ -194,11 +235,23 @@ class RevisaoCartaoVM(application: Application) : AndroidViewModel(application) 
         }
     }
 
+    /**
+     * Sets the card to be focused on in the review process.
+     *
+     * @param cartao The card to be focused on.
+     */
     fun setCartaoEmFoco(cartao: Cartao){
         cartaoEmFoco.value = cartao
         Log.d("HomeDialogs", "Defini Baralho em FOCO")
     }
 
+    /**
+     * Updates the number of new, cards to review, and forgotten cards.
+     *
+     * @param newCardsNumber The updated number of new cards.
+     * @param cardsToReviewnNumber The updated number of cards to review.
+     * @param forgottenCardsNumber The updated number of forgotten cards.
+     */
     fun setNumberCards(newCardsNumber : Int, cardsToReviewnNumber : Int, forgottenCardsNumber : Int){
         _newCardsNumber.value = newCardsNumber
         _cardsToReviewNumber.value = cardsToReviewnNumber
@@ -206,30 +259,51 @@ class RevisaoCartaoVM(application: Application) : AndroidViewModel(application) 
         return
     }
 
+    /**
+     * Shows the answers section in the UI.
+     */
     fun showAnswers(){
         _buttonShowAnswersVisibility.value = View.GONE
         _linearLayoutButtonsAnswerVisibility.value = View.VISIBLE
     }
 
+    /**
+     * Hides the answers section in the UI.
+     */
     fun hideAnswers(){
         _buttonShowAnswersVisibility.value = View.VISIBLE
         _linearLayoutButtonsAnswerVisibility.value = View.GONE
     }
 
+    /**
+     * Shows the hints section in the UI.
+     */
     fun showHints(){
         _buttonShowHintsVisibility.value = View.GONE
         _recycleViewHintsVisibility.value = View.VISIBLE
     }
 
+    /**
+     * Hides the hints section in the UI.
+     */
     fun hideHints(){
         _buttonShowHintsVisibility.value = View.VISIBLE
         _recycleViewHintsVisibility.value = View.GONE
     }
 
+    /**
+     * Sets the deck (Baralho) that owns the cards being reviewed.
+     *
+     * @param baralho The deck to be set as the owner.
+     */
     fun setBaralhoOwner(baralho: Baralho){
         baralhoOwner.value = baralho
         Log.d("RevisaoAC", "Defini Baralho em FOCO")
     }
+
+    /**
+     * Resets the deck (Baralho) owner.
+     */
     fun resetBaralhoOwner(){
         baralhoOwner.value = null
         Log.d("RevisaoAC", "Resetei Baralho em FOCO")

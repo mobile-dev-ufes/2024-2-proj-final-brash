@@ -11,14 +11,13 @@ import com.example.brash.aprendizado.gestaoDeConteudo.data.repository.PastaRepos
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Baralho
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.HomeAcListItem
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Pasta
-import com.example.brash.nucleo.domain.model.Usuario
 import com.example.brash.nucleo.utils.UtilsFoos
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.launch
-import java.lang.Exception
-import java.util.Locale
 
+/**
+ * ViewModel for the Home screen.
+ * Handles the logic for fetching and updating folders (Pasta) and decks (Baralho) from a repository.
+ */
 class HomeVM(application: Application) : AndroidViewModel(application) {
 
     private var _teste = MutableLiveData<Boolean>()
@@ -48,6 +47,12 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
 
     private val pastaRoot = MutableLiveData<Pasta>(Pasta(idPasta = "root", nome ="root"))
 
+    /**
+     * Retrieves a string resource from the application.
+     *
+     * @param id The resource ID of the string.
+     * @return The string corresponding to the resource ID.
+     */
     private fun getStringApplication(id : Int) : String{
         return getApplication<Application>().getString(id)
     }
@@ -72,6 +77,10 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
         Log.d("ListaPastaAdapter", "DEFINIÇÃO DAS PASTAS")
     }*/
 
+    /**
+     * Fetches all HomeAcListItems (folders and decks) from the repository.
+     * This function updates the HomeAcListItem list with data from the Firebase database.
+     */
     fun getAllHomeAcListItem(){
 
         //TODO:: requisitar do firebase
@@ -126,9 +135,20 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
 
     }
 
+    /**
+     * Initializes the list of folders (Pasta).
+     *
+     * @param folders The list of folders to be displayed.
+     */
     private fun initPastaList(folders: List<Pasta>){
         _pastaList.value = folders
     }
+
+    /**
+     * Initializes the list of HomeAcListItems (folders and decks).
+     *
+     * @param folders The list of folders to be converted into HomeAcListItems.
+     */
     private fun initHomeAcListItemList(folders: List<Pasta>){
         // Criação do homeAcListItem, onde vamos adicionar as pastas e baralhos
         val homeAcListItem = folders.flatMap { folder ->
@@ -158,10 +178,17 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
         _homeAcListItemList.value = sortedPastas + sortedBaralhos
     }
 
+    /**
+     * Sorts the list of folders by name and ensures that the "root" folder appears first.
+     */
     private fun sortPastaList(){
         _pastaList.value = _pastaList.value?.sortedWith(compareBy<Pasta> { it.idPasta != "root" }.thenBy { it.nome })
 
     }
+
+    /**
+     * Sorts the list of HomeAcListItems by the names of the folders and decks.
+     */
     private fun sortHomeAcListItemList(){
         _homeAcListItemList.value = _homeAcListItemList.value?.sortedWith(
             compareBy<HomeAcListItem> {
@@ -174,15 +201,29 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
         )
     }
 
+    /**
+     * Sets the folder that is currently in focus.
+     *
+     * @param pasta The folder to be set in focus.
+     */
     fun setPastaEmFoco(pasta: Pasta){
         pastaEmFoco.value = pasta
         Log.d("HomeDialogs", "Defini Pasta em FOCO")
     }
+
+    /**
+     * Resets the folder that is currently in focus.
+     */
     fun resetPastaEmFoco(){
         pastaEmFoco.value = null
         Log.d("HomeDialogs", "Resetei Pasta em FOCO")
     }
 
+    /**
+     * Sets the deck that is currently in focus.
+     *
+     * @param baralho The deck to be set in focus.
+     */
     fun setBaralhoEmFoco(baralho: Baralho){
         baralhoEmFoco.value = baralho
         baralho.pasta?.let { pasta ->
@@ -190,18 +231,39 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
         }
         Log.d("HomeDialogs", "Defini Baralho em FOCO")
     }
+
+    /**
+     * Resets the deck that is currently in focus.
+     */
     fun resetBaralhoEmFoco(){
         baralhoEmFoco.value = null
         Log.d("HomeDialogs", "Resetei Baralho em FOCO")
     }
 
+    /**
+     * Sets the folder that is currently being moved.
+     *
+     * @param pasta The folder to be set for moving.
+     */
     fun setPastaEmMover(pasta: Pasta){
         _pastaEmMover.value = pasta
     }
+
+    /**
+     * Resets the folder that is currently being moved.
+     */
     fun resetPastaEmMover(){
         _pastaEmMover.value = null
     }
 
+    /**
+     * Creates a new deck with the given name and description.
+     * This function also sorts the list of HomeAcListItems after the creation.
+     *
+     * @param nome The name of the deck.
+     * @param descricao The description of the deck.
+     * @param onSuccess Callback to be called when the deck is successfully created.
+     */
     fun criarBaralho(nome : String, descricao : String, onSuccess : () -> Unit){
         if(processaInforBaralho(nome, descricao)){
 
@@ -229,6 +291,14 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    /**
+     * Validates the name and description for the deck.
+     * Ensures both are not empty and that the name is unique.
+     *
+     * @param name The name of the deck.
+     * @param description The description of the deck.
+     * @return Boolean indicating whether the deck information is valid.
+     */
     private fun processaInforBaralho(name : String, description : String) : Boolean{
         if(name.isEmpty() || description.isEmpty()){
 
@@ -242,6 +312,12 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
         return true
     }
 
+    /**
+     * Checks if the deck name is unique across all existing decks.
+     *
+     * @param name The name of the deck to check.
+     * @return Boolean indicating whether the deck name is unique.
+     */
     private fun verificaBaralhoNomeUnico(name : String): Boolean{
 
         for (pasta in _pastaList.value.orEmpty()) {  // Usando orEmpty() para garantir que seja uma lista não-nula
@@ -255,6 +331,19 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
 
     }
 
+    /**
+     * Edits the details of an existing deck.
+     *
+     * @param baralho The deck to be edited.
+     * @param nome The new name of the deck.
+     * @param descricao The new description of the deck.
+     * @param numberNewCardsPerDay The new number of new cards per day.
+     * @param public A boolean indicating whether the deck is public or not.
+     * @param onSuccess A callback function to be executed on successful update of the deck.
+     *
+     * This function validates the input values and updates the deck in the repository. If successful,
+     * it updates the deck in the list and triggers the callback.
+     */
     fun editarBaralho(baralho: Baralho, nome : String, descricao : String, numberNewCardsPerDay: Int, public: Boolean, onSuccess : () -> Unit){
         if(numberNewCardsPerDay <= 0){
             UtilsFoos.showToast(getApplication(), getStringApplication(R.string.gtc_numero_cartoes_maior_que_zero))
@@ -284,6 +373,15 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
         //getAllHomeAcListItem()
     }
 
+    /**
+     * Deletes an existing deck from the repository and updates the UI.
+     *
+     * @param baralho The deck to be deleted.
+     * @param onSuccess A callback function to be executed on successful deletion of the deck.
+     *
+     * This function removes the specified deck from the repository and updates the list of decks
+     * in the UI. If successful, it removes the deck from the list and triggers the callback.
+     */
     fun excluirBaralho(baralho: Baralho, onSuccess : () -> Unit){
         viewModelScope.launch{
             val result = baralhoRepository.deleteDeck(baralho)
@@ -308,6 +406,16 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    /**
+     * Moves a deck to a different folder.
+     *
+     * @param pastaDestino The destination folder for the deck.
+     * @param baralho The deck to be moved.
+     * @param onSuccess A callback function to be executed on successful move of the deck.
+     *
+     * This function copies the deck to the destination folder, deletes the original deck,
+     * and updates the UI. If successful, it triggers the callback and logs the movement.
+     */
     fun moverBaralho(pastaDestino: Pasta, baralho: Baralho, onSuccess: () -> Unit){
         viewModelScope.launch{
             val resultCopy = pastaRepository.copyDeck(pastaDestino, baralho)
@@ -332,6 +440,15 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    /**
+     * Creates a new folder and adds it to the list of folders.
+     *
+     * @param nome The name of the new folder.
+     * @param onSuccess A callback function to be executed on successful creation of the folder.
+     *
+     * This function validates the folder name, creates the folder in the repository,
+     * and updates the UI. If successful, it triggers the callback and adds the new folder to the list.
+     */
     fun criarPasta(nome : String, onSuccess: () -> Unit){
         if(processaInfoPasta(nome)){
             val pasta = Pasta(nome= nome)
@@ -355,6 +472,15 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
         //getAllHomeAcListItem()
     }
 
+    /**
+     * Validates the folder name.
+     *
+     * @param nome The name of the folder to validate.
+     * @return Boolean indicating whether the folder name is valid.
+     *
+     * This function checks if the folder name is empty or not unique. It shows a toast message
+     * if any of these validations fail.
+     */
     private fun processaInfoPasta(nome : String) : Boolean{
 
         if(nome.isEmpty()){
@@ -367,6 +493,12 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
         return true
     }
 
+    /**
+     * Checks if the folder name is unique across all existing folders.
+     *
+     * @param name The name of the folder to check.
+     * @return Boolean indicating whether the folder name is unique.
+     */
     private fun verificaPastaNomeUnico(name : String): Boolean{
 
         for(pasta in _pastaList.value!!){
@@ -377,6 +509,16 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
         return true
     }
 
+    /**
+     * Edits the details of an existing folder.
+     *
+     * @param pasta The folder to be edited.
+     * @param nome The new name of the folder.
+     * @param onSuccess A callback function to be executed on successful update of the folder.
+     *
+     * This function validates the input values and updates the folder in the repository. If successful,
+     * it updates the folder in the list and triggers the callback.
+     */
     fun editarPasta(pasta: Pasta, nome : String, onSuccess : () -> Unit){
         if(processaInfoPasta(nome)){
             viewModelScope.launch{
@@ -398,6 +540,16 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
         // request para atualizar dados
         //getAllHomeAcListItem()
     }
+
+    /**
+     * Deletes an existing folder from the repository and updates the UI.
+     *
+     * @param pasta The folder to be deleted.
+     * @param onSuccess A callback function to be executed on successful deletion of the folder.
+     *
+     * This function checks if the folder contains any decks before attempting to delete it. If the folder
+     * contains decks, it shows a message. Otherwise, it removes the folder from the repository and updates the UI.
+     */
     fun excluirPasta(pasta: Pasta, onSuccess : () -> Unit){
 
         if(pasta.baralhos.isEmpty()){

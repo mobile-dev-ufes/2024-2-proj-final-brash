@@ -2,22 +2,23 @@ package com.example.brash.aprendizado.gestaoDeConteudo.ui.viewModel
 
 import android.app.Application
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.brash.R
 import com.example.brash.aprendizado.gestaoDeConteudo.data.repository.CartaoRepository
 import com.example.brash.aprendizado.gestaoDeConteudo.data.repository.DicaRepository
-import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Baralho
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Cartao
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Dica
-import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.HomeAcListItem
-import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Pasta
 import com.example.brash.nucleo.utils.UtilsFoos
 import kotlinx.coroutines.launch
 
+/**
+ * ViewModel responsible for managing the list of hints (Dicas) related to a card (Cartao).
+ * Provides methods for fetching, creating, editing, and deleting hints.
+ *
+ * @param application The application context used to access resources and the repository.
+ */
 class ListarDicaVM(application: Application) : AndroidViewModel(application) {
 
     private var _teste = MutableLiveData<Boolean>()
@@ -38,15 +39,29 @@ class ListarDicaVM(application: Application) : AndroidViewModel(application) {
     private val dicaRepository = DicaRepository()
     private val cartaoRepository = CartaoRepository()
 
+    /**
+     * Gets the string resource based on the provided resource ID.
+     *
+     * @param id The resource ID.
+     * @return The string corresponding to the provided resource ID.
+     */
     private fun getStringApplication(id : Int) : String{
         return getApplication<Application>().getString(id)
     }
 
-
+    /**
+     * Sets the card (Cartao) that owns the hints.
+     *
+     * @param cartao The card to be set as the owner.
+     */
     fun setCartaoOwner(cartao: Cartao){
         _cartaoOwner.value = cartao
     }
 
+    /**
+     * Fetches all hints related to the current card (Cartao) from the repository.
+     * Updates the list of hints and sorts them.
+     */
     fun getAllDicas() {
         viewModelScope.launch {
             val result = cartaoRepository.getHints(_cartaoOwner.value!!)
@@ -71,6 +86,11 @@ class ListarDicaVM(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    /**
+     * Sets the focused hint (Dica) to display its details.
+     *
+     * @param dica The hint to be set as the focused one.
+     */
     fun setDicaEmFoco(dica: Dica){
         dicaEmFoco.value = dica
         Log.d("HomeDialogs", "Defini Dica em FOCO")
@@ -85,6 +105,13 @@ class ListarDicaVM(application: Application) : AndroidViewModel(application) {
         Log.d("HomeDialogs", filtro.toString())
     }*/
 
+    /**
+     * Creates a new hint with the given text and saves it to the repository.
+     * Updates the list of hints upon success.
+     *
+     * @param texto The text of the new hint.
+     * @param onSuccess The callback to be executed after the hint is successfully created.
+     */
     fun criarDica(texto: String, onSuccess : () -> Unit){
         if(processaInfoDica(texto)) {
             val dica = Dica(texto = texto)
@@ -111,6 +138,12 @@ class ListarDicaVM(application: Application) : AndroidViewModel(application) {
             }
         }
     }
+    /**
+     * Processes the hint text to ensure it meets the validation criteria.
+     *
+     * @param texto The hint text to be validated.
+     * @return True if the text is valid, false otherwise.
+     */
     private fun processaInfoDica(texto: String) : Boolean{
 
         if(texto.isEmpty()){
@@ -121,6 +154,14 @@ class ListarDicaVM(application: Application) : AndroidViewModel(application) {
         }
         return true
     }
+    /**
+     * Edits an existing hint with the new text and updates it in the repository.
+     * Updates the list of hints upon success.
+     *
+     * @param dica The hint to be edited.
+     * @param texto The new text for the hint.
+     * @param onSuccess The callback to be executed after the hint is successfully updated.
+     */
     fun editarDica(dica: Dica,texto: String, onSuccess : () -> Unit){
         if(processaInfoDica(texto)) {
             viewModelScope.launch {
@@ -139,6 +180,14 @@ class ListarDicaVM(application: Application) : AndroidViewModel(application) {
             }
         }
     }
+
+    /**
+     * Deletes a hint from the repository and updates the list of hints.
+     * If the list becomes empty, it sets the list to an empty list.
+     *
+     * @param dica The hint to be deleted.
+     * @param onSuccess The callback to be executed after the hint is successfully deleted.
+     */
     fun excluirDica(dica: Dica, onSuccess : () -> Unit){
         viewModelScope.launch{
             val result = dicaRepository.deleteHint(dica)
@@ -165,6 +214,9 @@ class ListarDicaVM(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    /**
+     * Sorts the list of hints alphabetically by the hint text.
+     */
     fun sortDicaList(){
         _dicaList.value = _dicaList.value?.sortedBy { it.texto }
     }
