@@ -6,6 +6,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.brash.R
 import com.example.brash.nucleo.data.remoto.services.AccountService
+import com.example.brash.nucleo.data.repository.UsuarioRepository
+import com.example.brash.nucleo.utils.IconeCor
+import com.example.brash.nucleo.utils.IconeImagem
 import com.example.brash.nucleo.utils.UtilsFoos
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
@@ -34,6 +37,8 @@ class CadastrarContaVM (
 
     private var _verificationCodeMessageError = MutableLiveData<String>()
     val verificationCodeMessageError get() = _verificationCodeMessageError
+
+    private val usuarioRepository = UsuarioRepository()
 
     private val fireStoreDB = FirebaseFirestore.getInstance()
 
@@ -82,30 +87,22 @@ class CadastrarContaVM (
      * @param onSuccess A callback to be invoked if the registration is successful.
      */
     fun registerNewUser(userName : String, exhibitionName: String, email:String, password: String, onSuccess: () -> Unit) {
-        if(!handleRegisterForm(userName, exhibitionName, email, password)){
-            return
-        }
-
         viewModelScope.launch {
+            if(!handleRegisterForm(userName, exhibitionName, email, password)){
+                return@launch
+            }
+
             try {
                 // Register user in Firebase
                 accountService.signUp(email, password)
 
-                // Store user details in Firestore
-                val userMap = hashMapOf(
-                    "userName" to userName,
-                    "exhibitionName" to exhibitionName,
-                    "email" to email
-                )
-                fireStoreDB.collection("users").document(email)
-                    .set(userMap)
-                    .addOnSuccessListener {
-                        onSuccess() // Callback on successful registration
-                    }
-                    .addOnFailureListener {
-                        _verificationCodeMessageError.value =
-                            getStringApplication(R.string.nuc_msg_erro_acesso_banco_dados)
-                    }
+                usuarioRepository.createUser(userName, exhibitionName, email).onSuccess {
+                    onSuccess()
+                }.onFailure {
+                    _formMessageError.value = getStringApplication(R.string.nuc_msg_erro_acesso_banco_dados)
+                }
+
+                accountService.signOut()
             } catch (e: Exception) {
                 val msg = when (e) {
                     is FirebaseAuthWeakPasswordException -> getStringApplication(R.string.nuc_msg_erro_senha_fraca)
@@ -114,6 +111,7 @@ class CadastrarContaVM (
                     is FirebaseNetworkException -> getStringApplication(R.string.nuc_msg_erro_falha_conectar_internet)
                     else -> getStringApplication(R.string.nuc_msg_erro_acesso_banco_dados)
                 }
+                _formMessageError.value = msg
             }
         }
     }
@@ -137,9 +135,19 @@ class CadastrarContaVM (
      * @param password The password input by the user.
      * @return True if all fields are valid, false otherwise.
      */
-    fun handleRegisterForm(userName : String, exhibitionName: String, email:String, password: String) : Boolean{
+    private suspend fun handleRegisterForm(userName : String, exhibitionName: String, email:String, password: String) : Boolean{
 
-        //TODO:: VERIFICAR SE JA EXISTE NOME DE USUARIO
+        val userExists = usuarioRepository.checkExistsUserName(userName)
+        userExists.onSuccess { exists ->
+            if (exists) {
+                _formMessageError.value = getStringApplication(R.string.nuc_msg_erro_nome_usuario_ja_cadastrado)
+                return false
+            }
+        }.onFailure {
+            _formMessageError.value = getStringApplication(R.string.nuc_msg_erro_acesso_banco_dados)
+            return false
+        }
+
         if (userName.isEmpty() || exhibitionName.isEmpty() || email.isEmpty() || password.isEmpty()) {
             _formMessageError.value = getStringApplication(R.string.nuc_preencha_todos_campos)
             return false
