@@ -85,44 +85,6 @@ class PastaRepository {
         }
     }
 
-    fun addDeck(folder : Pasta, deck : Baralho){
-
-        val currentUserEmail = fireBaseAuth.currentUser?.email
-        if (currentUserEmail.isNullOrEmpty()) {
-            return
-        }
-
-        val decksRef = fireStoreDB
-            .collection("users")
-            .document(currentUserEmail)
-            .collection("folders")
-            .document(folder.idPasta)
-            .collection("decks")
-
-        val deckRef = decksRef.add(hashMapOf<String, Any>())
-        deckRef
-            .addOnSuccessListener { document ->
-                val generatedId = document.id
-
-                val newDeck = hashMapOf(
-                    "id" to generatedId,
-                    "name" to deck.nome,
-                    "description" to deck.descricao,
-                    "public" to deck.publico,
-                    "numberNewCardsPerDay" to deck.cartoesNovosPorDia,
-                )
-                document.set(newDeck)
-                    .addOnSuccessListener {
-                        Log.e("debug add deck", "certo 1")
-                    }
-                    .addOnFailureListener {
-                        Log.e("debug add deck", "erro 1")
-                    }
-            }
-            .addOnFailureListener {
-                Log.e("debug add deck", "erro 2")
-            }
-    }
 
     suspend fun getFolders(): Result<List<Pasta>> {
         val foldersList = mutableListOf<Pasta>()
