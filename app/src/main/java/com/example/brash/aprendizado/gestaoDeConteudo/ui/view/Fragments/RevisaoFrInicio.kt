@@ -31,6 +31,7 @@ import com.example.brash.utilsGeral.AppVM
 import com.example.brash.utilsGeral.MyApplication
 import androidx.fragment.app.activityViewModels
 import kotlinx.coroutines.launch
+import java.util.Locale
 
 class RevisaoFrInicio : Fragment(R.layout.gtc_revisao_fr_inicio) {
 
@@ -53,18 +54,30 @@ class RevisaoFrInicio : Fragment(R.layout.gtc_revisao_fr_inicio) {
         super.onViewCreated(view, savedInstanceState)
 
         //revisaoCartaoVM = ViewModelProvider(requireActivity())[RevisaoCartaoVM::class.java]
+        setObservers()
+        setOnClickListeners()
 
         revisaoCartaoVM.baralhoOwner.value?.let {
+            revisaoCartaoVM.getAllCartoes()
             binding.RevisaoCartaoAcTextViewNomeBaralho.text = it.nome
         } ?: run {
             Toast.makeText(requireContext(), "Baralho não encontrado para nomear o título da revisão.", Toast.LENGTH_SHORT).show()
         }
-        setObservers()
-        setOnClickListeners()
     }
 
     private fun setObservers(){
+        // Observe variáveis reativas e atualize a UI
+        revisaoCartaoVM.cardsToReviewNumber.observe(viewLifecycleOwner) { cardsToReview ->
+            binding.RevisaoCartaoAcTextViewCartoesRevisarQuantidade.text = String.format(Locale.getDefault(), "%d", cardsToReview)
+        }
 
+        revisaoCartaoVM.newCardsNumber.observe(viewLifecycleOwner) { newCards ->
+            binding.RevisaoCartaoAcTextViewCartoesNovosQuantidade.text = String.format(Locale.getDefault(), "%d", newCards)
+        }
+
+        revisaoCartaoVM.forgottenCardsNumber.observe(viewLifecycleOwner) { forgottenCards ->
+            binding.RevisaoCartaoAcTextViewCartoesEsquecidosQuantidade.text = String.format(Locale.getDefault(), "%d", forgottenCards)
+        }
     }
 
 
@@ -72,9 +85,9 @@ class RevisaoFrInicio : Fragment(R.layout.gtc_revisao_fr_inicio) {
 
         binding.RevisaoCartaoAcButtonIniciarRevisao.setOnClickListener {
 
-            revisaoCartaoVM.getAllCartoes()
             revisaoCartaoVM.getNext(
                 onSucess = {
+                    Toast.makeText(requireContext(), "Iniciando a revisão", Toast.LENGTH_SHORT).show()
                     findNavController().navigate(R.id.action_revisaoFrInicio_to_revisaoFrCartao)
                 },
                 onFailure = {

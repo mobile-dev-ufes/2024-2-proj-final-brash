@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import com.example.brash.R
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.HomeAC
@@ -21,6 +22,7 @@ class RevisaoFrFinal : Fragment(R.layout.gtc_revisao_fr_final) {
     private var _binding : GtcRevisaoFrFinalBinding? = null
     private val binding get() = _binding!!
 
+    private val revisaoCartaoVM: RevisaoCartaoVM by activityViewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
