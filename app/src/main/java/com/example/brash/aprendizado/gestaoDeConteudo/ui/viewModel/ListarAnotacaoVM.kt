@@ -8,13 +8,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Anotacao
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Baralho
-import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Cartao
-import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.HomeAcListItem
-import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.OpcoesDeBuscaHome
-import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Pasta
-import com.example.brash.aprendizado.gestaoDeConteudo.utils.FiltroDeBuscaHome
-import com.example.brash.aprendizado.gestaoDeConteudo.utils.OrdemDeBuscaHome
-import java.lang.Exception
 
 class ListarAnotacaoVM(application: Application) : AndroidViewModel(application) {
 
@@ -38,6 +31,8 @@ class ListarAnotacaoVM(application: Application) : AndroidViewModel(application)
     //val opcoesDeBusca get() = _opcoesDeBusca
 
     fun getAllAnotacoes() {
+
+        //TODO:: requisitar do firebase
 
         _anotacaoList.value = listOf(
             Anotacao(nome =  "Alimentos", texto = "teste"),
@@ -66,6 +61,31 @@ class ListarAnotacaoVM(application: Application) : AndroidViewModel(application)
         Log.d("HomeDialogs", ordem.toString())
         Log.d("HomeDialogs", filtro.toString())
     }*/
+
+    fun criarAnotacao(nome : String, texto : String, onSuccess : () -> Unit){
+        //TODO:: Fazer a criação de anotação do firebase também
+        //TODO:: apenas confirmar a criação se o nome for único para o usuário
+
+        onSuccess()
+        // request para atualizar dados
+        //getAllAnotacoes()
+    }
+    fun editarAnotacao(anotacao: Anotacao, nome : String, texto : String, onSuccess : () -> Unit){
+        //TODO:: Fazer a edição de anotação do firebase também
+        //TODO:: apenas requisitar se tiver ALGUMA informação diferente
+        //TODO:: apenas confirmar a mudança do nome se for único para o usuário, o restante pode sempre atualizar
+
+        onSuccess()
+        // request para atualizar dados
+        //getAllAnotacoes()
+    }
+    fun excluirAnotacao(anotacao: Anotacao, onSuccess : () -> Unit){
+        //TODO:: Fazer a exclusão de anotação do firebase também
+
+        onSuccess()
+        // request para atualizar dados
+        //getAllAnotacoes()
+    }
 
 }
 

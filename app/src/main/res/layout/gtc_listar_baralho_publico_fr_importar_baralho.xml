@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ListarBaralhoPublicoFrImportarBaralho"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/borda_linear_layout"
+    android:padding="16dp">
+
+
+    <TextView
+        android:id="@+id/ListarBaralhoPublicoFrImportarBaralhoTextViewNomeOriginal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/text_view_teste"
+        android:textSize="16sp"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:layout_margin="10dp"
+        />
+    <com.google.android.material.textfield.TextInputLayout
+
+        android:id="@+id/ListarBaralhoPublicoFrImportarBaralhoInputLayoutTitulo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:hint="@string/gtc_novo_nome_do_baralho"
+        android:textColorHint="@color/soft_lilac"
+
+        app:endIconMode="clear_text"
+
+        app:boxBackgroundColor="@color/medium_gray"
+        app:boxStrokeWidth="1dp"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/ListarBaralhoPublicoFrImportarBaralhoInputNovoNome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            style="@style/EditTextMaxCharNome"
+
+            android:textColor="@color/white"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+
+
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/ListarBaralhoPublicoFrImportarBaralhoButtonCancelar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/cancelar"
+            android:textSize="16sp"
+            android:padding="10dp"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/medium_gray"
+            android:clickable="true"
+            android:focusable="true"
+            app:cornerRadius="8dp"
+            android:layout_marginEnd="20dp"
+            />
+        <Button
+            android:id="@+id/ListarBaralhoPublicoFrImportarBaralhoButtonImportar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="@string/gtc_confirmar_nome"
+            android:textSize="16sp"
+            android:padding="10dp"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/medium_gray"
+            android:clickable="true"
+            android:focusable="true"
+            app:cornerRadius="8dp"
+            />
+    </LinearLayout>
+
+</LinearLayout>

@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.brash.aprendizado.gestaoDeConteudo.data.repository.BaralhoRepository
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.viewModel.HomeVM
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.viewModel.ListarCartaoVM
 import com.example.brash.databinding.GtcHomeFrAcoesAdicionaisBinding
@@ -21,7 +22,8 @@ class CriarCartaoFrDialog : DialogFragment() {
     private var _binding: GtcListarCartaoFrCriarCartaoBinding? = null
     private val binding get() = _binding!!
 
-    lateinit var listarCartaoVM: ListarCartaoVM
+    private lateinit var listarCartaoVM: ListarCartaoVM
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,7 +38,7 @@ class CriarCartaoFrDialog : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Agora a ViewModel está sendo recuperada corretamente
-        listarCartaoVM = ViewModelProvider(requireActivity()).get(ListarCartaoVM::class.java)
+        listarCartaoVM = ViewModelProvider(requireActivity())[ListarCartaoVM::class.java]
 
         setOnClickListeners()
     }
@@ -54,8 +56,11 @@ class CriarCartaoFrDialog : DialogFragment() {
         }
         binding.ListarCartaoFrCriarCartaoButtonCriar.setOnClickListener {
             dismiss()
-            //TODO:: Fazer verificação??, se for pode confirmar, requisitar isso ao HomeVM
-            Toast.makeText(requireContext(), "Pasta criada", Toast.LENGTH_SHORT).show()
+            val pergunta = binding.ListarCartaoFrCriarCartaoInputPergunta.text.toString()
+            val resposta = binding.ListarCartaoFrCriarCartaoInputResposta.text.toString()
+            listarCartaoVM.criarCartao(pergunta, resposta) {
+                dismiss()
+            }
         }
     }
 

@@ -34,7 +34,7 @@ class DefinirSenhaFrConfirmacaoCodigo : Fragment(R.layout.nuc_definir_senha_fr_c
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        definirSenhaVM = ViewModelProvider(requireActivity()).get(DefinirSenhaVM::class.java)
+        definirSenhaVM = ViewModelProvider(requireActivity())[DefinirSenhaVM::class.java]
         setObservers()
         setOnClickListeners()
     }

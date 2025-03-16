@@ -13,7 +13,6 @@ import com.example.brash.databinding.GtcHomeAcBinding
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.viewModel.HomeVM
 import com.example.brash.nucleo.ui.view.ConfiguracaoAC
 import com.example.brash.nucleo.ui.view.PerfilAC
-import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments.OpcoesDeBuscaHomeFrDialog
 
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments.AcoesAdicionaisFrDialog
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments.AcoesBaralhoFrDialog
@@ -39,7 +38,7 @@ class HomeAC : AppCompatActivity(), AlertDialogFr.OnConfirmListener {
 
         binding = GtcHomeAcBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        homeVM = ViewModelProvider(this).get(HomeVM::class.java)
+        homeVM = ViewModelProvider(this)[HomeVM::class.java]
 
         appVM = (application as MyApplication).appSharedInformation
 
@@ -54,13 +53,6 @@ class HomeAC : AppCompatActivity(), AlertDialogFr.OnConfirmListener {
     private fun setOnClickListeners(){
         binding.HomeAcButtonAcoesAdicionais.setOnClickListener{
             AcoesAdicionaisFrDialog().show(supportFragmentManager, "AcoesAdicionaisDialog")
-        }
-        binding.HomeAcImageViewOpcoesDeBusca.setOnClickListener{
-            OpcoesDeBuscaHomeFrDialog().show(supportFragmentManager, "OpcaoDialog")
-        }
-        binding.HomeAcImageViewConfiguracoes.setOnClickListener{
-            Toast.makeText(applicationContext, "Você clicou em Configuracoes", Toast.LENGTH_SHORT).show()
-            intentToConfiguracaoActivity()
         }
         binding.HomeAcShapeableImageViewIconePerfil.setOnClickListener{
             intentToPerfilActivity()
@@ -97,17 +89,18 @@ class HomeAC : AppCompatActivity(), AlertDialogFr.OnConfirmListener {
 
         homeVM.getAllHomeAcListItem()
 
-        adapter = ListaExpandableAdapter(homeVM.homeAcListItemList.value!!,
-            onPastaItemLongClick = { item ->
-            //Toast.makeText(this, "Clicou no pasta: ${item.pasta.nome}", Toast.LENGTH_SHORT).show()
-                homeVM.setPastaEmFoco(item.pasta)
-                AcoesPastaFrDialog().show(supportFragmentManager, "AcoesAdicionaisDialog")
+        adapter = ListaExpandableAdapter(homeVM.homeAcListItemList.value ?: run {
+            // Caso homeVM.homeAcListItemList.value seja nulo, você pode tratar aqui ou atribuir um valor padrão
+            emptyList() // Exemplo: Retorna uma lista vazia no caso de nulo
+        }, onPastaItemLongClick = { item ->
+            //Toast.makeText(this, "Clicou na pasta: ${item.pasta.nome}", Toast.LENGTH_SHORT).show()
+            homeVM.setPastaEmFoco(item.pasta)
+            AcoesPastaFrDialog().show(supportFragmentManager, "AcoesAdicionaisDialog")
         }, onBaralhoItemClick = { item ->
             //Toast.makeText(this, "Clicou no baralho: ${item.baralho.nome}", Toast.LENGTH_SHORT).show()
-                homeVM.setBaralhoEmFoco(item.baralho)
-                AcoesBaralhoFrDialog().show(supportFragmentManager, "AcoesAdicionaisDialog")
+            homeVM.setBaralhoEmFoco(item.baralho)
+            AcoesBaralhoFrDialog().show(supportFragmentManager, "AcoesAdicionaisDialog")
         })
-
 
         recyclerView.adapter = adapter
     }

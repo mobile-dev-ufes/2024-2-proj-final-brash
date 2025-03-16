@@ -34,7 +34,7 @@ class CriarBaralhoFrDialog : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Agora a ViewModel está sendo recuperada corretamente
-        homeVM = ViewModelProvider(requireActivity()).get(HomeVM::class.java)
+        homeVM = ViewModelProvider(requireActivity())[HomeVM::class.java]
 
         setOnClickListeners()
     }
@@ -52,11 +52,13 @@ class CriarBaralhoFrDialog : DialogFragment() {
             dismiss()
         }
         binding.HomeFrCriarBaralhoButtonCriar.setOnClickListener {
-            dismiss()
             //TODO:: Fazer verificação de se eh nome único, se for pode confirmar, requisitar isso ao HomeVM
-            Toast.makeText(requireContext(), "Pasta criada", Toast.LENGTH_SHORT).show()
+            val deckName = binding.HomeFrCriarBaralhoInputTitulo.text.toString()
+            val deckDescription = binding.HomeFrCriarBaralhoInputDescricao.text.toString()
+            homeVM.criarBaralho(deckName, deckDescription) {
+                dismiss()
+            }
         }
-
     }
 
     override fun onDestroyView() {

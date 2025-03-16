@@ -3,7 +3,7 @@
     <string name="app_name">Brash</string>
     <string name="senha">Password</string>
     <string name="usuario">User</string>
-
+    <string name="text_view_teste"> Teste de textView</string>
     <string name="idioma">Language</string>
     <string name="idioma_pt">Português</string>
     <string name="idioma_en">English</string>
@@ -78,6 +78,8 @@
     <string name="gtc_cartoes_esquecidos">Forgotten cards:</string>
     <string name="gtc_zero">0</string>
     <string name="gtc_iniciar_revisao">Start review</string>
+    <string name="gtc_nao_foi_possivel_criar_baralho">It was not possible to create the deck!</string>
+    <string name="gtc_nao_foi_possivel_criar_pasta">It was not possible to create the folder!</string>
 
     <!-- -->
     <!-- -->
@@ -87,7 +89,7 @@
     <string name="gtc_perfil">Profile</string>
     <string name="gtc_pesquisar_usuarios">Search for Users</string>
     <string name="search_bar_hint"> Search </string>
-    <string name="configuracoes_de_busca">Configuracões de Busca</string>
+    <string name="configuracoes_de_busca">Search Configurations</string>
     <string name="ordenar_por">Order By</string>
     <string name="filtrar_por">Filter By</string>
     <string name="aplicar">Apply</string>
@@ -102,12 +104,67 @@
     <string name="mover">Move</string>
     <string name="baralhos">Decks</string>
     <string name="importar">Import</string>
-    <string name="gtc_renomear_pasta">Renomear Pasta</string>
-    <string name="gtc_excluir_pasta">Excluir Pasta</string>
-    <string name="gtc_nome_da_pasta">Nome da Pasta</string>
-    <string name="gtc_titulo">Título</string>
-    <string name="gtc_descricao">Descricao</string>
-    <string name="gtc_baralhos_publicos">Baralhos Públicos</string>
 
 
+    <string name="gtc_renomear_pasta">Rename Folder</string>
+    <string name="gtc_excluir_pasta">Delete Folder</string>
+    <string name="gtc_nome_da_pasta">Folder Name</string>
+    <string name="gtc_titulo">Title</string>
+    <string name="gtc_descricao">Description</string>
+    <string name="gtc_baralhos_publicos">Public Decks</string>
+    <string name="gtc_baralho_publico">Public Deck</string>
+    <string name="gtv_conteudo_de_estudo">Study Content</string>
+    <string name="gtc_visualizar_baralho">View Deck</string>
+    <string name="gtc_visualizar_cartoes">View Cards</string>
+    <string name="gtc_visualizar_anotacoes">View Notes</string>
+    <string name="gtc_revisar_baralho">Review Deck</string>
+    <string name="gtc_mover_baralho">Move Deck</string>
+    <string name="gtc_excluir_baralho">Delete Deck</string>
+    <string name="gtc_cartoes_novos_por_dia">New Cards per Day</string>
+    <string name="gtc_anotacoes">Notes</string>
+    <string name="gtc_nome_do_baralho">Deck Name</string>
+    <string name="gtc_visualizar_anotacao">View Note</string>
+    <string name="gtc_nome_da_anotacao">Note Name</string>
+    <string name="gtc_texto">Text</string>
+    <string name="gtc_pergunta">Question</string>
+    <string name="gtc_resposta">Answer</string>
+    <string name="gtc_visualizar_cartao">View Card</string>
+    <string name="gtc_visualizar_dicas">View Hints</string>
+    <string name="gtc_excluir_cartao">Delete Card</string>
+    <string name="gtc_criar_cartao">Create Card</string>
+    <string name="gtc_dicas">Hints</string>
+    <string name="gtc_visualizar_dica">View Hint</string>
+    <string name="gtc_excluir_dica">Delete Hint</string>
+    <string name="gtc_texto_da_dica">Hint Text</string>
+    <string name="gtc_criar_dica">Create Hint</string>
+    <string name="gtc_parabens_revisao">Congratulations, you have finished the review!</string>
+    <string name="gtc_volta_para_home">Back to Home</string>
+    <string name="nuc_email_email_com">email@email.com</string>
+    <string name="gtc_senha_redefinida">Your password has been successfully reset, click below to log in.</string>
+    <string name="nuc_nova_senha">New Password</string>
+    <string name="nuc_repita_a_senha">Repeat Password</string>
+    <string name="nuc_redefinir_senha">Reset Password</string>
+
+    <string name="gtc_excluir_anotacao">Delete Note</string>
+    <string name="gtc_criar_anotacao">Create Note</string>
+    <string name="number_0">0</string>
+    <string name="gtc_mostrar_resposta">Show Answer</string>
+    <string name="gtc_esqueci">I Forgot</string>
+    <string name="gtc_dificil">Difficult</string>
+    <string name="gtc_bom">Good</string>
+    <string name="gtc_facil">Easy</string>
+    <string name="nuc_conta">Account</string>
+    <string name="nuc_definir_email">SET EMAIL</string>
+    <string name="gtc_amizades">Friendships</string>
+    <string name="number_2">2</string>
+    <string name="number_3">3</string>
+    <string name="gtaa_relatorio_geral">General Report</string>
+    <string name="gtaa_competicao">Competition</string>
+    <string name="gtc_novo_nome_do_baralho">New Deck Name</string>
+    <string name="gtc_confirmar_nome">Confirm Name</string>
+
+    <string-array name="nuc_listar_cartao_spinner_filtrar">
+        <item>Question</item>
+        <item>Answer</item>
+    </string-array>
 </resources>

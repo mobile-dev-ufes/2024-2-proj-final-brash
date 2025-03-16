@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/deep_black"
@@ -33,7 +32,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
-            android:hint="Nova senha"
+            android:hint="@string/nuc_nova_senha"
             android:textSize="16sp"
             app:endIconMode="clear_text"
 
@@ -45,11 +44,11 @@
                 android:id="@+id/DefinirSenhaAcTextInputEditTextNovaSenha"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword"
-
-                android:maxLines="1"
                 android:ellipsize="end"
-                />
+
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:textColor="@color/black" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -59,7 +58,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
-            android:hint="Repita a senha"
+            android:hint="@string/nuc_repita_a_senha"
             android:textSize="16sp"
             app:endIconMode="clear_text"
 
@@ -77,6 +76,8 @@
 
                 android:maxLines="1"
                 android:ellipsize="end"
+
+                android:textColor="@color/black"
                 />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -109,7 +110,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
-                android:text="Redefinir Senha"
+                android:text="@string/nuc_redefinir_senha"
                 android:backgroundTint="@color/medium_gray"
                 android:elevation="8dp"
 

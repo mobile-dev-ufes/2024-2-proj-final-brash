@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/gtc_listar_anotacao_ac"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -24,25 +23,40 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/ListarAnotacaoAcLayoutHeader"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="90dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:padding="20dp">
+        android:paddingEnd="10dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:paddingStart="25dp">
 
         <TextView
             android:id="@+id/ListarAnotacaoAcTextViewTitulo"
-            android:layout_width="wrap_content"
+            android:layout_width="230dp"
             android:layout_height="wrap_content"
-            android:text="Anotações"
+
+            android:autoSizeTextType="uniform"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:text="@string/gtc_nome_do_baralho"
             android:textColor="@color/white"
+            android:autoSizeMaxTextSize="30sp"
+            android:autoSizeMinTextSize="12sp"
             android:textSize="30sp"
+            android:autoSizeStepGranularity="2sp"
+
+            android:gravity="center"
+            android:textAlignment="center"
+
+            android:layout_marginStart="75dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/ListarAnotacaoAcButtonCriar"
@@ -51,62 +65,32 @@
         app:layout_constraintStart_toStartOf="@id/ListarAnotacaoAcLayoutHeader"
         app:layout_constraintTop_toBottomOf="@id/ListarAnotacaoAcLayoutHeader"
         app:srcCompat="@drawable/add_24dp"
-        android:tint="@color/lavender_purple"
+        app:tint="@color/soft_lilac"
         android:backgroundTint="@color/charcoal_gray"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="10dp"
 
         android:visibility="visible"
         />
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/ListarAnotacaoAcLayoutInputDePesquisa"
+    <TextView
+        android:id="@+id/ListarAnotacaoAcLayoutHeaderResultado"
 
         android:layout_width="0dp"
         android:layout_height="wrap_content"
 
-        android:hint="@string/search_bar_hint"
+        android:hint="@string/gtc_anotacoes"
         android:textColorHint="@color/white"
         android:textSize="30sp"
-        app:endIconMode="clear_text"
+        android:textAlignment="center"
 
-        app:layout_constraintStart_toEndOf="@id/ListarAnotacaoAcButtonCriar"
-        app:layout_constraintEnd_toStartOf="@+id/ListarAnotacaoAcImageViewOpcoesDeBusca"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/ListarAnotacaoAcButtonCriar"
         app:layout_constraintBottom_toBottomOf="@id/ListarAnotacaoAcButtonCriar"
-
+        android:layout_marginEnd="20dp"
         app:boxStrokeWidth="1dp"
         app:boxBackgroundColor="@color/charcoal_gray"
         android:layout_marginStart="20dp"
-        >
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/ListarAnotacaoAcInputDePesquisa"
-
-            style="@style/EditTextMaxCharNome"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:ellipsize="end"
-            android:inputType="text"
-            android:maxLines="1"
-
-            android:textColor="@color/white" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <ImageView
-        android:id="@+id/ListarAnotacaoAcImageViewOpcoesDeBusca"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:layout_constraintStart_toEndOf="@+id/ListarAnotacaoAcLayoutInputDePesquisa"
-        app:layout_constraintEnd_toEndOf="@+id/ListarAnotacaoAcLayoutHeader"
-        app:layout_constraintTop_toTopOf="@+id/ListarAnotacaoAcLayoutInputDePesquisa"
-        app:layout_constraintBottom_toBottomOf="@+id/ListarAnotacaoAcLayoutInputDePesquisa"
-        android:src="@drawable/tune_24dp"
-        app:tint="@color/white"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="20dp"
-
-        android:clickable="true"
-        android:focusable="true"
         />
 
 
@@ -115,8 +99,8 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintStart_toStartOf="@+id/ListarAnotacaoAcButtonCriar"
-        app:layout_constraintEnd_toEndOf="@+id/ListarAnotacaoAcImageViewOpcoesDeBusca"
-        app:layout_constraintTop_toBottomOf="@+id/ListarAnotacaoAcLayoutInputDePesquisa"
+        app:layout_constraintEnd_toEndOf="@+id/ListarAnotacaoAcLayoutHeaderResultado"
+        app:layout_constraintTop_toBottomOf="@+id/ListarAnotacaoAcLayoutHeaderResultado"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="20dp"

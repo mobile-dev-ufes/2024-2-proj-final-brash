@@ -27,7 +27,7 @@ class VisualizarDicaFrDialog() : DialogFragment() {
     private var _binding: GtcListarDicaFrVisualizarDicaBinding? = null
     private val binding get() = _binding!!
 
-    lateinit var listarDicaVM: ListarDicaVM
+    private lateinit var listarDicaVM: ListarDicaVM
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,7 +42,7 @@ class VisualizarDicaFrDialog() : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Agora a ViewModel está sendo recuperada corretamente
-        listarDicaVM = ViewModelProvider(requireActivity()).get(ListarDicaVM::class.java)
+        listarDicaVM = ViewModelProvider(requireActivity())[ListarDicaVM::class.java]
         //Log.d("HomeDialogs", "homeVM iniciado")
 
         //homeVM.baralhoEmFoco.value?.let {
@@ -82,7 +82,16 @@ class VisualizarDicaFrDialog() : DialogFragment() {
             dismiss()
         }
         binding.ListarDicaFrVisualizarDicaButtonConfirmar.setOnClickListener{
-            //TODO:: Lógica de modificar
+            val hintText = binding.ListarDicaFrVisualizarDicaInputTexto.text.toString()
+            listarDicaVM.dicaEmFoco.value?.let { cartao ->
+                listarDicaVM.editarDica(cartao, hintText) {
+                    dismiss()
+                    Toast.makeText(requireContext(), "Dica Editada", Toast.LENGTH_SHORT).show()
+                }
+            } ?: run {
+                Toast.makeText(requireContext(), "Nenhum Dica selecionado", Toast.LENGTH_SHORT).show()
+                dismiss()
+            }
         }
 
     }

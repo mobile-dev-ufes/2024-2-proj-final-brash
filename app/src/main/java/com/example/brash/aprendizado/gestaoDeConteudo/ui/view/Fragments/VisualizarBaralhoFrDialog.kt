@@ -39,7 +39,7 @@ class VisualizarBaralhoFrDialog() : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Agora a ViewModel está sendo recuperada corretamente
-        homeVM = ViewModelProvider(requireActivity()).get(HomeVM::class.java)
+        homeVM = ViewModelProvider(requireActivity())[HomeVM::class.java]
         Log.d("HomeDialogs", "homeVM iniciado")
 
         homeVM.baralhoEmFoco.value?.let {
@@ -76,8 +76,19 @@ class VisualizarBaralhoFrDialog() : DialogFragment() {
             dismiss()
         }
         binding.HomeFrVisualizarBaralhoButtonConfirmar.setOnClickListener {
-            dismiss()
-            Toast.makeText(requireContext(), "Baralho Editado", Toast.LENGTH_SHORT).show()
+            val deckName = binding.HomeFrVisualizarBaralhoInputTitulo.text.toString()
+            val deckDescription = binding.HomeFrVisualizarBaralhoInputDescricao.text.toString()
+            val deckCardsPerDay = binding.HomeFrVisualizarBaralhoInputCartoesNovos.text.toString().ifEmpty { "0" }.toInt()
+            val deckPublic = binding.HomeFrVisualizarBaralhoCheckBoxPublico.isChecked
+            homeVM.baralhoEmFoco.value?.let { baralho ->
+                homeVM.editarBaralho(baralho, deckName, deckDescription, deckCardsPerDay, deckPublic) {
+                    dismiss()
+                    Toast.makeText(requireContext(), "Baralho Editado", Toast.LENGTH_SHORT).show()
+                }
+            } ?: run {
+                Toast.makeText(requireContext(), "Nenhum baralho selecionado", Toast.LENGTH_SHORT).show()
+                dismiss()
+            }
         }
 
     }

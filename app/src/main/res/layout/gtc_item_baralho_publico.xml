@@ -11,7 +11,7 @@
         android:id="@+id/ItemBaralhoPublicoTextViewNome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Produto"
+        android:text="@string/text_view_teste"
         android:textColor="@color/white"
         android:textSize="16sp"
         android:ellipsize="end"

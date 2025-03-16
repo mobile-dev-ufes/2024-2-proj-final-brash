@@ -15,8 +15,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:hint="Texto da Dica"
-        android:textColorHint="@color/bright_red"
+        android:hint="@string/gtc_texto_da_dica"
+        android:textColorHint="@color/soft_lilac"
 
         app:endIconMode="clear_text"
 
@@ -28,8 +28,11 @@
             android:id="@+id/ListarDicaFrVisualizarDicaInputTexto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text"
-            style="@style/EditTextMaxCharNome"
+
+            android:inputType="textMultiLine"
+            style="@style/EditTextMaxCharTexto"
+            android:maxLines="10"
+            android:ellipsize="end"
 
             android:textColor="@color/white"
 

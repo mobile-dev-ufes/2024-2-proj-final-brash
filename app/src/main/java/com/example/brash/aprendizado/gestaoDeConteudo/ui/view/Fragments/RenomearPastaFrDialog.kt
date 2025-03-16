@@ -36,7 +36,7 @@ class RenomearPastaFrDialog() : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Agora a ViewModel está sendo recuperada corretamente
-        homeVM = ViewModelProvider(requireActivity()).get(HomeVM::class.java)
+        homeVM = ViewModelProvider(requireActivity())[HomeVM::class.java]
         Log.d("HomeDialogs", "homeVM iniciado")
 
         homeVM.pastaEmFoco.value?.let {
@@ -64,9 +64,18 @@ class RenomearPastaFrDialog() : DialogFragment() {
             dismiss()
         }
         binding.HomeFrRenomearPastaButtonConfirmar.setOnClickListener {
+
             //TODO:: Fazer verificação de se eh nome único, se for pode confirmar
-            dismiss()
-            Toast.makeText(requireContext(), "Pasta renomeada", Toast.LENGTH_SHORT).show()
+            homeVM.pastaEmFoco.value?.let { pasta ->
+                val novoNome = binding.HomeFrRenomearPastaInput.text.toString()
+                homeVM.editarPasta(pasta, novoNome){
+                    Toast.makeText(requireContext(), "Editar Pasta", Toast.LENGTH_SHORT).show()
+                    dismiss()
+                }
+            } ?: run {
+                Toast.makeText(requireContext(), "Nenhuma pasta selecionada", Toast.LENGTH_SHORT).show()
+                dismiss()
+            }
         }
 
     }

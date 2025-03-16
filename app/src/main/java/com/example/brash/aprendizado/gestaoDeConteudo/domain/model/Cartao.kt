@@ -4,7 +4,7 @@ import java.io.File
 import java.time.LocalDateTime
 
 data class Cartao(
-    var idCartao: Long = 0,
+    var idCartao: String = "",
     var pergunta: String = "",
     var resposta: String = "",
     //val imagem: File,

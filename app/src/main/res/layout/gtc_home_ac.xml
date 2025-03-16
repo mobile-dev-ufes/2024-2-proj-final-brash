@@ -35,17 +35,7 @@
             app:shapeAppearanceOverlay="@style/ImageViewCircularCorner30dp"
             />
 
-        <TextView
-            android:id="@+id/HomeAcTextViewPerfil"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/gtc_perfil"
-            android:textColor="@color/lavender_purple"
-            android:textSize="16sp"
-            app:layout_constraintStart_toEndOf="@id/HomeAcShapeableImageViewIconePerfil"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginStart="10dp"
-            />
+
 
         <TextView
             android:id="@+id/HomeAcTextViewTitulo"
@@ -67,72 +57,50 @@
             app:layout_constraintTop_toTopOf="@+id/HomeAcHeader"
             app:layout_constraintBottom_toBottomOf="@+id/HomeAcHeader"
             android:src="@drawable/settings_24dp"
-            app:tint="@color/lavender_purple"
+            app:tint="@color/deep_purple"
 
             android:clickable="true"
             android:focusable="true"
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/HomeAcLayoutInputDePesquisa"
-
+    <TextView
+        android:id="@+id/ListarDicaAcLayoutHeaderResultado"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-
-        android:hint="@string/search_bar_hint"
-        android:textColorHint="@color/white"
-        android:textSize="30sp"
-        app:endIconMode="clear_text"
-
-        app:layout_constraintStart_toStartOf="@id/HomeAcHeader"
-        app:layout_constraintEnd_toStartOf="@+id/HomeAcImageViewOpcoesDeBusca"
+        android:layout_height="60dp"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/HomeAcHeader"
+        app:layout_constraintEnd_toEndOf="parent"
 
-        app:boxStrokeWidth="1dp"
-        app:boxBackgroundColor="@color/charcoal_gray"
+        android:text="@string/gtv_conteudo_de_estudo"
+        android:textColor="@color/lavender_purple"
+        android:textSize="30sp"
+        android:autoSizeMaxTextSize="30sp"
+        android:autoSizeMinTextSize="12sp"
+        android:autoSizeStepGranularity="2sp"
+
         android:layout_marginStart="20dp"
-        >
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/HomeAcInputDePesquisa"
-
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:maxLines="1"
-            android:ellipsize="end"
-            android:textColor="@color/white"
-            android:inputType="text"
-
-            style="@style/EditTextMaxCharNome"
-
-            />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <ImageView
-        android:id="@+id/HomeAcImageViewOpcoesDeBusca"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:layout_constraintStart_toEndOf="@+id/HomeAcLayoutInputDePesquisa"
-        app:layout_constraintEnd_toEndOf="@+id/HomeAcHeader"
-        app:layout_constraintTop_toTopOf="@+id/HomeAcLayoutInputDePesquisa"
-        app:layout_constraintBottom_toBottomOf="@+id/HomeAcLayoutInputDePesquisa"
-        android:src="@drawable/tune_24dp"
-        app:tint="@color/white"
-        android:layout_marginStart="10dp"
         android:layout_marginEnd="20dp"
+        android:textAlignment="center"
+        android:gravity="center"
+        />
 
-        android:clickable="true"
-        android:focusable="true"
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        app:layout_constraintStart_toStartOf="@+id/ListarDicaAcLayoutHeaderResultado"
+        app:layout_constraintEnd_toEndOf="@+id/ListarDicaAcLayoutHeaderResultado"
+        app:layout_constraintBottom_toBottomOf="@+id/ListarDicaAcLayoutHeaderResultado"
+        android:background="@color/lavender_purple"
         />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/HomeAcExpandableListViewResultadoBusca"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintStart_toStartOf="@+id/HomeAcLayoutInputDePesquisa"
-        app:layout_constraintEnd_toEndOf="@+id/HomeAcImageViewOpcoesDeBusca"
-        app:layout_constraintTop_toBottomOf="@+id/HomeAcLayoutInputDePesquisa"
+        app:layout_constraintStart_toStartOf="@+id/ListarDicaAcLayoutHeaderResultado"
+        app:layout_constraintEnd_toEndOf="@+id/ListarDicaAcLayoutHeaderResultado"
+        app:layout_constraintTop_toBottomOf="@+id/ListarDicaAcLayoutHeaderResultado"
         app:layout_constraintBottom_toTopOf="@+id/HomeAcButtonAcoesAdicionais"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="20dp"
@@ -146,7 +114,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:srcCompat="@drawable/add_24dp"
-        android:tint="@color/lavender_purple"
+        app:tint="@color/soft_lilac"
         android:backgroundTint="@color/charcoal_gray"
         android:layout_marginEnd="10dp"
 

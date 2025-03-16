@@ -23,7 +23,7 @@ class CriarDicaFrDialog : DialogFragment() {
     private var _binding: GtcListarDicaFrCriarDicaBinding? = null
     private val binding get() = _binding!!
 
-    lateinit var listarDicaVM: ListarDicaVM
+    private lateinit var listarDicaVM: ListarDicaVM
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,7 +38,7 @@ class CriarDicaFrDialog : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Agora a ViewModel está sendo recuperada corretamente
-        listarDicaVM = ViewModelProvider(requireActivity()).get(ListarDicaVM::class.java)
+        listarDicaVM = ViewModelProvider(requireActivity())[ListarDicaVM::class.java]
 
         setOnClickListeners()
     }
@@ -56,9 +56,11 @@ class CriarDicaFrDialog : DialogFragment() {
             dismiss()
         }
         binding.ListarDicaFrCriarDicaButtonCriar.setOnClickListener {
-            dismiss()
-            //TODO:: Fazer verificação de se eh nome único, se for pode confirmar, requisitar isso ao DicaVM
-            Toast.makeText(requireContext(), "Pasta criada", Toast.LENGTH_SHORT).show()
+            val hintText = binding.ListarDicaFrCriarDicaInputTexto.text.toString()
+            listarDicaVM.criarDica(hintText){
+                dismiss()
+            }
+
         }
 
     }

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/gtc_listar_baralho_publico_ac"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -68,13 +67,14 @@
         android:textSize="30sp"
         app:endIconMode="clear_text"
 
-        app:layout_constraintStart_toStartOf="@id/ListarBaralhoPublicoAcLayoutHeader"
-        app:layout_constraintEnd_toStartOf="@+id/ListarBaralhoPublicoAcImageViewOpcoesDeBusca"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ListarBaralhoPublicoAcLayoutHeader"
 
         app:boxStrokeWidth="1dp"
         app:boxBackgroundColor="@color/charcoal_gray"
         android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         >
 
         <com.google.android.material.textfield.TextInputEditText
@@ -91,29 +91,12 @@
             />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <ImageView
-        android:id="@+id/ListarBaralhoPublicoAcImageViewOpcoesDeBusca"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:layout_constraintStart_toEndOf="@+id/ListarBaralhoPublicoAcLayoutInputDePesquisa"
-        app:layout_constraintEnd_toEndOf="@+id/ListarBaralhoPublicoAcLayoutHeader"
-        app:layout_constraintTop_toTopOf="@+id/ListarBaralhoPublicoAcLayoutInputDePesquisa"
-        app:layout_constraintBottom_toBottomOf="@+id/ListarBaralhoPublicoAcLayoutInputDePesquisa"
-        android:src="@drawable/tune_24dp"
-        app:tint="@color/white"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="20dp"
-
-        android:clickable="true"
-        android:focusable="true"
-        />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/ListarBaralhoPublicoAcRecycleViewResultadoBusca"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintStart_toStartOf="@+id/ListarBaralhoPublicoAcLayoutInputDePesquisa"
-        app:layout_constraintEnd_toEndOf="@+id/ListarBaralhoPublicoAcImageViewOpcoesDeBusca"
+        app:layout_constraintEnd_toEndOf="@+id/ListarBaralhoPublicoAcLayoutInputDePesquisa"
         app:layout_constraintTop_toBottomOf="@+id/ListarBaralhoPublicoAcLayoutInputDePesquisa"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginTop="10dp"

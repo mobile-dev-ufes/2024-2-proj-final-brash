@@ -51,7 +51,7 @@ class MoverBaralhoFrDialog() : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Agora a ViewModel está sendo recuperada corretamente
-        homeVM = ViewModelProvider(requireActivity()).get(HomeVM::class.java)
+        homeVM = ViewModelProvider(requireActivity())[HomeVM::class.java]
         adapter = ListaPastaAdapter(homeVM.baralhoEmFoco.value?.pasta)
 
 
@@ -79,7 +79,6 @@ class MoverBaralhoFrDialog() : DialogFragment() {
         setOnClickListeners()
 
         // Chamar o métod da ViewModel para obter os dados
-        homeVM.getAllPastas()
         Log.d("HomeDialogs", "MOVER BARALHO PASSOU DO GETALLPASTAS")
 
     }
@@ -98,7 +97,6 @@ class MoverBaralhoFrDialog() : DialogFragment() {
                 }
             }
         })
-
         homeVM.pastaList.observe(viewLifecycleOwner, Observer {
             if (!it.isNullOrEmpty()) {
                 adapter.updateProdList(it)
@@ -118,14 +116,27 @@ class MoverBaralhoFrDialog() : DialogFragment() {
         }
         binding.HomeFrMoverBaralhoButtonMover.setOnClickListener {
             //TODO:: Fazer a verificação de mover da pasta e atualizar em HomeAC
-            Toast.makeText(context, "Mover Para " + (homeVM.pastaEmMover.value?.nome ?: "Root"), Toast.LENGTH_SHORT).show()
-            dismiss()
+            //Toast.makeText(context, "Mover Para " + (homeVM.pastaEmMover.value?.nome ?: "Root"), Toast.LENGTH_SHORT).show()
+
+            homeVM.pastaEmMover.value?.let { pasta ->
+                homeVM.baralhoEmFoco.value?.let { baralho ->
+                    homeVM.moverBaralho(pasta, baralho) {
+                        Toast.makeText(requireContext(), "Mover Baralho", Toast.LENGTH_SHORT).show()
+                        dismiss()
+                    }
+                } ?: run {
+                    Toast.makeText(requireContext(), "Nenhum baralho selecionado", Toast.LENGTH_SHORT).show()
+                    dismiss()
+                }
+            } ?: run {
+                Toast.makeText(requireContext(), "Nenhuma pasta selecionada para mover o baralho", Toast.LENGTH_SHORT).show()
+                dismiss()
+            }
         }
         binding.HomeFrMoverBaralhoLayoutRaiz.setOnClickListener {
             Toast.makeText(context, "Root Clicado", Toast.LENGTH_SHORT).show()
             clickPastaRaiz()
         }
-
     }
 
     override fun onDestroyView() {

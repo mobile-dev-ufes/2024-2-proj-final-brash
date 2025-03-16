@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:hint="@string/gtc_titulo"
-        android:textColorHint="@color/bright_red"
+        android:textColorHint="@color/soft_lilac"
 
         app:endIconMode="clear_text"
 
@@ -28,7 +28,7 @@
             android:id="@+id/HomeFrVisualizarBaralhoInputTitulo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text"
+            android:inputType="textMultiLine"
             style="@style/EditTextMaxCharNome"
 
             android:textColor="@color/white"
@@ -46,7 +46,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:hint="@string/gtc_descricao"
-        android:textColorHint="@color/bright_red"
+        android:textColorHint="@color/soft_lilac"
 
         app:endIconMode="clear_text"
 
@@ -59,8 +59,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
-            android:inputType="text"
+            android:inputType="textMultiLine"
             style="@style/EditTextMaxCharTexto"
+            android:maxLines="10"
+            android:ellipsize="end"
             android:textColor="@color/white"
 
             />
@@ -72,8 +74,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:hint="CartoesNovos"
-        android:textColorHint="@color/bright_red"
+        android:hint="@string/gtc_cartoes_novos_por_dia"
+        android:textColorHint="@color/soft_lilac"
 
         app:endIconMode="clear_text"
 
@@ -93,9 +95,10 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <CheckBox
+        android:id="@+id/HomeFrVisualizarBaralhoCheckBoxPublico"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Baralho público"
+        android:text="@string/gtc_baralho_publico"
         android:textSize="20sp"
         android:textColor="@android:color/white"
         android:padding="8dp"/>

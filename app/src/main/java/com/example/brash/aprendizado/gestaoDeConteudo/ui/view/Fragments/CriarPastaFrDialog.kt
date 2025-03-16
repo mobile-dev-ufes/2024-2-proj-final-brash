@@ -34,8 +34,7 @@ class CriarPastaFrDialog : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Agora a ViewModel está sendo recuperada corretamente
-        homeVM = ViewModelProvider(requireActivity()).get(HomeVM::class.java)
-
+        homeVM = ViewModelProvider(requireActivity())[HomeVM::class.java]
         setOnClickListeners()
     }
 
@@ -53,9 +52,12 @@ class CriarPastaFrDialog : DialogFragment() {
             dismiss()
         }
         binding.HomeFrCriarPastaButtonCriar.setOnClickListener {
-            dismiss()
+
             //TODO:: Fazer verificação de se eh nome único, se for pode confirmar, requisitar isso ao HomeVM
-            Toast.makeText(requireContext(), "Pasta criada", Toast.LENGTH_SHORT).show()
+            val nome = binding.HomeFrCriarPastaInput.text.toString()
+            homeVM.criarPasta(nome){
+                dismiss()
+            }
         }
 
     }

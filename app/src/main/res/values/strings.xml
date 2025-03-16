@@ -2,7 +2,7 @@
     <string name="app_name">Brash</string>
     <string name="senha">Senha</string>
     <string name="usuario">Usuário</string>
-
+    <string name="text_view_teste"> Teste de textView</string>
     <string name="idioma">Idioma</string>
     <string name="idioma_pt">Português</string>
     <string name="idioma_en">English</string>
@@ -76,6 +76,8 @@
     <string name="gtc_cartoes_esquecidos">Cartões Esquecidos:</string>
     <string name="gtc_zero">0</string>
     <string name="gtc_iniciar_revisao">Iniciar revisão</string>
+    <string name="gtc_nao_foi_possivel_criar_baralho">Não foi possível criar o baralho!</string>
+    <string name="gtc_nao_foi_possivel_criar_pasta">Não foi possível criar a pasta!</string>
 
     <!-- -->
     <!-- -->
@@ -85,7 +87,7 @@
     <string name="gtc_perfil">Perfil</string>
     <string name="gtc_pesquisar_usuarios">Pesquisar Usuários</string>
     <string name="search_bar_hint"> Pesquisar </string>
-    <string name="configuracoes_de_busca">Search Configurations</string>
+    <string name="configuracoes_de_busca">Configuracões de Busca</string>
     <string name="ordenar_por">Ordenar por</string>
     <string name="filtrar_por">Filtrar por</string>
     <string name="aplicar">Aplicar</string>
@@ -106,6 +108,60 @@
     <string name="gtc_titulo">Título</string>
     <string name="gtc_descricao">Descricao</string>
     <string name="gtc_baralhos_publicos">Baralhos Públicos</string>
+    <string name="gtc_baralho_publico">Baralho público</string>
+    <string name="gtv_conteudo_de_estudo">Conteúdo de Estudo</string>
+    <string name="gtc_visualizar_baralho">Visualizar Baralho</string>
+    <string name="gtc_visualizar_cartoes">Visualizar Cartões</string>
+    <string name="gtc_visualizar_anotacoes">Visualizar Anotações</string>
+    <string name="gtc_revisar_baralho">Revisar Baralho</string>
+    <string name="gtc_mover_baralho">Mover Baralho</string>
+    <string name="gtc_excluir_baralho">Excluir Baralho</string>
+    <string name="gtc_cartoes_novos_por_dia">Cartoes Novos por Dia</string>
+    <string name="gtc_anotacoes">Anotações</string>
+    <string name="gtc_nome_do_baralho">Nome do Baralho</string>
+    <string name="gtc_visualizar_anotacao">Visualizar Anotação</string>
+    <string name="gtc_nome_da_anotacao">Nome da Anotação</string>
+    <string name="gtc_texto">Texto</string>
+    <string name="gtc_pergunta">Pergunta</string>
+    <string name="gtc_resposta">Resposta</string>
+    <string name="gtc_visualizar_cartao">Visualizar Cartão</string>
+    <string name="gtc_visualizar_dicas">Visualizar Dicas</string>
+    <string name="gtc_excluir_cartao">Excluir Cartão</string>
+    <string name="gtc_criar_cartao">Criar Cartão</string>
+    <string name="gtc_dicas">Dicas</string>
+    <string name="gtc_visualizar_dica">Visualizar Dica</string>
+    <string name="gtc_excluir_dica">Excluir Dica</string>
+    <string name="gtc_texto_da_dica">Texto da Dica</string>
+    <string name="gtc_criar_dica">Criar Dica</string>
+    <string name="gtc_parabens_revisao">Parabéns, você terminou a revisão!</string>
+    <string name="gtc_volta_para_home">Volta para Home</string>
+    <string name="nuc_email_email_com">email@email.com</string>
+    <string name="gtc_senha_redefinida">Sua senha foi redefinida com sucesso, clique abaixo para fazer o login.</string>
+    <string name="nuc_nova_senha">Nova senha</string>
+    <string name="nuc_repita_a_senha">Repita a senha</string>
+    <string name="nuc_redefinir_senha">Redefinir Senha</string>
+    <string name="gtc_excluir_anotacao">Excluir Anotação</string>
+    <string name="gtc_criar_anotacao">Criar Anotação</string>
+    <string name="number_0">0</string>
+    <string name="gtc_mostrar_resposta">Mostrar resposta</string>
+    <string name="gtc_esqueci">Esqueci</string>
+    <string name="gtc_dificil">Difícil</string>
+    <string name="gtc_bom">Bom</string>
+    <string name="gtc_facil">Facil</string>
+    <string name="nuc_conta">Conta</string>
+    <string name="nuc_definir_email">DEFINIR EMAIL</string>
+    <string name="gtc_amizades">Amizades</string>
+    <string name="number_2">2</string>
+    <string name="number_3">3</string>
+    <string name="gtaa_relatorio_geral">Relatório Geral</string>
+    <string name="gtaa_competicao">Competição</string>
+    <string name="gtc_novo_nome_do_baralho">Novo Nome do Baralho</string>
+    <string name="gtc_confirmar_nome">Confirmar Nome</string>
 
+
+    <string-array name="nuc_listar_cartao_spinner_filtrar">
+        <item>Pergunta</item>
+        <item>Resposta</item>
+    </string-array>
 
 </resources>
