@@ -158,7 +158,8 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
     }
 
     private fun sortPastaList(){
-        _pastaList.value = _pastaList.value?.sortedBy { it.nome }
+        _pastaList.value = _pastaList.value?.sortedWith(compareBy<Pasta> { it.idPasta != "root" }.thenBy { it.nome })
+
     }
     private fun sortHomeAcListItemList(){
         _homeAcListItemList.value = _homeAcListItemList.value?.sortedWith(
@@ -296,9 +297,10 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun moverBaralho(pasta: Pasta, baralho: Baralho, onSuccess: () -> Unit){
+    fun moverBaralho(pastaDestino: Pasta, baralho: Baralho, onSuccess: () -> Unit){
+        UtilsFoos.showToast(getApplication(), "Movendo --${baralho.nome}-- da pasta -- ${baralho.pasta?.nome} -- para pasta --${pastaDestino.nome}--")
         viewModelScope.launch{
-            val resultCopy = pastaRepository.copyDeck(pasta, baralho)
+            val resultCopy = pastaRepository.copyDeck(pastaDestino, baralho)
             resultCopy
                 .onSuccess {id ->
                     val resultDelete = baralhoRepository.deleteDeck(baralho)
@@ -306,14 +308,14 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
 
                         getAllHomeAcListItem()
                         onSuccess()
-                        Log.e("criarPastadebug", "Sexo")
+                        Log.e("homeVM", "Copia e delete sucedidos\n\"Movendo --${baralho.nome}-- da pasta -- ${baralho.pasta?.nome} -- para pasta --${pastaDestino.nome}--\"")
                     }.onFailure { eDelete->
-                        Log.e("criarPastadebug", "Ocorreu algum erro na criação da pasta:: ${eDelete}")
+                        Log.e("homeVM", "Ocorreu algum erro na exclusão do baralho:: ${eDelete}\n\"Movendo --${baralho.nome}-- da pasta -- ${baralho.pasta?.nome} -- para pasta --${pastaDestino.nome}--\"")
                     }
                 }
                 .onFailure { eCopy->
-                    UtilsFoos.showToast(getApplication(), "Ocorreu algum erro na criação da pasta")
-                    Log.e("criarPastadebug", "Ocorreu algum erro na criação da pasta:: ${eCopy}")
+                    UtilsFoos.showToast(getApplication(), "Ocorreu algum erro na cópia do baralho")
+                    Log.e("homeVM", "Ocorreu algum erro na cópia do baralho:: ${eCopy}\n\"Movendo --${baralho.nome}-- da pasta -- ${baralho.pasta?.nome} -- para pasta --${pastaDestino.nome}--\"")
                 }
         }
     }

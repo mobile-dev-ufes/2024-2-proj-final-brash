@@ -1,12 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/HomeFrMoverBaralho"
+    android:id="@+id/HomeFrMoverBaralho_antigo"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/borda_linear_layout"
     android:padding="16dp">
+
+    <LinearLayout
+        android:id="@+id/HomeFrMoverBaralhoLayoutRaiz"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:clickable="true"
+        android:focusable="true"
+        >
+
+        <include
+            android:id="@+id/nome_do_layout_incluido"
+            layout="@layout/gtc_item_pasta_com_icone" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/HomeFrMoverBaralhoTextViewPasta"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/pastas"
+        android:textSize="16sp"
+        android:maxWidth="180dp"
+        android:padding="10dp"
+        android:textColor="@color/white"
+        android:clickable="true"
+        android:focusable="true"/>
 
 
     <androidx.recyclerview.widget.RecyclerView
