@@ -1,6 +1,7 @@
 package com.example.brash.nucleo.data.repository
 
 import android.util.Log
+import com.example.brash.R
 import com.example.brash.nucleo.domain.model.IconeDeUsuario
 import com.example.brash.nucleo.domain.model.Usuario
 import com.example.brash.nucleo.utils.IconeCor
@@ -75,10 +76,6 @@ class UsuarioRepository {
     }
 
     suspend fun checkExistsUserName(userName: String): Result<Boolean> {
-        val currentUserEmail = fireBaseAuth.currentUser?.email
-        if (currentUserEmail.isNullOrEmpty()) {
-            return Result.failure(Throwable("Usuário não autenticado"))
-        }
         return runCatching {
             val usersRef = fireStoreDB.collection("users")
             val querySnapshot = usersRef
@@ -98,6 +95,19 @@ class UsuarioRepository {
     * userName
     * */
 
+    suspend fun createUser(userName : String, exhibitionName : String, email : String) : Result<Unit>{
+        return runCatching {
+            val userMap = hashMapOf(
+                "userName" to userName,
+                "exhibitionName" to exhibitionName,
+                "email" to email,
+                "iconColor" to IconeCor.DEEP_PURPLE,
+                "iconImage" to IconeImagem.PADRAO
+            )
+            fireStoreDB.collection("users").document(email).set(userMap).await()
+        }
+    }
+
     suspend fun updateUser(userName : String, exhibitionName : String, iconColor : IconeCor, iconImage: IconeImagem) : Result<Unit>{
         val currentUserEmail = fireBaseAuth.currentUser?.email
         if (currentUserEmail.isNullOrEmpty()) {
@@ -114,6 +124,4 @@ class UsuarioRepository {
             userRef.update(newUserInfo).await()
         }
     }
-
-
 }

@@ -48,6 +48,7 @@ class AccountServiceImpl () : AccountService {
             val authResult = Firebase.auth.signInWithEmailAndPassword(email, password).await()
 
             if (authResult.user?.isEmailVerified == false) {
+                signOut()
                 throw FirebaseAuthVerifyException("EMAILEXP", "Email nao verificado.")
             }
 
