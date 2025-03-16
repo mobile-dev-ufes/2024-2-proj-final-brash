@@ -55,22 +55,23 @@ class AppVM(application: Application) : AndroidViewModel(application) {
      * @param onSuccess Callback executed if the update is successful.
      */
     fun updateUsuarioLogado(userName : String, exhibitionName : String, iconColor : IconeCor, iconImage: IconeImagem, onSuccess : () -> Unit) {
-
-        if (processaInfoUser(userName, exhibitionName)) {
-            viewModelScope.launch {
-                if(_usuarioLogado.value!!.nomeDeUsuario == userName){
-                    atualizaUsuario(userName , exhibitionName , iconColor , iconImage,{
+        viewModelScope.launch {
+            if (processaInfoUser(userName, exhibitionName)) {
+                if (_usuarioLogado.value!!.nomeDeUsuario == userName) {
+                    atualizaUsuario(userName, exhibitionName, iconColor, iconImage, {
                         onSuccess()
                     })
-                }
-                else{
+                } else {
                     val result = usuarioRepository.checkExistsUserName(userName)
                     result.onSuccess {
-                        atualizaUsuario(userName , exhibitionName , iconColor , iconImage,{
+                        atualizaUsuario(userName, exhibitionName, iconColor, iconImage, {
                             onSuccess()
                         })
-                    }.onFailure { e->
-                        UtilsFoos.showToast(getApplication(), getStringApplication(R.string.erro_requisicao_banco_dados_firebase))
+                    }.onFailure { e ->
+                        UtilsFoos.showToast(
+                            getApplication(),
+                            getStringApplication(R.string.erro_requisicao_banco_dados_firebase)
+                        )
                     }
                 }
             }
@@ -115,9 +116,22 @@ class AppVM(application: Application) : AndroidViewModel(application) {
      * @param exhibitionName The display name.
      * @return `true` if the input is valid, `false` otherwise.
      */
-    fun processaInfoUser(userName : String, exhibitionName : String): Boolean{
-        if(userName.isEmpty() || exhibitionName.isEmpty()){
-            UtilsFoos.showToast(getApplication(), getStringApplication(R.string.nuc_preencha_todos_campos))
+    suspend fun processaInfoUser(userName : String, exhibitionName : String): Boolean {
+        val userExists = usuarioRepository.checkExistsUserName(userName)
+        userExists.onSuccess { exists ->
+            if (exists) {
+                UtilsFoos.showToast(
+                    getApplication(),
+                    getStringApplication(R.string.nuc_msg_erro_nome_usuario_ja_cadastrado)
+                )
+                return false
+            }
+        }
+        if (userName.isEmpty() || exhibitionName.isEmpty()) {
+            UtilsFoos.showToast(
+                getApplication(),
+                getStringApplication(R.string.nuc_preencha_todos_campos)
+            )
             return false
         }
         return true
