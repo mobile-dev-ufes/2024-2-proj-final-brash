@@ -89,9 +89,16 @@ class PastaRepository2 {
                     nome = documentData["name"].toString(),
                 )
                 folderList.add(folder)
-
                 recGetDecks2(folder)
             }
+
+            val root = Pasta(
+                idPasta = "root/$currentUserEmail",
+                nome = "root",
+            )
+
+            folderList.add(root)
+            recGetDecks2(root)
 
             folderList
         }

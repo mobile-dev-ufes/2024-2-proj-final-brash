@@ -32,7 +32,7 @@ class BaralhoRepository2 {
 
             val newDeckInfo = hashMapOf(
                 "id" to newDeckId,
-                "folderId" to "root",
+                "folderId" to "root/$currentUserEmail",
                 "name" to deck.nome,
                 "description" to deck.descricao,
                 "public" to deck.publico,
