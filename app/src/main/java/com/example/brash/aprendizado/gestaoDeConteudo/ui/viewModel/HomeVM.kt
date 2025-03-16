@@ -265,7 +265,7 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
      * @param onSuccess Callback to be called when the deck is successfully created.
      */
     fun criarBaralho(nome : String, descricao : String, onSuccess : () -> Unit){
-        if(processaInforBaralho(nome, descricao)){
+        if(processaInforBaralho(nome, descricao) && verificaBaralhoNomeUnico(nome)){
 
             viewModelScope.launch {
                 val baralho = Baralho(
@@ -304,10 +304,10 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
 
             UtilsFoos.showToast(getApplication(), getStringApplication(R.string.nuc_preencha_todos_campos))
             return false
-        }else if(!verificaBaralhoNomeUnico(name)){
-            UtilsFoos.showToast(getApplication(), getStringApplication(R.string.gtc_nome_unico_baralho))
-            return false
-        }
+        }//else if(!verificaBaralhoNomeUnico(name)){
+            //UtilsFoos.showToast(getApplication(), getStringApplication(R.string.gtc_nome_unico_baralho))
+            //return false
+        //}
 
         return true
     }
@@ -323,6 +323,7 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
         for (pasta in _pastaList.value.orEmpty()) {  // Usando orEmpty() para garantir que seja uma lista não-nula
             for (baralho in pasta.baralhos) {  // Usando orEmpty() para evitar NPE
                 if (baralho.nome == name) {
+                    UtilsFoos.showToast(getApplication(), getStringApplication(R.string.gtc_nome_unico_baralho))
                     return false  // Retorna false caso o nome do baralho seja encontrado
                 }
             }
@@ -348,7 +349,7 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
         if(numberNewCardsPerDay <= 0){
             UtilsFoos.showToast(getApplication(), getStringApplication(R.string.gtc_numero_cartoes_maior_que_zero))
         }
-        else if(processaInforBaralho(nome, descricao) ){
+        else if(processaInforBaralho(nome, descricao) && (baralho.nome == nome || verificaBaralhoNomeUnico(nome)) ){
             viewModelScope.launch{
                 val result = baralhoRepository.updateDeck(baralho, nome, descricao,numberNewCardsPerDay, public)
 
@@ -450,7 +451,7 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
      * and updates the UI. If successful, it triggers the callback and adds the new folder to the list.
      */
     fun criarPasta(nome : String, onSuccess: () -> Unit){
-        if(processaInfoPasta(nome)){
+        if(processaInfoPasta(nome) && verificaPastaNomeUnico(nome)){
             val pasta = Pasta(nome= nome)
             viewModelScope.launch{
                 val result = pastaRepository.createFolder(pasta)
@@ -486,10 +487,10 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
         if(nome.isEmpty()){
             UtilsFoos.showToast(getApplication(), getStringApplication(R.string.nuc_preencha_todos_campos))
             return false
-        }else if(!verificaPastaNomeUnico(nome)){ // verificacao de nome único
-            UtilsFoos.showToast(getApplication(), getStringApplication(R.string.gtc_nome_unico_pasta))
-            return false
-        }
+        }//else if(!verificaPastaNomeUnico(nome)){ // verificacao de nome único
+            //UtilsFoos.showToast(getApplication(), getStringApplication(R.string.gtc_nome_unico_pasta))
+            //return false
+        //}
         return true
     }
 
@@ -503,6 +504,7 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
 
         for(pasta in _pastaList.value!!){
             if(pasta.nome == name){
+                UtilsFoos.showToast(getApplication(), getStringApplication(R.string.gtc_nome_unico_pasta))
                 return false
             }
         }
@@ -520,7 +522,7 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
      * it updates the folder in the list and triggers the callback.
      */
     fun editarPasta(pasta: Pasta, nome : String, onSuccess : () -> Unit){
-        if(processaInfoPasta(nome)){
+        if(processaInfoPasta(nome) && (pasta.nome == nome || verificaPastaNomeUnico(nome))){
             viewModelScope.launch{
                 val result = pastaRepository.updateFolder(pasta, nome)
                 result
