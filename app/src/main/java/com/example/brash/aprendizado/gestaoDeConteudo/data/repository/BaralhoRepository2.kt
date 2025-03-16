@@ -67,6 +67,15 @@ class BaralhoRepository2 {
         }
         return runCatching {
             val deckRef = fireStoreDB.collection("decks").document(deck.idBaralho)
+            val deckData = deckRef.get().await().data ?: return Result.failure(Exception("Erro pegando data do baralho (deleteDeck::BaralhoRepository2)"))
+
+            val isPublic = deckData["public"].toString().toBoolean()
+            if(isPublic){ // se ele for público então deleta o publicDeck
+                val publicDeckId = deckData["publicId"].toString()
+                val publicDeckRef = fireStoreDB.collection("publicDecks").document(publicDeckId)
+                publicDeckRef.delete().await()
+            }
+
             deleteCards2(deckRef.id)
             deckRef.delete().await()
         }
@@ -88,16 +97,6 @@ class BaralhoRepository2 {
             .get().await()
         for(hintDocument in hintsQuerySnapshot){
             hintDocument.reference.delete().await()
-        }
-    }
-
-
-    private fun getDeckReference(deck: Baralho, folder: Pasta, currentUserEmail: String): DocumentReference {
-        val userRef = fireStoreDB.collection("users").document(currentUserEmail)
-        return if (folder.idPasta != "root") {
-            userRef.collection("folders").document(folder.idPasta).collection("decks").document(deck.idBaralho)
-        } else {
-            userRef.collection("root").document(deck.idBaralho)
         }
     }
 
@@ -167,12 +166,15 @@ class BaralhoRepository2 {
         }
         return runCatching {
 
-            if(deck.publico){ // se for público retorna
+            val deckRef = fireStoreDB.collection("decks").document(deck.idBaralho)
+            val deckData = deckRef.get().await().data ?: return Result.failure(Exception("Erro ao pegar dados do baralho (makepublic::BaralhoRepository2)"))
+
+            val isPublic = deckData["public"].toString().toBoolean()
+            if(isPublic){ // se for público retorna
                 return Result.success(Unit)
             }
 
             val publicDecksRef = fireStoreDB.collection("publicDecks")
-            val deckRef = fireStoreDB.collection("decks").document(deck.idBaralho)
 
             val newPublicDeckRef = publicDecksRef.add(hashMapOf<String, Any>()).await()
             val publicDeckInfo = hashMapOf(
@@ -181,11 +183,11 @@ class BaralhoRepository2 {
                 "deckId" to deckRef.id,
             )
             newPublicDeckRef.set(publicDeckInfo).await()
-            val updateInfo = mapOf(
+            val deckUpdateInfo = mapOf(
                 "public" to true,
                 "publicId" to newPublicDeckRef.id,
             )
-            deckRef.update(updateInfo).await()
+            deckRef.update(deckUpdateInfo).await()
         }
     }
 
@@ -196,35 +198,26 @@ class BaralhoRepository2 {
         }
         return runCatching {
 
-            if(!deck.publico){ // se não for público retorna
+            val deckRef = fireStoreDB.collection("decks").document(deck.idBaralho)
+            val deckData = deckRef.get().await().data ?: return Result.failure(Exception("Erro ao pegar dados do baralho (makepublic::BaralhoRepository2)"))
+
+            val isPublic = deckData["public"].toString().toBoolean()
+            if(isPublic){ // se não for público retorna
                 return Result.success(Unit)
             }
 
-            val deckRef = fireStoreDB.collection("decks").document(deck.idBaralho)
-            val deckSnapshot = deckRef.get().await()
-            val deckData = deckSnapshot.data ?: return Result.failure(Throwable("Erro ao pegar dados do baralho (unmakePublic::BaralhoRepository2)"))
-
             val publicDeckId = deckData["publicId"].toString()
-            val publicDeckRef = fireStoreDB.collection("publicDecks").document(publicDeckId)
 
+            val publicDeckRef = fireStoreDB.collection("publicDecks").document(publicDeckId)
             publicDeckRef.delete().await()
-            val updateDeckInfo = mapOf(
+
+            val deckUpdateInfo = mapOf(
                 "publicId" to FieldValue.delete(),
                 "public" to false
             )
-            deckRef.update(updateDeckInfo).await()
+            deckRef.update(deckUpdateInfo).await()
         }
     }
 
 
-
-    suspend fun getPublicDeck() : Result<Unit>{
-        val currentUserEmail = fireBaseAuth.currentUser?.email
-        if (currentUserEmail.isNullOrEmpty()) {
-            return Result.failure(Throwable("Usuário não autenticado"))
-        }
-        return runCatching {
-
-        }
-    }
 }
