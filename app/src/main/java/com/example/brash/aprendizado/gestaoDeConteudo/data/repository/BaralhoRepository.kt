@@ -11,6 +11,7 @@ import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
 import java.time.LocalDateTime
@@ -196,6 +197,68 @@ class BaralhoRepository {
         return hintsList
     }
 
+    // testar
+    suspend fun makePublic(deck: Baralho): Result<Unit> {
+        val currentUserEmail = fireBaseAuth.currentUser?.email
+        if (currentUserEmail.isNullOrEmpty()) {
+            return Result.failure(Throwable("Usuário não autenticado"))
+        }
+        return runCatching {
+            val folder = deck.pasta ?: return Result.failure(Throwable("Pasta do deck não encontrada"))
+            val deckRef = getDeckReference(deck, folder, currentUserEmail) // Obtém referência ao deck
+            val cardsRef = deckRef.collection("cards")
+
+            val publicDecksRef = fireStoreDB.collection("publicDecks")
+
+            val numberCards = cardsRef.get().await().size()
+            val deckSnapshot = deckRef.get().await()
+            val deckData = deckSnapshot.data ?: return Result.failure(Throwable("Erro ao pegar dados do baralho"))
+
+            val publicDeckRef = publicDecksRef.add(hashMapOf<String, Any>()).await()
+            val publicDeckInfo = hashMapOf(
+                "id" to publicDeckRef.id,
+                "userId" to currentUserEmail,
+                "description" to deckData["description"].toString(),
+                "name" to deckData["name"].toString(),
+                "numberCards" to numberCards,
+                "deckRef" to deckRef.path,
+            )
+            publicDeckRef.set(publicDeckInfo).await()
+            deckRef.update(mapOf(
+                "publicId" to publicDeckRef.id,
+            ))
+        }
+    }
+
+    // testar
+    suspend fun unmakePublic(deck: Baralho): Result<Unit> {
+        val currentUserEmail = fireBaseAuth.currentUser?.email
+        if (currentUserEmail.isNullOrEmpty()) {
+            return Result.failure(Throwable("Usuário não autenticado"))
+        }
+        return runCatching {
+            val folder = deck.pasta ?: return Result.failure(Throwable("Pasta do deck não encontrada"))
+            val deckRef = getDeckReference(deck, folder, currentUserEmail) // Obtém referência ao deck
+
+            val deckSnapshot = deckRef.get().await()
+            val deckData = deckSnapshot.data ?: return Result.failure(Throwable("Erro ao pegar dados do baralho"))
+
+            if(deckData["public"].toString().toBoolean() == true){
+
+                val publicDecksRef = fireStoreDB.collection("publicDecks")
+                val publicDeckId = deckData["publicId"].toString()
+
+                val publicDeckRef = publicDecksRef.whereEqualTo("id", publicDeckId).limit(1).get().await()
+                for (document in publicDeckRef) {
+                    document.reference.delete().await()
+                }
+                deckRef.update("publicId", FieldValue.delete()).await()
+            }
+        }
+    }
+
+
+
     fun addCard(deck : Baralho, card : Cartao){
 
         val currentUserEmail = fireBaseAuth.currentUser?.email
@@ -242,5 +305,9 @@ class BaralhoRepository {
 
         return
     }
+
+
+
+
 
 }
