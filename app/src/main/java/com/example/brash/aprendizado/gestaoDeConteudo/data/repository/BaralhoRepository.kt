@@ -102,6 +102,15 @@ class BaralhoRepository {
                 userRef.collection("root")
             }
             val deckRef = decksRef.document(deck.idBaralho)
+            val deckData = deckRef.get().await().data ?: return Result.failure(Exception("Erro pegando data do baralho (deleteDeck::BaralhoRepository)"))
+
+            val isPublic = deckData["public"].toString().toBoolean()
+
+            if(isPublic){ // deletar entrada pública do baralho
+                val publicId = deckData["publicId"].toString()
+                val publicDeckRef = fireStoreDB.collection("publicDecks").document(publicId)
+                publicDeckRef.delete().await()
+            }
 
             deleteCards(deckRef.collection("cards"))
             deckRef.delete().await()
@@ -210,21 +219,19 @@ class BaralhoRepository {
 
             val publicDecksRef = fireStoreDB.collection("publicDecks")
 
-            val numberCards = cardsRef.get().await().size()
+            //val numberCards = cardsRef.get().await().size()
             val deckSnapshot = deckRef.get().await()
-            val deckData = deckSnapshot.data ?: return Result.failure(Throwable("Erro ao pegar dados do baralho"))
+            //val deckData = deckSnapshot.data ?: return Result.failure(Throwable("Erro ao pegar dados do baralho"))
 
             val publicDeckRef = publicDecksRef.add(hashMapOf<String, Any>()).await()
             val publicDeckInfo = hashMapOf(
                 "id" to publicDeckRef.id,
                 "userId" to currentUserEmail,
-                "description" to deckData["description"].toString(),
-                "name" to deckData["name"].toString(),
-                "numberCards" to numberCards,
-                "deckRef" to deckRef.path,
+                "deckPath" to deckRef.path,
             )
             publicDeckRef.set(publicDeckInfo).await()
             deckRef.update(mapOf(
+                "public" to true,
                 "publicId" to publicDeckRef.id,
             ))
         }
@@ -243,8 +250,8 @@ class BaralhoRepository {
             val deckSnapshot = deckRef.get().await()
             val deckData = deckSnapshot.data ?: return Result.failure(Throwable("Erro ao pegar dados do baralho"))
 
-            if(deckData["public"].toString().toBoolean() == true){
-
+            val isPublic = deckData["public"].toString().toBoolean()
+            if(isPublic){
                 val publicDecksRef = fireStoreDB.collection("publicDecks")
                 val publicDeckId = deckData["publicId"].toString()
 
@@ -252,62 +259,15 @@ class BaralhoRepository {
                 for (document in publicDeckRef) {
                     document.reference.delete().await()
                 }
-                deckRef.update("publicId", FieldValue.delete()).await()
+
+                deckRef.update(
+                    mapOf(
+                        "publicId" to FieldValue.delete(),
+                        "public" to false
+                    )
+                ).await()
             }
         }
     }
-
-
-
-    fun addCard(deck : Baralho, card : Cartao){
-
-        val currentUserEmail = fireBaseAuth.currentUser?.email
-        if (currentUserEmail.isNullOrEmpty()) {
-            return
-        }
-
-        val userRef = fireStoreDB.collection("users")
-            .document(currentUserEmail)
-
-        //var decksRef = userRef.collection("root")
-        //val folder = deck.pasta!!
-        //if(folder.nome != "root"){
-            //decksRef = userRef.collection("folders").document(folder.idPasta).collection("decks")
-        //}
-
-        val decksRef = userRef.collection("root")
-        val cardsRef = decksRef.document("Cmpzp5ySYkWqoSKzzTNq").collection("cards")
-        val cardRef = cardsRef.add(hashMapOf<String, Any>())
-        cardRef
-            .addOnSuccessListener { document ->
-                val generatedId = document.id
-
-                val newCard = hashMapOf(
-                    "id" to generatedId,
-                    "question" to card.pergunta,
-                    "answer" to card.resposta,
-                    "reviewFactor" to card.fatorDeRevisao,
-                    "reviewInterval" to card.intervaloRevisao,
-                    "reviewDate" to Timestamp(Date.from(card.dataDeRevisao.atZone(ZoneId.systemDefault()).toInstant())),
-                    "categoryOfLearning" to card.categoriaDoAprendizado.name
-                )
-                document.set(newCard)
-                    .addOnSuccessListener {
-
-                    }
-                    .addOnFailureListener {
-
-                    }
-            }
-            .addOnFailureListener {
-
-            }
-
-        return
-    }
-
-
-
-
 
 }

@@ -85,21 +85,6 @@ class PastaRepository {
         }
     }
 
-    /*suspend fun moveDeck(targetFolder : Pasta, sourceFolder : Pasta, deck : Baralho): Result <String>{
-        return runCatching {
-            copyDeck(targetFolder, deck).onSuccess { id ->
-                BaralhoRepository().deleteDeck(deck).onSuccess {
-                    Result.success(id)
-                }.onFailure { e->
-                    Result.failure(e)
-                }
-            }.onFailure { e->
-                Result.failure(e)
-            }
-        }
-
-    }*/
-
     fun addDeck(folder : Pasta, deck : Baralho){
 
         val currentUserEmail = fireBaseAuth.currentUser?.email
@@ -224,13 +209,31 @@ class PastaRepository {
             val newDeckRef = decksRef.add(hashMapOf<String, Any>()).await()
             val newDeckGeneratedId = newDeckRef.id
 
+            val deckRefSnapshot = deckRef.get().await()
+            val deckData = deckRefSnapshot.data ?: return Result.failure(Exception("Ocorreu algum erro pegando dados do baralho (copyDeck::PastaRepository)"))
+
+            val isPublic = deckData["public"].toString().toBoolean()
             val newDeckInfo = hashMapOf(
                 "id" to newDeckGeneratedId,
-                "name" to deck.nome,
-                "description" to deck.descricao,
-                "public" to deck.publico,
-                "numberNewCardsPerDay" to deck.cartoesNovosPorDia,
+                "name" to deckData["name"].toString(),
+                "description" to deckData["description"].toString(),
+                "public" to isPublic,
+                "numberNewCardsPerDay" to deckData["numberNewCardsPerDay"].toString().toInt(),
             )
+
+            if(isPublic){ // cria entrada pública pro novo baralho
+                val publicDecksRef = fireStoreDB.collection("publicDecks")
+                val newPublicDeckRef = publicDecksRef.add(hashMapOf<String, Any>()).await()
+
+                newDeckInfo["publicId"] = newPublicDeckRef.id
+                val newPublicDeckInfo = hashMapOf(
+                    "id" to newPublicDeckRef.id,
+                    "userId" to currentUserEmail,
+                    "deckPath" to newDeckRef.path,
+                )
+                newPublicDeckRef.set(newPublicDeckInfo).await()
+            }
+
             newDeckRef.set(newDeckInfo).await()
 
             val newCardsRef = newDeckRef.collection("cards")
@@ -258,4 +261,5 @@ class PastaRepository {
             newDeckGeneratedId
         }
     }
+
 }
