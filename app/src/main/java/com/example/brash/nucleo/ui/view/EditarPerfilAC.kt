@@ -1,20 +1,22 @@
 package com.example.brash.nucleo.ui.view
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.brash.databinding.NucEditarPerfilAcBinding
-//import com.example.brash.databinding.ActivityLoginBinding
-import com.example.brash.nucleo.domain.model.IconeDeUsuario
-import com.example.brash.nucleo.domain.model.Usuario
 import com.example.brash.nucleo.ui.viewModel.PerfilVM
 import com.example.brash.nucleo.utils.IconeCor
 import com.example.brash.nucleo.utils.IconeImagem
 import com.example.brash.utilsGeral.AppVM
 import com.example.brash.utilsGeral.MyApplication
 
+/**
+ * Activity for editing the user's profile.
+ *
+ * This activity allows the user to modify their display name, username,
+ * and profile icon (both image and color).
+ */
 class EditarPerfilAC : AppCompatActivity() {
 
     private lateinit var binding: NucEditarPerfilAcBinding
@@ -22,6 +24,14 @@ class EditarPerfilAC : AppCompatActivity() {
 
     private lateinit var appVM: AppVM
 
+    /**
+     * Called when the activity is created.
+     *
+     * Initializes the ViewModel, layout binding, and sets up the observers for LiveData.
+     * Also populates the profile information if the user is logged in.
+     *
+     * @param savedInstanceState The saved instance state from a previous activity state.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         perfilVM = ViewModelProvider(this)[PerfilVM::class.java]
@@ -34,6 +44,11 @@ class EditarPerfilAC : AppCompatActivity() {
         initView()
     }
 
+    /**
+     * Initializes the view with the current user's profile data.
+     *
+     * Populates the user's display name, username, and profile icon if available.
+     */
     private fun initView(){
         appVM.usuarioLogado.value?.let { usuario ->
             perfilVM.setImagemEmFoco(usuario.iconeDeUsuario.imagem)
@@ -43,10 +58,13 @@ class EditarPerfilAC : AppCompatActivity() {
             binding.EditarPerfilInputNomeDeExibicao.setText(usuario.nomeDeExibicao)
             binding.EditarPerfilInputNomeDeUsuario.setText(usuario.nomeDeUsuario)
         } ?: run {
-            //Toast.makeText(this, "Erro ao carregar o ícone do usuário.", Toast.LENGTH_SHORT).show()
+            // Handle case where the user icon is not available
         }
     }
 
+    /**
+     * Sets the click listeners for various UI elements.
+     */
     private fun setOnClickListeners(){
         binding.EditarPerfilAcImageViewRetornar.setOnClickListener {
             finish()
@@ -100,6 +118,12 @@ class EditarPerfilAC : AppCompatActivity() {
         }
 
     }
+
+    /**
+     * Sets up the observers for the ViewModel LiveData properties.
+     *
+     * Observes changes in the selected icon image and color, and updates the UI accordingly.
+     */
     private fun setObservers(){
         perfilVM.corEmFoco.observe(this, Observer { cor ->
             cor?.let {
@@ -127,6 +151,11 @@ class EditarPerfilAC : AppCompatActivity() {
     }
 
 
+    /**
+     * Called when the activity is stopped.
+     *
+     * Handles cleanup tasks. No additional actions are needed here as the activity is finished.
+     */
     override fun onStop() {
         super.onStop()
         //binding.LoginAcTextViewErroEntrar.visibility = View.GONE // esconder o erro depois que sair da tela
