@@ -7,10 +7,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.brash.R
 import com.example.brash.aprendizado.gestaoDeConteudo.data.repository.BaralhoRepository
+import com.example.brash.aprendizado.gestaoDeConteudo.data.repository.BaralhoRepository2
 import com.example.brash.aprendizado.gestaoDeConteudo.data.repository.PastaRepository
+import com.example.brash.aprendizado.gestaoDeConteudo.data.repository.PastaRepository2
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Baralho
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.HomeAcListItem
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Pasta
+import com.example.brash.nucleo.data.repository.UsuarioRepository
 import com.example.brash.nucleo.utils.UtilsFoos
 import kotlinx.coroutines.launch
 
@@ -42,10 +45,11 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
     private val _pastaEmMover = MutableLiveData<Pasta?>()
     val pastaEmMover get() = _pastaEmMover
 
-    private val baralhoRepository = BaralhoRepository()
-    private val pastaRepository = PastaRepository()
+    private val baralhoRepository = BaralhoRepository2()
+    private val pastaRepository = PastaRepository2()
+    private val usuarioRepository = UsuarioRepository()
 
-    private val pastaRoot = MutableLiveData<Pasta>(Pasta(idPasta = "root", nome ="root"))
+    private val pastaRoot = MutableLiveData<Pasta>(Pasta(idPasta = usuarioRepository.getRootFolderId(), nome ="root"))
 
     /**
      * Retrieves a string resource from the application.
@@ -111,7 +115,7 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
         */
 
         viewModelScope.launch {
-            val result = pastaRepository.getFolders()
+            val result = pastaRepository.getFolders2()
 
             result
                 .onSuccess {
@@ -142,8 +146,14 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
      */
     private fun initPastaList(folders: List<Pasta>){
         _pastaList.value = folders
+        sortPastaList()
     }
 
+    private fun addPasta(pasta: Pasta){
+        _pastaList.value = _pastaList.value?.toMutableList()?.apply {
+            add(pasta)
+        }
+    }
     /**
      * Initializes the list of HomeAcListItems (folders and decks).
      *
@@ -152,7 +162,7 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
     private fun initHomeAcListItemList(folders: List<Pasta>){
         // Criação do homeAcListItem, onde vamos adicionar as pastas e baralhos
         val homeAcListItem = folders.flatMap { folder ->
-            if (folder.idPasta == "root") {
+            if (folder.idPasta == pastaRoot.value!!.idPasta) {
                 // Se for a pasta "root", adicione os baralhos
                 folder.baralhos.map { baralho ->
                     HomeAcListItem.HomeAcBaralhoItem(baralho = baralho)
@@ -182,8 +192,7 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
      * Sorts the list of folders by name and ensures that the "root" folder appears first.
      */
     private fun sortPastaList(){
-        _pastaList.value = _pastaList.value?.sortedWith(compareBy<Pasta> { it.idPasta != "root" }.thenBy { it.nome })
-
+        _pastaList.value = _pastaList.value?.sortedWith(compareBy<Pasta> { it.idPasta != pastaRoot.value!!.idPasta }.thenBy { it.nome })
     }
 
     /**
@@ -199,6 +208,8 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
                 (it as? HomeAcListItem.HomeAcPastaItem)?.pasta?.nome ?: ""
             }
         )
+
+        Log.e("HOMEVM", "essa eh a lista da home: ${_homeAcListItemList.value!!}")
     }
 
     /**
@@ -273,7 +284,7 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
                     nome = nome,
                     descricao = descricao
                 )
-                val result = baralhoRepository.createDeck(baralho)
+                val result = baralhoRepository.createDeck2(baralho)
                 result
                     .onSuccess { id ->
                         baralho.idBaralho = id
@@ -351,7 +362,7 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
         }
         else if(processaInforBaralho(nome, descricao) && (baralho.nome == nome || verificaBaralhoNomeUnico(nome)) ){
             viewModelScope.launch{
-                val result = baralhoRepository.updateDeck(baralho, nome, descricao,numberNewCardsPerDay, public)
+                val result = baralhoRepository.updateDeck2(baralho, nome, descricao,numberNewCardsPerDay, public)
 
                 result
                     .onSuccess {
@@ -385,7 +396,7 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
      */
     fun excluirBaralho(baralho: Baralho, onSuccess : () -> Unit){
         viewModelScope.launch{
-            val result = baralhoRepository.deleteDeck(baralho)
+            val result = baralhoRepository.deleteDeck2(baralho)
 
             result
                 .onSuccess {
@@ -419,10 +430,27 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
      */
     fun moverBaralho(pastaDestino: Pasta, baralho: Baralho, onSuccess: () -> Unit){
         viewModelScope.launch{
-            val resultCopy = pastaRepository.copyDeck(pastaDestino, baralho)
+            val resultCopy = pastaRepository.moveDeckToFolder2(pastaDestino, baralho)
             resultCopy
                 .onSuccess {id ->
-                    val resultDelete = baralhoRepository.deleteDeck(baralho)
+                    getAllHomeAcListItem()
+                    onSuccess()
+                    Log.e("homeVM", "Copia e delete sucedidos\n\"Movendo --${baralho.nome}-- da pasta -- ${baralho.pasta?.nome} -- para pasta --${pastaDestino.nome}--\"")
+                }
+                .onFailure { eCopy->
+                    UtilsFoos.showToast(getApplication(), getStringApplication(R.string.erro_requisicao_banco_dados_firebase))
+                    //UtilsFoos.showToast(getApplication(), "Ocorreu algum erro na cópia do baralho")
+                    Log.e("homeVM", "Ocorreu algum erro na cópia do baralho:: ${eCopy}\n\"Movendo --${baralho.nome}-- da pasta -- ${baralho.pasta?.nome} -- para pasta --${pastaDestino.nome}--\"")
+                }
+        }
+    }
+
+    fun moverBaralhoAntigo(pastaDestino: Pasta, baralho: Baralho, onSuccess: () -> Unit){
+        /*viewModelScope.launch{
+            val resultCopy = pastaRepository.copyDeck2(pastaDestino, baralho)
+            resultCopy
+                .onSuccess {id ->
+                    val resultDelete = baralhoRepository.deleteDeck2(baralho)
                     resultDelete.onSuccess {
 
                         getAllHomeAcListItem()
@@ -438,7 +466,7 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
                     //UtilsFoos.showToast(getApplication(), "Ocorreu algum erro na cópia do baralho")
                     Log.e("homeVM", "Ocorreu algum erro na cópia do baralho:: ${eCopy}\n\"Movendo --${baralho.nome}-- da pasta -- ${baralho.pasta?.nome} -- para pasta --${pastaDestino.nome}--\"")
                 }
-        }
+        }*/
     }
 
     /**
@@ -454,12 +482,17 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
         if(processaInfoPasta(nome) && verificaPastaNomeUnico(nome)){
             val pasta = Pasta(nome= nome)
             viewModelScope.launch{
-                val result = pastaRepository.createFolder(pasta)
+                val result = pastaRepository.createFolder2(pasta)
                 result
                     .onSuccess {id ->
                         pasta.idPasta = id
+                        Log.e("HOMEVM", "Esse eh o novo idPasta:${id};; nome${nome}")
                         _homeAcListItemList.value = _homeAcListItemList.value?.plus(HomeAcListItem.HomeAcPastaItem(pasta = pasta))
                         sortHomeAcListItemList()
+
+                        addPasta(pasta)
+                        sortPastaList()
+
                         onSuccess()
                     }
                     .onFailure {
@@ -524,7 +557,7 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
     fun editarPasta(pasta: Pasta, nome : String, onSuccess : () -> Unit){
         if(processaInfoPasta(nome) && (pasta.nome == nome || verificaPastaNomeUnico(nome))){
             viewModelScope.launch{
-                val result = pastaRepository.updateFolder(pasta, nome)
+                val result = pastaRepository.updateFolder2(pasta, nome)
                 result
                     .onSuccess {
                         onSuccess()
@@ -556,7 +589,7 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
 
         if(pasta.baralhos.isEmpty()){
             viewModelScope.launch{
-                val result = pastaRepository.deleteFolder(pasta)
+                val result = pastaRepository.deleteFolder2(pasta)
                 result
                     .onSuccess {
                         _homeAcListItemList.value = _homeAcListItemList.value?.toMutableList()?.apply {

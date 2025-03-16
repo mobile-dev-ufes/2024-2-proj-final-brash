@@ -8,7 +8,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.brash.R
 import com.example.brash.aprendizado.gestaoDeConteudo.data.repository.BaralhoRepository
+import com.example.brash.aprendizado.gestaoDeConteudo.data.repository.BaralhoRepository2
 import com.example.brash.aprendizado.gestaoDeConteudo.data.repository.CartaoRepository
+import com.example.brash.aprendizado.gestaoDeConteudo.data.repository.CartaoRepository2
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Baralho
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Cartao
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.CategoriaDoAprendizado
@@ -60,8 +62,8 @@ class RevisaoCartaoVM(application: Application) : AndroidViewModel(application) 
 
     private var _cartaoQueue = MutableLiveData<ArrayDeque<Cartao>>()
 
-    private val baralhoRepository = BaralhoRepository()
-    private val cartaoRepository = CartaoRepository()
+    private val baralhoRepository = BaralhoRepository2()
+    private val cartaoRepository = CartaoRepository2()
 
     /**
      * Gets the string resource based on the provided resource ID.
@@ -80,7 +82,7 @@ class RevisaoCartaoVM(application: Application) : AndroidViewModel(application) 
     fun getAllCartoes() {
 
         viewModelScope.launch {
-            val result = baralhoRepository.getCards(_baralhoOwner.value!!)
+            val result = baralhoRepository.getCards2(_baralhoOwner.value!!)
 
             result
                 .onSuccess {
@@ -106,7 +108,7 @@ class RevisaoCartaoVM(application: Application) : AndroidViewModel(application) 
         _dicaList.value = listOf(Dica(texto ="Testador"), Dica(texto ="Opara"))
 
         viewModelScope.launch {
-            val result = cartaoRepository.getHints(_cartaoEmFoco.value!!)
+            val result = cartaoRepository.getHints2(_cartaoEmFoco.value!!)
             result.onSuccess {
                 _dicaList.value = it
             }
@@ -181,7 +183,7 @@ class RevisaoCartaoVM(application: Application) : AndroidViewModel(application) 
             val newCard = SuperMemo2.reviewCard(cartao, nivelRevisao)
             updateCategories()
             viewModelScope.launch {
-                cartaoRepository.updateCardFromReview(cartao,
+                cartaoRepository.updateCardFromReview2(cartao,
                     newCard.fatorDeRevisao, newCard.intervaloRevisao, newCard.dataDeRevisao, newCard.categoriaDoAprendizado)
                 Log.d("RevisaoCartaoVM","Erro: Fila de cartões está nula.")
             }

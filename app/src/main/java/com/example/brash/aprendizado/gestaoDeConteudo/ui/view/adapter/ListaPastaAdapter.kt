@@ -35,8 +35,6 @@ class ListaPastaAdapter(private val pastaDoBaralhoEmFoco: Pasta?) : RecyclerView
         return ListaPastaVH(item, listener)
     }
 
-
-
     override fun onBindViewHolder(holder: ListaPastaVH, position: Int) {
         holder.bindVH(pastaList[position])
 

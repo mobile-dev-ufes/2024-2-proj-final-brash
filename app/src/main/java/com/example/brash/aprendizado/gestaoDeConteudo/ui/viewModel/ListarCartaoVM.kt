@@ -7,7 +7,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.brash.R
 import com.example.brash.aprendizado.gestaoDeConteudo.data.repository.BaralhoRepository
+import com.example.brash.aprendizado.gestaoDeConteudo.data.repository.BaralhoRepository2
 import com.example.brash.aprendizado.gestaoDeConteudo.data.repository.CartaoRepository
+import com.example.brash.aprendizado.gestaoDeConteudo.data.repository.CartaoRepository2
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Baralho
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Cartao
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.OpcoesDeBuscaListarCartao
@@ -43,9 +45,9 @@ class ListarCartaoVM(application: Application) : AndroidViewModel(application) {
     private var _opcoesDeBusca = MutableLiveData<OpcoesDeBuscaListarCartao>(OpcoesDeBuscaListarCartao())
     val opcoesDeBusca get() = _opcoesDeBusca
 
-    private val cartaoRepository = CartaoRepository()
+    private val cartaoRepository = CartaoRepository2()
 
-    private val baralhoRepository = BaralhoRepository()
+    private val baralhoRepository = BaralhoRepository2()
 
     /**
      * Sets the baralho (deck) that owns the list of cards.
@@ -85,7 +87,7 @@ class ListarCartaoVM(application: Application) : AndroidViewModel(application) {
         updateFilterCartaoList("")*/
 
         viewModelScope.launch {
-            val result = baralhoRepository.getCards(_baralhoOwner.value!!)
+            val result = baralhoRepository.getCards2(_baralhoOwner.value!!)
 
             result
                 .onSuccess {
@@ -137,7 +139,7 @@ class ListarCartaoVM(application: Application) : AndroidViewModel(application) {
         if(processaInfoCartao(pergunta, resposta)) {
             val cartao = Cartao(pergunta = pergunta, resposta = resposta)
             viewModelScope.launch {
-                val result = cartaoRepository.createCard(_baralhoOwner.value!!, cartao)
+                val result = cartaoRepository.createCard2(_baralhoOwner.value!!, cartao)
                 result
                     .onSuccess { id->
                         cartao.idCartao = id
@@ -192,7 +194,7 @@ class ListarCartaoVM(application: Application) : AndroidViewModel(application) {
         // request para atualizar dados
         if(processaInfoCartao(pergunta, resposta)) {
             viewModelScope.launch{
-                val result = cartaoRepository.updateCardQA(cartao, pergunta, resposta)
+                val result = cartaoRepository.updateCardQA2(cartao, pergunta, resposta)
 
                 result
                     .onSuccess {
@@ -219,7 +221,7 @@ class ListarCartaoVM(application: Application) : AndroidViewModel(application) {
      */
     fun excluirCartao(cartao: Cartao, onSuccess : () -> Unit){
         viewModelScope.launch{
-            val result = cartaoRepository.deleteCard(cartao)
+            val result = cartaoRepository.deleteCard2(cartao)
 
             result
                 .onSuccess {

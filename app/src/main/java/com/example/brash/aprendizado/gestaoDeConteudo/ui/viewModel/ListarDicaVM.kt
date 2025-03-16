@@ -7,7 +7,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.brash.R
 import com.example.brash.aprendizado.gestaoDeConteudo.data.repository.CartaoRepository
+import com.example.brash.aprendizado.gestaoDeConteudo.data.repository.CartaoRepository2
 import com.example.brash.aprendizado.gestaoDeConteudo.data.repository.DicaRepository
+import com.example.brash.aprendizado.gestaoDeConteudo.data.repository.DicaRepository2
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Cartao
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Dica
 import com.example.brash.nucleo.utils.UtilsFoos
@@ -36,8 +38,8 @@ class ListarDicaVM(application: Application) : AndroidViewModel(application) {
     //val opcoesDeBusca get() = _opcoesDeBusca
     private var _cartaoOwner = MutableLiveData<Cartao>()
 
-    private val dicaRepository = DicaRepository()
-    private val cartaoRepository = CartaoRepository()
+    private val dicaRepository = DicaRepository2()
+    private val cartaoRepository = CartaoRepository2()
 
     /**
      * Gets the string resource based on the provided resource ID.
@@ -64,7 +66,7 @@ class ListarDicaVM(application: Application) : AndroidViewModel(application) {
      */
     fun getAllDicas() {
         viewModelScope.launch {
-            val result = cartaoRepository.getHints(_cartaoOwner.value!!)
+            val result = cartaoRepository.getHints2(_cartaoOwner.value!!)
 
             result
                 .onSuccess {
@@ -116,7 +118,7 @@ class ListarDicaVM(application: Application) : AndroidViewModel(application) {
         if(processaInfoDica(texto)) {
             val dica = Dica(texto = texto)
             viewModelScope.launch {
-                val result = dicaRepository.createHint(_cartaoOwner.value!!, dica)
+                val result = dicaRepository.createHint2(_cartaoOwner.value!!, dica)
                 result
                     .onSuccess { id->
                         dica.idDica = id
@@ -165,7 +167,7 @@ class ListarDicaVM(application: Application) : AndroidViewModel(application) {
     fun editarDica(dica: Dica,texto: String, onSuccess : () -> Unit){
         if(processaInfoDica(texto)) {
             viewModelScope.launch {
-                val result = dicaRepository.updateHint(dica, texto)
+                val result = dicaRepository.updateHint2(dica, texto)
                 result
                     .onSuccess {
                         dica.texto = texto
@@ -190,7 +192,7 @@ class ListarDicaVM(application: Application) : AndroidViewModel(application) {
      */
     fun excluirDica(dica: Dica, onSuccess : () -> Unit){
         viewModelScope.launch{
-            val result = dicaRepository.deleteHint(dica)
+            val result = dicaRepository.deleteHint2(dica)
 
             result
                 .onSuccess {
