@@ -176,21 +176,6 @@ class BaralhoRepository {
         }
     }
 
-    /*
-    * val foldersSnapshot = foldersRef.get().await()
-            for (document in foldersSnapshot) {
-                val documentData = document.data
-                val folder = Pasta(
-                    idPasta = documentData["id"].toString(),
-                    nome = documentData["name"].toString(),
-                )
-                foldersList.add(folder)
-
-                recGetDecks(document.reference.collection("decks"), folder)
-            }
-    * */
-
-
 
     fun addCard(deck : Baralho, card : Cartao){
 

@@ -2,6 +2,7 @@ package com.example.brash.aprendizado.gestaoDeConteudo.data.repository
 
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Baralho
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Cartao
+import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.CategoriaDoAprendizado
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Pasta
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
@@ -9,6 +10,7 @@ import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
+import java.time.LocalDateTime
 import java.time.ZoneId
 import java.util.Date
 
@@ -30,7 +32,6 @@ class CartaoRepository {
 
             val cardRef = cardsRef.add(hashMapOf<String, Any>()).await()
             val generatedId = cardRef.id
-
 
             val newCard = hashMapOf(
                 "id" to generatedId,
@@ -61,6 +62,48 @@ class CartaoRepository {
     private fun getCardRef(folder: Pasta, deck: Baralho, card: Cartao, currentUserEmail: String): DocumentReference {
         val deckRef = getDeckReference(deck, folder, currentUserEmail)
         return deckRef.collection("cards").document(card.idCartao)
+    }
+
+    // testar
+    suspend fun updateCardFromReview(card : Cartao, reviewFactor : Double, reviewInterval : Int, reviewDate: LocalDateTime, categoryOfLearning : CategoriaDoAprendizado) : Result<Unit>{
+        val currentUserEmail = fireBaseAuth.currentUser?.email
+        if (currentUserEmail.isNullOrEmpty()) {
+            return Result.failure(Throwable("Usuário não autenticado (deleteCard)"))
+        }
+        return runCatching {
+            val deck = card.baralho
+            val folder = deck.pasta ?: return Result.failure(Throwable("Pasta do card não encontrada (updateCardFromReview)"))
+
+            val cardRef = getCardRef(folder, deck, card, currentUserEmail)
+
+            val updateInfo = mapOf(
+                "reviewFactor" to reviewFactor,
+                "reviewInterval" to reviewInterval,
+                "reviewDate" to Timestamp(Date.from(reviewDate.atZone(ZoneId.systemDefault()).toInstant())),
+                "categoryOfLearning" to categoryOfLearning.name,
+            )
+            cardRef.update(updateInfo).await()
+        }
+    }
+
+    // testar
+    suspend fun updateCardQA(card : Cartao, question : String, answer : String) : Result<Unit>{
+        val currentUserEmail = fireBaseAuth.currentUser?.email
+        if (currentUserEmail.isNullOrEmpty()) {
+            return Result.failure(Throwable("Usuário não autenticado (deleteCard)"))
+        }
+        return runCatching {
+            val deck = card.baralho
+            val folder = deck.pasta ?: return Result.failure(Throwable("Pasta do card não encontrada (updateCardQA)"))
+
+            val cardRef = getCardRef(folder, deck, card, currentUserEmail)
+
+            val updateInfo = mapOf(
+                "question" to question,
+                "answer" to answer,
+            )
+            cardRef.update(updateInfo).await()
+        }
     }
 
     suspend fun deleteCard(card: Cartao): Result<Unit> {
