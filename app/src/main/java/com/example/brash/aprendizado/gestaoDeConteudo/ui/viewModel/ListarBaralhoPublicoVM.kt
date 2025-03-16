@@ -4,6 +4,8 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import com.example.brash.aprendizado.gestaoDeConteudo.data.repository.BaralhoRepository
+import com.example.brash.aprendizado.gestaoDeConteudo.data.repository.BaralhoRepository2
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Baralho
 
 /**
@@ -29,6 +31,7 @@ class ListarBaralhoPublicoVM(application: Application) : AndroidViewModel(applic
     private var _baralhoPublicoEmFoco = MutableLiveData<Baralho>()
     val baralhoPublicoEmFoco get() = _baralhoPublicoEmFoco
 
+    val baralhoRepository2 = BaralhoRepository2()
     /**
      * Retrieves all public decks from the data source (mocked for now).
      * Sets the initial list of public decks and triggers the filter update.
@@ -81,6 +84,7 @@ class ListarBaralhoPublicoVM(application: Application) : AndroidViewModel(applic
     fun importarBaralhoPublico(baralho: Baralho, novoNome: String, onSuccess : () -> Unit){
         //TODO:: Fazer a requisição do firebase copiar esse baralho para a root do usuário
         onSuccess()
+
     }
 
     /**
