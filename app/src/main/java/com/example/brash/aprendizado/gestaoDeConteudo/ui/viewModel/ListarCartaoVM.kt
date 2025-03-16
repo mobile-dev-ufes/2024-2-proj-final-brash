@@ -116,22 +116,23 @@ class ListarCartaoVM(application: Application) : AndroidViewModel(application) {
             viewModelScope.launch {
                 val result = cartaoRepository.createCard(_baralhoOwner.value!!, cartao)
                 result
-                    .onSuccess {
+                    .onSuccess { id->
+                        cartao.idCartao = id
+                        cartao.baralho = _baralhoOwner.value!!
                         if (_cartaoList.value == null) {
                             _cartaoList.value = listOf(cartao)
                         } else {
                             _cartaoList.value = _cartaoList.value!!.plus(cartao)
                         }
-
                         updateFilterCartaoList(_textoBusca.value ?: "")
                         onSuccess()
                     }
-                    .onFailure {
+                    .onFailure { e->
                         UtilsFoos.showToast(
                             getApplication(),
-                            "Ocorreu algum erro na criação da pasta"
+                            "Ocorreu algum erro na criação do cartão:: ${e}"
                         )
-                        Log.e("criar Pasta debug", "Ocorreu algum erro na criação da pasta")
+                        Log.e("criar Pasta debug", "Ocorreu algum erro na criação do cartão:: ${e}")
                     }
             }
         }
@@ -162,9 +163,9 @@ class ListarCartaoVM(application: Application) : AndroidViewModel(application) {
                         updateFilterCartaoList(_textoBusca.value?: "")
                         onSuccess()
                     }
-                    .onFailure {
-                        UtilsFoos.showToast(getApplication(), "Ocorreu algum erro na edição do baralho")
-                        Log.e("criar Pasta debug", "Ocorreu algum erro na criação da pasta")
+                    .onFailure { e->
+                        UtilsFoos.showToast(getApplication(), "Ocorreu algum erro na edição do cartão:: ${e}")
+                        Log.e("criar Pasta debug", "Ocorreu algum erro na criação da pasta:: ${e}")
                     }
             }
         }
