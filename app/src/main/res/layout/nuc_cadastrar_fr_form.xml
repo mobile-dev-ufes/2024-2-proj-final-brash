@@ -190,8 +190,6 @@
                 android:textColor="@color/white"
                 android:backgroundTint="@color/medium_gray"
                 android:elevation="8dp"
-                android:textSize="15sp"
-                android:textColor="@color/white"
 
                 app:layout_constraintStart_toEndOf="@id/CadastrarContaAcButtonCancelar"
                 app:layout_constraintTop_toTopOf="parent"

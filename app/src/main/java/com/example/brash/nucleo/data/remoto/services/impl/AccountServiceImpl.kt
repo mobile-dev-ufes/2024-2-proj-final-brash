@@ -84,6 +84,18 @@ class AccountServiceImpl () : AccountService {
         Firebase.auth.signOut()
     }
 
+    override suspend fun changePassword(email: String) {
+        try {
+            Firebase.auth.sendPasswordResetEmail(email).await()
+        } catch (e: FirebaseAuthInvalidUserException) {
+            throw FirebaseAuthInvalidUserException(e.errorCode, "Usuário não encontrado")
+        } catch (e: FirebaseNetworkException) {
+            throw FirebaseNetworkException("Falha ao conectar à internet")
+        } catch (e: Exception) {
+            throw Exception("Erro desconhecido ao enviar email de redefinição de senha")
+        }
+    }
+
     override suspend fun deleteAccount() {
         Firebase.auth.currentUser!!.delete().await()
     }

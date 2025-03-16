@@ -102,6 +102,7 @@ class CadastrarContaVM (
 
     fun handleRegisterForm(userName : String, exhibitionName: String, email:String, password: String) : Boolean{
 
+        //TODO VERIFICAR SE JA EXISTE NOME DE USUARIO
         if (userName.isEmpty() || exhibitionName.isEmpty() || email.isEmpty() || password.isEmpty()) {
             _formMessageError.value = getStringApplication(R.string.nuc_preencha_todos_campos)
             return false

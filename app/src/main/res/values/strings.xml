@@ -48,6 +48,7 @@
     <string name="nuc_msg_erro_conta_nao_verificada">Confirme primeiro sua conta no email!</string>
     <string name="nuc_enviar_codigo">Enviar código</string>
     <string name="nuc_alterar_senha">alterar senha</string>
+    <string name="nuc_email_alterar_senha">Um link para redefinição foi enviado para o seu email</string>
 
     <string-array name="nuc_home_spinner_ordenar">
         <item>Ordem Alfanumérica</item>

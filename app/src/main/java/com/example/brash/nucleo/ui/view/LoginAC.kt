@@ -29,6 +29,10 @@ class LoginAC : AppCompatActivity(), View.OnClickListener {
             LoginVM(application, MyApplication.appModule.accountService)
         }).get(LoginVM::class.java)
 
+        loginVM.userStored({
+            intentToHomeActivity()
+        })
+
         binding = NucLoginAcBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setOnClickListeners()
@@ -66,8 +70,7 @@ class LoginAC : AppCompatActivity(), View.OnClickListener {
                 intentToCadastrarContaAC()
             }
             R.id.LoginAcTextViewEsqueceuSenha -> {
-                //UtilsFoos.showToast(this, "Você clicou na mensgem de ir cadastrar")
-                //intentToCadastrarContaActivity()
+                intentToDefinirSenha()
             }
             R.id.LoginAcTextViewIdioma -> {
 
@@ -135,4 +138,9 @@ class LoginAC : AppCompatActivity(), View.OnClickListener {
         //TODO:: aqui precisa de finish?
     }
 
+    private fun intentToDefinirSenha(){
+        val intent = Intent(this, RedefinirSenhaAC::class.java)
+        startActivity(intent)
+        //TODO:: aqui precisa de finish?
+    }
 }

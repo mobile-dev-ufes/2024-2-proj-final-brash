@@ -2,6 +2,7 @@ package com.example.brash.nucleo.ui.viewModel
 
 import android.app.Application
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.example.brash.nucleo.utils.UtilsFoos
@@ -56,6 +57,12 @@ class LoginVM(
                 }
                 _errorMessageLD.value = msg
             }
+        }
+    }
+
+    fun userStored(onSucess: () -> Unit){
+        if (accountService.hasUser()) {
+            onSucess()
         }
     }
 

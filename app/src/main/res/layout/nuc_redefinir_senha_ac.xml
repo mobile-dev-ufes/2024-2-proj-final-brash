@@ -63,7 +63,7 @@
                 >
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/CadastrarContaAcTextInputEditTextNome"
+                    android:id="@+id/RedefinirSenhaAcTextInputEditTextEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
@@ -82,40 +82,61 @@
                 android:layout_marginTop="24dp"
                 >
                 <Button
-                    android:id="@+id/CadastrarContaAcButtonCancelar"
+                    android:id="@+id/RedefinirSenhaAcButtonCancelar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/cancelar"
+                    android:textSize="15sp"
+                    android:textColor="@color/white"
 
                     app:layout_constraintHorizontal_chainStyle="packed"
 
                     android:layout_marginEnd="16dp"
                     android:backgroundTint="@color/charcoal_gray"
 
-                    app:layout_constraintEnd_toStartOf="@id/CadastrarContaAcButtonCadastrar"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     >
                 </Button>
 
                 <Button
-                    android:id="@+id/CadastrarContaAcButtonCadastrar"
+                    android:id="@+id/RedefinirSenhaAcButtonEnviar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
 
-                    android:text="@string/nuc_criar_conta"
+                    android:text="@string/confirmar"
+                    android:textSize="15sp"
+                    android:textColor="@color/white"
                     android:backgroundTint="@color/medium_gray"
                     android:elevation="8dp"
 
-                    app:layout_constraintStart_toEndOf="@id/CadastrarContaAcButtonCancelar"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     >
                 </Button>
 
+                <TextView
+                    android:id="@+id/LoginAcTextViewErroEntrar"
+
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+
+                    android:text="@string/nuc_msg_default_erro_login"
+                    android:visibility="gone"
+
+                    android:textSize="16sp"
+                    android:textColor="@color/bright_red"
+
+                    android:layout_marginTop="24dp"
+
+
+                    app:layout_constraintTop_toBottomOf="@+id/RedefinirSenhaAcButtonCancelar"
+                    app:layout_constraintStart_toStartOf="@id/RedefinirSenhaAcButtonCancelar"
+
+
+                    />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 
         </LinearLayout>
 

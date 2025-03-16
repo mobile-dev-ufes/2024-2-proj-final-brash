@@ -7,7 +7,6 @@ import androidx.fragment.app.add
 import androidx.fragment.app.commit
 import androidx.lifecycle.ViewModelProvider
 import com.example.brash.R
-import com.example.brash.databinding.ActivityCadastrarContaBinding
 import com.example.brash.databinding.NucCadastrarAcBinding
 import com.example.brash.nucleo.ui.view.Fragments.CadastrarFrExito
 import com.example.brash.nucleo.ui.view.Fragments.CadastrarFrForm
