@@ -18,8 +18,8 @@ class DefinirSenhaFrConfirmacaoCodigo : Fragment(R.layout.nuc_definir_senha_fr_c
 
     private var _binding : NucDefinirSenhaFrConfirmacaoCodigoBinding? = null
     private val binding get() = _binding!!
-
-    private val args: DefinirSenhaFrConfirmacaoCodigoArgs by navArgs()
+//
+//    private val args: DefinirSenhaFrConfirmacaoCodigoArgs by navArgs()
 
     private lateinit var definirSenhaVM : DefinirSenhaVM
 
@@ -43,9 +43,9 @@ class DefinirSenhaFrConfirmacaoCodigo : Fragment(R.layout.nuc_definir_senha_fr_c
 
         binding.DefinirSenhaAcButtonVerificarCodigo.setOnClickListener {
             val typedVerificationCode = binding.DefinirSenhaAcTextInputEditTextCodigo.text.toString()
-            if(definirSenhaVM.checkVerificationCode(typedVerificationCode, args.verificationCode)){
-                findNavController().navigate(R.id.action_definirSenhaFrConfirmacaoCodigo_to_definirSenhaFrNovaSenha)
-            }
+//            if(definirSenhaVM.checkVerificationCode(typedVerificationCode, args.verificationCode)){
+//                findNavController().navigate(R.id.action_definirSenhaFrConfirmacaoCodigo_to_definirSenhaFrNovaSenha)
+//            }
         }
 
         binding.DefinirSenhaAcButtonCancelar.setOnClickListener {

@@ -3,6 +3,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -13,6 +14,7 @@ import com.example.brash.databinding.NucDefinirSenhaFrEnvioCodigoBinding
 import com.example.brash.nucleo.ui.viewModel.CadastrarContaVM
 import com.example.brash.nucleo.ui.viewModel.DefinirSenhaVM
 import com.example.brash.nucleo.utils.UtilsFoos
+import com.example.brash.nucleo.ui.view.Fragments.DefinirSenhaFrEnvioCodigoDirections
 import kotlinx.coroutines.launch
 
 
@@ -45,14 +47,20 @@ class DefinirSenhaFrEnvioCodigo : Fragment(R.layout.nuc_definir_senha_fr_envio_c
     }
 
     private fun setOnClickListeners(){
-        binding.DefinirSenhaAcButtonCadastrar.setOnClickListener {
+        binding.DefinirSenhaAcButtonEnviar.setOnClickListener {
             // lógica de enviar código
-            val verificationCode = "777"
-            val action = DefinirSenhaFrEnvioCodigoDirections.actionDefinirSenhaFrEnvioCodigoToDefinirSenhaFrConfirmacaoCodigo(verificationCode)
-            findNavController().navigate(action)
+//            val verificationCode = "777"
+//            val action = DefinirSenhaFrEnvioCodigoDirections.actionDefinirSenhaFrEnvioCodigoToDefinirSenhaFrConfirmacaoCodigo(verificationCode)
+//            findNavController().navigate(action)
+            val email = binding.DefinirSenhaAcTextInputEditTextEmail.text.toString()
+
+            definirSenhaVM.updateUsersPassword(email, {
+                actionToExito()
+            })
         }
         binding.DefinirSenhaAcButtonCancelar.setOnClickListener {
-            finishActivity()
+            Toast.makeText(requireActivity(), "teste", Toast.LENGTH_SHORT).show()
+            requireActivity().finish()
         }
     }
 
@@ -69,5 +77,10 @@ class DefinirSenhaFrEnvioCodigo : Fragment(R.layout.nuc_definir_senha_fr_envio_c
     override fun onDestroyView() {
         super.onDestroyView()
         _binding=null
+    }
+
+    private fun actionToExito(){
+        val action = DefinirSenhaFrEnvioCodigoDirections.actionDefinirSenhaFrEnvioCodigoToDefinirSenhaFrConfirmacaoCodigo()
+        findNavController().navigate(action)
     }
 }

@@ -10,8 +10,12 @@ import com.example.brash.R
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.HomeAC
 //import com.example.brash.databinding.ActivityLoginBinding
 import com.example.brash.databinding.NucLoginAcBinding
+import com.example.brash.nucleo.data.remoto.services.AccountService
+import com.example.brash.nucleo.data.remoto.services.impl.AccountServiceImpl
 import com.example.brash.nucleo.ui.viewModel.LoginVM
+import com.example.brash.nucleo.ui.viewModel.viewModelFactory
 import com.example.brash.nucleo.utils.UtilsFoos
+import com.example.brash.utilsGeral.MyApplication
 
 class LoginAC : AppCompatActivity(), View.OnClickListener {
 
@@ -20,11 +24,15 @@ class LoginAC : AppCompatActivity(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        loginVM = ViewModelProvider(this)[LoginVM::class.java]
+
+        loginVM = ViewModelProvider(this, viewModelFactory {
+            LoginVM(application, MyApplication.appModule.accountService)
+        }).get(LoginVM::class.java)
 
         loginVM.userStored({
             intentToHomeActivity()
         })
+
         binding = NucLoginAcBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setOnClickListeners()
@@ -48,13 +56,12 @@ class LoginAC : AppCompatActivity(), View.OnClickListener {
 
 
     override fun onClick(view : View) {
-
         when(view.id){
             R.id.LoginAcButtonEntrar -> {
                 val email = binding.LoginAcUsuarioInput.text.toString()
                 val password = binding.LoginAcSenhaInput.text.toString()
 
-                loginVM.signIn(email, password, {
+                loginVM.onSignInClick(email, password, {
                     intentToHomeActivity()
                 })
 
@@ -63,8 +70,7 @@ class LoginAC : AppCompatActivity(), View.OnClickListener {
                 intentToCadastrarContaAC()
             }
             R.id.LoginAcTextViewEsqueceuSenha -> {
-                //UtilsFoos.showToast(this, "Você clicou na mensgem de ir cadastrar")
-                //intentToCadastrarContaActivity()
+                intentToDefinirSenha()
             }
             R.id.LoginAcTextViewIdioma -> {
 
@@ -132,4 +138,9 @@ class LoginAC : AppCompatActivity(), View.OnClickListener {
         //TODO:: aqui precisa de finish?
     }
 
+    private fun intentToDefinirSenha(){
+        val intent = Intent(this, RedefinirSenhaAC::class.java)
+        startActivity(intent)
+        //TODO:: aqui precisa de finish?
+    }
 }
