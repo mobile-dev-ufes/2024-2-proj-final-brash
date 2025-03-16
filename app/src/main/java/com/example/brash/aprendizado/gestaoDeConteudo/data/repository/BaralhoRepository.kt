@@ -136,6 +136,7 @@ class BaralhoRepository {
         }
     }
 
+    // testar
     suspend fun getCards(deck : Baralho) : Result<List<Cartao>>{
 
         val currentUserEmail = fireBaseAuth.currentUser?.email
@@ -157,7 +158,7 @@ class BaralhoRepository {
                     .atZone(ZoneId.systemDefault())
                     .toLocalDateTime()
 
-                val _card = Cartao(
+                val cardObject = Cartao(
                     idCartao = cardData["id"].toString(),
                     pergunta = cardData["question"].toString(),
                     resposta = cardData["answer"].toString(),
@@ -167,7 +168,10 @@ class BaralhoRepository {
                     baralho = deck,
                     categoriaDoAprendizado = CategoriaDoAprendizado.valueOf(cardData["categoryOfLearning"].toString())
                 )
-                cardsList.add(_card)
+
+                val hintsList = getHints(document.reference, cardObject)
+                cardObject.dica = hintsList.toMutableList()
+                cardsList.add(cardObject)
             }
             return Result.success(cardsList)
         }
@@ -176,6 +180,21 @@ class BaralhoRepository {
         }
     }
 
+    // testar
+    private suspend fun getHints(cardRef : DocumentReference, cardObject : Cartao) : List<Dica>{
+        val hintsList = mutableListOf<Dica>()
+        val hintsRefSnapshot = cardRef.collection("hints").get().await()
+        for(hintDocument in hintsRefSnapshot){
+            val hintData = hintDocument.data
+            val hintObject = Dica(
+                idDica = hintData["id"].toString(),
+                texto = hintData["text"].toString(),
+                cartao = cardObject,
+            )
+            hintsList.add(hintObject)
+        }
+        return hintsList
+    }
 
     fun addCard(deck : Baralho, card : Cartao){
 

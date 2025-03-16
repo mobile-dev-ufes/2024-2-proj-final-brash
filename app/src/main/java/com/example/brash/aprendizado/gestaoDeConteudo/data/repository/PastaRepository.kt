@@ -85,7 +85,7 @@ class PastaRepository {
         }
     }
 
-    fun moveDeck(targetFolder : Pasta, sourceFolder : Pasta, deck : Baralho, onFailure: () -> Unit){
+    suspend fun moveDeck(targetFolder : Pasta, sourceFolder : Pasta, deck : Baralho){
 
     }
 
