@@ -90,5 +90,30 @@ class UsuarioRepository {
         }
     }
 
+    /*
+    *
+    * exhibitionName
+    * iconColor
+    * iconImage
+    * userName
+    * */
+
+    suspend fun updateUser(userName : String, exhibitionName : String, iconColor : IconeCor, iconImage: IconeImagem) : Result<Unit>{
+        val currentUserEmail = fireBaseAuth.currentUser?.email
+        if (currentUserEmail.isNullOrEmpty()) {
+            return Result.failure(Throwable("Usuário não autenticado"))
+        }
+        return runCatching {
+            val userRef = fireStoreDB.collection("users").document(currentUserEmail)
+            val newUserInfo = mapOf(
+                "userName" to userName,
+                "exhibitionName" to exhibitionName,
+                "iconColor" to iconColor.name,
+                "iconImage" to iconImage.name,
+            )
+            userRef.update(newUserInfo).await()
+        }
+    }
+
 
 }
