@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -26,12 +27,17 @@ import com.example.brash.databinding.GtcRevisaoFrFinalBinding
 import com.example.brash.databinding.GtcRevisaoFrInicioBinding
 import com.example.brash.databinding.NucCadastrarFrExitoBinding
 import com.example.brash.nucleo.utils.UtilsFoos
+import com.example.brash.utilsGeral.AppVM
+import com.example.brash.utilsGeral.MyApplication
+import androidx.fragment.app.activityViewModels
 import kotlinx.coroutines.launch
 
 class RevisaoFrInicio : Fragment(R.layout.gtc_revisao_fr_inicio) {
 
     private var _binding : GtcRevisaoFrInicioBinding? = null
     private val binding get() = _binding!!
+
+    private val revisaoCartaoVM: RevisaoCartaoVM by activityViewModels()
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -46,7 +52,13 @@ class RevisaoFrInicio : Fragment(R.layout.gtc_revisao_fr_inicio) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //revisaoCartaoVM = ViewModelProvider(requireActivity())[RevisaoCartaoVM::class.java]
 
+        revisaoCartaoVM.baralhoOwner.value?.let {
+            binding.RevisaoCartaoAcTextViewNomeBaralho.text = it.nome
+        } ?: run {
+            Toast.makeText(requireContext(), "Baralho não encontrado para nomear o título da revisão.", Toast.LENGTH_SHORT).show()
+        }
         setObservers()
         setOnClickListeners()
     }
@@ -60,45 +72,15 @@ class RevisaoFrInicio : Fragment(R.layout.gtc_revisao_fr_inicio) {
 
         binding.RevisaoCartaoAcButtonIniciarRevisao.setOnClickListener {
 
-            val pastaRepository = PastaRepository()
-            val baralhoRepository = BaralhoRepository()
-            val cartaoRepository = CartaoRepository()
-
-            lifecycleScope.launch {
-                val baralhoid = "Cmpzp5ySYkWqoSKzzTNq"
-                val result = pastaRepository.getFolders()
-                result
-                    .onSuccess { listaPastas ->
-
-                        for(pasta in listaPastas){
-                            if(pasta.idPasta == "root"){
-                                for(baralho in pasta.baralhos){
-                                    if(baralho.idBaralho == baralhoid){
-                                        val result = baralhoRepository.getCards(baralho)
-                                        result
-                                            .onSuccess { listaCartoes ->
-                                                Log.e("printado cartoes", "$listaCartoes")
-                                            }
-                                            .onFailure {
-                                                Log.e("printando cartoes", "algo deu errado")
-                                            }
-                                    }
-                                }
-                            }
-                        }
-
-                        Log.e("fsfs", "$listaPastas")
-                    }
-                    .onFailure {
-                        Log.e("teste no revisao inicio", "algo deu errado")
-                    }
-
-
-            }
-
-
-            //Log.e("debug get pastas", "$pastasTudo")
-            //findNavController().navigate(R.id.action_revisaoFrInicio_to_revisaoFrCartao)
+            revisaoCartaoVM.getAllCartoes()
+            revisaoCartaoVM.getNext(
+                onSucess = {
+                    findNavController().navigate(R.id.action_revisaoFrInicio_to_revisaoFrCartao)
+                },
+                onFailure = {
+                    Toast.makeText(context, "Não há cartões a serem revisados para esse baralho.", Toast.LENGTH_SHORT).show()
+                }
+            )
         }
 
     }
@@ -107,4 +89,44 @@ class RevisaoFrInicio : Fragment(R.layout.gtc_revisao_fr_inicio) {
         super.onDestroyView()
         _binding=null
     }
+
+    fun auxEsquizofreniaSaick(){
+        val pastaRepository = PastaRepository()
+        val baralhoRepository = BaralhoRepository()
+        val cartaoRepository = CartaoRepository()
+
+        lifecycleScope.launch {
+            val baralhoid = "Cmpzp5ySYkWqoSKzzTNq"
+            val result = pastaRepository.getFolders()
+            result
+                .onSuccess { listaPastas ->
+
+                    for(pasta in listaPastas){
+                        if(pasta.idPasta == "root"){
+                            for(baralho in pasta.baralhos){
+                                if(baralho.idBaralho == baralhoid){
+                                    val result = baralhoRepository.getCards(baralho)
+                                    result
+                                        .onSuccess { listaCartoes ->
+                                            Log.e("printado cartoes", "$listaCartoes")
+                                        }
+                                        .onFailure {
+                                            Log.e("printando cartoes", "algo deu errado")
+                                        }
+                                }
+                            }
+                        }
+                    }
+
+                    Log.e("fsfs", "$listaPastas")
+                }
+                .onFailure {
+                    Log.e("teste no revisao inicio", "algo deu errado")
+                }
+
+
+        }
+
+    }
 }
+

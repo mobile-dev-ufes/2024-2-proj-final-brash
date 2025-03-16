@@ -62,7 +62,7 @@
             android:layout_height="wrap_content"
 
             android:hint="@string/nuc_codigo"
-
+            android:textColorHint="@color/soft_lilac"
             android:textSize="30sp"
             app:endIconMode="clear_text"
 
@@ -80,7 +80,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
-                android:textColorHint="@color/black"
                 android:textColor="@color/black"
                 style="@style/EditTextMaxCharNome"
                 />
