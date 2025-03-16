@@ -202,8 +202,6 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
     }
 
     fun criarBaralho(nome : String, descricao : String, onSuccess : () -> Unit){
-        //TODO:: apenas confirmar a criação se o nome for único para o usuário
-
         if(processaInforBaralho(nome, descricao)){
 
             viewModelScope.launch {
@@ -234,19 +232,28 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
 
             UtilsFoos.showToast(getApplication(), getStringApplication(R.string.nuc_preencha_todos_campos))
             return false
-        }else if(false){
-
+        }else if(!verificaBaralhoNomeUnico(name)){
+            UtilsFoos.showToast(getApplication(), "Digite um nome único para o baralho")
             return false
         }
 
         return true
     }
 
+    private fun verificaBaralhoNomeUnico(name : String): Boolean{
+
+        for (pasta in _pastaList.value.orEmpty()) {  // Usando orEmpty() para garantir que seja uma lista não-nula
+            for (baralho in pasta.baralhos) {  // Usando orEmpty() para evitar NPE
+                if (baralho.nome == name) {
+                    return false  // Retorna false caso o nome do baralho seja encontrado
+                }
+            }
+        }
+        return true  // Retorna true caso o nome do baralho não seja encontrado em nenhuma pasta
+
+    }
+
     fun editarBaralho(baralho: Baralho, nome : String, descricao : String, numberNewCardsPerDay: Int, public: Boolean, onSuccess : () -> Unit){
-        //TODO:: Fazer a edição de baralho do firebase também
-        //TODO:: apenas requisitar se tiver ALGUMA informação diferente
-        //TODO:: apenas confirmar a mudança do nome se for único para o usuário, o restante pode sempre atualizar
-        //TODO:: Se não conseguir alterar o nome ele altera o resto
         if(numberNewCardsPerDay <= 0){
             UtilsFoos.showToast(getApplication(), getStringApplication(R.string.nuc_preencha_todos_campos))
         }
@@ -321,8 +328,6 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
     }
 
     fun criarPasta(nome : String, onSuccess: () -> Unit){
-        //TODO:: apenas confirmar a criação se o nome for único para o usuário
-
         if(processaInfoPasta(nome)){
             val pasta = Pasta(nome= nome)
             viewModelScope.launch{
@@ -349,17 +354,24 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
         if(nome.isEmpty()){
             UtilsFoos.showToast(getApplication(), getStringApplication(R.string.nuc_preencha_todos_campos))
             return false
-        }else if(false){ // verificacao de nome único
+        }else if(!verificaPastaNomeUnico(nome)){ // verificacao de nome único
+            UtilsFoos.showToast(getApplication(), "Digite um nome único para a pasta")
             return false
         }
         return true
     }
 
+    private fun verificaPastaNomeUnico(name : String): Boolean{
+
+        for(pasta in _pastaList.value!!){
+            if(pasta.nome == name){
+                return false
+            }
+        }
+        return true
+    }
+
     fun editarPasta(pasta: Pasta, nome : String, onSuccess : () -> Unit){
-        //TODO:: Fazer a edição de pasta do firebase também
-        //TODO:: apenas requisitar se tiver ALGUMA informação diferente
-        //TODO:: apenas confirmar a mudança do nome se for único para o usuário
-        //TODO:: Se não conseguir alterar o nome ele altera o resto
         if(processaInfoPasta(nome)){
             viewModelScope.launch{
                 val result = pastaRepository.updateFolder(pasta, nome)
