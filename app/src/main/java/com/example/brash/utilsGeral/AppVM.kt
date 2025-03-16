@@ -38,7 +38,7 @@ class AppVM(application: Application) : AndroidViewModel(application) {
         // Aqui, você pode obter dados do Firebase ou de outro serviço
         // Exemplo com dados mockados para demonstração:
         //TODO:: Fazer verificação da mudança das informações
-        _usuarioLogado.value = Usuario(nomeDeUsuario = "MerlinMago", nomeDeExibicao = "CaixinhaMaker", iconeDeUsuario = IconeDeUsuario(cor = IconeCor.HOT_PINK, imagemPath = IconeImagem.CARRO))
+        _usuarioLogado.value = Usuario(nomeDeUsuario = "MerlinMago", nomeDeExibicao = "CaixinhaMaker", iconeDeUsuario = IconeDeUsuario(cor = IconeCor.HOT_PINK, imagem = IconeImagem.CARRO))
     }
 
     fun setBaralhoEmAC(baralho: Baralho){

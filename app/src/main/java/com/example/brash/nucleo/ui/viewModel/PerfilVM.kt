@@ -42,9 +42,9 @@ class PerfilVM(application: Application) : AndroidViewModel(application) {
 
     fun getIconeUsuarioLogado() {
 
-        _iconeEmFoco.value = IconeDeUsuario(imagemPath = IconeImagem.PADRAO, cor = IconeCor.DEEP_PURPLE )
+        _iconeEmFoco.value = IconeDeUsuario(imagem = IconeImagem.PADRAO, cor = IconeCor.DEEP_PURPLE )
         _corEmFoco.value = _iconeEmFoco.value!!.cor
-        _imagemEmFoco.value = _iconeEmFoco.value!!.imagemPath
+        _imagemEmFoco.value = _iconeEmFoco.value!!.imagem
         Log.d("ListaPastaAdapter", "DEFINIÇÃO DAS PASTAS")
     }
 
@@ -73,7 +73,6 @@ class PerfilVM(application: Application) : AndroidViewModel(application) {
     }*/
 
     fun editarUsuario(usuario: Usuario){
-
     }
 
 }

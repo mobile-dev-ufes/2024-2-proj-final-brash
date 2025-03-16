@@ -40,7 +40,7 @@ class PerfilAC : AppCompatActivity(), View.OnClickListener {
     private fun initAC(){
 
         appVM.usuarioLogado.value?.let { usuario ->
-            binding.PerfilAcShapeableImageViewIconePerfil.setImageResource(usuario.iconeDeUsuario.imagemPath.drawableRes)
+            binding.PerfilAcShapeableImageViewIconePerfil.setImageResource(usuario.iconeDeUsuario.imagem.drawableRes)
             binding.PerfilAcShapeableImageViewIconePerfil.setBackgroundResource(usuario.iconeDeUsuario.cor.colorRes)
             binding.PerfilAcTextViewNomeDeExibicao.text = usuario.nomeDeExibicao
             binding.PerfilAcTextViewNomeDeUsuario.text = getString(R.string.username_display, usuario.nomeDeUsuario)
@@ -57,7 +57,7 @@ class PerfilAC : AppCompatActivity(), View.OnClickListener {
 
     private fun setObservers(){
         appVM.usuarioLogado.observe(this, Observer{
-            binding.PerfilAcShapeableImageViewIconePerfil.setImageResource(it.iconeDeUsuario.imagemPath.drawableRes)
+            binding.PerfilAcShapeableImageViewIconePerfil.setImageResource(it.iconeDeUsuario.imagem.drawableRes)
             binding.PerfilAcShapeableImageViewIconePerfil.setBackgroundResource(it.iconeDeUsuario.cor.colorRes)
             binding.PerfilAcTextViewNomeDeExibicao.text = it.nomeDeExibicao
             binding.PerfilAcTextViewNomeDeUsuario.text =

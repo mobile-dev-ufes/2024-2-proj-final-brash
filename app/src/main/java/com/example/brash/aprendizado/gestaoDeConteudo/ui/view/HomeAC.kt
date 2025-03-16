@@ -68,7 +68,7 @@ class HomeAC : AppCompatActivity(), AlertDialogFr.OnConfirmListener {
         })
 
         appVM.usuarioLogado.observe(this, Observer{
-            binding.HomeAcShapeableImageViewIconePerfil.setImageResource(it.iconeDeUsuario.imagemPath.drawableRes)
+            binding.HomeAcShapeableImageViewIconePerfil.setImageResource(it.iconeDeUsuario.imagem.drawableRes)
             binding.HomeAcShapeableImageViewIconePerfil.setBackgroundResource(it.iconeDeUsuario.cor.colorRes)
         })
 
