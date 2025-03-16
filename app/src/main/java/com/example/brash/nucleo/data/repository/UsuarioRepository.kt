@@ -115,5 +115,14 @@ class UsuarioRepository {
         }
     }
 
+    fun getRootFolderId() : String{
+        val currentUserEmail = fireBaseAuth.currentUser?.email
+        if (currentUserEmail.isNullOrEmpty()) {
+            throw Exception("Usuário não autenticado!!!")
+        }
+        val rootFolderId = "root/$currentUserEmail"
+        return rootFolderId
+    }
+
 
 }
