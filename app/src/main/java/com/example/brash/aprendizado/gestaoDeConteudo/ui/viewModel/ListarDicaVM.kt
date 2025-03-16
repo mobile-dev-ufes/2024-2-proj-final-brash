@@ -8,6 +8,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.brash.R
+import com.example.brash.aprendizado.gestaoDeConteudo.data.repository.CartaoRepository
 import com.example.brash.aprendizado.gestaoDeConteudo.data.repository.DicaRepository
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Baralho
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Cartao
@@ -35,6 +36,7 @@ class ListarDicaVM(application: Application) : AndroidViewModel(application) {
     private var _cartaoOwner = MutableLiveData<Cartao>()
 
     private val dicaRepository = DicaRepository()
+    private val cartaoRepository = CartaoRepository()
 
     private fun getStringApplication(id : Int) : String{
         return getApplication<Application>().getString(id)
@@ -46,20 +48,24 @@ class ListarDicaVM(application: Application) : AndroidViewModel(application) {
     }
 
     fun getAllDicas() {
-        //TODO:: requisitar do firebase
+        viewModelScope.launch {
+            val result = cartaoRepository.getHints(_cartaoOwner.value!!)
 
-        _dicaList.value = listOf(
-            Dica(texto =  "Alimentos"),
-            Dica(texto =  "Frutas"),
-            Dica(texto =  "VerdurasVerdurasAlimentosmorango"),
-            Dica(texto =  "abacaxi"),
-            Dica(texto =  "Alimentos"),
-            Dica(texto =  "Frutas"),
-            Dica(texto =  "morango"),
-            Dica(texto =  "uva"),
-            Dica(texto =  "Frutas"))
+            result
+                .onSuccess {
+                        dicas ->
+                    // A operação foi bem-sucedida, faça algo com as pastas (folders)
 
-        sortDicaList()
+                    _dicaList.value = dicas
+                    sortDicaList()
+                }
+                .onFailure {
+                    Log.e("Pasta", "Erro ao carregar pastas do firebase")
+
+                    _dicaList.value = emptyList()
+                }
+
+        }
     }
 
     fun setDicaEmFoco(dica: Dica){
@@ -119,11 +125,7 @@ class ListarDicaVM(application: Application) : AndroidViewModel(application) {
                 val result = dicaRepository.updateHint(dica, texto)
                 result
                     .onSuccess {
-                        if (_dicaList.value == null) {
-                            _dicaList.value = listOf(dica)
-                        } else {
-                            _dicaList.value = _dicaList.value!!.plus(dica)
-                        }
+                        dica.texto = texto
                         sortDicaList()
                         onSuccess()
                     }
@@ -143,11 +145,12 @@ class ListarDicaVM(application: Application) : AndroidViewModel(application) {
 
             result
                 .onSuccess {
-                    _dicaList.value = _dicaList.value?.toMutableList()?.apply {
-                        removeAll {
-                            it  == dica
-                        }
+                    _dicaList.value?.toMutableList()?.let { listaMutable ->
+                        listaMutable.remove(dica)
+                        // Se a lista estiver vazia após a remoção, podemos definir o LiveData como uma lista vazia.
+                        _dicaList.value = if (listaMutable.isEmpty()) emptyList() else listaMutable
                     }
+
                     val cartaoDono = dica.cartao
                     cartaoDono?.dica?.remove(dica)
                     onSuccess()

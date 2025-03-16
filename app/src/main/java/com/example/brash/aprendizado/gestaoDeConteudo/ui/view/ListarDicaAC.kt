@@ -108,12 +108,8 @@ class ListarDicaAC : AppCompatActivity() {
             //binding.LoginAcTextViewErroEntrar.visibility = View.VISIBLE
         //})
         listarDicaVM.dicaList.observe(this, Observer { dicaList ->
-            if (dicaList != null && dicaList.isNotEmpty()) {
-                adapter.updateDicaList(dicaList)
-                Log.d("ListaBaralhoPublico", "Lista atualizada com sucesso.")
-            } else {
-                Log.d("ListaBaralhoPublico", "A lista de baralhos públicos está vazia.")
-            }
+            adapter.updateDicaList(dicaList)
+
         })
     }
     private fun intentToCadastrarContaActivity(){

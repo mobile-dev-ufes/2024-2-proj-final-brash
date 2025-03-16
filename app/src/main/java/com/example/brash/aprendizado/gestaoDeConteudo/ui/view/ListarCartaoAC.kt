@@ -119,12 +119,8 @@ class ListarCartaoAC : AppCompatActivity() {
             //binding.LoginAcTextViewErroEntrar.visibility = View.VISIBLE
         //})
         listarCartaoVM.cartaoListSort.observe(this, Observer { cartaoListSort ->
-            //if (cartaoListSort != null && cartaoListSort.isNotEmpty()) {
-                adapter.updateCartaoList(cartaoListSort)
-                //Log.d("ListaBaralhoPublico", "Lista atualizada com sucesso.")
-            //} else {
-                //Log.d("ListaBaralhoPublico", "A lista de baralhos públicos está vazia.")
-            //}
+
+            adapter.updateCartaoList(cartaoListSort)
         })
 
         listarCartaoVM.opcoesDeBusca.observe(this, Observer{

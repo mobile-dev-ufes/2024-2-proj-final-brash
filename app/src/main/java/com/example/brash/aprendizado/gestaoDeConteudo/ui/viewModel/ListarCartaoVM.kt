@@ -80,8 +80,6 @@ class ListarCartaoVM(application: Application) : AndroidViewModel(application) {
             result
                 .onSuccess {
                         cartoes ->
-                    // A operação foi bem-sucedida, faça algo com as pastas (folders)
-                    Log.d("Cartao", "Cartoes carregados: $cartoes")
 
                     _cartaoList.value = cartoes
                     updateFilterCartaoList(_textoBusca.value!!)
@@ -177,11 +175,12 @@ class ListarCartaoVM(application: Application) : AndroidViewModel(application) {
 
             result
                 .onSuccess {
-                    _cartaoList.value = _cartaoList.value?.toMutableList()?.apply {
-                        removeAll {
-                            it  == cartao
+                    _cartaoList.value = _cartaoList.value?.toMutableList()?.apply  {
+                        val index = indexOf(cartao)
+                        if (index != -1) {
+                            removeAt(index) // Remove pelo índice
                         }
-                    }
+                    } ?: emptyList()
                     updateFilterCartaoList(_textoBusca.value?: "")
                     onSuccess()
                 }

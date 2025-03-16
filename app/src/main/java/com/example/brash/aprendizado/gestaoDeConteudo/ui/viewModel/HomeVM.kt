@@ -291,7 +291,7 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
                         removeAll {
                             (it as? HomeAcListItem.HomeAcBaralhoItem)?.baralho == baralho
                         }
-                    }
+                    }?: emptyList()
                     val pastaDona = baralho.pasta
                     pastaDona?.baralhos?.remove(baralho)
                     onSuccess()
@@ -405,12 +405,12 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
                             removeAll {
                                 (it as? HomeAcListItem.HomeAcPastaItem)?.pasta == pasta
                             }
-                        }
+                        }?: emptyList()
                         _pastaList.value = _pastaList.value?.toMutableList()?.apply {
                             removeAll {
                                 it  == pasta
                             }
-                        }
+                        }?: emptyList()
                         onSuccess()
                         sortHomeAcListItemList()
                     }
