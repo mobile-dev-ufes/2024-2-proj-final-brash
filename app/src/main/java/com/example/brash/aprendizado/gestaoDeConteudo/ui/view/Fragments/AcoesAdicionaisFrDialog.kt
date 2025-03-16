@@ -9,6 +9,12 @@ import androidx.fragment.app.DialogFragment
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.ListarBaralhoPublicoAC
 import com.example.brash.databinding.GtcHomeFrAcoesAdicionaisBinding
 
+/**
+ * A DialogFragment that provides additional actions for the user, such as creating a deck, creating a folder,
+ * or browsing public decks. The actions are displayed as options within the dialog.
+ *
+ * @constructor Creates an instance of `AcoesAdicionaisFrDialog`.
+ */
 class AcoesAdicionaisFrDialog : DialogFragment() {
 
     private var _binding: GtcHomeFrAcoesAdicionaisBinding? = null

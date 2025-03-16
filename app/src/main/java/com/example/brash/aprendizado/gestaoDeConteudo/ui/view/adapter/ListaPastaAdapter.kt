@@ -9,11 +9,16 @@ import com.example.brash.R
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Pasta
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.listener.OnPastaListener
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.viewHolder.ListaPastaVH
-import com.example.brash.aprendizado.gestaoDeConteudo.ui.viewModel.HomeVM
 import com.example.brash.aprendizado.gestaoDeConteudo.utils.getColorResetMoverBaralho
 import com.example.brash.aprendizado.gestaoDeConteudo.utils.getColorSetMoverBaralho
 import com.example.brash.databinding.GtcItemPastaComIconeBinding
 
+/**
+ * Adapter for displaying a list of `Pasta` objects in a RecyclerView.
+ * This adapter is responsible for managing the data set and providing the necessary bindings to the view holder.
+ *
+ * @param pastaDoBaralhoEmFoco The focused `Pasta` for the current baralho, used to highlight the matching item in the list.
+ */
 class ListaPastaAdapter(private val pastaDoBaralhoEmFoco: Pasta?) : RecyclerView.Adapter<ListaPastaVH>() {
 
     private var pastaList: List<Pasta> = listOf()

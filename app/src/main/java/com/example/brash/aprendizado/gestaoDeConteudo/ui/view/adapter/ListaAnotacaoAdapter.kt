@@ -4,19 +4,16 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Anotacao
-import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Baralho
-import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Cartao
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.listener.OnAnotacaoListener
-import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.listener.OnBaralhoPublicoListener
-import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.listener.OnCartaoListener
-import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.listener.OnPastaListener
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.viewHolder.ListaAnotacaoVH
-import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.viewHolder.ListaBaralhoPublicoVH
-import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.viewHolder.ListaCartaoVH
 import com.example.brash.databinding.GtcItemAnotacaoBinding
-import com.example.brash.databinding.GtcItemBaralhoPublicoBinding
-import com.example.brash.databinding.GtcItemCartaoBinding
 
+/**
+ * Adapter for displaying a list of `Anotacao` items in a RecyclerView.
+ * It binds each `Anotacao` object to its corresponding view and handles item clicks using the provided listener.
+ *
+ * @constructor Creates a new adapter for displaying `Anotacao` items.
+ */
 class ListaAnotacaoAdapter() : RecyclerView.Adapter<ListaAnotacaoVH>() {
 
     private var anotacaoList: List<Anotacao> = listOf()

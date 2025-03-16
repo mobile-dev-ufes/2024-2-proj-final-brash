@@ -5,10 +5,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Baralho
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.listener.OnBaralhoPublicoListener
-import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.listener.OnPastaListener
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.viewHolder.ListaBaralhoPublicoVH
 import com.example.brash.databinding.GtcItemBaralhoPublicoBinding
 
+/**
+ * Adapter for displaying a list of public `Baralho` items in a RecyclerView.
+ * It binds each `Baralho` object to its corresponding view and handles item clicks using the provided listener.
+ *
+ * @constructor Creates a new adapter for displaying public `Baralho` items.
+ */
 class ListaBaralhoPublicoAdapter() : RecyclerView.Adapter<ListaBaralhoPublicoVH>() {
 
     private var baralhoList: List<Baralho> = listOf()

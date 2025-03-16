@@ -1,21 +1,22 @@
 package com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments
 
-import android.app.AlertDialog
-import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Pasta
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.viewModel.HomeVM
-import com.example.brash.databinding.GtcHomeFrAcoesAdicionaisBinding
-import com.example.brash.databinding.GtcHomeFrAcoesBaralhoBinding
 import com.example.brash.databinding.GtcHomeFrAcoesPastaBinding
 import com.example.brash.utilsGeral.UtilsGeral
 
+/**
+ * A DialogFragment that provides actions related to a specific folder ("Pasta").
+ * It allows the user to rename or delete the folder. When the delete option is selected, it also deletes all the decks within the folder.
+ * The folder to be acted upon is determined by the "pastaEmFoco" property in the ViewModel.
+ *
+ * @constructor Creates an instance of `AcoesPastaFrDialog`.
+ */
 class AcoesPastaFrDialog() : DialogFragment() {
 
     private var _binding: GtcHomeFrAcoesPastaBinding? = null

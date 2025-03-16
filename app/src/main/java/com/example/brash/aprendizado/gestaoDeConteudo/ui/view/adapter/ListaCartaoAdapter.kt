@@ -3,16 +3,17 @@ package com.example.brash.aprendizado.gestaoDeConteudo.ui.view.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Baralho
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Cartao
-import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.listener.OnBaralhoPublicoListener
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.listener.OnCartaoListener
-import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.listener.OnPastaListener
-import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.viewHolder.ListaBaralhoPublicoVH
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.viewHolder.ListaCartaoVH
-import com.example.brash.databinding.GtcItemBaralhoPublicoBinding
 import com.example.brash.databinding.GtcItemCartaoBinding
 
+/**
+ * Adapter for displaying a list of `Cartao` items in a RecyclerView.
+ * It binds each `Cartao` object to its corresponding view and handles item clicks using the provided listener.
+ *
+ * @constructor Creates a new adapter for displaying `Cartao` items.
+ */
 class ListaCartaoAdapter() : RecyclerView.Adapter<ListaCartaoVH>() {
 
     private var cartaoList: List<Cartao> = listOf()

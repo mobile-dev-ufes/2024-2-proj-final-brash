@@ -10,8 +10,16 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.brash.R
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.HomeAcListItem
-import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Pasta
 
+/**
+ * Adapter for displaying a list of expandable items, where each item can be either a category (`Pasta`)
+ * or a product (`Baralho`). This adapter allows for expansion of categories to reveal associated items.
+ *
+ * @param items A list of items to be displayed. It can include both `HomeAcPastaItem` (categories) and
+ *              `HomeAcBaralhoItem` (products).
+ * @param onPastaItemLongClick A callback triggered when a category (`Pasta`) item is long-clicked.
+ * @param onBaralhoItemClick A callback triggered when a product (`Baralho`) item is clicked.
+ */
 class ListaExpandableAdapter(
     private var items: List<HomeAcListItem>,
     private val onPastaItemLongClick: (HomeAcListItem.HomeAcPastaItem) -> Unit,

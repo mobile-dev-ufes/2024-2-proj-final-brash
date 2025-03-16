@@ -1,35 +1,27 @@
 package com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments
 
-import android.app.AlertDialog
-import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Baralho
-import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Pasta
-import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.ListarCartaoAC
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.ListarDicaAC
-import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.adapter.ListaPastaAdapter
-import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.listener.OnPastaListener
-import com.example.brash.aprendizado.gestaoDeConteudo.ui.viewModel.HomeVM
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.viewModel.ListarCartaoVM
-import com.example.brash.databinding.GtcHomeFrAcoesAdicionaisBinding
-import com.example.brash.databinding.GtcHomeFrAcoesBaralhoBinding
-import com.example.brash.databinding.GtcHomeFrMoverBaralhoBinding
 import com.example.brash.databinding.GtcListarCartaoFrAcoesCartaoBinding
-import com.example.brash.nucleo.ui.view.Fragments.AlertDialogFr
-import com.example.brash.nucleo.ui.view.PerfilAC
 import com.example.brash.utilsGeral.AppVM
 import com.example.brash.utilsGeral.MyApplication
 import com.example.brash.utilsGeral.UtilsGeral
 
+/**
+ * A DialogFragment that provides actions related to a specific "Cartão" (Card).
+ * It allows the user to view, delete, or view associated tips of the card. When the delete option is selected, a confirmation dialog is shown.
+ * The card to be acted upon is determined by the "cartaoEmFoco" property in the ViewModel.
+ *
+ * @constructor Creates an instance of `AcoesCartaoFrDialog`.
+ */
 class AcoesCartaoFrDialog() : DialogFragment() {
 
     private var _binding: GtcListarCartaoFrAcoesCartaoBinding? = null

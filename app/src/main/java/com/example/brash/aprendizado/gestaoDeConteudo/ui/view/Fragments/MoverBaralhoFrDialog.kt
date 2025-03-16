@@ -1,35 +1,29 @@
 package com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments
 
-import android.app.AlertDialog
-import android.app.Dialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.brash.R
-import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Baralho
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Pasta
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.adapter.ListaPastaAdapter
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.listener.OnPastaListener
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.viewModel.HomeVM
 import com.example.brash.databinding.GtcHomeFrMoverBaralhoBinding
-import com.example.brash.nucleo.ui.viewModel.LoginVM
-import com.example.brash.nucleo.utils.UtilsFoos
 import androidx.lifecycle.Observer
-import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.adapter.ListaBaralhoPublicoAdapter
-import com.example.brash.aprendizado.gestaoDeConteudo.utils.getColorResetMoverBaralho
-import com.example.brash.aprendizado.gestaoDeConteudo.utils.getColorSetMoverBaralho
 
 import com.example.brash.utilsGeral.Constants
 
+/**
+ * A DialogFragment that allows the user to move a "Baralho" (Deck) to a different "Pasta" (Folder).
+ * It displays a list of folders in a RecyclerView, and the user can select a folder to move the selected deck to.
+ * The dialog includes "Move" and "Cancel" buttons to perform the action or dismiss the dialog.
+ *
+ * @constructor Creates an instance of `MoverBaralhoFrDialog`.
+ */
 class MoverBaralhoFrDialog() : DialogFragment() {
 
     private var _binding: GtcHomeFrMoverBaralhoBinding? = null
@@ -38,6 +32,14 @@ class MoverBaralhoFrDialog() : DialogFragment() {
 
     lateinit var homeVM: HomeVM
 
+    /**
+     * Inflates the layout for the fragment and initializes the view binding.
+     *
+     * @param inflater The LayoutInflater object used to inflate the layout.
+     * @param container The parent view that the fragment's UI will be attached to.
+     * @param savedInstanceState A Bundle containing data saved during a previous instance of the fragment.
+     * @return The root view of the fragment's layout.
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -47,6 +49,13 @@ class MoverBaralhoFrDialog() : DialogFragment() {
         return binding.root
     }
 
+    /**
+     * Sets up the ViewModel, adapter, observers, and click listeners for the dialog.
+     * It also initializes the RecyclerView with the list of folders and configures the item listener.
+     *
+     * @param view The root view of the fragment.
+     * @param savedInstanceState A Bundle containing data saved during a previous instance of the fragment.
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -81,7 +90,9 @@ class MoverBaralhoFrDialog() : DialogFragment() {
         Log.d("HomeDialogs", "MOVER BARALHO PASSOU DO GETALLPASTAS")
 
     }
-
+    /**
+     * Configures observers for LiveData changes, such as folder list and success/error messages.
+     */
     private fun setObservers(){
         homeVM.listPastaMsg.observe(viewLifecycleOwner, Observer {
             when (it) {
@@ -108,7 +119,10 @@ class MoverBaralhoFrDialog() : DialogFragment() {
             Log.d("ListaPastaAdapter", "Observado Mudança")
         })
     }
-
+    /**
+     * Sets the click listeners for the "Cancel" and "Move" buttons.
+     * The "Move" button will move the selected deck to the chosen folder.
+     */
     private fun setOnClickListeners(){
         binding.HomeFrMoverBaralhoButtonCancelar.setOnClickListener {
             dismiss()
@@ -137,12 +151,16 @@ class MoverBaralhoFrDialog() : DialogFragment() {
             //clickPastaRaiz()
         //}
     }
-
+    /**
+     * Cleans up the view binding to prevent memory leaks.
+     */
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null // Evita vazamento de memória
     }
-
+    /**
+     * Resets the selected folder and clears the current folder selection in the ViewModel.
+     */
     private fun clickPastaRaiz(){
         //setBackgroundLayoutRaiz()
         adapter.resetSelectedItem()

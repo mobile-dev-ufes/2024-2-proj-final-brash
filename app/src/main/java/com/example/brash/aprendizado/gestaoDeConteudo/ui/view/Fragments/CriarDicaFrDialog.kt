@@ -1,23 +1,20 @@
 package com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments
 
-import android.app.AlertDialog
-import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.brash.aprendizado.gestaoDeConteudo.ui.viewModel.HomeVM
-import com.example.brash.aprendizado.gestaoDeConteudo.ui.viewModel.ListarCartaoVM
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.viewModel.ListarDicaVM
-import com.example.brash.databinding.GtcHomeFrAcoesAdicionaisBinding
-import com.example.brash.databinding.GtcHomeFrCriarBaralhoBinding
-import com.example.brash.databinding.GtcHomeFrCriarPastaBinding
-import com.example.brash.databinding.GtcListarCartaoFrCriarCartaoBinding
 import com.example.brash.databinding.GtcListarDicaFrCriarDicaBinding
 
+/**
+ * A DialogFragment that allows the user to create a new hint ("Dica").
+ * It provides an input field for the hint text and buttons for confirming or canceling the creation.
+ *
+ * @constructor Creates an instance of `CriarDicaFrDialog`.
+ */
 class CriarDicaFrDialog : DialogFragment() {
 
     private var _binding: GtcListarDicaFrCriarDicaBinding? = null

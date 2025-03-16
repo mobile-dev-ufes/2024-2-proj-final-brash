@@ -1,22 +1,20 @@
 package com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments
 
-import android.app.AlertDialog
-import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.brash.aprendizado.gestaoDeConteudo.data.repository.BaralhoRepository
-import com.example.brash.aprendizado.gestaoDeConteudo.ui.viewModel.HomeVM
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.viewModel.ListarCartaoVM
-import com.example.brash.databinding.GtcHomeFrAcoesAdicionaisBinding
-import com.example.brash.databinding.GtcHomeFrCriarBaralhoBinding
-import com.example.brash.databinding.GtcHomeFrCriarPastaBinding
 import com.example.brash.databinding.GtcListarCartaoFrCriarCartaoBinding
 
+/**
+ * A DialogFragment that allows the user to create a new flashcard ("Cartão").
+ * It provides input fields for the question and answer, and buttons for confirming or canceling the creation.
+ *
+ * @constructor Creates an instance of `CriarCartaoFrDialog`.
+ */
 class CriarCartaoFrDialog : DialogFragment() {
 
     private var _binding: GtcListarCartaoFrCriarCartaoBinding? = null

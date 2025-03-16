@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.ListarAnotacaoAC
@@ -18,6 +17,14 @@ import com.example.brash.utilsGeral.AppVM
 import com.example.brash.utilsGeral.MyApplication
 import com.example.brash.utilsGeral.UtilsGeral
 
+/**
+ * A DialogFragment that provides actions related to a specific "Baralho" (Deck).
+ * It allows the user to view, delete, or perform other actions on the deck such as viewing associated cards,
+ * annotations, or reviewing the deck.
+ * The deck to be acted upon is determined by the "baralhoEmFoco" property in the ViewModel.
+ *
+ * @constructor Creates an instance of `AcoesBaralhoFrDialog`.
+ */
 class AcoesBaralhoFrDialog() : DialogFragment() {
 
     private var _binding: GtcHomeFrAcoesBaralhoBinding? = null

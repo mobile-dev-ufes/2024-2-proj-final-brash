@@ -1,23 +1,20 @@
 package com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments
 
-import android.app.AlertDialog
-import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.brash.aprendizado.gestaoDeConteudo.ui.viewModel.HomeVM
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.viewModel.ListarAnotacaoVM
-import com.example.brash.aprendizado.gestaoDeConteudo.ui.viewModel.ListarCartaoVM
-import com.example.brash.databinding.GtcHomeFrAcoesAdicionaisBinding
-import com.example.brash.databinding.GtcHomeFrCriarBaralhoBinding
-import com.example.brash.databinding.GtcHomeFrCriarPastaBinding
 import com.example.brash.databinding.GtcListarAnotacaoFrCriarAnotacaoBinding
-import com.example.brash.databinding.GtcListarCartaoFrCriarCartaoBinding
 
+/**
+ * A DialogFragment that allows the user to create a new annotation ("Anotação").
+ * It provides input fields for the annotation name and text, and buttons for confirming or canceling the creation.
+ *
+ * @constructor Creates an instance of `CriarAnotacaoFrDialog`.
+ */
 class CriarAnotacaoFrDialog : DialogFragment() {
 
     private var _binding: GtcListarAnotacaoFrCriarAnotacaoBinding? = null
