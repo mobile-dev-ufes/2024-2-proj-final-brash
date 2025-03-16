@@ -3,6 +3,7 @@ package com.example.brash.aprendizado.gestaoDeConteudo.data.repository
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Baralho
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Cartao
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.CategoriaDoAprendizado
+import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Dica
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Pasta
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
@@ -132,6 +133,33 @@ class CartaoRepository {
         val hintsSnapshot = hintsRef.get().await()
         for (hint in hintsSnapshot) {
             hint.reference.delete().await()
+        }
+    }
+
+    // testar
+    suspend fun getHints(card : Cartao) : Result<List<Dica>>{
+        val currentUserEmail = fireBaseAuth.currentUser?.email
+        if (currentUserEmail.isNullOrEmpty()) {
+            return Result.failure(Throwable("Usuário não autenticado (deleteCard)"))
+        }
+        return runCatching {
+
+            val deck = card.baralho
+            val folder = deck.pasta ?: return Result.failure(Throwable("Pasta do deck não encontrada (getHints::CartaoRepository)"))
+            val cardRef = getCardRef(folder, deck, card, currentUserEmail)
+            val hintsRefSnapshot = cardRef.collection("hints").get().await()
+
+            val hintsList = mutableListOf<Dica>()
+            for(hintDocument in hintsRefSnapshot){
+                val hintData = hintDocument.data
+                val hintObject = Dica(
+                    idDica = hintData["id"].toString(),
+                    texto = hintData["text"].toString(),
+                    cartao = card,
+                )
+                hintsList.add(hintObject)
+            }
+            hintsList
         }
     }
 
