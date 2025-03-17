@@ -58,7 +58,6 @@
                 app:suffixText="*"
                 app:suffixTextColor="@color/bright_red"
                 android:textColorHint="@color/deep_purple"
-
                 app:boxStrokeWidth="1dp"
                 app:boxBackgroundColor="@color/white"
                 >
