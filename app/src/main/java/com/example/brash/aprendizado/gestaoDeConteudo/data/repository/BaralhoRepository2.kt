@@ -330,7 +330,6 @@ class BaralhoRepository2 {
     }
 
 
-
     suspend fun copyToUserPublicDeck(publicDeck: BaralhoPublico, newDeckName: String): Result<Unit> {
         val currentUserEmail = fireBaseAuth.currentUser?.email
             ?: return Result.failure(Throwable("Usuário não autenticado"))
