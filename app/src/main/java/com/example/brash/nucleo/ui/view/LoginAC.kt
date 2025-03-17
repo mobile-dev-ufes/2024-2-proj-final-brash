@@ -136,7 +136,6 @@ class LoginAC : AppCompatActivity(), View.OnClickListener {
                 restartToLoginAc()
             }
         }
-
     }
 
     /**
