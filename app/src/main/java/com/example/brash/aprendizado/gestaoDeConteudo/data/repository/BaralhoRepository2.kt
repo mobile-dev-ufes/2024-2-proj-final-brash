@@ -247,7 +247,7 @@ class BaralhoRepository2 {
         val deckData = deckRef.get().await().data ?: throw Exception("Erro ao pegar dados do baralho (makepublic::BaralhoRepository2)")
 
         val isPublic = deckData["public"].toString().toBoolean()
-        if(isPublic){ // se não for público retorna
+        if(!isPublic){ // se não for público retorna
             return
         }
 
@@ -265,7 +265,6 @@ class BaralhoRepository2 {
     }
 
 
-
     suspend fun getPublicDecks() : Result<List<BaralhoPublico>>{
         val currentUserEmail = fireBaseAuth.currentUser?.email
             ?: return Result.failure(Throwable("Usuário não autenticado"))
@@ -277,17 +276,18 @@ class BaralhoRepository2 {
             for(publicCardDocument in publicCardsSnapshot){
                 val publicCardData = publicCardDocument.data
 
+                val publicDeckId = publicCardData["id"].toString()
                 val userId = publicCardData["userId"].toString()
                 val deckId = publicCardData["deckId"].toString()
 
-                publicDeckList.add(getPublicDeck(deckId, userId))
+                publicDeckList.add(getPublicDeck(publicDeckId, deckId, userId))
             }
             publicDeckList
         }
     }
 
 
-    private suspend fun getPublicDeck(deckId : String, userId : String) : BaralhoPublico{
+    private suspend fun getPublicDeck(publicDeckId : String, deckId : String, userId : String) : BaralhoPublico{
         val numberCards = fireStoreDB.collection("cards")
             .whereEqualTo("deckId", deckId)
             .get().await().size()
@@ -305,6 +305,9 @@ class BaralhoRepository2 {
         val exhibitionName = userData["exhibitionName"].toString()
 
         return BaralhoPublico(
+            idBaralhoPublico = publicDeckId,
+            idBaralho = deckId,
+            idUsuario = userId,
             numeroCartoesBaralho = numberCards,
             nomeBaralho = deckName,
             descricaoBaralho = deckDescription,
@@ -312,6 +315,60 @@ class BaralhoRepository2 {
             nomeDeExibicaoUsuario = exhibitionName,
         )
     }
+
+
+    suspend fun copyToUserPublicDeck(publicDeck : BaralhoPublico, newDeckName : String) : Result<Unit>{
+        val currentUserEmail = fireBaseAuth.currentUser?.email
+            ?: return Result.failure(Throwable("Usuário não autenticado"))
+
+        return runCatching {
+
+            val deckSnapshot = fireStoreDB.collection("decks").document(publicDeck.idBaralho).get().await()
+            val deckData = deckSnapshot.data ?: return Result.failure(Exception("Erro ao pegar data de baralho (copyToUserPublicDeck::BaralhoRepository2)"))
+
+            val deckId = publicDeck.idBaralho
+
+            val newDeckRef = fireStoreDB.collection("decks").add(hashMapOf<String, Any>()).await()
+            val newDeckId = newDeckRef.id
+
+
+            val newDeckInfo = mapOf(
+                "id" to newDeckId,
+                "folderId" to "root/$currentUserEmail",
+                "description" to deckData["description"].toString(),
+                "name" to newDeckName,
+                "numberNewCardsPerDay" to 20,
+                "public" to false,
+            )
+
+            newDeckRef.update(newDeckInfo).await()
+
+            val notesQuerySnapshot = fireStoreDB.collection("notes")
+                .whereEqualTo("deckId", deckId)
+                .get().await()
+
+            for(noteDocument in notesQuerySnapshot){
+                val noteData = noteDocument.data
+
+                val newNoteRef = fireStoreDB.collection("notes").add(hashMapOf<String, Any>()).await()
+                val newNoteId = newNoteRef.id
+                val newNoteInfo = mapOf(
+                    "id" to newNoteId,
+                    "deckId" to newDeckId,
+                    "name" to noteData["name"].toString(),
+                    "text" to noteData["text"].toString(),
+                )
+                newNoteRef.set(newNoteInfo).await()
+            }
+
+
+        }
+    }
+
+    private suspend fun copyNotesFromDeck(newDeckId : String, deckId: String){
+
+    }
+
 
 
 }
