@@ -92,18 +92,27 @@ class ListaExpandableAdapter(
                 }
             } else {
                 containerBaralhos.visibility = View.GONE
+                category.pasta.baralhos.forEach { baralho ->
+                    val baralhoView = LayoutInflater.from(itemView.context)
+                        .inflate(R.layout.gtc_item_baralho, containerBaralhos, false)
+
+                    val textViewB: TextView = baralhoView.findViewById(R.id.ItemBaralhoTextViewNome)
+                    textViewB.text = baralho.nome
+                    //Configurar o clique
+                    baralhoView.setOnClickListener {
+                        onBaralhoItemClick(HomeAcListItem.HomeAcBaralhoItem(baralho))
+                    }
+
+                    containerBaralhos.addView(baralhoView)
+                }
             }
 
             itemView.setOnClickListener {
-                category.isExpanded = !category.isExpanded
 
-                if(containerBaralhos.visibility == View.VISIBLE){
-                    containerBaralhos.visibility = View.GONE
-                }
-                else{
-                    containerBaralhos.visibility = View.VISIBLE
-                }
+                category.isExpanded = !category.isExpanded
                 ivExpandIcon.rotation = if (category.isExpanded) 180f else 0f
+                containerBaralhos.visibility = if (category.isExpanded) View.VISIBLE  else View.GONE
+
                 //toggleProducts(category, position)
             }
             // 🔥 Clique longo
