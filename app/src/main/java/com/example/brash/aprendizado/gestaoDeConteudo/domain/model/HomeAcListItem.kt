@@ -13,7 +13,7 @@ sealed class HomeAcListItem {
      */
     data class HomeAcPastaItem(
         val pasta: Pasta,
-        var isExpanded: Boolean = false
+        var isExpanded: Boolean = true
     ) : HomeAcListItem()
 
     /**

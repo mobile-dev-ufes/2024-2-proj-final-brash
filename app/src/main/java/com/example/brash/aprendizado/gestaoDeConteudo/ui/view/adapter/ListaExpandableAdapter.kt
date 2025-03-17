@@ -91,7 +91,7 @@ class ListaExpandableAdapter(
                     containerBaralhos.addView(baralhoView)
                 }
             } else {
-                containerBaralhos.visibility = View.GONE
+                containerBaralhos.visibility = View.VISIBLE
             }
 
             itemView.setOnClickListener {
