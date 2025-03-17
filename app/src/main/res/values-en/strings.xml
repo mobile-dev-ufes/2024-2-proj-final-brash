@@ -179,6 +179,7 @@
 
     <string name="erro_requisicao_banco_dados_firebase">An error occurred while making the request to the Brash system database.</string>
     <string name="erro_de_conexao">Check your internet connection</string>
+    <string name="quantidades_cartoes">Number of Cards</string>
 
 
 </resources>

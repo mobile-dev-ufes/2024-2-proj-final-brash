@@ -6,10 +6,25 @@
     android:padding="16dp"
     android:background="@drawable/borda_linear_layout">
 
+    <!-- Quantidade de Cartões -->
+    <TextView
+        android:id="@+id/AlertDialogTextViewQuantidadeCartoes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/quantidades_cartoes"
+        android:textColor="@color/white"
+        app:drawableEndCompat="@drawable/circle_24dp"
+        android:drawablePadding="10dp"
+        app:drawableTint="@color/burnt_orange"
+        android:padding="10dp"
+        android:textSize="16sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <!-- Cartões Novos -->
     <TextView
         android:id="@+id/AlertDialogTextViewCartoesNovos"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/gtc_cartoes_novos"
         android:textColor="@color/white"
@@ -18,13 +33,13 @@
         android:padding="10dp"
         app:drawableTint="@color/vibrant_blue"
         android:textSize="16sp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/AlertDialogTextViewQuantidadeCartoes"
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <!-- Cartões a Revisar -->
     <TextView
         android:id="@+id/AlertDialogTextViewCartoesRevisar"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/gtc_cartoes_a_revisar"
         android:textColor="@color/white"
@@ -41,7 +56,7 @@
     <!-- Cartões Esquecidos -->
     <TextView
         android:id="@+id/AlertDialogTextViewCartoesEsquecidos"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/gtc_cartoes_esquecidos"
         app:drawableEndCompat="@drawable/circle_24dp"

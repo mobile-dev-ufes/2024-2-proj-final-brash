@@ -17,6 +17,7 @@ import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments.AcoesAdi
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments.AcoesBaralhoFrDialog
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments.AcoesPastaFrDialog
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.adapter.ListaExpandableAdapter
+import com.example.brash.aprendizado.gestaoDeConteudo.utils.showCartoesAllInfoDialog
 import com.example.brash.nucleo.ui.view.Fragments.AlertDialogFr
 import com.example.brash.nucleo.utils.getSavedLanguage
 import com.example.brash.nucleo.utils.setAppLocale
@@ -86,6 +87,9 @@ class HomeAC : AppCompatActivity(), AlertDialogFr.OnConfirmListener {
         }
         binding.HomeAcImageViewConfiguracoes.setOnClickListener{
             intentToConfiguracaoActivity()
+        }
+        binding.HomeAcMaisInformacoes.setOnClickListener{
+            showCartoesAllInfoDialog(this)
         }
     }
     /**
