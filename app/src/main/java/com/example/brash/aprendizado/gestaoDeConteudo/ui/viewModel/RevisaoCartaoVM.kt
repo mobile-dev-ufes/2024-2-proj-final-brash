@@ -88,6 +88,7 @@ class RevisaoCartaoVM(application: Application) : AndroidViewModel(application) 
                 .onSuccess {
                         cartoes ->
                     _cartaoList.value = cartoes
+                    shuffleCartoes()
                     setCartoesToRevisao()
                     updateCategories()
                 }
@@ -101,6 +102,9 @@ class RevisaoCartaoVM(application: Application) : AndroidViewModel(application) 
 
     }
 
+    fun shuffleCartoes(){
+        _cartaoList.value = _cartaoList.value?.shuffled()
+    }
     /**
      * Fetches the hints for the current focused card.
      */
@@ -128,6 +132,7 @@ class RevisaoCartaoVM(application: Application) : AndroidViewModel(application) 
                 cartao.dataDeRevisao.toLocalDate() == LocalDateTime.now().toLocalDate()
             }
         )
+        updateCategories()
         logCartaoQueue()
     }
 
@@ -148,20 +153,45 @@ class RevisaoCartaoVM(application: Application) : AndroidViewModel(application) 
         var newCardsNumberAux = 0
         var cardsToReviewNumberAux = 0
         var forgottenCardsNumberAux = 0
-        val todayDate = LocalDateTime.now()
-        _cartaoList.value?.let { cartaoList ->
+
+        /*_cartaoList.value?.let { cartaoList ->
             for (cartao in cartaoList) {
-                // Seu código para processar cada cartao
+
+                // AZUL
                 if(cartao.categoriaDoAprendizado == CategoriaDoAprendizado.NOVO){
                     newCardsNumberAux += 1
                 }
-                else if(cartao.categoriaDoAprendizado == CategoriaDoAprendizado.REAPRENDENDO){
-                    forgottenCardsNumberAux += 1
-                }
-                if(todayDate.dayOfYear == cartao.dataDeRevisao.dayOfYear ){
+                // VERDE
+                else if(todayDate.dayOfYear == cartao.dataDeRevisao.dayOfYear ){
                     cardsToReviewNumberAux += 1
                 }
+                // VERMELHO
+                else if(cartao.categoriaDoAprendizado == CategoriaDoAprendizado.REAPRENDENDO
+                    || cartao.categoriaDoAprendizado == CategoriaDoAprendizado.APRENDENDO){
+                    forgottenCardsNumberAux += 1
+                }
+
             }
+        }*/
+
+        _cartaoQueue.value?.let{ cartoes ->
+            for(cartao in cartoes){
+                // AZUL
+                if(cartao.categoriaDoAprendizado == CategoriaDoAprendizado.NOVO){
+                    newCardsNumberAux += 1
+                }
+                // VERDE
+                else if(cartao.categoriaDoAprendizado == CategoriaDoAprendizado.RECENTE
+                    || cartao.categoriaDoAprendizado == CategoriaDoAprendizado.MADURO ){
+                    cardsToReviewNumberAux += 1
+                }
+                // VERMELHO
+                else if(cartao.categoriaDoAprendizado == CategoriaDoAprendizado.REAPRENDENDO
+                    || cartao.categoriaDoAprendizado == CategoriaDoAprendizado.APRENDENDO){
+                    forgottenCardsNumberAux += 1
+                }
+            }
+
         }
         Log.d("RevisaoCartaoVM","Novos: ${newCardsNumberAux}\nA revisar:${cardsToReviewNumberAux} \nEsquecidos: ${forgottenCardsNumberAux}")
         _newCardsNumber.value = newCardsNumberAux
@@ -181,17 +211,19 @@ class RevisaoCartaoVM(application: Application) : AndroidViewModel(application) 
         //TODO:: dar update no cartão do firebase
         _cartaoEmFoco.value?.let { cartao ->
             val newCard = SuperMemo2.reviewCard(cartao, nivelRevisao)
-            updateCategories()
+
             viewModelScope.launch {
                 cartaoRepository.updateCardFromReview2(cartao,
                     newCard.fatorDeRevisao, newCard.intervaloRevisao, newCard.dataDeRevisao, newCard.categoriaDoAprendizado)
                 Log.d("RevisaoCartaoVM","Erro: Fila de cartões está nula.")
             }
-            if (nivelRevisao == NivelRevisao.ESQUECI) {
+            if (newCard.dataDeRevisao.dayOfYear == LocalDateTime.now().dayOfYear) {
                 _cartaoQueue.value?.addLast(cartao) ?: run {
                     // Caso _cartaoQueue seja nulo, você pode lidar com isso aqui
                 }
             }
+            //TODO:: melhorar eficiência, modificar apenas um item
+            updateCategories()
         } ?: run {
             // Caso _cartaoEmFoco seja nulo, você pode lidar com isso aqui
             Log.d("RevisaoCartaoVM","Erro: Cartão não encontrado.")

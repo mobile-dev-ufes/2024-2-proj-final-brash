@@ -115,7 +115,7 @@ class RevisaoFrInicio : Fragment(R.layout.gtc_revisao_fr_inicio) {
                 }
             )
         }
-        binding.RevisaoCartaoAcButtonIniciarRevisaoTotal.setOnClickListener {
+        /*binding.RevisaoCartaoAcButtonIniciarRevisaoTotal.setOnClickListener {
 
             revisaoCartaoVM.setAllCartoesToRevisao()
             revisaoCartaoVM.getNext(
@@ -127,7 +127,7 @@ class RevisaoFrInicio : Fragment(R.layout.gtc_revisao_fr_inicio) {
                     //Toast.makeText(context, "Não há cartões a serem revisados para esse baralho.", Toast.LENGTH_SHORT).show()
                 }
             )
-        }
+        }*/
 
     }
     /**
