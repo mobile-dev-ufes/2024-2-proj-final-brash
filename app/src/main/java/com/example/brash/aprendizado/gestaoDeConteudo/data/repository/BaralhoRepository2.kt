@@ -22,11 +22,20 @@ import java.time.LocalDateTime
 import java.time.ZoneId
 import java.util.Date
 
+/**
+ * Repository class responsible for handling operations related to Decks (Baralho) in Firestore.
+ */
 class BaralhoRepository2 {
 
     private val fireStoreDB = FirebaseFirestore.getInstance()
     private val fireBaseAuth = FirebaseAuth.getInstance()
 
+
+    /**
+     * Creates a new deck (Baralho) in Firestore.
+     * @param deck The deck to be created.
+     * @return Result containing the newly created deck ID or an error.
+     */
     suspend fun createDeck2(deck: Baralho) : Result<String>{
         val currentUserEmail = fireBaseAuth.currentUser?.email
         if (currentUserEmail.isNullOrEmpty()) {
@@ -51,6 +60,15 @@ class BaralhoRepository2 {
         }
     }
 
+    /**
+     * Updates an existing deck.
+     * @param deck The deck to be updated.
+     * @param name New name for the deck.
+     * @param description New description.
+     * @param numberNewCardsPerDay New number of cards per day.
+     * @param public Whether the deck is public or not.
+     * @return Result indicating success or failure.
+     */
     suspend fun updateDeck2(deck : Baralho, name : String, description : String, numberNewCardsPerDay : Int, public : Boolean): Result<Unit>{
         val currentUserEmail = fireBaseAuth.currentUser?.email
         if (currentUserEmail.isNullOrEmpty()) {
@@ -75,6 +93,11 @@ class BaralhoRepository2 {
         }
     }
 
+    /**
+     * Deletes a deck and its associated data (cards, notes, hints).
+     * @param deck The deck to be deleted.
+     * @return Result indicating success or failure.
+     */
     suspend fun deleteDeck2(deck: Baralho): Result<Unit>{
         val currentUserEmail = fireBaseAuth.currentUser?.email
         if (currentUserEmail.isNullOrEmpty()) {
@@ -98,6 +121,10 @@ class BaralhoRepository2 {
         }
     }
 
+    /**
+     * Deletes all cards associated with a given deck.
+     * @param deckId The ID of the deck.
+     */
     private suspend fun deleteCards2(deckId : String){
         val cardsQuerySnapshot = fireStoreDB.collection("cards")
             .whereEqualTo("deckId", deckId)
@@ -108,6 +135,10 @@ class BaralhoRepository2 {
         }
     }
 
+    /**
+     * Deletes all hints associated with a given card.
+     * @param cardId The ID of the card.
+     */
     private suspend fun deleteHints2(cardId : String){
         val hintsQuerySnapshot = fireStoreDB.collection("hints")
             .whereEqualTo("cardId", cardId)
@@ -117,6 +148,10 @@ class BaralhoRepository2 {
         }
     }
 
+    /**
+     * Deletes all notes associated with a given deck.
+     * @param deckId The ID of the deck.
+     */
     private suspend fun deleteNotes2(deckId : String){
         val notesQuerySnapshot = fireStoreDB.collection("notes")
             .whereEqualTo("deckId", deckId)
@@ -126,6 +161,13 @@ class BaralhoRepository2 {
         }
     }
 
+
+    /**
+     * Retrieves a list of notes associated with the given deck from Firestore.
+     *
+     * @param deck The deck for which notes should be retrieved.
+     * @return A Result containing a list of notes or an error if the user is not authenticated.
+     */
     suspend fun getNotes2(deck : Baralho) : Result<List<Anotacao>>{
         val currentUserEmail = fireBaseAuth.currentUser?.email
         if (currentUserEmail.isNullOrEmpty()) {
@@ -154,6 +196,12 @@ class BaralhoRepository2 {
         }
     }
 
+    /**
+     * Retrieves a list of cards associated with the given deck from Firestore.
+     *
+     * @param deck The deck for which cards should be retrieved.
+     * @return A Result containing a list of cards or an error if the user is not authenticated.
+     */
     suspend fun getCards2(deck : Baralho) : Result<List<Cartao>>{
         val currentUserEmail = fireBaseAuth.currentUser?.email
         if (currentUserEmail.isNullOrEmpty()) {
@@ -195,6 +243,12 @@ class BaralhoRepository2 {
         }
     }
 
+    /**
+     * Retrieves a list of hints associated with the given card from Firestore.
+     *
+     * @param cardObject The card for which hints should be retrieved.
+     * @return A list of hints associated with the specified card.
+     */
     private suspend fun getHints2(cardObject: Cartao) : List<Dica>{
         val hintsList = mutableListOf<Dica>()
         val hintsQuerySnapshot = fireStoreDB.collection("hints")
@@ -212,6 +266,12 @@ class BaralhoRepository2 {
         return hintsList
     }
 
+    /**
+     * Makes the given deck public by adding it to the publicDecks collection.
+     *
+     * @param deck The deck to be made public.
+     * @throws Exception If the user is not authenticated or if there is an error retrieving deck data.
+     */
     private suspend fun makePublic2(deck: Baralho){
         val currentUserEmail = fireBaseAuth.currentUser?.email
         if (currentUserEmail.isNullOrEmpty()) {
@@ -243,6 +303,12 @@ class BaralhoRepository2 {
 
     }
 
+    /**
+     * Removes the given deck from the publicDecks collection, making it private.
+     *
+     * @param deck The deck to be made private.
+     * @throws Exception If the user is not authenticated or if there is an error retrieving deck data.
+     */
     private suspend fun unmakePublic2(deck: Baralho){
         val currentUserEmail = fireBaseAuth.currentUser?.email
         if (currentUserEmail.isNullOrEmpty()) {
@@ -270,7 +336,11 @@ class BaralhoRepository2 {
         deckRef.update(deckUpdateInfo).await()
     }
 
-
+    /**
+     * Retrieves a list of all public decks.
+     *
+     * @return A Result containing a list of public decks or an error if the user is not authenticated.
+     */
     suspend fun getPublicDecks(): Result<List<BaralhoPublico>> {
         val currentUserEmail = fireBaseAuth.currentUser?.email
             ?: return Result.failure(Throwable("Usuário não autenticado"))
@@ -313,23 +383,53 @@ class BaralhoRepository2 {
         }
     }
 
+    /**
+     * Fetches the data of a deck from the Firestore database.
+     *
+     * @param deckId The unique identifier of the deck.
+     * @return A map containing the deck data retrieved from the database.
+     * @throws Exception If there is an error retrieving the deck data.
+     */
     private suspend fun getDeckData(deckId: String): Map<String, Any> {
         val deckRef = fireStoreDB.collection("decks").document(deckId).get().await()
         return deckRef.data ?: throw Exception("Erro ao pegar dado do baralho")
     }
 
+    /**
+     * Fetches the data of a user from the Firestore database.
+     *
+     * @param userId The unique identifier of the user.
+     * @return A map containing the user data retrieved from the database.
+     * @throws Exception If there is an error retrieving the user data.
+     */
     private suspend fun getUserData(userId: String): Map<String, Any> {
         val userRef = fireStoreDB.collection("users").document(userId).get().await()
         return userRef.data ?: throw Exception("Erro ao pegar dado do usuário")
     }
 
+    /**
+     * Retrieves the number of cards in a specific deck from the Firestore database.
+     *
+     * @param deckId The unique identifier of the deck.
+     * @return The number of cards present in the deck.
+     */
     private suspend fun getNumberOfCards(deckId: String): Int {
         return fireStoreDB.collection("cards")
             .whereEqualTo("deckId", deckId)
             .get().await().size()
     }
 
-
+    /**
+     * Copies a public deck to the user's personal deck.
+     *
+     * This function creates a new deck in the user's folder, copying the necessary data
+     * from the original public deck and associated cards and notes.
+     *
+     * @param publicDeck The public deck that needs to be copied.
+     * @param newDeckName The name of the new deck to be created.
+     * @return A Result containing either the success or failure of the operation.
+     * @throws Throwable If the user is not authenticated or any error occurs during the copy process.
+     */
     suspend fun copyToUserPublicDeck(publicDeck: BaralhoPublico, newDeckName: String): Result<Unit> {
         val currentUserEmail = fireBaseAuth.currentUser?.email
             ?: return Result.failure(Throwable("Usuário não autenticado"))
@@ -362,6 +462,16 @@ class BaralhoRepository2 {
         }
     }
 
+    /**
+     * Copies all notes from one deck to a new deck.
+     *
+     * This function retrieves all notes associated with a given deck (identified by `deckId`)
+     * and copies them to a new deck (identified by `newDeckId`). It uses Firestore's batch
+     * operations to ensure that all note insertions are handled efficiently in a single commit.
+     *
+     * @param newDeckId The ID of the new deck to which the notes should be copied.
+     * @param deckId The ID of the original deck from which the notes are copied.
+     */
     private suspend fun copyNotesFromDeck(newDeckId: String, deckId: String) {
         val notesSnapshot = fireStoreDB.collection("notes")
             .whereEqualTo("deckId", deckId)
@@ -383,6 +493,18 @@ class BaralhoRepository2 {
         batch.commit().await()
     }
 
+    /**
+     * Copies all cards from one deck to a new deck.
+     *
+     * This function retrieves all cards associated with a given deck (identified by `deckId`)
+     * and copies them to a new deck (identified by `newDeckId`). It also copies any associated
+     * hints for each card. Firestore batch operations are used to optimize the process of adding
+     * cards and hints. This function launches a coroutine for copying hints and commits the batch
+     * of card operations once all cards are processed.
+     *
+     * @param newDeckId The ID of the new deck to which the cards should be copied.
+     * @param deckId The ID of the original deck from which the cards are copied.
+     */
     private suspend fun copyCardsFromDeck(newDeckId: String, deckId: String) = coroutineScope {
         val cardsSnapshot = fireStoreDB.collection("cards")
             .whereEqualTo("deckId", deckId)
@@ -416,6 +538,16 @@ class BaralhoRepository2 {
         copyHintsJobs.awaitAll()
     }
 
+    /**
+     * Copies all hints from one card to a new card.
+     *
+     * This function retrieves all hints associated with a given card (identified by `cardId`)
+     * and copies them to a new card (identified by `newCardId`). The Firestore batch operation
+     * is used to efficiently save all hints in a single commit.
+     *
+     * @param newCardId The ID of the new card to which the hints should be copied.
+     * @param cardId The ID of the original card from which the hints are copied.
+     */
     private suspend fun copyHintsFromCard(newCardId: String, cardId: String) {
         val hintsSnapshot = fireStoreDB.collection("hints")
             .whereEqualTo("cardId", cardId)
