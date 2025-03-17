@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Baralho
+import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.BaralhoPublico
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments.VisualizarBaralhoPublicoFrDialog
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.adapter.ListaBaralhoPublicoAdapter
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.listener.OnBaralhoPublicoListener
@@ -53,7 +54,7 @@ class ListarBaralhoPublicoAC : AppCompatActivity() {
 
         // Inicializando o listener diretamente
         val listener = object : OnBaralhoPublicoListener {
-            override fun onClick(b: Baralho) {
+            override fun onClick(b: BaralhoPublico) {
                 //Toast.makeText(applicationContext, b.nome, Toast.LENGTH_SHORT).show()
                 listarBaralhoPublicoVM.setBaralhoPublicoEmFoco(b)
                 VisualizarBaralhoPublicoFrDialog().show(supportFragmentManager, "AcoesAdicionaisDialog")

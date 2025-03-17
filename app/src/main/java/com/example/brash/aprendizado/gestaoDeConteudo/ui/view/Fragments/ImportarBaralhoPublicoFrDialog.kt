@@ -57,8 +57,8 @@ class ImportarBaralhoPublicoFrDialog() : DialogFragment() {
 
         listarBaralhoPublicoVM.baralhoPublicoEmFoco.value?.let {
             // Se o valor não for null, preenche os campos
-            binding.ListarBaralhoPublicoFrImportarBaralhoInputNovoNome.setText(it.nome)
-            binding.ListarBaralhoPublicoFrImportarBaralhoTextViewNomeOriginal.text = it.nome
+            binding.ListarBaralhoPublicoFrImportarBaralhoInputNovoNome.setText(it.nomeBaralho)
+            binding.ListarBaralhoPublicoFrImportarBaralhoTextViewNomeOriginal.text = it.nomeBaralho
         } ?: run {
             // Se o valor for null, exibe uma mensagem de erro
             //Toast.makeText(requireContext(), "Erro: Baralho não encontrado em VisualizarBaralhoHome!", Toast.LENGTH_SHORT).show()
