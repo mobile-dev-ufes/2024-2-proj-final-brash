@@ -52,8 +52,10 @@ class ListarBaralhoPublicoVM(application: Application) : AndroidViewModel(applic
     /**
      * Sorts the list of folders by name and ensures that the "root" folder appears first.
      */
-    private fun sortBaralhoPublicoList(){
-        _baralhoPublicoListSort.value = _baralhoPublicoList.value?.sortedWith(compareBy<BaralhoPublico> { it.numeroCartoesBaralho }.thenBy { it.nomeBaralho })
+    private fun sortBaralhoPublicoList() {
+        _baralhoPublicoListSort.value = _baralhoPublicoList.value?.sortedWith(
+            compareByDescending<BaralhoPublico> { it.numeroCartoesBaralho }.thenByDescending { it.nomeBaralho }
+        )
     }
 
     /**
