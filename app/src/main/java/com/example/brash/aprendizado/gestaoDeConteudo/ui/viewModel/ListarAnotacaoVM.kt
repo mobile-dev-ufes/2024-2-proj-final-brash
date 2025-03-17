@@ -4,8 +4,16 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import com.example.brash.R
+import com.example.brash.aprendizado.gestaoDeConteudo.data.repository.AnotacaoRepository2
+import com.example.brash.aprendizado.gestaoDeConteudo.data.repository.BaralhoRepository2
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Anotacao
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Baralho
+import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Dica
+import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.HomeAcListItem
+import com.example.brash.nucleo.utils.UtilsFoos
+import kotlinx.coroutines.launch
 
 
 /**
@@ -31,17 +39,25 @@ class ListarAnotacaoVM(application: Application) : AndroidViewModel(application)
 
     private var _baralhoOwner = MutableLiveData<Baralho>()
 
+    private val baralhoRepository2 = BaralhoRepository2()
+    private val anotacaoRepository2 = AnotacaoRepository2()
+
     /**
      * Sets the provided deck (Baralho) as the owner of the notes.
      * This helps in associating the notes with a particular deck.
      *
      * @param baralho The deck that owns the notes.
      */
-    fun setBaralhoOwner(baralho: Baralho){
+    fun setBaralhoOwner(baralho: Baralho) {
         _baralhoOwner.value = baralho
     }
     //private var _opcoesDeBusca = MutableLiveData<OpcoesDeBuscaBaralhoPublico>()
     //val opcoesDeBusca get() = _opcoesDeBusca
+
+    private fun getStringApplication(id: Int): String {
+        return getApplication<Application>().getString(id)
+    }
+
 
     /**
      * Retrieves all the notes from the data source (mocked for now).
@@ -49,7 +65,7 @@ class ListarAnotacaoVM(application: Application) : AndroidViewModel(application)
      */
     fun getAllAnotacoes() {
 
-        //TODO:: requisitar do firebase
+        /*//TODO:: requisitar do firebase
 
         _anotacaoList.value = listOf(
             Anotacao(nome =  "Alimentos", texto = "teste"),
@@ -62,7 +78,28 @@ class ListarAnotacaoVM(application: Application) : AndroidViewModel(application)
             Anotacao(nome =  "uva"),
             Anotacao(nome =  "Frutas", texto = "teste"))
 
-        Log.d("ListaPastaAdapter", "DEFINIÇÃO DAS PASTAS")
+        Log.d("ListaPastaAdapter", "DEFINIÇÃO DAS PASTAS")*/
+        viewModelScope.launch {
+            val result = baralhoRepository2.getNotes2(_baralhoOwner.value!!)
+
+            result
+                .onSuccess { anotacoes ->
+                    _anotacaoList.value = anotacoes
+                    sortAnotacaoList()
+                }
+                .onFailure { e ->
+                    //UtilsFoos.showToast(getApplication(), e.toString())
+                    Log.e("ListarCartaoVM", "${e}")
+                    UtilsFoos.showToast(
+                        getApplication(),
+                        getStringApplication(R.string.erro_requisicao_banco_dados_firebase)
+                    )
+                    Log.e("Pasta", "Erro ao carregar pastas do firebase")
+
+                    _anotacaoList.value = emptyList()
+                }
+
+        }
     }
 
     /**
@@ -71,7 +108,7 @@ class ListarAnotacaoVM(application: Application) : AndroidViewModel(application)
      *
      * @param anotacao The note to set in focus.
      */
-    fun setAnotacaoEmFoco(anotacao: Anotacao){
+    fun setAnotacaoEmFoco(anotacao: Anotacao) {
         anotacaoEmFoco.value = anotacao
         Log.d("HomeDialogs", "Defini Baralho em FOCO")
     }
@@ -93,13 +130,64 @@ class ListarAnotacaoVM(application: Application) : AndroidViewModel(application)
      * @param texto The text of the note.
      * @param onSuccess Callback to execute when the note is successfully created.
      */
-    fun criarAnotacao(nome : String, texto : String, onSuccess : () -> Unit){
-        //TODO:: Fazer a criação de anotação do firebase também
-        //TODO:: apenas confirmar a criação se o nome for único para o usuário
+    fun criarAnotacao(nome: String, texto: String, onSuccess: () -> Unit) {
+        if (processaInfoAnotacao(nome, texto) && verificaAnotacaoNomeUnico(nome)) {
+            val anotacao = Anotacao(nome = nome, texto = texto)
+            viewModelScope.launch {
+                val result = anotacaoRepository2.createNote2(_baralhoOwner.value!!, anotacao)
+                result
+                    .onSuccess { id ->
+                        anotacao.idAnotacao = id
+                        anotacao.baralho = _baralhoOwner.value!!
+                        if (_anotacaoList.value == null) {
+                            _anotacaoList.value = listOf(anotacao)
+                        } else {
+                            _anotacaoList.value = _anotacaoList.value!!.plus(anotacao)
+                        }
+                        sortAnotacaoList()
+                        onSuccess()
+                    }
+                    .onFailure { e ->
+                        //UtilsFoos.showToast(getApplication(), e.toString())
+                        UtilsFoos.showToast(
+                            getApplication(),
+                            getStringApplication(R.string.erro_requisicao_banco_dados_firebase)
+                        )
+                        //UtilsFoos.showToast(getApplication(),"Ocorreu algum erro na criação do cartão:: ${e}")
+                        Log.e("ListarDicaVM", "Ocorreu algum erro na criação do cartão:: ${e}")
+                    }
+            }
+        }
+    }
 
-        onSuccess()
-        // request para atualizar dados
-        //getAllAnotacoes()
+    private fun processaInfoAnotacao(nome: String, texto: String): Boolean {
+
+        if (nome.isEmpty() || texto.isEmpty()) {
+            UtilsFoos.showToast(
+                getApplication(),
+                getStringApplication(R.string.nuc_preencha_todos_campos)
+            )
+            return false
+        } else if (false) { // verificacao de nome único
+            return false
+        }
+        return true
+    }
+
+    private fun verificaAnotacaoNomeUnico(name: String): Boolean {
+
+        for (anotacao in _anotacaoList.value.orEmpty()) {  // Usando orEmpty() para garantir que seja uma lista não-nula
+            if (anotacao.nome == name) {
+                UtilsFoos.showToast(
+                    getApplication(),
+                    getStringApplication(R.string.gtc_nome_unico_anotacao)
+                )
+                return false  // Retorna false caso o nome do baralho seja encontrado
+            }
+
+        }
+        return true  // Retorna true caso o nome do baralho não seja encontrado em nenhuma pasta
+
     }
 
     /**
@@ -111,14 +199,27 @@ class ListarAnotacaoVM(application: Application) : AndroidViewModel(application)
      * @param texto The new text of the note.
      * @param onSuccess Callback to execute when the note is successfully edited.
      */
-    fun editarAnotacao(anotacao: Anotacao, nome : String, texto : String, onSuccess : () -> Unit){
-        //TODO:: Fazer a edição de anotação do firebase também
-        //TODO:: apenas requisitar se tiver ALGUMA informação diferente
-        //TODO:: apenas confirmar a mudança do nome se for único para o usuário, o restante pode sempre atualizar
-
-        onSuccess()
-        // request para atualizar dados
-        //getAllAnotacoes()
+    fun editarAnotacao(anotacao: Anotacao, nome: String, texto: String, onSuccess: () -> Unit) {
+        if (processaInfoAnotacao(nome, texto) && (anotacao.nome == nome || verificaAnotacaoNomeUnico(nome))) {
+            viewModelScope.launch {
+                val result = anotacaoRepository2.updateNote2(anotacao, nome, texto)
+                result
+                    .onSuccess {
+                        onSuccess()
+                        anotacao.nome = nome
+                        anotacao.texto = texto
+                        sortAnotacaoList()
+                    }
+                    .onFailure {
+                        UtilsFoos.showToast(
+                            getApplication(),
+                            getStringApplication(R.string.erro_requisicao_banco_dados_firebase)
+                        )
+                        //UtilsFoos.showToast(getApplication(), "Ocorreu algum erro na edição do baralho: ${e}")
+                        Log.e("criar Pasta debug", "Ocorreu algum erro na criação da pasta")
+                    }
+            }
+        }
     }
 
     /**
@@ -128,15 +229,33 @@ class ListarAnotacaoVM(application: Application) : AndroidViewModel(application)
      * @param anotacao The note to delete.
      * @param onSuccess Callback to execute when the note is successfully deleted.
      */
-    fun excluirAnotacao(anotacao: Anotacao, onSuccess : () -> Unit){
-        //TODO:: Fazer a exclusão de anotação do firebase também
+    fun excluirAnotacao(anotacao: Anotacao, onSuccess: () -> Unit) {
+        viewModelScope.launch{
+            val result = anotacaoRepository2.deleteNote2(anotacao)
 
-        onSuccess()
-        // request para atualizar dados
-        //getAllAnotacoes()
+            result
+                .onSuccess {
+                    _anotacaoList.value = _anotacaoList.value?.toMutableList()?.apply {
+                        removeAll {
+                            it == anotacao
+                        }
+                    }?: emptyList()
+                    onSuccess()
+                    sortAnotacaoList()
+                }
+                .onFailure {
+                    UtilsFoos.showToast(getApplication(), getStringApplication(R.string.erro_requisicao_banco_dados_firebase))
+                    //UtilsFoos.showToast(getApplication(), "Ocorreu algum erro na edição do baralho")
+                    Log.e("criar Pasta debug", "Ocorreu algum erro na criação da pasta")
+                }
+        }
     }
 
+    private fun sortAnotacaoList() {
+        _anotacaoList.value = _anotacaoList.value?.sortedBy { it.nome }
+    }
 }
+
 
 /*
 

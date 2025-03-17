@@ -170,6 +170,7 @@
     <string name="gtc_nome_unico_baralho">Digite um nome único para o baralho</string>
     <string name="gtc_numero_cartoes_maior_que_zero">Número de cartões novos deve ser maior que 0</string>
     <string name="gtc_nome_unico_pasta">Digite um nome único para a pasta</string>
+    <string name="gtc_nome_unico_anotacao">Digite um nome único para a anotação</string>
     <string name="gtc_pasta_contem_baralhos">Esta pasta contém baralhos</string>
 
 
