@@ -5,7 +5,7 @@ import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.POST
 
-
+//NOT USED
 interface EmailApi {
     @POST("/send-email")
     fun sendEmail(@Body emailRequest: EmailRequestEntity): Call<Void>

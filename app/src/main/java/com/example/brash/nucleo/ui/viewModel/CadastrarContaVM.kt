@@ -7,8 +7,6 @@ import androidx.lifecycle.viewModelScope
 import com.example.brash.R
 import com.example.brash.nucleo.data.remoto.services.AccountService
 import com.example.brash.nucleo.data.repository.UsuarioRepository
-import com.example.brash.nucleo.utils.IconeCor
-import com.example.brash.nucleo.utils.IconeImagem
 import com.example.brash.nucleo.utils.UtilsFoos
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException

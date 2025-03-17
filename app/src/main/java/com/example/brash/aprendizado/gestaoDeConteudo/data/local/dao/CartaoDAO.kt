@@ -8,6 +8,8 @@ import androidx.room.Update
 import com.example.brash.aprendizado.gestaoDeConteudo.data.local.entity.CartaoEntity
 import java.time.LocalDateTime
 
+//NOT USED YET
+
 @Dao
 interface CartaoDAO {
     @Query("SELECT COUNT(*) FROM Cartao")

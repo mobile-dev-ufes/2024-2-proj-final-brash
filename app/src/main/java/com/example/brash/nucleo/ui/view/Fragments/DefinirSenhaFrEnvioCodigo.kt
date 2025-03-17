@@ -11,6 +11,8 @@ import com.example.brash.R
 import com.example.brash.databinding.NucDefinirSenhaFrEnvioCodigoBinding
 import com.example.brash.nucleo.ui.viewModel.DefinirSenhaVM
 
+//NOT USED
+
 /**
  * Fragment to handle sending a password reset code to the user's email.
  *

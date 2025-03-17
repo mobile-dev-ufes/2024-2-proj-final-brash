@@ -2,6 +2,8 @@ package com.example.brash.aprendizado.gestaoDeAuxilioDeAprendizado.domain.model
 
 import java.time.LocalDateTime
 
+//NOT USED YET
+
 abstract class Relatorio(
     open val idRelatorio: Long,
     open val numeroDeCartoesNovos: Int,

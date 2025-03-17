@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.time.LocalDateTime
 
-
+//NOT USED YET
 @Entity(tableName="Usuario")
 class UsuarioEntity {
 

@@ -7,6 +7,8 @@ import androidx.room.Query
 import androidx.room.Update
 import com.example.brash.aprendizado.gestaoDeConteudo.data.local.entity.BaralhoEntity
 
+//NOT USED YET
+
 @Dao
 interface BaralhoDAO {
     @Query("SELECT COUNT(*) FROM Baralho")

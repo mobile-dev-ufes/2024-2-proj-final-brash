@@ -1,14 +1,11 @@
 package com.example.brash.nucleo.data.remoto.services.impl
 
-import android.content.Context
 import com.example.brash.nucleo.data.remoto.services.AccountService
 import com.example.brash.nucleo.domain.model.Usuario
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
 import com.google.firebase.Firebase
 import com.google.firebase.FirebaseNetworkException
-import com.google.firebase.auth.FirebaseAuthEmailException
-import com.google.firebase.auth.FirebaseAuthException
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
@@ -17,9 +14,15 @@ import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.tasks.await
-import android.util.Log
 import com.example.brash.nucleo.utils.FirebaseAuthVerifyException
 
+/**
+ * AccountServiceImpl is an implementation of the AccountService interface that provides user authentication
+ * and account management features using Firebase Authentication.
+ *
+ * This class manages actions like signing in, signing up, signing out, changing passwords,
+ * sending email verification, and deleting user accounts.
+ */
 class AccountServiceImpl () : AccountService {
 
     override val currentUser: Flow<Usuario?>
