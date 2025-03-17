@@ -32,7 +32,7 @@
     <string name="nuc_msg_default_erro_cadastro">The username or email is already used.</string>
     <string name="nuc_mesagem_confirmacao_envio_email">A verification code was sent to your email</string>
     <string name="nuc_codigo">Verification code</string>
-    <string name="nuc_msg_confirmacao_criacao_conta_default">Your account was successfully created, go and log in.</string>
+    <string name="nuc_msg_confirmacao_criacao_conta_default">Your account has been successfully created. Please check your email to complete the registration.</string>
     <string name="nuc_fazer_login">Log in</string>
     <string name="nuc_preencha_todos_campos">Complete all the input fields!</string>
     <string name="nuc_digite_email_valido">Type a valid email!</string>

@@ -31,7 +31,7 @@
     <string name="nuc_msg_default_erro_cadastro">O nome de usuário ou email já existem.</string>
     <string name="nuc_mesagem_confirmacao_envio_email">Um código de verificação foi enviado para o seu email</string>
     <string name="nuc_codigo">Código de verificação</string>
-    <string name="nuc_msg_confirmacao_criacao_conta_default">Sua conta foi criada com sucesso, volte para a tela de login.</string>
+    <string name="nuc_msg_confirmacao_criacao_conta_default">Sua conta foi criada com sucesso, faça a verificação em seu email para concluir o cadastro.</string>
     <string name="nuc_fazer_login">Fazer Login</string>
     <string name="nuc_preencha_todos_campos">Preencha todos os campos!</string>
     <string name="nuc_digite_email_valido">Digite um email válido!</string>
