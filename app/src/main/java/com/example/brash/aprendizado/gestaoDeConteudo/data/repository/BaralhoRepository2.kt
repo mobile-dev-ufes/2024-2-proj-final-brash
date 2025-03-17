@@ -2,6 +2,7 @@ package com.example.brash.aprendizado.gestaoDeConteudo.data.repository
 
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Anotacao
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Baralho
+import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.BaralhoPublico
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Cartao
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.CategoriaDoAprendizado
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Dica
@@ -264,16 +265,52 @@ class BaralhoRepository2 {
     }
 
 
-    suspend fun getPublicDecks() : Result<List<String>>{
+
+    suspend fun getPublicDecks() : Result<List<BaralhoPublico>>{
         val currentUserEmail = fireBaseAuth.currentUser?.email
             ?: return Result.failure(Throwable("Usuário não autenticado"))
 
         return runCatching {
-            val publicDeckList = listOf<String>()
+            val publicDeckList = mutableListOf<BaralhoPublico>()
 
+            val publicCardsSnapshot = fireStoreDB.collection("publicDecks").get().await()
+            for(publicCardDocument in publicCardsSnapshot){
+                val publicCardData = publicCardDocument.data
 
+                val userId = publicCardData["userId"].toString()
+                val deckId = publicCardData["deckId"].toString()
+
+                publicDeckList.add(getPublicDeck(deckId, userId))
+            }
             publicDeckList
         }
+    }
+
+
+    private suspend fun getPublicDeck(deckId : String, userId : String) : BaralhoPublico{
+        val numberCards = fireStoreDB.collection("cards")
+            .whereEqualTo("deckId", deckId)
+            .get().await().size()
+
+        val deckRef = fireStoreDB.collection("decks").document(deckId).get().await()
+        val deckData = deckRef.data ?: throw(Exception("Erro ao pegar dado do baralho (<private>getPublicDeck::BaralhoRepository2)"))
+
+        val deckName = deckData["name"].toString()
+        val deckDescription = deckData["description"].toString()
+
+        val userRef = fireStoreDB.collection("users").document(userId).get().await()
+        val userData = userRef.data ?: throw(Exception("Erro ao pegar dado do usuário (<private>getPublicDeck::BaralhoRepository2)"))
+
+        val userName = userData["userName"].toString()
+        val exhibitionName = userData["exhibitionName"].toString()
+
+        return BaralhoPublico(
+            numeroCartoesBaralho = numberCards,
+            nomeBaralho = deckName,
+            descricaoBaralho = deckDescription,
+            nomeDeUsuario = userName,
+            nomeDeExibicaoUsuario = exhibitionName,
+        )
     }
 
 
