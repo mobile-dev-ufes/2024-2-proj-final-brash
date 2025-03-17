@@ -6,19 +6,29 @@ import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.CategoriaDoAp
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Dica
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.util.Date
 
+
+/**
+ * Repository for managing cards (Cartao) in the Firestore database.
+ * Provides functions to create, update, delete cards and manage hints (Dica).
+ */
 class CartaoRepository2 {
 
     private val fireStoreDB = FirebaseFirestore.getInstance()
     private val fireBaseAuth = FirebaseAuth.getInstance()
 
-
+    /**
+     * Creates a new card (Cartao) in a specified deck (Baralho).
+     *
+     * @param deck The deck in which the card will be created.
+     * @param card The card to be created.
+     * @return A Result containing the ID of the newly created card or an error.
+     */
     suspend fun createCard2(deck: Baralho, card: Cartao): Result<String> {
         val currentUserEmail = fireBaseAuth.currentUser?.email
         if (currentUserEmail.isNullOrEmpty()) {
@@ -47,6 +57,16 @@ class CartaoRepository2 {
         }
     }
 
+    /**
+     * Updates a card's review information after a review session.
+     *
+     * @param card The card to be updated.
+     * @param reviewFactor The new review factor for the card.
+     * @param reviewInterval The new review interval for the card.
+     * @param reviewDate The new review date for the card.
+     * @param categoryOfLearning The new category of learning for the card.
+     * @return A Result indicating the success or failure of the update operation.
+     */
     suspend fun updateCardFromReview2(card : Cartao, reviewFactor : Double, reviewInterval : Int, reviewDate: LocalDateTime, categoryOfLearning : CategoriaDoAprendizado) : Result<Unit>{
         val currentUserEmail = fireBaseAuth.currentUser?.email
         if (currentUserEmail.isNullOrEmpty()) {
@@ -64,7 +84,14 @@ class CartaoRepository2 {
         }
     }
 
-
+    /**
+     * Updates the question and answer of an existing card.
+     *
+     * @param card The card to be updated.
+     * @param question The new question for the card.
+     * @param answer The new answer for the card.
+     * @return A Result indicating the success or failure of the update operation.
+     */
     suspend fun updateCardQA2(card : Cartao, question : String, answer : String) : Result<Unit>{
         val currentUserEmail = fireBaseAuth.currentUser?.email
         if (currentUserEmail.isNullOrEmpty()) {
@@ -80,6 +107,12 @@ class CartaoRepository2 {
         }
     }
 
+    /**
+     * Deletes an existing card from the Firestore database, including its associated hints.
+     *
+     * @param card The card to be deleted.
+     * @return A Result indicating the success or failure of the deletion operation.
+     */
     suspend fun deleteCard2(card: Cartao): Result<Unit>{
         val currentUserEmail = fireBaseAuth.currentUser?.email
         if (currentUserEmail.isNullOrEmpty()) {
@@ -92,6 +125,11 @@ class CartaoRepository2 {
         }
     }
 
+    /**
+     * Deletes all hints associated with a specific card.
+     *
+     * @param cardId The ID of the card whose hints should be deleted.
+     */
     private suspend fun deleteHints2(cardId : String){
         val hintsQuerySnapshot = fireStoreDB.collection("hints")
             .whereEqualTo("cardId", cardId)
@@ -101,7 +139,12 @@ class CartaoRepository2 {
         }
     }
 
-
+    /**
+     * Retrieves all hints associated with a specific card.
+     *
+     * @param card The card whose hints are to be fetched.
+     * @return A Result containing a list of hints for the specified card or an error.
+     */
     suspend fun getHints2(card : Cartao) : Result<List<Dica>>{
         val currentUserEmail = fireBaseAuth.currentUser?.email
         if (currentUserEmail.isNullOrEmpty()) {

@@ -79,6 +79,9 @@ O **Brash** segue uma arquitetura baseada nos padrões **MVVM (Model-View-ViewMo
 - **Suporte a Múltiplos Idiomas:** Estender o aplicativo para suportar vários idiomas e alcançar um público global.
 - **Implementar as seguintes funcionalidades:** Fazer amizades entre usuários, colocações semanais baseadas em cartões revisados, visualização de estatísticas do usuário e estatísticas de baralhos específicos
 
+## Vídeo promocional
+https://youtu.be/Oy7HQAS7l5g
+
 ## Contato
 Para mais informações, entre em contato com a equipe de desenvolvimento:
 

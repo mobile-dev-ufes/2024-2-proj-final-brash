@@ -1,24 +1,29 @@
 package com.example.brash.aprendizado.gestaoDeConteudo.data.repository
 
-import android.util.Log
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Baralho
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Pasta
-import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentReference
-import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
-import org.w3c.dom.Document
-import java.time.ZoneId
-import java.util.Date
 
+
+/**
+ * Repository for managing folders (Pasta) and decks (Baralho) in the Firestore database.
+ * Provides functions to create, update, delete, and retrieve folders, as well as moving decks between folders.
+ */
 class PastaRepository2 {
 
     private val fireStoreDB = FirebaseFirestore.getInstance()
     private val fireBaseAuth = FirebaseAuth.getInstance()
 
+    /**
+     * Creates a new folder in the Firestore database.
+     *
+     * @param pasta The folder to be created.
+     * @return A Result containing the ID of the newly created folder or an error.
+     */
     suspend fun createFolder2(pasta : Pasta) : Result<String>{
         val currentUserEmail = fireBaseAuth.currentUser?.email
         if (currentUserEmail.isNullOrEmpty()) {
@@ -42,6 +47,13 @@ class PastaRepository2 {
 
     }
 
+    /**
+     * Updates the name of an existing folder.
+     *
+     * @param folder The folder to be updated.
+     * @param newName The new name for the folder.
+     * @return A Result indicating the success or failure of the operation.
+     */
     suspend fun updateFolder2(folder : Pasta, newName : String) : Result<Unit>{
         val currentUserEmail = fireBaseAuth.currentUser?.email
         if (currentUserEmail.isNullOrEmpty()) {
@@ -57,6 +69,12 @@ class PastaRepository2 {
     }
 
 
+    /**
+     * Deletes a folder from the Firestore database.
+     *
+     * @param folder The folder to be deleted.
+     * @return A Result indicating the success or failure of the operation.
+     */
     suspend fun deleteFolder2(folder: Pasta): Result<Unit> {
         val currentUserEmail = fireBaseAuth.currentUser?.email
         if (currentUserEmail.isNullOrEmpty()) {
@@ -68,7 +86,11 @@ class PastaRepository2 {
         }
     }
 
-
+    /**
+     * Retrieves all folders belonging to the current user from the Firestore database.
+     *
+     * @return A Result containing a list of folders or an error.
+     */
     suspend fun getFolders2(): Result<List<Pasta>> {
         val currentUserEmail = fireBaseAuth.currentUser?.email
         if (currentUserEmail.isNullOrEmpty()) {
@@ -104,6 +126,11 @@ class PastaRepository2 {
         }
     }
 
+    /**
+     * Recursively retrieves all decks for a given folder.
+     *
+     * @param folderObject The folder to retrieve decks from.
+     */
     private suspend fun recGetDecks2(folderObject : Pasta){
 
         val deckQuerySnapshot = fireStoreDB.collection("decks")
@@ -124,7 +151,14 @@ class PastaRepository2 {
         }
     }
 
-
+    /**
+     * Gets the reference to a specific deck document.
+     *
+     * @param deck The deck for which to get the reference.
+     * @param folder The folder to which the deck belongs.
+     * @param currentUserEmail The email of the current user.
+     * @return A DocumentReference pointing to the deck document in Firestore.
+     */
     private fun getDeckReference(deck: Baralho, folder: Pasta, currentUserEmail: String): DocumentReference {
         val userRef = fireStoreDB.collection("users").document(currentUserEmail)
         return if (folder.idPasta != "root") {
@@ -134,6 +168,13 @@ class PastaRepository2 {
         }
     }
 
+    /**
+     * Gets the reference to the collection of decks for a specific folder.
+     *
+     * @param folder The folder for which to get the deck collection reference.
+     * @param currentUserEmail The email of the current user.
+     * @return A CollectionReference pointing to the decks collection in Firestore.
+     */
     private fun getDecksReference(folder : Pasta, currentUserEmail : String) : CollectionReference{
         val userRef = fireStoreDB.collection("users").document(currentUserEmail)
         return if (folder.idPasta != "root") {
@@ -143,6 +184,13 @@ class PastaRepository2 {
         }
     }
 
+    /**
+     * Moves a deck to a different folder.
+     *
+     * @param folder The folder to which the deck will be moved.
+     * @param deck The deck to be moved.
+     * @return A Result indicating the success or failure of the operation.
+     */
     suspend fun moveDeckToFolder2(folder : Pasta, deck : Baralho) : Result<Unit>{
         val currentUserEmail = fireBaseAuth.currentUser?.email
         if (currentUserEmail.isNullOrEmpty()) {
