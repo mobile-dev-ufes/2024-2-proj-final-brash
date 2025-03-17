@@ -5,7 +5,6 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.brash.databinding.NucCadastrarAcBinding
 
-
 /**
  * Activity for managing user account registration.
  *
