@@ -45,10 +45,11 @@ class DefinirSenhaAC : AppCompatActivity(), View.OnClickListener {
         // Set a fixed email and disable editing
         val userEmail = definirSenhaVM.currentUserEmail().toString()
 
-        binding.CadastrarContaAcTextInputLayoutNome.suffixText = null
-        binding.CadastrarContaAcTextInputLayoutNome.endIconMode = com.google.android.material.textfield.TextInputLayout.END_ICON_NONE
+        binding.RedefinirSenhaAcTextInputLayoutNome.suffixText = null
+        binding.RedefinirSenhaAcTextInputLayoutNome.endIconMode = com.google.android.material.textfield.TextInputLayout.END_ICON_NONE
+        binding.RedefinirSenhaAcTextInputLayoutNome.setBoxBackgroundColorResource(R.color.medium_medium_gray)
 
-        binding.RedefinirSenhaAcTextInputEditTextEmail.setTextColor(resources.getColor(R.color.charcoal_gray))
+        binding.RedefinirSenhaAcTextInputEditTextEmail.setTextColor(resources.getColor(R.color.medium_gray))
         binding.RedefinirSenhaAcTextInputEditTextEmail.setText(userEmail)
         binding.RedefinirSenhaAcTextInputEditTextEmail.isEnabled = false
         binding.RedefinirSenhaAcTextInputEditTextEmail.isFocusableInTouchMode = false
