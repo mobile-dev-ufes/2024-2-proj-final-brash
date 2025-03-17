@@ -7,7 +7,7 @@
     android:background="@color/deep_black">
 
     <TextView
-        android:id="@+id/CadastrarContaTextViewTitulo"
+        android:id="@+id/RedefinirSenhaTextViewTitulo"
 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -40,14 +40,14 @@
 
             android:orientation="vertical"
 
-            app:layout_constraintTop_toBottomOf="@id/CadastrarContaTextViewTitulo"
+            app:layout_constraintTop_toBottomOf="@id/RedefinirSenhaTextViewTitulo"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             >
 
             <com.google.android.material.textfield.TextInputLayout
 
-                android:id="@+id/CadastrarContaAcTextInputLayoutNome"
+                android:id="@+id/RedefinirSenhaAcTextInputLayoutNome"
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -57,6 +57,7 @@
                 app:endIconMode="clear_text"
                 app:suffixText="*"
                 app:suffixTextColor="@color/bright_red"
+                android:textColorHint="@color/deep_purple"
 
                 app:boxStrokeWidth="1dp"
                 app:boxBackgroundColor="@color/white"
