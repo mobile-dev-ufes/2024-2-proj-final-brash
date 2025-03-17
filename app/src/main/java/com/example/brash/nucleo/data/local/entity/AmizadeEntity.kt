@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 
+//NOT USED YET
 @Entity(tableName="Amizade",
     primaryKeys = ["usuario_id_requerente", "usuario_id_requerido"], // Chave primária composta
     foreignKeys = [

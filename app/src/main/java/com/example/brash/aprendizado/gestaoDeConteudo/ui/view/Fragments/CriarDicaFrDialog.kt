@@ -17,37 +17,66 @@ import com.example.brash.databinding.GtcListarDicaFrCriarDicaBinding
  */
 class CriarDicaFrDialog : DialogFragment() {
 
+    // ViewBinding for the layout associated with this fragment
     private var _binding: GtcListarDicaFrCriarDicaBinding? = null
     private val binding get() = _binding!!
 
+    // ViewModel used to manage the logic of the hint creation
     private lateinit var listarDicaVM: ListarDicaVM
 
+    /**
+     * Called to create and inflate the fragment's layout.
+     *
+     * @param inflater The LayoutInflater object that can be used to inflate views in the fragment.
+     * @param container If non-null, this is the parent view that the fragment's UI should be attached to.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state.
+     * @return The root view of the fragment's layout.
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflar o layout com ViewBinding
+        // Inflate the layout with ViewBinding
         _binding = GtcListarDicaFrCriarDicaBinding.inflate(inflater, container, false)
         return binding.root
     }
 
+    /**
+     * Called after the fragment's view has been created.
+     * Initializes the ViewModel and sets up click listeners for buttons.
+     *
+     * @param view The view returned by `onCreateView()`.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state.
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Agora a ViewModel está sendo recuperada corretamente
+        // Initialize the ViewModel
         listarDicaVM = ViewModelProvider(requireActivity())[ListarDicaVM::class.java]
 
         setOnClickListeners()
     }
 
+    /**
+     * Called when the dialog starts.
+     * This method adjusts the layout of the dialog to match the screen width.
+     */
     override fun onStart() {
         super.onStart()
         dialog?.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
     }
 
+    /**
+     * Sets observers for LiveData (if necessary, this method can be extended).
+     */
     private fun setObservers(){
     }
 
+    /**
+     * Sets the click listeners for the "Cancel" and "Create" buttons.
+     * The "Cancel" button dismisses the dialog, while the "Create" button calls
+     * the ViewModel to create a new hint with the provided text.
+     */
     private fun setOnClickListeners(){
         binding.ListarDicaFrCriarDicaButtonCancelar.setOnClickListener {
             dismiss()
@@ -62,8 +91,12 @@ class CriarDicaFrDialog : DialogFragment() {
 
     }
 
+    /**
+     * Called when the fragment's view is destroyed.
+     * This is to prevent memory leaks by clearing the binding reference.
+     */
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null // Evita vazamento de memória
+        _binding = null // Avoid memory leaks
     }
 }

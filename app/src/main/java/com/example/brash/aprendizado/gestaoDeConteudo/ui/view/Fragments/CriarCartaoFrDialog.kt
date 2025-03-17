@@ -22,7 +22,14 @@ class CriarCartaoFrDialog : DialogFragment() {
 
     private lateinit var listarCartaoVM: ListarCartaoVM
 
-
+    /**
+     * Inflates the layout for the fragment using ViewBinding.
+     *
+     * @param inflater The LayoutInflater object used to inflate the view.
+     * @param container The container view that the fragment's UI should be attached to.
+     * @param savedInstanceState A Bundle containing any saved instance state data.
+     * @return The root view of the fragment.
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -32,6 +39,12 @@ class CriarCartaoFrDialog : DialogFragment() {
         return binding.root
     }
 
+    /**
+     * Called when the view has been created. It sets up the ViewModel and click listeners.
+     *
+     * @param view The root view of the fragment's layout.
+     * @param savedInstanceState A Bundle containing any saved instance state data.
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -41,17 +54,30 @@ class CriarCartaoFrDialog : DialogFragment() {
         setOnClickListeners()
     }
 
+    /**
+     * Adjusts the dialog's layout to make it match the parent width and wrap content in height.
+     */
     override fun onStart() {
         super.onStart()
         dialog?.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
     }
 
+    /**
+     * Set up observers for the ViewModel. Currently unused in this implementation.
+     */
     private fun setObservers(){
     }
+
+    /**
+     * Sets up the click listeners for the fragment's buttons.
+     * Handles canceling the creation or confirming the creation of a new flashcard.
+     */
     private fun setOnClickListeners(){
         binding.ListarCartaoFrCriarCartaoButtonCancelar.setOnClickListener {
             dismiss()
         }
+
+        // Create button: attempt to create a new flashcard with the given question and answer
         binding.ListarCartaoFrCriarCartaoButtonCriar.setOnClickListener {
             val pergunta = binding.ListarCartaoFrCriarCartaoInputPergunta.text.toString()
             val resposta = binding.ListarCartaoFrCriarCartaoInputResposta.text.toString()
@@ -61,6 +87,9 @@ class CriarCartaoFrDialog : DialogFragment() {
         }
     }
 
+    /**
+     * Cleans up resources and avoids memory leaks by setting the binding to null when the view is destroyed.
+     */
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null // Evita vazamento de memória

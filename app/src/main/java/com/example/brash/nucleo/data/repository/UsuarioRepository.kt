@@ -1,7 +1,5 @@
 package com.example.brash.nucleo.data.repository
 
-import android.util.Log
-import com.example.brash.R
 import com.example.brash.nucleo.domain.model.IconeDeUsuario
 import com.example.brash.nucleo.domain.model.Usuario
 import com.example.brash.nucleo.utils.IconeCor
@@ -9,14 +7,22 @@ import com.example.brash.nucleo.utils.IconeImagem
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
-import java.time.LocalDateTime
 
+/**
+ * UsuarioRepository is a repository class responsible for handling user-related data operations.
+ * It interacts with Firebase Firestore and Firebase Authentication to retrieve and manage user data.
+ * This class provides methods for retrieving and updating user information, including user icons and profile details.
+ */
 class UsuarioRepository {
 
     private val fireStoreDB = FirebaseFirestore.getInstance()
     private val fireBaseAuth = FirebaseAuth.getInstance()
 
-    // testar
+    /**
+     * Retrieves the current authenticated user's details, including their username, display name,
+     * and user icon (color and image).
+     * @return A Result object containing the user information wrapped in a Usuario object or an error if any.
+     */
     suspend fun getUser() : Result<Usuario> {
         val currentUserEmail = fireBaseAuth.currentUser?.email
         if (currentUserEmail.isNullOrEmpty()) {
@@ -41,7 +47,12 @@ class UsuarioRepository {
         }
     }
 
-    // testar
+    /**
+     * Updates the user's icon color and image in Firestore.
+     * @param iconColor The new icon color to set for the user.
+     * @param iconImage The new icon image to set for the user.
+     * @return A Result indicating success or failure of the update.
+     */
     suspend fun updateIcon(iconColor : IconeCor, iconImage : IconeImagem) : Result<Unit>{
         val currentUserEmail = fireBaseAuth.currentUser?.email
         if (currentUserEmail.isNullOrEmpty()) {
@@ -57,7 +68,10 @@ class UsuarioRepository {
         }
     }
 
-    // testar
+    /**
+     * Retrieves the current user's icon (color and image) from Firestore.
+     * @return A Result containing the IconeDeUsuario object or an error.
+     */
     suspend fun getIcon() : Result<IconeDeUsuario>{
         val currentUserEmail = fireBaseAuth.currentUser?.email
         if (currentUserEmail.isNullOrEmpty()) {
@@ -75,6 +89,11 @@ class UsuarioRepository {
         }
     }
 
+    /**
+     * Checks if a given username already exists in the database.
+     * @param userName The username to check.
+     * @return A Result indicating whether the username already exists (true) or not (false).
+     */
     suspend fun checkExistsUserName(userName: String): Result<Boolean> {
         return runCatching {
             val usersRef = fireStoreDB.collection("users")
@@ -87,14 +106,14 @@ class UsuarioRepository {
         }
     }
 
-    /*
-    *
-    * exhibitionName
-    * iconColor
-    * iconImage
-    * userName
-    * */
-
+    /**
+     * Creates a new user in Firestore with the specified user details.
+     * Initially sets default icon color and image for the user.
+     * @param userName The username of the user.
+     * @param exhibitionName The display name of the user.
+     * @param email The email address of the user.
+     * @return A Result indicating success or failure of the operation.
+     */
     suspend fun createUser(userName : String, exhibitionName : String, email : String) : Result<Unit>{
         return runCatching {
             val userMap = hashMapOf(
@@ -108,6 +127,14 @@ class UsuarioRepository {
         }
     }
 
+    /**
+     * Updates the user profile with new username, exhibition name, icon color, and icon image.
+     * @param userName The new username to set.
+     * @param exhibitionName The new display name to set.
+     * @param iconColor The new icon color to set.
+     * @param iconImage The new icon image to set.
+     * @return A Result indicating success or failure of the update operation.
+     */
     suspend fun updateUser(userName : String, exhibitionName : String, iconColor : IconeCor, iconImage: IconeImagem) : Result<Unit>{
         val currentUserEmail = fireBaseAuth.currentUser?.email
         if (currentUserEmail.isNullOrEmpty()) {
@@ -125,6 +152,11 @@ class UsuarioRepository {
         }
     }
 
+    /**
+     * Retrieves the root folder ID for the current user, based on their email.
+     * @return The root folder ID as a string.
+     * @throws Exception if the user is not authenticated.
+     */
     fun getRootFolderId() : String{
         val currentUserEmail = fireBaseAuth.currentUser?.email
         if (currentUserEmail.isNullOrEmpty()) {
@@ -133,6 +165,4 @@ class UsuarioRepository {
         val rootFolderId = "root/$currentUserEmail"
         return rootFolderId
     }
-
-
 }

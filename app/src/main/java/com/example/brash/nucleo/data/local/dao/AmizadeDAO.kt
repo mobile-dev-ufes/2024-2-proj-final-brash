@@ -7,6 +7,7 @@ import androidx.room.Query
 import androidx.room.Update
 import com.example.brash.nucleo.data.local.entity.AmizadeEntity
 
+//NOT USED YET
 @Dao
 interface AmizadeDAO {
     @Query("SELECT COUNT(*) FROM Amizade")

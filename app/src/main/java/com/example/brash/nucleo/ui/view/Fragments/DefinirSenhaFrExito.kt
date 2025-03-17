@@ -13,6 +13,7 @@ import com.example.brash.databinding.NucDefinirSenhaFrExitoBinding
 import com.example.brash.nucleo.ui.view.LoginAC
 import com.example.brash.nucleo.ui.viewModel.DefinirSenhaVM
 
+//NOT USED
 
 /**
  * Fragment shown after the user successfully resets their password.
