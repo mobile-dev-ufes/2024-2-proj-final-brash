@@ -14,7 +14,9 @@ import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
+import java.time.LocalDateTime
 import java.time.ZoneId
+import java.util.Date
 
 class BaralhoRepository2 {
 
@@ -340,35 +342,84 @@ class BaralhoRepository2 {
                 "numberNewCardsPerDay" to 20,
                 "public" to false,
             )
-
             newDeckRef.update(newDeckInfo).await()
 
-            val notesQuerySnapshot = fireStoreDB.collection("notes")
-                .whereEqualTo("deckId", deckId)
-                .get().await()
+            copyNotesFromDeck(newDeckId, deckId)
 
-            for(noteDocument in notesQuerySnapshot){
-                val noteData = noteDocument.data
-
-                val newNoteRef = fireStoreDB.collection("notes").add(hashMapOf<String, Any>()).await()
-                val newNoteId = newNoteRef.id
-                val newNoteInfo = mapOf(
-                    "id" to newNoteId,
-                    "deckId" to newDeckId,
-                    "name" to noteData["name"].toString(),
-                    "text" to noteData["text"].toString(),
-                )
-                newNoteRef.set(newNoteInfo).await()
-            }
-
-
+            copyCardsFromDeck(newDeckId, deckId)
         }
     }
 
     private suspend fun copyNotesFromDeck(newDeckId : String, deckId: String){
 
+        val notesQuerySnapshot = fireStoreDB.collection("notes")
+            .whereEqualTo("deckId", deckId)
+            .get().await()
+
+        for(noteDocument in notesQuerySnapshot){
+            val noteData = noteDocument.data
+
+            val newNoteRef = fireStoreDB.collection("notes").add(hashMapOf<String, Any>()).await()
+            val newNoteId = newNoteRef.id
+            val newNoteInfo = mapOf(
+                "id" to newNoteId,
+                "deckId" to newDeckId,
+                "name" to noteData["name"].toString(),
+                "text" to noteData["text"].toString(),
+            )
+            newNoteRef.set(newNoteInfo).await()
+        }
     }
 
+    private suspend fun copyCardsFromDeck(newDeckId : String, deckId : String){
 
+        val cardsQuerySnapshot = fireStoreDB.collection("cards")
+            .whereEqualTo("deckId", deckId)
+            .get().await()
+
+        for(cardDocument in cardsQuerySnapshot){
+            val cardData = cardDocument.data
+            val cardId = cardDocument.id
+
+            val newCardRef = fireStoreDB.collection("cards").add(hashMapOf<String, Any>()).await()
+            val newCardId = newCardRef.id
+
+            val newCardInfo = mapOf(
+                "id" to newCardId,
+                "deckId" to newDeckId,
+                "answer" to cardData["answer"].toString(),
+                "categoryOfLearning" to CategoriaDoAprendizado.NOVO.name,
+                "question" to cardData["question"].toString(),
+                "reviewDate" to Timestamp(Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant())),
+                "reviewFactor" to 2.5,
+                "reviewInterval" to 0,
+            )
+            newCardRef.set(newCardInfo).await()
+
+            copyHintsFromCard(newCardId, cardId)
+        }
+
+    }
+
+    private suspend fun copyHintsFromCard(newCardId : String, cardId : String){
+
+        val hintsQuerySnapshot = fireStoreDB.collection("hints")
+            .whereEqualTo("cardId", cardId)
+            .get().await()
+
+        for(hintDocument in hintsQuerySnapshot){
+            val hintData = hintDocument.data
+
+            val newHintRef = fireStoreDB.collection("hints").add(hashMapOf<String, Any>()).await()
+            val newHintId = newHintRef.id
+
+            val newHintInfo = mapOf(
+                "id" to newHintId,
+                "cardId" to newCardId,
+                "text" to hintData["text"].toString(),
+            )
+            newHintRef.set(newHintInfo).await()
+        }
+    }
 
 }
