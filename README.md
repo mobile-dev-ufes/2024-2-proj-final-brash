@@ -42,14 +42,17 @@ Brash é destinado a:
 **Passo 1: Cadastro e Login**
 1. Crie uma conta ou faça login usando suas credenciais.
 2. Após o login, gerencie seu perfil e comece a criar seus baralhos de estudo.
+
 **Passo 2: Criando Cartões de Estudo**
 1. Crie um novo baralho (Baralho) ou escolha um baralho público existente.
 2. Adicione cartões de estudo (Cartões) com uma pergunta (pergunta) e resposta (resposta).
 3. Se desejar, crie anotações para adicionar observações ou informações adicionais ao baralho.
 4. Se desejar, crie dicas para facilitar lembrar da resposta do cartão.
+
 **Passo 3: Organizando com Pastas**
 1. Crie pastas (Pastas) para agrupar seus baralhos por tópico ou curso.
 2. Organize os baralhos em pastas específicas para melhorar a gestão e o acesso.
+
 **Passo 4: Revisando com Repetição Espaçada**
 1. Revise seus flashcards diariamente utilizando o algoritmo SuperMemo2.
 2. Avalie a dificuldade de cada flashcard para ajustar o intervalo de revisão para a próxima sessão.
@@ -70,10 +73,10 @@ O **Brash** segue uma arquitetura baseada nos padrões **MVVM (Model-View-ViewMo
 - **Gerenciamento de Dependências:** Gradle
 
 ## Melhorias Futuras
-- Pesquisa Avançada: Implementar pesquisa avançada e filtragem para baralhos e flashcards.
-- Modo Offline: Permitir acesso offline aos flashcards e sincronizar quando o usuário reconectar à internet.
-- Suporte a Múltiplos Idiomas: Estender o aplicativo para suportar vários idiomas e alcançar um público global.
-- Implementar as funcionalidades de fazer amizades entre usuários, colocações semanais baseadas em cartões revisados, visualização de estatísticas do usuário e estatísticas de baralhos específicos
+- **Pesquisa Avançada:** Implementar pesquisa avançada e filtragem para baralhos e flashcards.
+- **Modo Offline:** Permitir acesso offline aos flashcards e sincronizar quando o usuário reconectar à internet.
+- **Suporte a Múltiplos Idiomas:** Estender o aplicativo para suportar vários idiomas e alcançar um público global.
+- **Implementar as seguintes funcionalidades:** Fazer amizades entre usuários, colocações semanais baseadas em cartões revisados, visualização de estatísticas do usuário e estatísticas de baralhos específicos
 
 ## Contato
 Para mais informações, entre em contato com a equipe de desenvolvimento:
