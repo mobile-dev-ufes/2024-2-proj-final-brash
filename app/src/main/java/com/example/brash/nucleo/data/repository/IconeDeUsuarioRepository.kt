@@ -7,6 +7,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
 
+//NOT USED
 
 //data class IconeDeUsuario (
 //    val idIconeDeUsuario: Long = 0,

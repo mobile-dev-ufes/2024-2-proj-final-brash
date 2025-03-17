@@ -57,7 +57,6 @@ class CadastrarFrForm : Fragment(R.layout.nuc_cadastrar_fr_form) {
 
         val application = requireActivity().application
 
-//        cadastrarContaVM = ViewModelProvider(requireActivity()).get(CadastrarContaVM::class.java)
         cadastrarContaVM = ViewModelProvider(requireActivity(), viewModelFactory {
             CadastrarContaVM(application, MyApplication.appModule.accountService)
         }).get(CadastrarContaVM::class.java)

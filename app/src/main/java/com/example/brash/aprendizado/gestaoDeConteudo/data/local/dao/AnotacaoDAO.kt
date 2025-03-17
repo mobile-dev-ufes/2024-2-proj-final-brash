@@ -7,6 +7,8 @@ import androidx.room.Query
 import androidx.room.Update
 import com.example.brash.aprendizado.gestaoDeConteudo.data.local.entity.AnotacaoEntity
 
+//NOT USED YET
+
 @Dao
 interface AnotacaoDAO {
     @Query("SELECT COUNT(*) FROM Anotacao")

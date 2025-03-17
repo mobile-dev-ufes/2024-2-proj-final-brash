@@ -1,19 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-
     android:id="@+id/ItemBaralhoPublicoLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:padding="16dp">
 
+    <!-- Nome do baralho ocupa o máximo de espaço disponível -->
     <TextView
         android:id="@+id/ItemBaralhoPublicoTextViewNome"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:text="@string/text_view_teste"
         android:textColor="@color/white"
         android:textSize="16sp"
         android:ellipsize="end"
-        android:maxLines="2"/>
+        android:maxLines="2"
+        android:layout_marginEnd="30dp"/>
+
+    <!-- Quantidade de cartões alinhada à direita -->
+    <TextView
+        android:id="@+id/ItemBaralhoPublicoTextViewQuantidadeCartoes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/number_0"
+        android:textColor="@color/burnt_orange"
+        android:textAlignment="viewEnd"
+        android:textSize="16sp"/>
 </LinearLayout>

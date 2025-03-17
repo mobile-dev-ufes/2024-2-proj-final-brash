@@ -4,9 +4,15 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import com.example.brash.R
 import com.example.brash.aprendizado.gestaoDeConteudo.data.repository.BaralhoRepository
 import com.example.brash.aprendizado.gestaoDeConteudo.data.repository.BaralhoRepository2
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Baralho
+import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.BaralhoPublico
+import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Pasta
+import com.example.brash.nucleo.utils.UtilsFoos
+import kotlinx.coroutines.launch
 
 /**
  * ViewModel for managing and manipulating public decks in the application.
@@ -22,23 +28,41 @@ class ListarBaralhoPublicoVM(application: Application) : AndroidViewModel(applic
     val teste get() = _teste
 
     private var _listBaralhoPublicoMsg = MutableLiveData<Int>()
-    private var _baralhoPublicoList = MutableLiveData<List<Baralho>>()
+    private var _baralhoPublicoList = MutableLiveData<List<BaralhoPublico>>()
     val listBaralhoPublicoMsg get() = _listBaralhoPublicoMsg
 
-    private var _baralhoPublicoListSort = MutableLiveData<List<Baralho>>(emptyList())
+    private var _baralhoPublicoListSort = MutableLiveData<List<BaralhoPublico>>(emptyList())
     val baralhoPublicoListSort get() = _baralhoPublicoListSort
 
-    private var _baralhoPublicoEmFoco = MutableLiveData<Baralho>()
+    private var _baralhoPublicoEmFoco = MutableLiveData<BaralhoPublico>()
     val baralhoPublicoEmFoco get() = _baralhoPublicoEmFoco
 
     val baralhoRepository2 = BaralhoRepository2()
+
+    /**
+     * Retrieves a string resource from the application.
+     *
+     * @param id The resource ID of the string.
+     * @return The string corresponding to the resource ID.
+     */
+    private fun getStringApplication(id : Int) : String{
+        return getApplication<Application>().getString(id)
+    }
+
+    /**
+     * Sorts the list of folders by name and ensures that the "root" folder appears first.
+     */
+    private fun sortBaralhoPublicoList(){
+        _baralhoPublicoListSort.value = _baralhoPublicoList.value?.sortedWith(compareBy<BaralhoPublico> { it.numeroCartoesBaralho }.thenBy { it.nomeBaralho })
+    }
+
     /**
      * Retrieves all public decks from the data source (mocked for now).
      * Sets the initial list of public decks and triggers the filter update.
      */
     fun getAllBaralhosPublicos() {
 
-        _baralhoPublicoList.value = listOf(
+        /*_baralhoPublicoList.value = listOf(
             Baralho(nome =  "Alimentos"),
             Baralho(nome =  "Frutas"),
             Baralho(nome =  "VerdurasVerdurasAlimentosmorango"),
@@ -50,7 +74,25 @@ class ListarBaralhoPublicoVM(application: Application) : AndroidViewModel(applic
             Baralho(nome =  "Frutas"))
 
         Log.d("ListaPastaAdapter", "DEFINIÇÃO DAS PASTAS")
-        updateFilterBaralhoPublicoList("")
+        updateFilterBaralhoPublicoList("")*/
+        viewModelScope.launch {
+            val result = baralhoRepository2.getPublicDecks()
+
+            result
+                .onSuccess {
+                        publicos ->
+                    // A operação foi bem-sucedida, faça algo com as pastas (folders)
+                    Log.d("Pasta", "Pastas carregadas: $publicos")
+                    _baralhoPublicoList.value = publicos
+                    sortBaralhoPublicoList()
+                }
+                .onFailure {
+                    UtilsFoos.showToast(getApplication(), getStringApplication(R.string.erro_requisicao_banco_dados_firebase))
+                    Log.e("Pasta", "Erro ao carregar pastas do firebase")
+                    _baralhoPublicoList.value = emptyList()
+                }
+
+        }
     }
 
     /**
@@ -59,7 +101,7 @@ class ListarBaralhoPublicoVM(application: Application) : AndroidViewModel(applic
      *
      * @param baralho The public deck to set in focus.
      */
-    fun setBaralhoPublicoEmFoco(baralho: Baralho){
+    fun setBaralhoPublicoEmFoco(baralho: BaralhoPublico){
         baralhoPublicoEmFoco.value = baralho
         Log.d("HomeDialogs", "Defini Baralho em FOCO")
     }
@@ -81,10 +123,20 @@ class ListarBaralhoPublicoVM(application: Application) : AndroidViewModel(applic
      * @param novoNome The new name to assign to the imported deck.
      * @param onSuccess Callback to execute when the import is successful.
      */
-    fun importarBaralhoPublico(baralho: Baralho, novoNome: String, onSuccess : () -> Unit){
-        //TODO:: Fazer a requisição do firebase copiar esse baralho para a root do usuário
-        onSuccess()
+    fun importarBaralhoPublico(baralho: BaralhoPublico, novoNome: String, onSuccess : () -> Unit){
 
+        viewModelScope.launch {
+            val result = baralhoRepository2.copyToUserPublicDeck(baralho, novoNome)
+
+            result
+                .onSuccess {
+                    onSuccess()
+                }
+                .onFailure {
+                    UtilsFoos.showToast(getApplication(), getStringApplication(R.string.erro_requisicao_banco_dados_firebase))
+                }
+
+        }
     }
 
     /**
@@ -100,7 +152,7 @@ class ListarBaralhoPublicoVM(application: Application) : AndroidViewModel(applic
             _baralhoPublicoListSort.value = _baralhoPublicoList.value!!
         }
         else{
-            _baralhoPublicoListSort.value = _baralhoPublicoList.value!!.filter{it.nome.contains(filtro, ignoreCase = true)}
+            _baralhoPublicoListSort.value = _baralhoPublicoList.value!!.filter{it.nomeBaralho.contains(filtro, ignoreCase = true)}
         }
 
         // Garantindo que _cartaoListSort nunca seja nulo

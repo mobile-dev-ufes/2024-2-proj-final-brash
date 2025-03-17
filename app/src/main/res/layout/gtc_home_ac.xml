@@ -65,7 +65,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
-        android:id="@+id/ListarDicaAcLayoutHeaderResultado"
+        android:id="@+id/HomeAcLayoutHeaderResultado"
         android:layout_width="0dp"
         android:layout_height="60dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -84,13 +84,26 @@
         android:textAlignment="center"
         android:gravity="center"
         />
+    <ImageView
+        android:id="@+id/HomeAcMaisInformacoes"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/ic_info"
+        app:layout_constraintEnd_toEndOf="@+id/HomeAcLayoutHeaderResultado"
+        app:layout_constraintTop_toTopOf="@+id/HomeAcLayoutHeaderResultado"
+        app:layout_constraintBottom_toBottomOf="@+id/HomeAcLayoutHeaderResultado"
+        android:layout_marginEnd="10dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="gone"
+        />
 
     <View
         android:layout_width="0dp"
-        android:layout_height="1dp"
-        app:layout_constraintStart_toStartOf="@+id/ListarDicaAcLayoutHeaderResultado"
-        app:layout_constraintEnd_toEndOf="@+id/ListarDicaAcLayoutHeaderResultado"
-        app:layout_constraintBottom_toBottomOf="@+id/ListarDicaAcLayoutHeaderResultado"
+        android:layout_height="2dp"
+        app:layout_constraintStart_toStartOf="@+id/HomeAcLayoutHeaderResultado"
+        app:layout_constraintEnd_toEndOf="@+id/HomeAcLayoutHeaderResultado"
+        app:layout_constraintBottom_toBottomOf="@+id/HomeAcLayoutHeaderResultado"
         android:background="@color/lavender_purple"
         />
 
@@ -98,9 +111,9 @@
         android:id="@+id/HomeAcExpandableListViewResultadoBusca"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintStart_toStartOf="@+id/ListarDicaAcLayoutHeaderResultado"
-        app:layout_constraintEnd_toEndOf="@+id/ListarDicaAcLayoutHeaderResultado"
-        app:layout_constraintTop_toBottomOf="@+id/ListarDicaAcLayoutHeaderResultado"
+        app:layout_constraintStart_toStartOf="@+id/HomeAcLayoutHeaderResultado"
+        app:layout_constraintEnd_toEndOf="@+id/HomeAcLayoutHeaderResultado"
+        app:layout_constraintTop_toBottomOf="@+id/HomeAcLayoutHeaderResultado"
         app:layout_constraintBottom_toTopOf="@+id/HomeAcButtonAcoesAdicionais"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="20dp"

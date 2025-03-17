@@ -6,8 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.ViewModelProvider
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.ListarBaralhoPublicoAC
+import com.example.brash.aprendizado.gestaoDeConteudo.ui.viewModel.HomeVM
 import com.example.brash.databinding.GtcHomeFrAcoesAdicionaisBinding
+import com.example.brash.utilsGeral.AppVM
+import com.example.brash.utilsGeral.MyApplication
 
 /**
  * A DialogFragment that provides additional actions for the user, such as creating a deck, creating a folder,
@@ -17,28 +21,62 @@ import com.example.brash.databinding.GtcHomeFrAcoesAdicionaisBinding
  */
 class AcoesAdicionaisFrDialog : DialogFragment() {
 
+    // ViewBinding to interact with the views in the layout
     private var _binding: GtcHomeFrAcoesAdicionaisBinding? = null
     private val binding get() = _binding!!
+    // ViewModel for managing data related to "Baralho" (Deck)
+    lateinit var homeVM: HomeVM
+    // ViewModel for managing application-wide shared data
+    private lateinit var appVM: AppVM
 
+
+    /**
+     * Inflates the fragment's layout using ViewBinding and returns the root view.
+     *
+     * @param inflater The LayoutInflater used to inflate the layout.
+     * @param container The container to attach the view to.
+     * @param savedInstanceState The saved instance state.
+     * @return The root view of the fragment.
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflar o layout com ViewBinding
+        // Inflate the layout using ViewBinding
         _binding = GtcHomeFrAcoesAdicionaisBinding.inflate(inflater, container, false)
         return binding.root
     }
 
+    /**
+     * Called after the view is created. Sets up the click listeners for the various actions.
+     *
+     * @param view The root view of the fragment's layout.
+     * @param savedInstanceState The saved instance state.
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        // Initialize the ViewModels
+        homeVM = ViewModelProvider(requireActivity())[HomeVM::class.java]
+        appVM = (requireActivity().application as MyApplication).appSharedInformation
+
+
+        appVM.setNomesDeBaralhosDoUsuarioList(homeVM.getNomesDeBaralho())
 
         setOnClickListeners()
     }
 
+    /**
+     * Placeholder method for setting observers for the ViewModel (currently unused).
+     */
     private fun setObservers(){
 
     }
 
+    /**
+     * Sets up the click listeners for the actions provided in the dialog.
+     * Each option performs a specific action, such as creating a deck, creating a folder,
+     * or browsing public decks.
+     */
     private fun setOnClickListeners(){
 
         binding.HomeFrOpcoesAdicionaisTextViewCriarBaralho.setOnClickListener {
@@ -55,14 +93,15 @@ class AcoesAdicionaisFrDialog : DialogFragment() {
             dismiss()
             intentToListarBaralhoPublicoAc()
         }
-
     }
 
+    // When the "Create Deck" option is clicked, dismiss the current dialog and show the "Create Deck" dialog
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null // Evita vazamento de memória
+        _binding = null // Avoid memory leaks
     }
 
+    // When the "Create Folder" option is clicked, dismiss the current dialog and show the "Create Folder" dialog
     private fun intentToListarBaralhoPublicoAc(){
         val intent = Intent(requireContext(), ListarBaralhoPublicoAC::class.java)
         startActivity(intent)

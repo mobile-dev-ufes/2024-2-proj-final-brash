@@ -3,6 +3,8 @@ package com.example.brash.aprendizado.gestaoDeAuxilioDeAprendizado.domain.model
 import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.Baralho
 import java.time.LocalDateTime
 
+//NOT USED YET
+
 // Data class RelatorioDoBaralho que herda de Relatorio
 data class RelatorioDoBaralho(
     val baralho: Baralho,  // Adiciona a propriedade baralho

@@ -1,5 +1,7 @@
 package com.example.brash.aprendizado.gestaoDeAuxilioDeAprendizado.data.local.entity
 
+//NOT USED YET
+
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey

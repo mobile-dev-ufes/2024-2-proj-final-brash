@@ -8,6 +8,8 @@ import com.example.brash.aprendizado.gestaoDeConteudo.data.local.entity.BaralhoE
 import com.example.brash.nucleo.data.local.entity.UsuarioEntity
 import java.time.LocalDateTime
 
+//NOT USED YET
+
 @Entity(tableName="Relatorio",
     foreignKeys = [
         ForeignKey(

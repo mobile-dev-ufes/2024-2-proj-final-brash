@@ -7,6 +7,8 @@ import androidx.room.Query
 import androidx.room.Update
 import com.example.brash.aprendizado.gestaoDeConteudo.data.local.entity.PastaEntity
 
+//NOT USED YET
+
 @Dao
 interface PastaDAO {
     @Query("SELECT COUNT(*) FROM Pasta")

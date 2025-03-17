@@ -17,6 +17,7 @@ import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments.AcoesAdi
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments.AcoesBaralhoFrDialog
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments.AcoesPastaFrDialog
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.adapter.ListaExpandableAdapter
+import com.example.brash.aprendizado.gestaoDeConteudo.utils.showCartoesAllInfoDialog
 import com.example.brash.nucleo.ui.view.Fragments.AlertDialogFr
 import com.example.brash.nucleo.utils.getSavedLanguage
 import com.example.brash.nucleo.utils.setAppLocale
@@ -87,6 +88,9 @@ class HomeAC : AppCompatActivity(), AlertDialogFr.OnConfirmListener {
         binding.HomeAcImageViewConfiguracoes.setOnClickListener{
             intentToConfiguracaoActivity()
         }
+        binding.HomeAcMaisInformacoes.setOnClickListener{
+            showCartoesAllInfoDialog(this)
+        }
     }
     /**
      * Sets up the observers for LiveData from the ViewModel.
@@ -104,6 +108,9 @@ class HomeAC : AppCompatActivity(), AlertDialogFr.OnConfirmListener {
             binding.HomeAcShapeableImageViewIconePerfil.setBackgroundResource(it.iconeDeUsuario.cor.colorRes)
         })
 
+        appVM.updateHomeAC.observe(this, Observer{
+            homeVM.getAllHomeAcListItem()
+        })
         /*
         perfilVM.imagemEmFoco.observe(this, Observer { imagem ->
             imagem?.let { binding.EditarPerfilAcShapeableImageViewIconePerfil.setImageResource(it.drawableRes) }

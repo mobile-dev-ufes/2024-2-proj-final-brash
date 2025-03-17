@@ -32,7 +32,7 @@
     <string name="nuc_msg_default_erro_cadastro">The username or email is already used.</string>
     <string name="nuc_mesagem_confirmacao_envio_email">A verification code was sent to your email</string>
     <string name="nuc_codigo">Verification code</string>
-    <string name="nuc_msg_confirmacao_criacao_conta_default">Your account was successfully created, go and log in.</string>
+    <string name="nuc_msg_confirmacao_criacao_conta_default">Your account has been successfully created. Please check your email to complete the registration.</string>
     <string name="nuc_fazer_login">Log in</string>
     <string name="nuc_preencha_todos_campos">Complete all the input fields!</string>
     <string name="nuc_digite_email_valido">Type a valid email!</string>
@@ -174,10 +174,13 @@
     <string name="gtc_nome_unico_baralho">Type a unique deck name</string>
     <string name="gtc_numero_cartoes_maior_que_zero">Number of new cards must be greater than 0</string>
     <string name="gtc_nome_unico_pasta">Type a unique name for the folder</string>
+    <string name="gtc_nome_unico_anotacao">Type a unique name for the note</string>
     <string name="gtc_pasta_contem_baralhos">This folder contains decks</string>
 
     <string name="erro_requisicao_banco_dados_firebase">An error occurred while making the request to the Brash system database.</string>
     <string name="erro_de_conexao">Check your internet connection</string>
+    <string name="quantidades_cartoes">Number of Cards</string>
+    <string name="sem_cartoes_para_revisar">There are no cards to review for this deck.</string>
 
 
 </resources>

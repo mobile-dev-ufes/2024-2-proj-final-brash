@@ -11,6 +11,8 @@ import com.example.brash.R
 import com.example.brash.databinding.NucDefinirSenhaFrNovaSenhaBinding
 import com.example.brash.nucleo.ui.viewModel.DefinirSenhaVM
 
+//NOT USED
+
 /**
  * Fragment for allowing the user to set a new password during the password reset process.
  *

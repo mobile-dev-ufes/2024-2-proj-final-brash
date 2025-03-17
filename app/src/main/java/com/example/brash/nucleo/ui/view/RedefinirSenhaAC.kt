@@ -105,6 +105,5 @@ class RedefinirSenhaAC : AppCompatActivity(), View.OnClickListener {
                 finish()
             }
         }
-
     }
 }

@@ -6,6 +6,8 @@ import androidx.room.PrimaryKey
 import androidx.room.ForeignKey
 import java.time.LocalDateTime
 
+//NOT USED YET
+
 @Entity(tableName="Cartao",
     foreignKeys = [
         ForeignKey(

@@ -1,7 +1,5 @@
 package com.example.brash.nucleo.data.local.dao
 
-
-
 //import androidx.room.*
 import androidx.room.Dao
 import androidx.room.Delete
@@ -10,6 +8,7 @@ import androidx.room.Query
 import androidx.room.Update
 import com.example.brash.nucleo.data.local.entity.UsuarioEntity
 
+//NOT USED YET
 @Dao
 interface UsuarioDAO {
     @Query("SELECT COUNT(*) FROM Usuario")

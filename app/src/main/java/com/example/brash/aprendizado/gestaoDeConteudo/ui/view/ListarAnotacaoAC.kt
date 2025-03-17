@@ -78,6 +78,7 @@ class ListarAnotacaoAC : AppCompatActivity() {
 
         appVM.baralhoEmAC.value?.let {
             listarAnotacaoVM.setBaralhoOwner(it)
+            binding.ListarAnotacaoAcTextViewTitulo.text = it.nome
         } ?: run {
             //Toast.makeText(applicationContext, "Baralho não encontrado para obter anotacoes.", Toast.LENGTH_SHORT).show()
         }

@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.ForeignKey
 
-
+//NOT USED YET
 @Entity(tableName="IconeDeUsuario",
     foreignKeys = [
         ForeignKey(

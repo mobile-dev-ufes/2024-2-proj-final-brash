@@ -132,7 +132,7 @@ class ListarDicaVM(application: Application) : AndroidViewModel(application) {
                         onSuccess()
                     }
                     .onFailure { e->
-                        UtilsFoos.showToast(getApplication(), e.toString())
+                        //UtilsFoos.showToast(getApplication(), e.toString())
                         UtilsFoos.showToast(getApplication(), getStringApplication(R.string.erro_requisicao_banco_dados_firebase))
                         //UtilsFoos.showToast(getApplication(),"Ocorreu algum erro na criação do cartão:: ${e}")
                         Log.e("ListarDicaVM", "Ocorreu algum erro na criação do cartão:: ${e}")

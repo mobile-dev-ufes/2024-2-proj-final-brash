@@ -5,10 +5,15 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.brash.R
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.viewModel.ListarBaralhoPublicoVM
 import com.example.brash.databinding.GtcListarBaralhoPublicoFrImportarBaralhoBinding
+import com.example.brash.nucleo.utils.UtilsFoos
+import com.example.brash.utilsGeral.AppVM
+import com.example.brash.utilsGeral.MyApplication
 
 /**
  * A DialogFragment that allows the user to import a public deck ("Baralho Público").
@@ -17,13 +22,13 @@ import com.example.brash.databinding.GtcListarBaralhoPublicoFrImportarBaralhoBin
  *
  * @constructor Creates an instance of `ImportarBaralhoPublicoFrDialog`.
  */
-class ImportarBaralhoPublicoFrDialog() : DialogFragment() {
+class ImportarBaralhoPublicoFrDialog(val onSuccess : () -> Unit) : DialogFragment() {
 
     private var _binding: GtcListarBaralhoPublicoFrImportarBaralhoBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var listarBaralhoPublicoVM: ListarBaralhoPublicoVM
-
+    private lateinit var appVM: AppVM
     /**
      * Inflates the layout for the fragment and initializes the view binding.
      *
@@ -54,11 +59,11 @@ class ImportarBaralhoPublicoFrDialog() : DialogFragment() {
         // Agora a ViewModel está sendo recuperada corretamente
         listarBaralhoPublicoVM = ViewModelProvider(requireActivity())[ListarBaralhoPublicoVM::class.java]
         //Log.d("HomeDialogs", "homeVM iniciado")
-
+        appVM = (requireActivity().application as MyApplication).appSharedInformation
         listarBaralhoPublicoVM.baralhoPublicoEmFoco.value?.let {
             // Se o valor não for null, preenche os campos
-            binding.ListarBaralhoPublicoFrImportarBaralhoInputNovoNome.setText(it.nome)
-            binding.ListarBaralhoPublicoFrImportarBaralhoTextViewNomeOriginal.text = it.nome
+            binding.ListarBaralhoPublicoFrImportarBaralhoInputNovoNome.setText(it.nomeBaralho)
+            binding.ListarBaralhoPublicoFrImportarBaralhoTextViewNomeOriginal.text = it.nomeBaralho
         } ?: run {
             // Se o valor for null, exibe uma mensagem de erro
             //Toast.makeText(requireContext(), "Erro: Baralho não encontrado em VisualizarBaralhoHome!", Toast.LENGTH_SHORT).show()
@@ -92,16 +97,24 @@ class ImportarBaralhoPublicoFrDialog() : DialogFragment() {
             dismiss()
         }
         binding.ListarBaralhoPublicoFrImportarBaralhoButtonImportar.setOnClickListener{
-            //TODO:: Lógica de importar/copiar baralho
+
             listarBaralhoPublicoVM.baralhoPublicoEmFoco.value?.let { it1 ->
                 val novoNome = binding.ListarBaralhoPublicoFrImportarBaralhoInputNovoNome.text.toString()
-                listarBaralhoPublicoVM.importarBaralhoPublico(it1, novoNome) {
-                    //Toast.makeText(requireContext(), "Baralho público importado", Toast.LENGTH_SHORT).show()
-                    dismiss()
+                if(appVM.verificaNomeDeBaralhoUnico(novoNome)){
+                    listarBaralhoPublicoVM.importarBaralhoPublico(it1, novoNome) {
+                        //Toast.makeText(requireContext(), "Baralho público importado", Toast.LENGTH_SHORT).show()
+                        onSuccess()
+                        appVM.updateHomeRecycleView()
+                        dismiss()
+                    }
                 }
+                else{
+                    UtilsFoos.showToast(requireContext(), getString(R.string.gtc_nome_unico_baralho))
+                }
+
             } ?: run {
                 //Toast.makeText(requireContext(), "Nenhum baralho selecionado", Toast.LENGTH_SHORT).show()
-                dismiss()
+                //dismiss()
             }
         }
 

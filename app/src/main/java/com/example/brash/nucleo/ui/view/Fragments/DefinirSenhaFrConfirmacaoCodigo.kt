@@ -10,6 +10,8 @@ import com.example.brash.R
 import com.example.brash.databinding.NucDefinirSenhaFrConfirmacaoCodigoBinding
 import com.example.brash.nucleo.ui.viewModel.DefinirSenhaVM
 
+//NOT USED
+
 /**
  * Fragment to handle verifying the password reset code entered by the user.
  *

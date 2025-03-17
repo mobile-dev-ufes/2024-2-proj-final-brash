@@ -68,8 +68,8 @@ class VisualizarBaralhoPublicoFrDialog() : DialogFragment() {
 
         listarBaralhoPublicoVM.baralhoPublicoEmFoco.value?.let {
             // Se o valor não for null, preenche os campos
-            binding.ListarBaralhoPublicoFrVisualizarBaralhoInputTitulo.setText(it.nome)
-            binding.ListarBaralhoPublicoFrVisualizarBaralhoInputDescricao.setText(it.descricao)
+            binding.ListarBaralhoPublicoFrVisualizarBaralhoInputTitulo.setText(it.nomeBaralho)
+            binding.ListarBaralhoPublicoFrVisualizarBaralhoInputDescricao.setText(it.descricaoBaralho)
             //binding.Listar HomeFrVisualizarBaralhoInputDescricao.setText(it.descricao)
             //binding.HomeFrVisualizarBaralhoInputCartoesNovos.setText(String.format(it.cartoesNovosPorDia.toString()))
         } ?: run {
@@ -108,7 +108,9 @@ class VisualizarBaralhoPublicoFrDialog() : DialogFragment() {
             dismiss()
         }
         binding.ListarBaralhoPublicoFrVisualizarBaralhoButtonImportar.setOnClickListener{
-            ImportarBaralhoPublicoFrDialog().show(parentFragmentManager, "ImportarBaralhoPublicoFrDialog")
+            ImportarBaralhoPublicoFrDialog({
+                dismiss()
+            }).show(childFragmentManager, "ImportarBaralhoPublicoFrDialog")
         }
 
     }

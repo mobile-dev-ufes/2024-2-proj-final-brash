@@ -32,9 +32,29 @@ class AppVM(application: Application) : AndroidViewModel(application) {
     val cartaoEmAC get() = _cartaoEmAC
     val baralhoEmAC get() = _baralhoEmAC
 
+    private var _nomesDeBaralhosDoUsuarioList = MutableLiveData<List<String>>()
+    val nomesDeBaralhosDoUsuarioList get() = _nomesDeBaralhosDoUsuarioList
+    fun setNomesDeBaralhosDoUsuarioList(nomes: List<String>){
+        _nomesDeBaralhosDoUsuarioList.value = nomes
+    }
+    fun verificaNomeDeBaralhoUnico(nome:String): Boolean{
+        _nomesDeBaralhosDoUsuarioList.value?.forEach { n ->
+            if (n == nome) {
+                return false
+            }
+        }
+        return true
+    }
+
+    private var _updateHomeAC = MutableLiveData<Boolean>(true)
+    val updateHomeAC get() = _updateHomeAC
+
     val usuarioRepository = UsuarioRepository()
     private val auth = FirebaseAuth.getInstance()
 
+    fun updateHomeRecycleView(){
+        _updateHomeAC.value = !_updateHomeAC.value!!
+    }
     /**
      * Retrieves a string resource from the application context.
      *
@@ -56,23 +76,23 @@ class AppVM(application: Application) : AndroidViewModel(application) {
      */
     fun updateUsuarioLogado(userName : String, exhibitionName : String, iconColor : IconeCor, iconImage: IconeImagem, onSuccess : () -> Unit) {
         viewModelScope.launch {
-            if (processaInfoUser(userName, exhibitionName)) {
-                if (_usuarioLogado.value!!.nomeDeUsuario == userName) {
-                    atualizaUsuario(userName, exhibitionName, iconColor, iconImage, {
-                        onSuccess()
-                    })
-                } else {
-                    val result = usuarioRepository.checkExistsUserName(userName)
-                    result.onSuccess {
-                        atualizaUsuario(userName, exhibitionName, iconColor, iconImage, {
-                            onSuccess()
-                        })
-                    }.onFailure { e ->
-                        UtilsFoos.showToast(
-                            getApplication(),
-                            getStringApplication(R.string.erro_requisicao_banco_dados_firebase)
-                        )
-                    }
+            if (processaInfoUser(userName, exhibitionName) &&
+                (_usuarioLogado.value!!.nomeDeUsuario == userName || verificaNomeDeUsuarioUnico(userName))
+                ) {
+
+                val result2 = usuarioRepository.updateUser(userName, exhibitionName, iconColor, iconImage)
+                result2.onSuccess {
+                    _usuarioLogado.value = Usuario(
+                        nomeDeUsuario = userName,
+                        nomeDeExibicao = exhibitionName,
+                        iconeDeUsuario = IconeDeUsuario(iconColor, iconImage)
+                    )
+                    onSuccess()
+                }.onFailure { e ->
+                    UtilsFoos.showToast(
+                        getApplication(),
+                        getStringApplication(R.string.erro_requisicao_banco_dados_firebase)
+                    )
                 }
             }
         }
@@ -90,9 +110,7 @@ class AppVM(application: Application) : AndroidViewModel(application) {
     private suspend fun atualizaUsuario(userName : String, exhibitionName : String, iconColor : IconeCor, iconImage: IconeImagem, onSuccess : () -> Unit) {
 
         if (processaInfoUser(userName, exhibitionName)) {
-            val result2 = usuarioRepository.updateUser(
-                userName, exhibitionName, iconColor, iconImage
-            )
+            val result2 = usuarioRepository.updateUser(userName, exhibitionName, iconColor, iconImage)
             result2.onSuccess {
                 _usuarioLogado.value = Usuario(
                     nomeDeUsuario = userName,
@@ -116,24 +134,26 @@ class AppVM(application: Application) : AndroidViewModel(application) {
      * @param exhibitionName The display name.
      * @return `true` if the input is valid, `false` otherwise.
      */
-    suspend fun processaInfoUser(userName : String, exhibitionName : String): Boolean {
+    fun processaInfoUser(userName : String, exhibitionName : String): Boolean {
+
+        if (userName.isEmpty() || exhibitionName.isEmpty()) {
+            UtilsFoos.showToast(getApplication(), getStringApplication(R.string.nuc_preencha_todos_campos))
+            return false
+        }
+
+
+        return true
+    }
+
+    suspend fun verificaNomeDeUsuarioUnico(userName: String): Boolean{
         val userExists = usuarioRepository.checkExistsUserName(userName)
         userExists.onSuccess { exists ->
             if (exists) {
-                UtilsFoos.showToast(
-                    getApplication(),
-                    getStringApplication(R.string.nuc_msg_erro_nome_usuario_ja_cadastrado)
-                )
+                UtilsFoos.showToast(getApplication(), getStringApplication(R.string.nuc_msg_erro_nome_usuario_ja_cadastrado))
                 return false
             }
         }
-        if (userName.isEmpty() || exhibitionName.isEmpty()) {
-            UtilsFoos.showToast(
-                getApplication(),
-                getStringApplication(R.string.nuc_preencha_todos_campos)
-            )
-            return false
-        }
+
         return true
     }
 

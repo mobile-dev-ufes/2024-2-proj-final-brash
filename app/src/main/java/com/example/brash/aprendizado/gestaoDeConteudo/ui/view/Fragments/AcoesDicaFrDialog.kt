@@ -20,46 +20,73 @@ import com.example.brash.utilsGeral.UtilsGeral
  */
 class AcoesDicaFrDialog() : DialogFragment() {
 
+    // Binding object for accessing views from the layout using ViewBinding
     private var _binding: GtcListarDicaFrAcoesDicaBinding? = null
     private val binding get() = _binding!!
 
-
+    // ViewModel for managing data related to "Dica" (Tip)
     private lateinit var listarDicaVM: ListarDicaVM
 
+    /**
+     * Inflates the fragment's layout using ViewBinding and returns the root view.
+     *
+     * @param inflater The LayoutInflater used to inflate the layout.
+     * @param container The container to attach the view to.
+     * @param savedInstanceState The saved instance state.
+     * @return The root view of the fragment.
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflar o layout com ViewBinding
+        // Inflate the layout using ViewBinding
         _binding = GtcListarDicaFrAcoesDicaBinding.inflate(inflater, container, false)
         return binding.root
     }
 
+    /**
+     * Called after the view has been created. Initializes the ViewModel and sets up click listeners.
+     *
+     * @param view The root view of the fragment's layout.
+     * @param savedInstanceState The saved instance state.
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Agora a ViewModel está sendo recuperada corretamente
+        // Initialize the ViewModel for managing tips
         listarDicaVM = ViewModelProvider(requireActivity())[ListarDicaVM::class.java]
 
         setOnClickListeners()
 
     }
 
+    /**
+     * Placeholder for setting up observers for the ViewModel (currently unused).
+     */
     private fun setObservers(){
 
     }
 
+    /**
+     * Sets up the click listeners for the "view" and "delete" actions related to the tip.
+     * The delete action triggers a confirmation dialog before proceeding.
+     */
     private fun setOnClickListeners(){
 
+        // When the "View Tip" option is clicked, dismiss the current dialog and show the "View Tip" dialog
         binding.ListarDicaFrAcoesDicaTextViewVisualizarDica.setOnClickListener {
             dismiss()
+            // Check if the activity is still running, then show the "View Tip" dialog
             if (!activity?.isFinishing!! && !activity?.isDestroyed!!) {
                 Log.d("HomeDialogs", "Tentando mostrar o diálogo visualizarDica")
                 VisualizarDicaFrDialog().show(parentFragmentManager, "VisualizarDicaDialog")
             }
         }
+        // When the "Delete Tip" option is clicked, show a confirmation dialog
         binding.ListarDicaFrAcoesDicaTextViewExcluirDica.setOnClickListener {
+            // Show a confirmation dialog before deleting the tip
             UtilsGeral.showAlertDialog(requireContext(),"Deseja realmente excluir essa Dica??",{
+                // If a tip is selected, delete it using the ViewModel
                 listarDicaVM.dicaEmFoco.value?.let { dica ->
                     listarDicaVM.excluirDica(dica){
                         dismiss()
@@ -72,8 +99,11 @@ class AcoesDicaFrDialog() : DialogFragment() {
         }
     }
 
+    /**
+     * Cleans up the binding to avoid memory leaks when the view is destroyed.
+     */
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null // Evita vazamento de memória
+        _binding = null // Avoid memory leaks
     }
 }

@@ -99,9 +99,24 @@ fun showCartoesInfoDialog(context: Context) {
     // Cria o AlertDialog
     val alertDialog = AlertDialog.Builder(context)
         .setView(dialogView)
-        .setPositiveButton("OK") { dialog, _ ->
-            dialog.dismiss()
-        }
+        .create()
+
+    // Exibe o AlertDialog
+    alertDialog.show()
+}
+
+/**
+ * Displays an informational dialog with the description of the revision colors in HomeAC.
+ *
+ * @param context The context in which the dialog is displayed.
+ */
+fun showCartoesAllInfoDialog(context: Context) {
+    // Infla o layout do Dialog
+    val dialogView = LayoutInflater.from(context).inflate(R.layout.alert_dialog_descricao_cores_do_cartao, null)
+
+    // Cria o AlertDialog
+    val alertDialog = AlertDialog.Builder(context)
+        .setView(dialogView)
         .create()
 
     // Exibe o AlertDialog
