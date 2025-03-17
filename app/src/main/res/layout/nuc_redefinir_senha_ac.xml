@@ -57,7 +57,7 @@
                 app:endIconMode="clear_text"
                 app:suffixText="*"
                 app:suffixTextColor="@color/bright_red"
-                android:textColorHint="@color/deep_purple"
+                android:textColorHint="@color/medium_gray"
 
                 app:boxStrokeWidth="1dp"
                 app:boxBackgroundColor="@color/white"

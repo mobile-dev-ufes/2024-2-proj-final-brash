@@ -35,7 +35,7 @@
             android:hint="@string/nuc_email"
             android:textSize="16sp"
             app:endIconMode="clear_text"
-
+            android:textColorHint="@color/medium_gray"
             app:boxStrokeWidth="1dp"
             app:boxBackgroundColor="@color/white"
             >
