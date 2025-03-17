@@ -124,9 +124,19 @@ class ListarBaralhoPublicoVM(application: Application) : AndroidViewModel(applic
      * @param onSuccess Callback to execute when the import is successful.
      */
     fun importarBaralhoPublico(baralho: BaralhoPublico, novoNome: String, onSuccess : () -> Unit){
-        //TODO:: Fazer a requisição do firebase copiar esse baralho para a root do usuário
-        onSuccess()
 
+        viewModelScope.launch {
+            val result = baralhoRepository2.copyToUserPublicDeck(baralho, novoNome)
+
+            result
+                .onSuccess {
+                    onSuccess()
+                }
+                .onFailure {
+                    UtilsFoos.showToast(getApplication(), getStringApplication(R.string.erro_requisicao_banco_dados_firebase))
+                }
+
+        }
     }
 
     /**

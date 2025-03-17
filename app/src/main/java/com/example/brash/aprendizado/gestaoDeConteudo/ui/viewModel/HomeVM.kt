@@ -154,6 +154,17 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
             add(pasta)
         }
     }
+
+    fun getNomesDeBaralho(): List<String>{
+        val nomes = mutableListOf<String>()
+        _pastaList.value?.forEach { pasta ->
+            pasta.baralhos.forEach { baralho ->
+                nomes.add(baralho.nome)
+            }
+        }
+
+        return nomes
+    }
     /**
      * Initializes the list of HomeAcListItems (folders and decks).
      *

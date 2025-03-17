@@ -108,6 +108,9 @@ class HomeAC : AppCompatActivity(), AlertDialogFr.OnConfirmListener {
             binding.HomeAcShapeableImageViewIconePerfil.setBackgroundResource(it.iconeDeUsuario.cor.colorRes)
         })
 
+        appVM.updateHomeAC.observe(this, Observer{
+            homeVM.getAllHomeAcListItem()
+        })
         /*
         perfilVM.imagemEmFoco.observe(this, Observer { imagem ->
             imagem?.let { binding.EditarPerfilAcShapeableImageViewIconePerfil.setImageResource(it.drawableRes) }

@@ -32,9 +32,29 @@ class AppVM(application: Application) : AndroidViewModel(application) {
     val cartaoEmAC get() = _cartaoEmAC
     val baralhoEmAC get() = _baralhoEmAC
 
+    private var _nomesDeBaralhosDoUsuarioList = MutableLiveData<List<String>>()
+    val nomesDeBaralhosDoUsuarioList get() = _nomesDeBaralhosDoUsuarioList
+    fun setNomesDeBaralhosDoUsuarioList(nomes: List<String>){
+        _nomesDeBaralhosDoUsuarioList.value = nomes
+    }
+    fun verificaNomeDeBaralhoUnico(nome:String): Boolean{
+        _nomesDeBaralhosDoUsuarioList.value?.forEach { n ->
+            if (n == nome) {
+                return false
+            }
+        }
+        return true
+    }
+
+    private var _updateHomeAC = MutableLiveData<Boolean>(true)
+    val updateHomeAC get() = _updateHomeAC
+
     val usuarioRepository = UsuarioRepository()
     private val auth = FirebaseAuth.getInstance()
 
+    fun updateHomeRecycleView(){
+        _updateHomeAC.value = !_updateHomeAC.value!!
+    }
     /**
      * Retrieves a string resource from the application context.
      *

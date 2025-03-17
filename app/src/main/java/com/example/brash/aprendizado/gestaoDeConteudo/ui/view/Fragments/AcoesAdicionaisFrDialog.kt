@@ -6,8 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.ViewModelProvider
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.ListarBaralhoPublicoAC
+import com.example.brash.aprendizado.gestaoDeConteudo.ui.viewModel.HomeVM
 import com.example.brash.databinding.GtcHomeFrAcoesAdicionaisBinding
+import com.example.brash.utilsGeral.AppVM
+import com.example.brash.utilsGeral.MyApplication
 
 /**
  * A DialogFragment that provides additional actions for the user, such as creating a deck, creating a folder,
@@ -20,6 +24,11 @@ class AcoesAdicionaisFrDialog : DialogFragment() {
     // ViewBinding to interact with the views in the layout
     private var _binding: GtcHomeFrAcoesAdicionaisBinding? = null
     private val binding get() = _binding!!
+    // ViewModel for managing data related to "Baralho" (Deck)
+    lateinit var homeVM: HomeVM
+    // ViewModel for managing application-wide shared data
+    private lateinit var appVM: AppVM
+
 
     /**
      * Inflates the fragment's layout using ViewBinding and returns the root view.
@@ -46,6 +55,12 @@ class AcoesAdicionaisFrDialog : DialogFragment() {
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        // Initialize the ViewModels
+        homeVM = ViewModelProvider(requireActivity())[HomeVM::class.java]
+        appVM = (requireActivity().application as MyApplication).appSharedInformation
+
+
+        appVM.setNomesDeBaralhosDoUsuarioList(homeVM.getNomesDeBaralho())
 
         setOnClickListeners()
     }

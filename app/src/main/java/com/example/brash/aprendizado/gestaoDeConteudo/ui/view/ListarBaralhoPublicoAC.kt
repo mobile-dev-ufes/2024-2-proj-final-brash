@@ -14,6 +14,7 @@ import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.adapter.ListaBaral
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.listener.OnBaralhoPublicoListener
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.viewModel.ListarBaralhoPublicoVM
 import com.example.brash.databinding.GtcListarBaralhoPublicoAcBinding
+import com.example.brash.utilsGeral.MyApplication
 
 /**
  * Activity for listing public decks and allowing interaction with them.
@@ -29,7 +30,6 @@ class ListarBaralhoPublicoAC : AppCompatActivity() {
 
     private lateinit var binding: GtcListarBaralhoPublicoAcBinding
     private lateinit var listarBaralhoPublicoVM: ListarBaralhoPublicoVM
-
     private lateinit var recyclerView: RecyclerView
 
     private lateinit var adapter : ListaBaralhoPublicoAdapter
@@ -50,7 +50,6 @@ class ListarBaralhoPublicoAC : AppCompatActivity() {
         setContentView(binding.root)
 
         listarBaralhoPublicoVM = ViewModelProvider(this)[ListarBaralhoPublicoVM::class.java]
-
 
         // Inicializando o listener diretamente
         val listener = object : OnBaralhoPublicoListener {
