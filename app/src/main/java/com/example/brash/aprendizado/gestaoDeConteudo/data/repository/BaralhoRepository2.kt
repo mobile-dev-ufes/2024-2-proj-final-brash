@@ -13,6 +13,10 @@ import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.tasks.await
 import java.time.LocalDateTime
 import java.time.ZoneId
@@ -319,20 +323,18 @@ class BaralhoRepository2 {
     }
 
 
-    suspend fun copyToUserPublicDeck(publicDeck : BaralhoPublico, newDeckName : String) : Result<Unit>{
+    suspend fun copyToUserPublicDeck(publicDeck: BaralhoPublico, newDeckName: String): Result<Unit> {
         val currentUserEmail = fireBaseAuth.currentUser?.email
             ?: return Result.failure(Throwable("Usuário não autenticado"))
 
         return runCatching {
-
             val deckSnapshot = fireStoreDB.collection("decks").document(publicDeck.idBaralho).get().await()
-            val deckData = deckSnapshot.data ?: return Result.failure(Exception("Erro ao pegar data de baralho (copyToUserPublicDeck::BaralhoRepository2)"))
+            val deckData = deckSnapshot.data ?: return Result.failure(Exception("Erro ao pegar dados do baralho"))
 
             val deckId = publicDeck.idBaralho
 
             val newDeckRef = fireStoreDB.collection("decks").add(hashMapOf<String, Any>()).await()
             val newDeckId = newDeckRef.id
-
 
             val newDeckInfo = mapOf(
                 "id" to newDeckId,
@@ -342,84 +344,90 @@ class BaralhoRepository2 {
                 "numberNewCardsPerDay" to 20,
                 "public" to false,
             )
-            newDeckRef.update(newDeckInfo).await()
+            newDeckRef.set(newDeckInfo).await()
 
-            copyNotesFromDeck(newDeckId, deckId)
-
-            copyCardsFromDeck(newDeckId, deckId)
+            coroutineScope {
+                val copyNotes = async { copyNotesFromDeck(newDeckId, deckId) }
+                val copyCards = async { copyCardsFromDeck(newDeckId, deckId) }
+                copyNotes.await()
+                copyCards.await()
+            }
         }
     }
 
-    private suspend fun copyNotesFromDeck(newDeckId : String, deckId: String){
-
-        val notesQuerySnapshot = fireStoreDB.collection("notes")
+    private suspend fun copyNotesFromDeck(newDeckId: String, deckId: String) {
+        val notesSnapshot = fireStoreDB.collection("notes")
             .whereEqualTo("deckId", deckId)
             .get().await()
 
-        for(noteDocument in notesQuerySnapshot){
-            val noteData = noteDocument.data
+        val batch = fireStoreDB.batch()
 
+        for (note in notesSnapshot) {
             val newNoteRef = fireStoreDB.collection("notes").add(hashMapOf<String, Any>()).await()
-            val newNoteId = newNoteRef.id
             val newNoteInfo = mapOf(
-                "id" to newNoteId,
+                "id" to newNoteRef.id,
                 "deckId" to newDeckId,
-                "name" to noteData["name"].toString(),
-                "text" to noteData["text"].toString(),
+                "name" to note.getString("name"),
+                "text" to note.getString("text"),
             )
-            newNoteRef.set(newNoteInfo).await()
+            batch.set(newNoteRef, newNoteInfo)
         }
+
+        batch.commit().await()
     }
 
-    private suspend fun copyCardsFromDeck(newDeckId : String, deckId : String){
-
-        val cardsQuerySnapshot = fireStoreDB.collection("cards")
+    private suspend fun copyCardsFromDeck(newDeckId: String, deckId: String) = coroutineScope {
+        val cardsSnapshot = fireStoreDB.collection("cards")
             .whereEqualTo("deckId", deckId)
             .get().await()
 
-        for(cardDocument in cardsQuerySnapshot){
-            val cardData = cardDocument.data
-            val cardId = cardDocument.id
+        val batch = fireStoreDB.batch()
 
+        val copyHintsJobs = mutableListOf<Deferred<Unit>>()
+
+        for (card in cardsSnapshot) {
             val newCardRef = fireStoreDB.collection("cards").add(hashMapOf<String, Any>()).await()
             val newCardId = newCardRef.id
 
             val newCardInfo = mapOf(
                 "id" to newCardId,
                 "deckId" to newDeckId,
-                "answer" to cardData["answer"].toString(),
+                "answer" to card.getString("answer"),
                 "categoryOfLearning" to CategoriaDoAprendizado.NOVO.name,
-                "question" to cardData["question"].toString(),
+                "question" to card.getString("question"),
                 "reviewDate" to Timestamp(Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant())),
                 "reviewFactor" to 2.5,
                 "reviewInterval" to 0,
             )
-            newCardRef.set(newCardInfo).await()
+            batch.set(newCardRef, newCardInfo)
 
-            copyHintsFromCard(newCardId, cardId)
+            copyHintsJobs.add(async { copyHintsFromCard(newCardId, card.id) })
         }
 
+        batch.commit().await()
+
+        copyHintsJobs.awaitAll()
     }
 
-    private suspend fun copyHintsFromCard(newCardId : String, cardId : String){
-
-        val hintsQuerySnapshot = fireStoreDB.collection("hints")
+    private suspend fun copyHintsFromCard(newCardId: String, cardId: String) {
+        val hintsSnapshot = fireStoreDB.collection("hints")
             .whereEqualTo("cardId", cardId)
             .get().await()
 
-        for(hintDocument in hintsQuerySnapshot){
-            val hintData = hintDocument.data
+        val batch = fireStoreDB.batch()
 
+        for (hint in hintsSnapshot) {
             val newHintRef = fireStoreDB.collection("hints").add(hashMapOf<String, Any>()).await()
-            val newHintId = newHintRef.id
-
             val newHintInfo = mapOf(
-                "id" to newHintId,
+                "id" to newHintRef.id,
                 "cardId" to newCardId,
-                "text" to hintData["text"].toString(),
+                "text" to hint.getString("text"),
             )
-            newHintRef.set(newHintInfo).await()
+            batch.set(newHintRef, newHintInfo)
         }
+
+        batch.commit().await()
     }
+
 
 }
