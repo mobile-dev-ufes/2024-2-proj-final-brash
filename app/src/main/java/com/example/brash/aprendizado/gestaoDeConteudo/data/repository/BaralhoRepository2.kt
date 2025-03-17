@@ -51,6 +51,13 @@ class BaralhoRepository2 {
         }
         return runCatching {
             val deckRef = fireStoreDB.collection("decks").document(deck.idBaralho)
+
+            if(deck.publico && !public){
+                unmakePublic2(deck)
+            }else if(!deck.publico && public){
+                makePublic2(deck)
+            }
+
             val newDeckInfo = mapOf(
                 "name" to name,
                 "description" to description,
@@ -198,64 +205,62 @@ class BaralhoRepository2 {
         return hintsList
     }
 
-    suspend fun makePublic2(deck: Baralho): Result<Unit> {
+    private suspend fun makePublic2(deck: Baralho){
         val currentUserEmail = fireBaseAuth.currentUser?.email
         if (currentUserEmail.isNullOrEmpty()) {
-            return Result.failure(Throwable("Usuário não autenticado"))
+            throw Exception("Usuário não autenticado")
         }
-        return runCatching {
 
-            val deckRef = fireStoreDB.collection("decks").document(deck.idBaralho)
-            val deckData = deckRef.get().await().data ?: return Result.failure(Exception("Erro ao pegar dados do baralho (makepublic::BaralhoRepository2)"))
+        val deckRef = fireStoreDB.collection("decks").document(deck.idBaralho)
+        val deckData = deckRef.get().await().data ?: throw Exception("Erro ao pegar dados do baralho (makepublic::BaralhoRepository2)")
 
-            val isPublic = deckData["public"].toString().toBoolean()
-            if(isPublic){ // se for público retorna
-                return Result.success(Unit)
-            }
-
-            val publicDecksRef = fireStoreDB.collection("publicDecks")
-
-            val newPublicDeckRef = publicDecksRef.add(hashMapOf<String, Any>()).await()
-            val publicDeckInfo = hashMapOf(
-                "id" to newPublicDeckRef.id,
-                "userId" to currentUserEmail,
-                "deckId" to deckRef.id,
-            )
-            newPublicDeckRef.set(publicDeckInfo).await()
-            val deckUpdateInfo = mapOf(
-                "public" to true,
-                "publicId" to newPublicDeckRef.id,
-            )
-            deckRef.update(deckUpdateInfo).await()
+        val isPublic = deckData["public"].toString().toBoolean()
+        if(isPublic){
+            return
         }
+
+        val publicDecksRef = fireStoreDB.collection("publicDecks")
+
+        val newPublicDeckRef = publicDecksRef.add(hashMapOf<String, Any>()).await()
+        val publicDeckInfo = hashMapOf(
+            "id" to newPublicDeckRef.id,
+            "userId" to currentUserEmail,
+            "deckId" to deckRef.id,
+        )
+        newPublicDeckRef.set(publicDeckInfo).await()
+        val deckUpdateInfo = mapOf(
+            "public" to true,
+            "publicId" to newPublicDeckRef.id,
+        )
+        deckRef.update(deckUpdateInfo).await()
+
     }
 
-    suspend fun unmakePublic2(deck: Baralho) : Result<Unit>{
+    private suspend fun unmakePublic2(deck: Baralho){
         val currentUserEmail = fireBaseAuth.currentUser?.email
         if (currentUserEmail.isNullOrEmpty()) {
-            return Result.failure(Throwable("Usuário não autenticado"))
+            throw Exception("Usuário não autenticado")
         }
-        return runCatching {
 
-            val deckRef = fireStoreDB.collection("decks").document(deck.idBaralho)
-            val deckData = deckRef.get().await().data ?: return Result.failure(Exception("Erro ao pegar dados do baralho (makepublic::BaralhoRepository2)"))
+        val deckRef = fireStoreDB.collection("decks").document(deck.idBaralho)
+        val deckData = deckRef.get().await().data ?: throw Exception("Erro ao pegar dados do baralho (makepublic::BaralhoRepository2)")
 
-            val isPublic = deckData["public"].toString().toBoolean()
-            if(isPublic){ // se não for público retorna
-                return Result.success(Unit)
-            }
-
-            val publicDeckId = deckData["publicId"].toString()
-
-            val publicDeckRef = fireStoreDB.collection("publicDecks").document(publicDeckId)
-            publicDeckRef.delete().await()
-
-            val deckUpdateInfo = mapOf(
-                "publicId" to FieldValue.delete(),
-                "public" to false
-            )
-            deckRef.update(deckUpdateInfo).await()
+        val isPublic = deckData["public"].toString().toBoolean()
+        if(isPublic){ // se não for público retorna
+            return
         }
+
+        val publicDeckId = deckData["publicId"].toString()
+
+        val publicDeckRef = fireStoreDB.collection("publicDecks").document(publicDeckId)
+        publicDeckRef.delete().await()
+
+        val deckUpdateInfo = mapOf(
+            "publicId" to FieldValue.delete(),
+            "public" to false
+        )
+
+        deckRef.update(deckUpdateInfo).await()
     }
 
 
