@@ -3,6 +3,8 @@ package com.example.brash.aprendizado.gestaoDeConteudo.data.repository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
+// NOT USING
+
 class AnotacaoRepository {
 
     private val fireStoreDB = FirebaseFirestore.getInstance()

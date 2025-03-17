@@ -9,6 +9,8 @@ import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
 
+
+// NOT USING
 class DicaRepository {
 
     private val fireStoreDB = FirebaseFirestore.getInstance()

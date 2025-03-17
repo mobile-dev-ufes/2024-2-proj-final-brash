@@ -25,6 +25,10 @@ import com.example.brash.nucleo.utils.FirebaseAuthVerifyException
  */
 class AccountServiceImpl () : AccountService {
 
+    /**
+     * Observes the currently authenticated user and emits changes through a Flow.
+     * If there is a logged-in user, it returns a Usuario instance with the user's UID.
+     */
     override val currentUser: Flow<Usuario?>
         get() = callbackFlow {
             val listener =
@@ -35,17 +39,41 @@ class AccountServiceImpl () : AccountService {
             awaitClose { Firebase.auth.removeAuthStateListener(listener) }
         }
 
+
+    /**
+     * Retrieves the currently authenticated user's UID.
+     * If no user is logged in, returns an empty string.
+     */
     override val currentUserId: String
         get() = Firebase.auth.currentUser?.uid.orEmpty()
 
+    /**
+     * Checks if there is an authenticated user.
+     * @return True if a user is logged in, false otherwise.
+     */
     override fun hasUser(): Boolean {
         return Firebase.auth.currentUser != null
     }
 
+    /**
+     * Retrieves the authenticated user's email.
+     * @return The email of the logged-in user or null if no user is logged in.
+     */
     override fun getUserEmail(): String? {
         return Firebase.auth.currentUser?.email
     }
 
+
+
+    /**
+     * Authenticates the user using email and password.
+     * If the email is not verified, the user is logged out and an exception is thrown.
+     * @throws FirebaseAuthInvalidUserException if the user is not found.
+     * @throws FirebaseAuthInvalidCredentialsException if the email or password is incorrect.
+     * @throws FirebaseNetworkException if there is a network issue.
+     * @throws FirebaseAuthVerifyException if the email is not verified.
+     * @throws Exception for unknown errors.
+     */
     override suspend fun signIn(email: String, password: String) {
         try{
             val authResult = Firebase.auth.signInWithEmailAndPassword(email, password).await()
@@ -68,6 +96,16 @@ class AccountServiceImpl () : AccountService {
         }
     }
 
+
+    /**
+     * Registers a new user using email and password.
+     * After successful registration, an email verification is sent.
+     * @throws FirebaseAuthWeakPasswordException if the password is too weak.
+     * @throws FirebaseAuthInvalidCredentialsException if the email is invalid.
+     * @throws FirebaseAuthUserCollisionException if the email is already registered.
+     * @throws FirebaseNetworkException if there is a network issue.
+     * @throws Exception for unknown errors.
+     */
     override suspend fun signUp(email: String, password: String) {
         try {
             // Criação do usuário no Firebase Authentication
@@ -88,10 +126,21 @@ class AccountServiceImpl () : AccountService {
         }
     }
 
+
+    /**
+     * Signs out the currently authenticated user.
+     */
     override suspend fun signOut() {
         Firebase.auth.signOut()
     }
 
+
+    /**
+     * Sends a password reset email to the given email address.
+     * @throws FirebaseAuthInvalidUserException if the user is not found.
+     * @throws FirebaseNetworkException if there is a network issue.
+     * @throws Exception for unknown errors.
+     */
     override suspend fun changePassword(email: String) {
         try {
             Firebase.auth.sendPasswordResetEmail(email).await()
@@ -104,6 +153,10 @@ class AccountServiceImpl () : AccountService {
         }
     }
 
+
+    /**
+     * Deletes the currently authenticated user's account.
+     */
     override suspend fun deleteAccount() {
         Firebase.auth.currentUser!!.delete().await()
     }

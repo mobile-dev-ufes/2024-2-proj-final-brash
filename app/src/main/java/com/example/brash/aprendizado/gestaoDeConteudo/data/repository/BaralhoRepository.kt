@@ -18,6 +18,8 @@ import java.time.LocalDateTime
 import java.time.ZoneId
 import java.util.Date
 
+
+// NOT USING
 class BaralhoRepository {
 
     private val fireStoreDB = FirebaseFirestore.getInstance()

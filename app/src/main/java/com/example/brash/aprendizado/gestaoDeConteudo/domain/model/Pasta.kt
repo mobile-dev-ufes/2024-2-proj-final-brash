@@ -24,11 +24,3 @@ data class Pasta (
     }
 }
 
-
-/*
-(
-    val id: Long,
-    val nome: String
-)
-
- */

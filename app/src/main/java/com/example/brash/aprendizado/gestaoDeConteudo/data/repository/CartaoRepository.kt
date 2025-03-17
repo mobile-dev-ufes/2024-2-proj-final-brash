@@ -15,6 +15,8 @@ import java.time.LocalDateTime
 import java.time.ZoneId
 import java.util.Date
 
+
+// NOT USING
 class CartaoRepository {
 
     private val fireStoreDB = FirebaseFirestore.getInstance()
