@@ -13,7 +13,6 @@ interface AppModule {
      */
     val accountService: AccountService
 }
-
 /**
  * Implementation of the [AppModule] interface.
  *
