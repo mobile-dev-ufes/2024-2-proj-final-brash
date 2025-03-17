@@ -17,7 +17,7 @@ import com.example.brash.databinding.GtcListarBaralhoPublicoFrImportarBaralhoBin
  *
  * @constructor Creates an instance of `ImportarBaralhoPublicoFrDialog`.
  */
-class ImportarBaralhoPublicoFrDialog() : DialogFragment() {
+class ImportarBaralhoPublicoFrDialog(val onSuccess : () -> Unit) : DialogFragment() {
 
     private var _binding: GtcListarBaralhoPublicoFrImportarBaralhoBinding? = null
     private val binding get() = _binding!!
@@ -97,11 +97,12 @@ class ImportarBaralhoPublicoFrDialog() : DialogFragment() {
                 val novoNome = binding.ListarBaralhoPublicoFrImportarBaralhoInputNovoNome.text.toString()
                 listarBaralhoPublicoVM.importarBaralhoPublico(it1, novoNome) {
                     //Toast.makeText(requireContext(), "Baralho público importado", Toast.LENGTH_SHORT).show()
+                    onSuccess()
                     dismiss()
                 }
             } ?: run {
                 //Toast.makeText(requireContext(), "Nenhum baralho selecionado", Toast.LENGTH_SHORT).show()
-                dismiss()
+                //dismiss()
             }
         }
 

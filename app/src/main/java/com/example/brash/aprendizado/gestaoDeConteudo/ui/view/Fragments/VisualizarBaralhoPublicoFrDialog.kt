@@ -108,7 +108,9 @@ class VisualizarBaralhoPublicoFrDialog() : DialogFragment() {
             dismiss()
         }
         binding.ListarBaralhoPublicoFrVisualizarBaralhoButtonImportar.setOnClickListener{
-            ImportarBaralhoPublicoFrDialog().show(parentFragmentManager, "ImportarBaralhoPublicoFrDialog")
+            ImportarBaralhoPublicoFrDialog({
+                dismiss()
+            }).show(childFragmentManager, "ImportarBaralhoPublicoFrDialog")
         }
 
     }
