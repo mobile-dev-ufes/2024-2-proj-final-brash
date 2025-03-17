@@ -177,6 +177,6 @@
     <string name="erro_requisicao_banco_dados_firebase">Um erro ocorreu ao realizar a requisição ao banco de dados do sistema Brash.</string>
     <string name="erro_de_conexao"> Verifique sua conexão com a internet</string>
     <string name="quantidades_cartoes">Quantidade de Cartões</string>
-
+    <string name="sem_cartoes_para_revisar">Não há cartões a serem revisados para esse baralho.</string>
 
 </resources>

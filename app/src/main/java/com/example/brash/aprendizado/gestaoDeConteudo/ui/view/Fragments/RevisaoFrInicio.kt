@@ -1,10 +1,12 @@
 package com.example.brash.aprendizado.gestaoDeConteudo.ui.view.Fragments
 
+import android.app.Application
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -15,6 +17,7 @@ import com.example.brash.aprendizado.gestaoDeConteudo.data.repository.PastaRepos
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.viewModel.RevisaoCartaoVM
 import com.example.brash.databinding.GtcRevisaoFrInicioBinding
 import androidx.fragment.app.activityViewModels
+import com.example.brash.nucleo.utils.UtilsFoos
 import kotlinx.coroutines.launch
 import java.util.Locale
 
@@ -111,7 +114,7 @@ class RevisaoFrInicio : Fragment(R.layout.gtc_revisao_fr_inicio) {
                     findNavController().navigate(R.id.action_revisaoFrInicio_to_revisaoFrCartao)
                 },
                 onFailure = {
-                    //Toast.makeText(context, "Não há cartões a serem revisados para esse baralho.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), requireContext().getString(R.string.sem_cartoes_para_revisar), Toast.LENGTH_SHORT).show()
                 }
             )
         }
