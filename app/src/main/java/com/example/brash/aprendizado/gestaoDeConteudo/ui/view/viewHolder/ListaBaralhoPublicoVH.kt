@@ -6,12 +6,15 @@ import com.example.brash.aprendizado.gestaoDeConteudo.domain.model.BaralhoPublic
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.listener.OnBaralhoPublicoListener
 import com.example.brash.aprendizado.gestaoDeConteudo.ui.view.listener.OnPastaListener
 import com.example.brash.databinding.GtcItemBaralhoPublicoBinding
+import java.util.Locale
 
 class ListaBaralhoPublicoVH(private val binding: GtcItemBaralhoPublicoBinding, private val listener: OnBaralhoPublicoListener) : RecyclerView.ViewHolder(binding.root) {
 
 
     fun bindVH(baralho: BaralhoPublico){
         binding.ItemBaralhoPublicoTextViewNome.text = baralho.nomeBaralho
+        binding.ItemBaralhoPublicoTextViewQuantidadeCartoes.text =
+            String.format(Locale.getDefault(), "%d", baralho.numeroCartoesBaralho)
 
         // Defina o clique do item
         binding.ItemBaralhoPublicoLayout.setOnClickListener {
