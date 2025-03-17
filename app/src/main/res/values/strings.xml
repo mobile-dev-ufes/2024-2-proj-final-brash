@@ -161,7 +161,6 @@
     <string name="mostrar_dicas">Mostrar Dicas</string>
     <string name="iniciar_revisao_total">Iniciar Revisão Total</string>
 
-
     <string-array name="nuc_listar_cartao_spinner_filtrar">
         <item>Pergunta</item>
         <item>Resposta</item>
