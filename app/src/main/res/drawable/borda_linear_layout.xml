@@ -2,7 +2,7 @@
     android:shape="rectangle">
 
     <!-- Cor de fundo (opcional) -->
-    <solid android:color="@android:color/transparent"/>
+    <solid android:color="@color/charcoal_gray"/>
 
     <!-- Definição da borda (stroke) -->
     <stroke
