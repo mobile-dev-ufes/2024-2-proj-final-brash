@@ -10,7 +10,7 @@ package com.example.brash.aprendizado.gestaoDeConteudo.domain.model
  * @property baralho The flashcard deck to which the note belongs.
  */
 data class Anotacao (
-    val idAnotacao: Long = 0,
+    val idAnotacao: String = "",
     val nome: String = "",
     val texto: String = "",
     val baralho: Baralho? = null
