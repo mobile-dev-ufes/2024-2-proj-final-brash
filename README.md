@@ -73,7 +73,7 @@ O **Brash** segue uma arquitetura baseada nos padrões **MVVM (Model-View-ViewMo
 - **Gerenciamento de Dependências:** Gradle
 
 ## Melhorias Futuras
-- **Otimização das consultas** Otimizar o tempo de resposta entre firebase e interface do usuário
+- **Otimização das consultas:** Otimizar o tempo de resposta entre firebase e interface do usuário
 - **Pesquisa Avançada:** Implementar pesquisa avançada e filtragem para baralhos e flashcards.
 - **Modo Offline:** Permitir acesso offline aos flashcards e sincronizar quando o usuário reconectar à internet.
 - **Suporte a Múltiplos Idiomas:** Estender o aplicativo para suportar vários idiomas e alcançar um público global.

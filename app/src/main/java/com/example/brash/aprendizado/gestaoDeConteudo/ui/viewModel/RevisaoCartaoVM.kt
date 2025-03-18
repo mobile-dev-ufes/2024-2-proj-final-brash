@@ -129,7 +129,7 @@ class RevisaoCartaoVM(application: Application) : AndroidViewModel(application) 
     private fun setCartoesToRevisao(){
         _cartaoQueue.value = ArrayDeque(
             (_cartaoList.value ?: emptyList()).filter { cartao ->
-                cartao.dataDeRevisao.toLocalDate() == LocalDateTime.now().toLocalDate()
+                cartao.dataDeRevisao.toLocalDate() <= LocalDateTime.now().toLocalDate()
             }
         )
         updateCategories()
